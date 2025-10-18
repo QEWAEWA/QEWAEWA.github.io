@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый сайт</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f0f0f0;
-        }
-        header, main, footer {
-            padding: 20px;
-            background-color: #fff;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Сайт с меню</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+  }
+  /* Боковое меню */
+  nav {
+    width: 250px;
+    background-color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  nav ul li {
+    margin-bottom: 10px;
+  }
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  nav ul li a:hover {
+    background-color: #555;
+  }
+  /* Основной контент справа */
+  main {
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Добро пожаловать на мой сайт!</h1>
-    </header>
-    <main>
-        <p>Это моя первая страница. Здесь можно разместить текст, картинки и другие элементы.</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 Мой сайт</p>
-    </footer>
+
+<!-- Левая панель - меню -->
+<nav>
+  <h2 style="color: #fff;">Меню</h2>
+  <ul>
+    <li><a href="#">Главная</a></li>
+    <li><a href="#">О нас</a></li>
+    <li><a href="#">Услуги</a></li>
+    <li><a href="#">Контакты</a></li>
+  </ul>
+</nav>
+
+<!-- Правый блок - основной контент -->
+<main>
+  <h1>Добро пожаловать!</h1>
+  <p>Здесь находится основная информация сайта. Вы можете добавлять сюда текст, изображения и другие элементы.</p>
+</main>
+
 </body>
 </html>
