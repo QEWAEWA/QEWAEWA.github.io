@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Левая панель - меню */
+nav {
+  width: 250px;
+  background-color: #333;
+  padding: 20px;
+  box-sizing: border-box;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+nav ul li {
+  margin-bottom: 10px;
+}
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+}
+nav ul li a:hover {
+  background-color: #555;
+}
+
+/* Основной контент справа */
+main {
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f0f0;
+  position: relative;
+}
+
+/* Стиль кнопки с фоном */
+.button-background {
+  width: 300px;
+  height: 200px;
+  background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.4&auto=format&fit=crop&w=800&q=80'); /* замените на свою картинку */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Ссылки внутри кнопки */
+.top-left-link, .bottom-right-links {
+  position: absolute;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Верхний левый угол */
+.top-left-link {
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+/* Нижний правый угол для трёх ссылок */
+.bottom-right-links {
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+/* Стиль для каждой из трёх ссылок */
+.bottom-right-links a {
+  background-color: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 4px;
+}

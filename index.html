@@ -3,45 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Сайт с меню</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-    min-height: 100vh;
-  }
-  /* Боковое меню */
-  nav {
-    width: 250px;
-    background-color: #333;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  nav ul li {
-    margin-bottom: 10px;
-  }
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  nav ul li a:hover {
-    background-color: #555;
-  }
-  /* Основной контент справа */
-  main {
-    flex: 1;
-    padding: 20px;
-    background-color: #f0f0f0;
-  }
-</style>
+<title>Сайт с меню и кнопкой</title>
+<!-- Подключение внешнего CSS -->
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -59,7 +23,19 @@
 <!-- Правый блок - основной контент -->
 <main>
   <h1>Добро пожаловать!</h1>
-  <p>Здесь находится основная информация сайта. Вы можете добавлять сюда текст, изображения и другие элементы.</p>
+  <p>Здесь находится основная информация сайта. Ниже — кнопка с фоном и ссылками внутри.</p>
+
+  <!-- Кнопка с фоном -->
+  <div class="button-background">
+    <!-- Ссылка на ВК в левом верхнем углу -->
+    <a href="https://vk.com/yourcommunity" target="_blank" class="top-left-link">VK Сообщество</a>
+    <!-- Три ссылки в правом нижнем углу -->
+    <div class="bottom-right-links">
+      <a href="#">Страница 1</a>
+      <a href="#">Страница 2</a>
+      <a href="#">Страница 3</a>
+    </div>
+  </div>
 </main>
 
 </body>
