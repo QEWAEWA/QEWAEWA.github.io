@@ -180,11 +180,9 @@ main {
 
 /* Само изображение */
 #zoomable {
+  position: absolute;
   cursor: grab;
   display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
   transition: transform 0.2s ease;
-  /* Можно добавить дополнительные стили по необходимости */
+  /* Начально — максимально отдалённое и по центру, задавать не обязательно, так как скрипт сделает это */
 }

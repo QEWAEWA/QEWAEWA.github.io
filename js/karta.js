@@ -23,21 +23,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Изначальная установка масштаба при загрузке изображения
   img.onload = () => {
-    const scaleX = containerWidth / img.naturalWidth;
-    const scaleY = containerHeight / img.naturalHeight;
-    scale = Math.min(scaleX, scaleY);
-    // Центрируем
+    // Установка минимального масштаба — максимально отдалено
+    scale = 0.1;
+
+    // Расчет начальной позиции, чтобы изображение было по центру
     const scaledWidth = img.naturalWidth * scale;
     const scaledHeight = img.naturalHeight * scale;
     left = (containerWidth - scaledWidth) / 2;
     top = (containerHeight - scaledHeight) / 2;
+
     updateStyle();
   };
 
   function updateStyle() {
     img.style.width = `${img.naturalWidth * scale}px`;
     img.style.height = `${img.naturalHeight * scale}px`;
-    img.style.position = 'absolute';
     img.style.left = `${left}px`;
     img.style.top = `${top}px`;
   }
