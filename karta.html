@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Карта - Наир, текстовая фэнтези ролевая</title>
+<!-- Подключение внешнего CSS -->
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Левая панель - меню -->
+<nav>
+  <h2 style="color: #d4eded;">Меню</h2>
+  <ul>
+    <li></li><input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
+    <div id="suggestions" class="suggestions"></div></li>
+    <li><a href="#" class="active">Главная</a></li>
+    <li><a href="#">Карта</a></li>
+    <li><a href="#">Услуги</a></li>
+    <li><a href="#">Контакты</a></li>
+  </ul>
+</nav>
+
+<!-- Правый блок - основной контент -->
+<main>
+<div style="width: 400px; height: 300px; overflow: hidden; position: relative; border: 1px solid #ccc;">
+  <img src="Karta.png" id="zoomable" style="cursor: grab; display: block; position: absolute; top: 0; left: 0; transition: transform 0.2s ease;" />
+</div>
+
+<script>
+  const container = document.querySelector('div');
+  const img = document.getElementById('zoomable');
+
+  // Начальные параметры
+  let scale = 1; // Масштаб по умолчанию
+  const minScale = 1; // Минимальный масштаб
+  let posX = 0; // Начальная позиция X
+  let posY = 0; // Начальная позиция Y
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+
+  // Обновление трансформации при загрузке
+  updateTransform();
+
+  // Обработка масштабирования колесиком
+  container.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (e.deltaY < 0) {
+      scale += 0.1;
+    } else {
+      scale = Math.max(minScale, scale - 0.1);
+    }
+    updateTransform();
+  });
+
+  // Начало перетаскивания
+  img.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX - posX;
+    startY = e.clientY - posY;
+    img.style.cursor = 'grabbing';
+  });
+
+  // Окончание перетаскивания
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    img.style.cursor = 'grab';
+  });
+
+  // Перемещение при движении мыши
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      posX = e.clientX - startX;
+      posY = e.clientY - startY;
+      updateTransform();
+    }
+  });
+
+  function updateTransform() {
+    // Ограничения по перемещению
+    const maxX = 0;
+    const maxY = 0;
+    const minX = container.clientWidth - img.naturalWidth * scale;
+    const minY = container.clientHeight - img.naturalHeight * scale;
+
+    // Ограничение по позициям
+    posX = Math.min(maxX, Math.max(minX, posX));
+    posY = Math.min(maxY, Math.max(minY, posY));
+
+    img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+  }
+</script>
+</main>
+
+<script src="navigation.js"></script>
+
+</body>
+</html>
