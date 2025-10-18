@@ -71,7 +71,7 @@ main {
 .button-background {
   width: 85%;
   aspect-ratio: 16 / 9;
-  background-image: url('photo/_XtDdbKCddLUM1QyPeoLRUxNoaOeKeLgT81jnQAJSA8tUel5UWSZlHH61h7XQM6GsYsycpbebVpYw36-N_0zrqpY.png');
+  background-image: url('../photo/_XtDdbKCddLUM1QyPeoLRUxNoaOeKeLgT81jnQAJSA8tUel5UWSZlHH61h7XQM6GsYsycpbebVpYw36-N_0zrqpY.png');
   background-size: cover;
   background-position: center;
   cursor: pointer;
