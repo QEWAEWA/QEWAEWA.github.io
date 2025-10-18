@@ -24,100 +24,14 @@
 
 <!-- Правый блок - основной контент -->
 <main>
-<div style="width: 400px; height: 300px; overflow: hidden; position: relative; border: 1px solid #ccc;">
-  <img src="photo\Karta.png" id="zoomable" style="cursor: grab; display: block; position: absolute; top: 0; left: 0; transition: transform 0.2s ease;" />
+<div class="container">
+  <img src="photo\Karta.png" id="zoomable" />
 </div>
 
-<script>
-const container = document.querySelector('.container');
-const img = document.getElementById('zoomable');
-
-let scale = 1;
-const minScale = 1;
-let posX = 0;
-let posY = 0;
-
-let targetScale = scale;
-let targetX = posX;
-let targetY = posY;
-
-let isDragging = false;
-let startX = 0;
-let startY = 0;
-
-let needsUpdate = false;
-
-function updateTransform() {
-  // Ограничение перемещения
-  const maxX = 0;
-  const maxY = 0;
-  const minX = container.clientWidth - img.naturalWidth * scale;
-  const minY = container.clientHeight - img.naturalHeight * scale;
-
-  // Ограничение по позициям
-  targetX = Math.min(maxX, Math.max(minX, targetX));
-  targetY = Math.min(maxY, Math.max(minY, targetY));
-
-  // Обновляем стиль трансформации
-  img.style.transform = `translate(${targetX}px, ${targetY}px) scale(${scale})`;
-}
-
-// Анимационный цикл
-function animate() {
-  if (needsUpdate) {
-    // Плавное приближение к целевым значениям (можно убрать для мгновенного)
-    // Например, с помощью линейной интерполяции (lerp)
-    const lerpFactor = 0.1; // Чем меньше — тем медленнее
-    posX += (targetX - posX) * lerpFactor;
-    posY += (targetY - posY) * lerpFactor;
-    scale += (targetScale - scale) * lerpFactor;
-
-    updateTransform();
-    needsUpdate = true;
-  }
-  requestAnimationFrame(animate);
-}
-
-// Запуск цикла
-requestAnimationFrame(animate);
-
-// Обработка колесика для зума
-container.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  if (e.deltaY < 0) {
-    targetScale += 0.1;
-  } else {
-    targetScale = Math.max(minScale, targetScale - 0.1);
-  }
-  needsUpdate = true;
-});
-
-// Начало перетаскивания
-img.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX - targetX;
-  startY = e.clientY - targetY;
-  img.style.cursor = 'grabbing';
-});
-
-// Окончание перетаскивания
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  img.style.cursor = 'grab';
-});
-
-// Перемещение при движении мыши
-document.addEventListener('mousemove', (e) => {
-  if (isDragging) {
-    targetX = e.clientX - startX;
-    targetY = e.clientY - startY;
-    needsUpdate = true;
-  }
-});
-</script>
 </main>
 
-<script src="navigation.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/karta.js"></script>
 
 </body>
 </html>

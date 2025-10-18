@@ -166,3 +166,25 @@ main {
 #search::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+
+/* Обертка для изображения */
+.container {
+  width: 95%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px; /* можно добавить скругление */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* легкая тень */
+}
+
+/* Само изображение */
+#zoomable {
+  cursor: grab;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.2s ease;
+  /* Можно добавить дополнительные стили по необходимости */
+}
