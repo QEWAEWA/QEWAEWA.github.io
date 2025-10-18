@@ -23,10 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Изначальная установка масштаба при загрузке изображения
   img.onload = () => {
-    // Установка минимального масштаба — максимально отдалено
     scale = 0.1;
-
-    // Расчет начальной позиции, чтобы изображение было по центру
     const scaledWidth = img.naturalWidth * scale;
     const scaledHeight = img.naturalHeight * scale;
     left = (containerWidth - scaledWidth) / 2;
@@ -46,14 +43,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const scaledWidth = img.naturalWidth * scale;
     const scaledHeight = img.naturalHeight * scale;
 
-    // Ограничение по горизонтали
     if (scaledWidth <= containerWidth) {
       left = (containerWidth - scaledWidth) / 2;
     } else {
       left = Math.min(0, Math.max(containerWidth - scaledWidth, left));
     }
 
-    // Ограничение по вертикали
     if (scaledHeight <= containerHeight) {
       top = (containerHeight - scaledHeight) / 2;
     } else {
@@ -61,8 +56,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Масштабирование относительно курсора
-  container.addEventListener('wheel', (e) => {
+  // Масштабирование
+ container.addEventListener('wheel', (e) => {
     e.preventDefault();
     const zoomFactor = 0.1;
     const prevScale = scale;
@@ -74,12 +69,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     scale = Math.max(0.1, scale);
 
-    // Расчет точки масштабирования относительно курсора
     const rect = img.getBoundingClientRect();
     const offsetXCursor = e.clientX - rect.left;
     const offsetYCursor = e.clientY - rect.top;
 
-    // Корректировка позиции так, чтобы точка масштабирования оставалась на месте
     left -= (scale - prevScale) * offsetXCursor;
     top -= (scale - prevScale) * offsetYCursor;
 
@@ -87,30 +80,63 @@ window.addEventListener('DOMContentLoaded', () => {
     updateStyle();
   });
 
-  // Обработка начала перетаскивания
-  img.addEventListener('mousedown', (e) => {
+  // Обработка мышиных событий
+  function onMouseDown(e) {
     e.preventDefault();
     isDragging = true;
     startX = e.clientX - left;
     startY = e.clientY - top;
     img.style.cursor = 'grabbing';
-  });
+  }
 
-  // Обработка отпускания мыши
-  document.addEventListener('mouseup', () => {
+  function onMouseUp() {
     if (isDragging) {
       isDragging = false;
       img.style.cursor = 'grab';
     }
-  });
+  }
 
-  // Обработка движения мыши при перетаскивании
-  document.addEventListener('mousemove', (e) => {
+  function onMouseMove(e) {
     if (isDragging) {
       left = e.clientX - startX;
       top = e.clientY - startY;
       clampPosition();
       updateStyle();
     }
-  });
+  }
+
+  // Обработка сенсорных событий
+  function onTouchStart(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX - left;
+      startY = e.touches[0].clientY - top;
+    }
+  }
+
+  function onTouchEnd() {
+    if (isDragging) {
+      isDragging = false;
+    }
+  }
+
+  function onTouchMove(e) {
+    if (isDragging && e.touches.length === 1) {
+      left = e.touches[0].clientX - startX;
+      top = e.touches[0].clientY - startY;
+      clampPosition();
+      updateStyle();
+    }
+  }
+
+  // Назначение событий
+  img.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('mouseup', onMouseUp);
+  document.addEventListener('mousemove', onMouseMove);
+
+  // Сенсорные события
+  img.addEventListener('touchstart', onTouchStart, { passive: false });
+  document.addEventListener('touchend', onTouchEnd);
+  document.addEventListener('touchcancel', onTouchEnd);
+  document.addEventListener('touchmove', onTouchMove, { passive: false });
 });
