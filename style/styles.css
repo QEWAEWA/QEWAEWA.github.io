@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../photo/FiraSans-Italic.ttf') format('truetype');
+}
+
 
 body {
   margin: 0;
@@ -117,28 +122,63 @@ main {
 
 /* Нижний правый контейнер — расположены по ширине */
 .bottom-right-links {
-  position: absolute;
-  bottom: 2%;
-  right: 2%;
-  width: 100%;
   display: flex;
-  justify-content: space-around; /* равномерное распределение по ширине */
+  position: fixed;
+  top: -150px;
+  left: 40px;
+  bottom: 20px;
+  right: 20px;
+  gap: 10px;
   align-items: center;
-  flex-wrap: wrap; /* при необходимости переносить на следующую строку */
-  padding: 0 2%;
-  box-sizing: border-box;
+  z-index: 1000;
 }
 
-.bottom-right-links a {
-  background-color: rgba(45, 45, 45, 0.8);
-  padding: 1% 2%;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  font-size: 1em;
+/* Общие стили для всех кнопок */
+.bottom-right-links {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  gap: 10px; /* расстояние между кнопками */
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Общие стили для всех кнопок */
+.bottom-right-links {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  border-radius: 12px;
+  border: 1px solid rgba(212, 237, 222, 0.5);
+  padding: 0 10px;
+  margin: 0 5px;
   text-decoration: none;
-  color: #d4eded;
-  display: inline-block;
-  margin: 0 0.5%; /* небольшие отступы между элементами */
+  font-family: Fira Sans, sans-serif;
+  font-size: 1.5em;
+  line-height: 50px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 50px;
+  background-color: #212821; /* пример цвета */
+  color: #DBF8F8; /* цвет текста */
+}
+
+/* при наведении увеличиваем кнопку */
+.btn:hover {
+  transform: scale(1.2);
+  z-index: 10;
 }
 
 .suggestions {
@@ -178,21 +218,24 @@ main {
 }
 
 /* Обертка для изображения */
-.container {
-  width: 95%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px; /* можно добавить скругление */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* легкая тень */
-}
-
-/* Само изображение */
-#zoomable {
-  position: absolute;
-  cursor: grab;
-  display: block;
-  transition: transform 0.2s ease;
-  /* Начально — максимально отдалённое и по центру, задавать не обязательно, так как скрипт сделает это */
-}
+.map-container {
+    width: 150%;
+    max-width: 800px;
+    height: 150%;
+    max-height: 600px;
+    border: 2px solid rgba(212, 237, 222, 0.5);
+    overflow: hidden;
+    position: relative;
+    touch-action: none; /* отключение стандартных жестов для лучшей поддержки */
+  }
+  .map-image {
+    position: absolute;
+    top: 100;
+    left: 100;
+    cursor: grab;
+    user-select: none;
+    transform-origin: top left;
+    will-change: transform; /* оптимизация для плавных трансформаций */
+    max-width: 100%;
+    height: auto;
+  }

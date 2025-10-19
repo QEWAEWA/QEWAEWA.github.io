@@ -12,7 +12,6 @@
 
 <!-- Левая панель - меню -->
 <nav>
-  <h2 style="color: #d4eded;">Меню</h2>
   <ul>
     <li></li><input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
     <div id="suggestions" class="suggestions"></div></li>
@@ -34,15 +33,17 @@
   <img src="photo\Eg9cTKOCTXIN7bSpR3KcbSA92y4.png" alt="Кнопка">
 </a>
     <!-- Три ссылки в правом нижнем углу -->
-    <div class="bottom-right-links">
-      <a href="#">Страница 1</a>
-      <a href="#">Страница 2</a>
-      <a href="#">Страница 3</a>
+<div class="bottom-right-links" style="position: relative; width: 100%; height: 200px;">
+  <a id="button1" class="btn" href="#">Лор</a>
+  <a id="button2" class="btn" href="#">Персонажи</a>
+  <a id="button3" class="btn" href="#">VK</a>
+</div>
     </div>
   </div>
 </main>
 
-<script src="js\navigation.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/button.js"></script>
 
 </body>
 </html>
