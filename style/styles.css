@@ -10,6 +10,50 @@ body {
   color: #e4ecec;
   display: flex;
   min-height: 100vh;
+  flex-direction: row; /* по умолчанию горизонтальное расположение */
+}
+
+/* Стиль меню */
+#side-menu {
+  width: 300px; /* ширина меню */
+  background-color: #1f1f1f;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(212, 237, 222, 0.5);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  #side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* немного меньшая ширина */
+    transform: translateX(-100%);
+    z-index: 999;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  }
+
+  /* Когда меню открыто */
+  #side-menu.open {
+    transform: translateX(0);
+  }
+
+  /* Кнопка для открытия меню */
+  #menu-toggle {
+    display: block; /* показываем кнопку на мобильных */
+  }
 }
 
 nav {

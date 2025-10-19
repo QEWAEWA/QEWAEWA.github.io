@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="style\styles.css" />
 </head>
 <body>
-
+<button id="menu-toggle" aria-label="Открыть меню" style="display:none; position: fixed; top: 20px; left: 20px; z-index: 1000;">☰</button>
 <!-- Левая панель - меню -->
-<nav>
+<nav id="side-menu">
   <ul>
     <li></li><input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
     <div id="suggestions" class="suggestions"></div></li>
@@ -34,6 +34,6 @@
 
 <script src="js/navigation.js"></script>
 <script src="js/karta.js"></script>
-
+<script src="js/menu.js"></script>
 </body>
 </html>
