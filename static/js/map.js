@@ -1,10 +1,20 @@
 class InteractiveMap {
     constructor(containerId, imageId) {
+        console.log('🗺️ Начинаем инициализацию карты...');
+        
         this.container = document.getElementById(containerId);
         this.image = document.getElementById(imageId);
         
-        if (!this.container || !this.image) {
-            console.error('❌ Контейнер или изображение карты не найдены!');
+        console.log('Контейнер:', this.container);
+        console.log('Изображение:', this.image);
+        
+        if (!this.container) {
+            console.error('❌ Контейнер карты не найден! ID:', containerId);
+            return;
+        }
+        
+        if (!this.image) {
+            console.error('❌ Изображение карты не найдено! ID:', imageId);
             return;
         }
         
@@ -13,36 +23,36 @@ class InteractiveMap {
         this.startY = 0;
         this.translateX = 0;
         this.translateY = 0;
-        this.scale = 0.5; // Начальный масштаб - уменьшена
+        this.scale = 0.1; // Начальный масштаб - уменьшена
         
-        this.minScale = 0.1; // Можно сильнее отдалять
-        this.maxScale = 8;   // Можно сильнее приближать
+        this.minScale = 0.1;
+        this.maxScale = 12;
         
         this.init();
     }
     
     init() {
-        console.log('🗺️ Инициализация карты...');
+        console.log('🔄 Инициализация карты...');
         
         // Ждем загрузки изображения
         if (this.image.complete) {
             this.setupMap();
         } else {
-            this.image.onload = () => this.setupMap();
+            this.image.addEventListener('load', () => this.setupMap());
+            this.image.addEventListener('error', () => {
+                console.error('❌ Ошибка загрузки изображения карты');
+            });
         }
-        
-        this.image.onerror = () => {
-            console.error('❌ Ошибка загрузки изображения карты');
-        };
     }
     
     setupMap() {
-        console.log('🖼️ Изображение карты загружено');
+        console.log('🖼️ Изображение карты загружено, настраиваем...');
         
         // Настройка стилей
         this.image.style.cursor = 'grab';
         this.image.style.transformOrigin = '0 0';
         this.image.style.userSelect = 'none';
+        this.image.style.webkitUserSelect = 'none';
         
         // Применяем начальный масштаб
         this.applyTransform(0, 0, this.scale);
@@ -51,52 +61,79 @@ class InteractiveMap {
         this.setupEventListeners();
         this.setupControls();
         
-        console.log('✅ Карта инициализирована. Масштаб:', this.scale);
+        console.log('✅ Карта полностью инициализирована');
     }
     
     setupEventListeners() {
-        // Мышь
-        this.container.addEventListener('mousedown', this.handleMouseDown.bind(this));
-        document.addEventListener('mousemove', this.handleMouseMove.bind(this));
-        document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+        console.log('🎯 Настройка событий мыши и касаний...');
         
-        // Касания (для мобильных)
-        this.container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
-        document.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
-        document.addEventListener('touchend', this.handleTouchEnd.bind(this));
+        // Мышь
+        this.container.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+        document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        document.addEventListener('mouseup', () => this.handleMouseUp());
+        
+        // Касания
+        this.container.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+        document.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+        document.addEventListener('touchend', () => this.handleTouchEnd());
         
         // Колесо мыши
-        this.container.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+        this.container.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
         
-        // Предотвращение контекстного меню
-        this.container.addEventListener('contextmenu', (e) => e.preventDefault());
+        console.log('✅ События настроены');
     }
     
     setupControls() {
-        // Кнопка сброса
-        const resetBtn = document.getElementById('resetBtn');
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => this.resetTransform());
+        console.log('🎛️ Настройка кнопок управления...');
+        
+        // Находим кнопки по ID
+        this.resetBtn = document.getElementById('resetBtn');
+        this.zoomInBtn = document.getElementById('zoomInBtn');
+        this.zoomOutBtn = document.getElementById('zoomOutBtn');
+        
+        console.log('Кнопка сброса:', this.resetBtn);
+        console.log('Кнопка увеличения:', this.zoomInBtn);
+        console.log('Кнопка уменьшения:', this.zoomOutBtn);
+        
+        // Проверяем и настраиваем кнопки
+        if (this.resetBtn) {
+            this.resetBtn.addEventListener('click', () => {
+                console.log('🔄 Кнопка сброса нажата');
+                this.resetTransform();
+            });
+            console.log('✅ Кнопка сброса подключена');
+        } else {
+            console.error('❌ Кнопка сброса не найдена!');
         }
         
-        // Кнопка увеличения
-        const zoomInBtn = document.getElementById('zoomInBtn');
-        if (zoomInBtn) {
-            zoomInBtn.addEventListener('click', () => this.zoom(0.3));
+        if (this.zoomInBtn) {
+            this.zoomInBtn.addEventListener('click', () => {
+                console.log('➕ Кнопка увеличения нажата');
+                this.zoom(0.3);
+            });
+            console.log('✅ Кнопка увеличения подключена');
+        } else {
+            console.error('❌ Кнопка увеличения не найдена!');
         }
         
-        // Кнопка уменьшения
-        const zoomOutBtn = document.getElementById('zoomOutBtn');
-        if (zoomOutBtn) {
-            zoomOutBtn.addEventListener('click', () => this.zoom(-0.3));
+        if (this.zoomOutBtn) {
+            this.zoomOutBtn.addEventListener('click', () => {
+                console.log('➖ Кнопка уменьшения нажата');
+                this.zoom(-0.3);
+            });
+            console.log('✅ Кнопка уменьшения подключена');
+        } else {
+            console.error('❌ Кнопка уменьшения не найдена!');
         }
         
-        console.log('🎛️ Кнопки управления подключены');
+        // Обновляем состояние кнопок
+        this.updateButtonsState();
+        
+        console.log('🎛️ Все кнопки настроены');
     }
     
     handleMouseDown(e) {
-        // Игнорируем правую кнопку мыши
-        if (e.button !== 0) return;
+        if (e.button !== 0) return; // Только левая кнопка мыши
         
         e.preventDefault();
         this.startDragging(e.clientX, e.clientY);
@@ -132,7 +169,7 @@ class InteractiveMap {
     
     handleWheel(e) {
         e.preventDefault();
-        const delta = Math.sign(e.deltaY) * -0.15; // Более плавный zoom
+        const delta = Math.sign(e.deltaY) * -0.15;
         this.zoom(delta, e.clientX, e.clientY);
     }
     
@@ -166,6 +203,8 @@ class InteractiveMap {
     zoom(delta, clientX = null, clientY = null) {
         const newScale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
         
+        console.log(`🔍 Zoom: ${this.scale.toFixed(2)} -> ${newScale.toFixed(2)}`);
+        
         // Если координаты не указаны, zoom к центру
         if (clientX === null || clientY === null) {
             const rect = this.container.getBoundingClientRect();
@@ -185,29 +224,25 @@ class InteractiveMap {
         const newY = transform.y - (newScale - this.scale) * offsetY / this.scale;
         
         this.applyTransform(newX, newY, newScale);
-        
-        console.log('🔍 Масштаб изменен:', this.scale.toFixed(2));
     }
     
     applyTransform(x, y, scale) {
         const clamped = this.clampTranslation(x, y, scale);
         
-        // Применяем трансформацию
         this.image.style.transform = `translate(${clamped.x}px, ${clamped.y}px) scale(${scale})`;
         this.scale = scale;
         
         // Обновляем состояние кнопок
         this.updateButtonsState();
+        
+        console.log(`🔄 Transform: translate(${clamped.x.toFixed(1)}px, ${clamped.y.toFixed(1)}px) scale(${scale.toFixed(2)})`);
     }
     
     clampTranslation(x, y, scale) {
         const containerRect = this.container.getBoundingClientRect();
-        const imgRect = this.image.getBoundingClientRect();
-        
         const scaledWidth = this.image.naturalWidth * scale;
         const scaledHeight = this.image.naturalHeight * scale;
         
-        // Вычисляем границы
         const maxX = Math.min(0, containerRect.width - scaledWidth);
         const maxY = Math.min(0, containerRect.height - scaledHeight);
         
@@ -232,41 +267,74 @@ class InteractiveMap {
     }
     
     resetTransform() {
-        console.log('🔄 Сброс карты');
-        this.scale = 0.5; // Возвращаем к начальному уменьшенному виду
+        console.log('🔄 Сброс карты к начальному состоянию');
+        this.scale = 0.5;
         this.applyTransform(0, 0, this.scale);
     }
     
     updateButtonsState() {
-        const zoomInBtn = document.getElementById('zoomInBtn');
-        const zoomOutBtn = document.getElementById('zoomOutBtn');
-        
-        if (zoomInBtn) {
-            zoomInBtn.disabled = this.scale >= this.maxScale;
-            zoomInBtn.style.opacity = this.scale >= this.maxScale ? '0.5' : '1';
+        if (this.zoomInBtn) {
+            const canZoomIn = this.scale < this.maxScale;
+            this.zoomInBtn.disabled = !canZoomIn;
+            this.zoomInBtn.style.opacity = canZoomIn ? '1' : '0.5';
+            this.zoomInBtn.title = canZoomIn ? 'Увеличить' : 'Максимальный масштаб';
         }
         
-        if (zoomOutBtn) {
-            zoomOutBtn.disabled = this.scale <= this.minScale;
-            zoomOutBtn.style.opacity = this.scale <= this.minScale ? '0.5' : '1';
+        if (this.zoomOutBtn) {
+            const canZoomOut = this.scale > this.minScale;
+            this.zoomOutBtn.disabled = !canZoomOut;
+            this.zoomOutBtn.style.opacity = canZoomOut ? '1' : '0.5';
+            this.zoomOutBtn.title = canZoomOut ? 'Уменьшить' : 'Минимальный масштаб';
         }
+        
+        console.log(`🎛️ Состояние кнопок: ZoomIn=${!this.zoomInBtn?.disabled}, ZoomOut=${!this.zoomOutBtn?.disabled}`);
     }
 }
 
-// Автоматическая инициализация при загрузке
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('📄 DOM загружен, инициализируем карту...');
+// Глобальная функция для ручного вызова (на всякий случай)
+window.resetMap = function() {
+    if (window.map) {
+        window.map.resetTransform();
+    } else {
+        console.error('❌ Карта не инициализирована!');
+    }
+};
+
+window.zoomIn = function() {
+    if (window.map) {
+        window.map.zoom(0.3);
+    } else {
+        console.error('❌ Карта не инициализирована!');
+    }
+};
+
+window.zoomOut = function() {
+    if (window.map) {
+        window.map.zoom(-0.3);
+    } else {
+        console.error('❌ Карта не инициализирована!');
+    }
+};
+
+// Автоматическая инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 DOM полностью загружен');
+    console.log('🚀 Запуск инициализации карты...');
     
-    // Даем небольшую задержку для полной загрузки
+    // Небольшая задержка для гарантии
     setTimeout(() => {
         window.map = new InteractiveMap('mapContainer', 'mapImage');
         
-        if (window.map) {
-            console.log('✅ Карта успешно создана');
-            console.log('🎮 Управление:');
-            console.log('   - Перетаскивание: зажать левую кнопку мыши');
+        if (window.map && window.map.container) {
+            console.log('✅ Карта успешно создана и готова к использованию!');
+            console.log('🎮 Доступные действия:');
+            console.log('   - Перетаскивание: зажать левую кнопку мыши на карте');
             console.log('   - Масштаб: колесо мыши или кнопки +/-');
             console.log('   - Сброс: кнопка ⟲');
+        } else {
+            console.error('❌ Не удалось создать карту!');
         }
     }, 100);
 });
+
+console.log('🗺️ Скрипт карты загружен, ожидаем DOM...');
