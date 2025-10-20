@@ -15,10 +15,15 @@ class InteractiveMap {
         this.startY = 0;
         this.translateX = 0;
         this.translateY = 0;
-        this.scale = 0.3; // Еще более уменьшена изначально
+        this.scale = 0.3; // Начальный масштаб
         
-        this.minScale = 0.1; // Можно очень сильно отдалять
-        this.maxScale = 8;
+        this.minScale = 0.1; // Минимальный масштаб
+        this.maxScale = 8;   // Максимальный масштаб
+        
+        // Настройки плавности
+        this.zoomSensitivity = 0.08;    // Чувствительность колеса мыши
+        this.buttonZoomStep = 0.15;     // Шаг для кнопок
+        this.zoomAnimation = true;      // Плавная анимация
         
         this.init();
     }
@@ -46,6 +51,11 @@ class InteractiveMap {
         this.image.style.transformOrigin = '0 0';
         this.image.style.userSelect = 'none';
         
+        // Добавляем плавный переход для масштабирования
+        if (this.zoomAnimation) {
+            this.image.style.transition = 'transform 0.3s ease-out';
+        }
+        
         // Применяем начальный масштаб
         this.applyTransform(0, 0, this.scale);
         
@@ -66,7 +76,7 @@ class InteractiveMap {
         document.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
         document.addEventListener('touchend', () => this.handleTouchEnd());
         
-        // Колесо мыши
+        // Колесо мыши с плавным zoom
         this.container.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
     }
     
@@ -88,7 +98,7 @@ class InteractiveMap {
         if (resetBtn) {
             resetBtn.onclick = () => {
                 console.log('🔄 Кнопка СБРОС нажата!');
-                this.resetTransform();
+                this.smoothReset();
             };
             resetBtn.style.cursor = 'pointer';
         }
@@ -96,7 +106,7 @@ class InteractiveMap {
         if (zoomInBtn) {
             zoomInBtn.onclick = () => {
                 console.log('➕ Кнопка УВЕЛИЧЕНИЕ нажата!');
-                this.zoom(0.4);
+                this.smoothZoom(this.buttonZoomStep);
             };
             zoomInBtn.style.cursor = 'pointer';
         }
@@ -104,7 +114,7 @@ class InteractiveMap {
         if (zoomOutBtn) {
             zoomOutBtn.onclick = () => {
                 console.log('➖ Кнопка УМЕНЬШЕНИЕ нажата!');
-                this.zoom(-0.4);
+                this.smoothZoom(-this.buttonZoomStep);
             };
             zoomOutBtn.style.cursor = 'pointer';
         }
@@ -116,6 +126,9 @@ class InteractiveMap {
     handleMouseDown(e) {
         if (e.button !== 0) return;
         e.preventDefault();
+        
+        // Отключаем анимацию при перетаскивании для мгновенного отклика
+        this.image.style.transition = 'none';
         this.startDragging(e.clientX, e.clientY);
     }
     
@@ -127,11 +140,19 @@ class InteractiveMap {
     
     handleMouseUp() {
         this.stopDragging();
+        
+        // Включаем анимацию обратно
+        if (this.zoomAnimation) {
+            setTimeout(() => {
+                this.image.style.transition = 'transform 0.3s ease-out';
+            }, 50);
+        }
     }
     
     handleTouchStart(e) {
         if (e.touches.length === 1) {
             e.preventDefault();
+            this.image.style.transition = 'none';
             this.startDragging(e.touches[0].clientX, e.touches[0].clientY);
         }
     }
@@ -145,12 +166,19 @@ class InteractiveMap {
     
     handleTouchEnd() {
         this.stopDragging();
+        if (this.zoomAnimation) {
+            setTimeout(() => {
+                this.image.style.transition = 'transform 0.3s ease-out';
+            }, 50);
+        }
     }
     
     handleWheel(e) {
         e.preventDefault();
-        const delta = Math.sign(e.deltaY) * -0.2;
-        this.zoom(delta, e.clientX, e.clientY);
+        
+        // Плавный zoom с небольшой чувствительностью
+        const delta = Math.sign(e.deltaY) * -this.zoomSensitivity;
+        this.smoothZoom(delta, e.clientX, e.clientY);
     }
     
     startDragging(clientX, clientY) {
@@ -180,8 +208,17 @@ class InteractiveMap {
         this.image.style.cursor = 'grab';
     }
     
-    zoom(delta, clientX = null, clientY = null) {
-        const newScale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
+    // Плавное масштабирование
+    smoothZoom(delta, clientX = null, clientY = null) {
+        const targetScale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
+        
+        // Если масштаб не изменился, выходим
+        if (targetScale === this.scale) return;
+        
+        // Включаем анимацию для плавного zoom
+        if (this.zoomAnimation) {
+            this.image.style.transition = 'transform 0.3s ease-out';
+        }
         
         // Если координаты не указаны, zoom к центру
         if (clientX === null || clientY === null) {
@@ -197,10 +234,29 @@ class InteractiveMap {
         const offsetX = clientX - containerRect.left - rect.left;
         const offsetY = clientY - containerRect.top - rect.top;
         
-        const newX = transform.x - (newScale - this.scale) * offsetX / this.scale;
-        const newY = transform.y - (newScale - this.scale) * offsetY / this.scale;
+        const newX = transform.x - (targetScale - this.scale) * offsetX / this.scale;
+        const newY = transform.y - (targetScale - this.scale) * offsetY / this.scale;
         
-        this.applyTransform(newX, newY, newScale);
+        this.applyTransform(newX, newY, targetScale);
+        
+        console.log('🔍 Масштаб:', this.scale.toFixed(2));
+    }
+    
+    // Плавный сброс
+    smoothReset() {
+        if (this.zoomAnimation) {
+            this.image.style.transition = 'transform 0.5s ease-out';
+        }
+        
+        this.scale = 0.3;
+        this.applyTransform(0, 0, this.scale);
+        
+        // Возвращаем обычную анимацию после сброса
+        setTimeout(() => {
+            if (this.zoomAnimation) {
+                this.image.style.transition = 'transform 0.3s ease-out';
+            }
+        }, 500);
     }
     
     applyTransform(x, y, scale) {
@@ -251,13 +307,17 @@ class InteractiveMap {
         const zoomOutBtn = document.getElementById('zoomOutBtn');
         
         if (zoomInBtn) {
-            zoomInBtn.disabled = this.scale >= this.maxScale;
-            zoomInBtn.style.opacity = this.scale >= this.maxScale ? '0.5' : '1';
+            const canZoomIn = this.scale < this.maxScale;
+            zoomInBtn.disabled = !canZoomIn;
+            zoomInBtn.style.opacity = canZoomIn ? '1' : '0.5';
+            zoomInBtn.title = canZoomIn ? 'Увеличить' : 'Максимальный масштаб';
         }
         
         if (zoomOutBtn) {
-            zoomOutBtn.disabled = this.scale <= this.minScale;
-            zoomOutBtn.style.opacity = this.scale <= this.minScale ? '0.5' : '1';
+            const canZoomOut = this.scale > this.minScale;
+            zoomOutBtn.disabled = !canZoomOut;
+            zoomOutBtn.style.opacity = canZoomOut ? '1' : '0.5';
+            zoomOutBtn.title = canZoomOut ? 'Уменьшить' : 'Минимальный масштаб';
         }
     }
 }
@@ -273,8 +333,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('✅ Карта успешно инициализирована!');
             console.log('🎮 Используйте:');
             console.log('   - ЛКМ: перетаскивание');
-            console.log('   - Колесо: масштаб');
-            console.log('   - Кнопки: управление');
+            console.log('   - Колесо: плавный масштаб');
+            console.log('   - Кнопки: плавное управление');
         }
     }, 100);
 });

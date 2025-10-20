@@ -207,19 +207,22 @@ main {
     will-change: transform;
     max-width: none;
     height: auto;
-    transition: transform 0.1s ease-out;
+    /* Плавные переходы для всех трансформаций */
+    transition: transform 0.3s ease-out;
 }
 
 .map-image:active {
     cursor: grabbing;
+    /* Убираем анимацию при перетаскивании для мгновенного отклика */
+    transition: transform 0.1s ease-out;
 }
 
-/* Контролы для карты - УВЕЛИЧИВАЕМ Z-INDEX */
+/* Контролы для карты */
 .map-controls {
     position: absolute;
     bottom: 25px;
     right: 25px;
-    z-index: 1000; /* Увеличиваем z-index */
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -238,24 +241,31 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    z-index: 1001; /* Еще выше */
+    z-index: 1001;
 }
 
-.map-btn:hover {
+.map-btn:hover:not(:disabled) {
     background: rgba(33, 40, 33, 1);
     transform: scale(1.15);
     border-color: rgba(212, 237, 222, 0.9);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
 }
 
-.map-btn:active {
+.map-btn:active:not(:disabled) {
     transform: scale(0.95);
+    transition: transform 0.1s ease;
 }
 
-/* Явно показываем, что кнопки кликабельны */
-.map-btn:hover::after {
+.map-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+}
+
+/* Индикатор активности */
+.map-btn:not(:disabled)::after {
     content: '';
     position: absolute;
     top: -5px;
@@ -264,13 +274,19 @@ main {
     bottom: -5px;
     border: 2px solid rgba(212, 237, 222, 0.3);
     border-radius: 12px;
-    animation: pulse 1.5s infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.map-btn:hover:not(:disabled)::after {
+    opacity: 1;
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+    100% { opacity: 0.3; transform: scale(1); }
 }
 
 /* Адаптивность */
@@ -292,33 +308,4 @@ main {
         height: 45px;
         font-size: 20px;
     }
-}
-
-/* Убедимся, что другие элементы не перекрывают карту */
-main {
-    position: relative;
-    z-index: 1;
-}
-
-/* Стили для страниц контента */
-.content-page {
-    padding: 20px;
-    max-width: 800px;
-}
-
-.lore-section, .characters-list {
-    margin-bottom: 30px;
-}
-
-.character-card {
-    border: 1px solid rgba(212, 237, 222, 0.3);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: rgba(33, 40, 33, 0.5);
-}
-
-.character-card h3 {
-    margin-top: 0;
-    color: #d4eded;
 }
