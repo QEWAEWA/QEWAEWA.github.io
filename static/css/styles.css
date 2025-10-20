@@ -376,7 +376,6 @@ body {
 }
 
 /* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
-/* Базовый стиль правой части (без фона) */
 .original-main {
   flex: 1;
   padding: 40px;
@@ -384,55 +383,6 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
-}
-
-/* Общий z-index для контента всех страниц */
-.page-title,
-.grid-container,
-.character-buttons,
-.profile-container,
-.button-background,
-.left-bottom-info,
-.right-bottom-buttons,
-.map-container {
-  position: relative;
-  z-index: 1;
-}
-
-.main-page .original-main {
-  position: relative;
-}
-
-.main-page .original-main::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/static/photo/nav-backgroundmain.jpg');
-  background-size: cover;
-  background-position: center;
-  filter: blur(8px) brightness(0.7) contrast(1.1);
-  z-index: -2;
-  transform: scale(1.05);
-}
-
-.main-page .original-main::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(
-      135deg, 
-      rgba(15, 14, 20, 0.7) 0%, 
-      rgba(26, 24, 32, 0.65) 50%,
-      rgba(15, 14, 20, 0.75) 100%
-    );
-  z-index: -1;
 }
 
 .page-title {
