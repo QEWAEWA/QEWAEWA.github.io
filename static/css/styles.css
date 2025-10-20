@@ -700,3 +700,339 @@ body {
 .bg-custom {
   background: var(--nair-card-bg) !important;
 }
+
+/* ===== СТРАНИЦА АНКЕТ ===== */
+.ankety-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 3.5em;
+  color: var(--nair-text);
+  margin-bottom: 50px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px var(--nair-shadow);
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.character-card {
+  background: var(--nair-card-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  height: 400px;
+}
+
+.character-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--nair-border-dark);
+  box-shadow: 0 15px 40px var(--nair-shadow);
+}
+
+.character-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s ease;
+}
+
+.character-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(10, 18, 18, 0.95));
+  padding: 20px;
+  color: var(--nair-text);
+}
+
+.character-name {
+  font-size: 1.8em;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--nair-accent);
+}
+
+.character-race {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+/* Анимация разворачивания */
+.character-card.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  width: 90vw;
+  height: 90vh;
+  z-index: 10000;
+  cursor: default;
+}
+
+.character-card.expanded .character-art {
+  height: 60%;
+  border-bottom: 1px solid var(--nair-border);
+}
+
+.character-details {
+  display: none;
+  padding: 30px;
+  height: 40%;
+  overflow-y: auto;
+}
+
+.character-card.expanded .character-details {
+  display: block;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.owner-link {
+  text-align: center;
+  padding: 15px;
+  border-top: 1px solid var(--nair-border-light);
+  margin-top: 10px;
+}
+
+.owner-link a {
+  color: var(--nair-accent);
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+}
+
+.owner-link a:hover {
+  color: var(--nair-text);
+  text-decoration: underline;
+}
+
+/* Блок с основной информацией */
+.basic-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(16, 26, 26, 0.5);
+  border-radius: 8px;
+  border: 1px solid var(--nair-border-light);
+}
+
+.info-column h3 {
+  color: var(--nair-accent);
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.info-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--nair-accent);
+  min-width: 120px;
+  margin-right: 10px;
+}
+
+/* Навигационные ссылки */
+.section-nav {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  background: var(--nair-button-bg);
+  border: 1px solid var(--nair-border);
+  padding: 12px 20px;
+  border-radius: 6px;
+  color: var(--nair-text);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background: var(--nair-button-hover);
+  border-color: var(--nair-border-dark);
+  transform: translateY(-2px);
+}
+
+/* Аккордеоны */
+.accordion-section {
+  margin-bottom: 10px;
+}
+
+.accordion-header {
+  background: var(--nair-primary);
+  border: 1px solid var(--nair-border);
+  padding: 15px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: between;
+  align-items: center;
+}
+
+.accordion-header:hover {
+  background: var(--nair-button-hover);
+  border-color: var(--nair-border-dark);
+}
+
+.accordion-header h4 {
+  color: var(--nair-accent);
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+}
+
+.accordion-header.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  display: none;
+  padding: 20px;
+  background: rgba(16, 26, 26, 0.3);
+  border: 1px solid var(--nair-border-light);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  line-height: 1.6;
+}
+
+.accordion-content.active {
+  display: block;
+}
+
+/* Вложенные аккордеоны для способностей */
+.ability-accordion {
+  margin-top: 10px;
+}
+
+.ability-header {
+  background: rgba(212, 237, 237, 0.05);
+  border: 1px solid var(--nair-border-light);
+  padding: 12px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.ability-header:hover {
+  background: rgba(212, 237, 237, 0.1);
+}
+
+.ability-name {
+  color: var(--nair-accent);
+  font-weight: 600;
+  display: flex;
+  justify-content: between;
+  align-items: center;
+}
+
+.ability-description {
+  display: none;
+  padding: 15px;
+  background: rgba(10, 18, 18, 0.5);
+  border-radius: 4px;
+  margin-top: 5px;
+  border-left: 3px solid var(--nair-border);
+}
+
+.ability-description.active {
+  display: block;
+}
+
+/* Закрыть кнопка */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--nair-primary);
+  border: 1px solid var(--nair-border);
+  color: var(--nair-text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  transition: all 0.3s ease;
+  z-index: 10001;
+}
+
+.close-btn:hover {
+  background: var(--nair-button-hover);
+  transform: rotate(90deg);
+}
+
+/* Адаптивность для анкет */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5em;
+  }
+  
+  .characters-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .character-card {
+    height: 300px;
+  }
+  
+  .character-card.expanded {
+    width: 95vw;
+    height: 95vh;
+  }
+  
+  .basic-info {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .section-nav {
+    flex-direction: column;
+  }
+  
+  .nav-link {
+    text-align: center;
+  }
+}
