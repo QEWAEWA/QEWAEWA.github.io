@@ -15,7 +15,7 @@ class InteractiveMap {
         this.translateY = 0;
         this.scale = 0.5; // Начальный масштаб - уменьшена
         
-        this.minScale = 0.2; // Можно сильнее отдалять
+        this.minScale = 0.1; // Можно сильнее отдалять
         this.maxScale = 8;   // Можно сильнее приближать
         
         this.init();
