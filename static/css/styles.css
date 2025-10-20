@@ -124,7 +124,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../static/photo/nav-background.jpg');
+  background-image: url('/static/photo/nav-background.jpg');
   background-size: cover;
   background-position: center;
   filter: blur(10px) brightness(0.6) contrast(1.1);
