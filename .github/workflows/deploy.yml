@@ -23,15 +23,30 @@ jobs:
     - name: 🏗️ Build site
       run: python generate_static.py
       
+    - name: 📁 Debug - Check files
+      run: |
+        echo "=== Содержимое корня ==="
+        ls -la
+        echo "=== Содержимое docs ==="
+        ls -la docs/ || echo "Папка docs не существует"
+        echo "=== Файлы в docs ==="
+        ls -la docs/* 2>/dev/null || echo "Нет файлов в docs"
+      
     - name: 🧹 Clean and deploy
       run: |
-        # Удаляем ВСЕ файлы кроме .git
-        find . -maxdepth 1 ! -name '.' ! -name '.git' -exec rm -rf {} +
+        # Проверяем существование docs
+        if [ ! -d "docs" ]; then
+          echo "❌ Папка docs не существует!"
+          exit 1
+        fi
         
-        # Копируем только статический сайт из docs
+        # Удаляем всё кроме .git и docs
+        find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name 'docs' -exec rm -rf {} +
+        
+        # Копируем из docs в корень
         cp -r docs/* .
         
-        # Удаляем папку docs
+        # Удаляем пустую папку docs
         rm -rf docs
         
         # Настраиваем git
@@ -40,5 +55,5 @@ jobs:
         
         # Коммитим и пушим
         git add .
-        git commit -m "🚀 Deploy clean site" || exit 0
+        git commit -m "🚀 Deploy site" || exit 0
         git push
