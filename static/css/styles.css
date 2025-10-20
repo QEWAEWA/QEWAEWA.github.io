@@ -3,101 +3,231 @@
   src: url('../photo/FiraSans-Italic.ttf') format('truetype');
 }
 
-/* Bootstrap переменные для кастомизации */
+/* Ваши оригинальные цвета */
 :root {
-  --nair-primary: #212821;
-  --nair-secondary: #1f1f1f;
-  --nair-accent: #d4eded;
+  --nair-bg: #1f1f1f;
+  --nair-nav-bg: #1f1f1f;
   --nair-text: #e4ecec;
+  --nair-accent: #d4eded;
   --nair-border: rgba(212, 237, 222, 0.5);
-}
-
-/* Переопределение Bootstrap цветов для тёмной темы */
-[data-bs-theme="dark"] {
-  --bs-dark: #1a1a1a;
-  --bs-secondary: #2d2d2d;
-  --bs-border-color: rgba(212, 237, 222, 0.3);
+  --nair-primary: #212821;
 }
 
 body {
+  margin: 0;
   font-family: 'Fira Sans', Arial, sans-serif;
   color: var(--nair-text);
+  display: flex;
   min-height: 100vh;
+  background: var(--nair-bg);
 }
 
-/* ===== НАВИГАЦИЯ ===== */
-.sidebar {
+/* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ (оригинальный стиль) ===== */
+.original-nav {
   width: 300px;
-  background: var(--nair-secondary);
+  background-color: var(--nair-nav-bg);
+  padding: 20px;
+  box-sizing: border-box;
   border-right: 1px solid var(--nair-border);
-  min-height: 100vh;
+  padding-left: 40px;
 }
 
-.nav-link-custom {
-  color: var(--nair-accent) !important;
-  padding: 0.75rem 1.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 0.375rem;
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
   position: relative;
-  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  color: var(--nair-accent);
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 4px;
   border: none;
   background: transparent;
+  position: relative;
+  padding-left: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Fira Sans', sans-serif;
 }
 
-.nav-link-custom:hover {
-  background: rgba(212, 237, 222, 0.1);
-  transform: translateX(5px);
-}
-
-.nav-link-custom.active {
-  background: rgba(33, 40, 33, 0.8);
-}
-
-.nav-link-custom.active::after {
+.nav-link::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 2px;
-  width: 100%;
+  height: 1px;
+  width: 108.3%;
   background-color: var(--nair-border);
+  display: none;
 }
 
-/* ===== ГЛАВНЫЙ КОНТЕНТ ===== */
-.main-content {
-  background: var(--nair-secondary);
+.nav-link.active::after {
+  display: block;
+}
+
+.nav-link:hover {
+  background: rgba(212, 237, 222, 0.1);
+  transform: translateX(5px);
+}
+
+/* ===== ПОИСК ===== */
+.search-input {
+  background: transparent;
+  border: none;
+  padding: 20px;
+  outline: none;
+  color: var(--nair-text);
+  font-size: 16px;
+  width: 200px;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.suggestions {
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: #343434;
+  width: calc(100% - 40px);
+  display: none;
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.suggestion-item:hover {
+  background-color: #404040;
+}
+
+/* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
+.original-main {
   flex: 1;
+  padding: 20px;
+  background-color: var(--nair-bg);
+  position: relative;
+  min-height: 100vh;
 }
 
-/* Герой-баннер */
-.hero-banner {
+/* Кнопка с фоном */
+.button-background {
+  width: 85%;
+  aspect-ratio: 16 / 9;
   background-image: url('../photo/fon.png');
   background-size: cover;
   background-position: center;
-  border: 1px solid var(--nair-border);
-  border-radius: 0.75rem;
-  position: relative;
+  border-radius: 8px;
   overflow: hidden;
-  min-height: 400px;
+  border: 1px solid var(--nair-border);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.hero-content {
+.button-text {
+  color: var(--nair-text);
+  font-size: 2em;
+  z-index: 1;
   position: absolute;
   top: 100px;
-  left: 30px;
+  left: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+}
+
+/* Ссылка на ВК */
+.top-left-link {
+  position: absolute;
+  top: 6%;
+  left: 3%;
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.top-left-link img {
+  width: 50px;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.top-left-link:hover img {
+  transform: scale(1.2);
+}
+
+/* Три ссылки в правом нижнем углу */
+.bottom-right-links {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  gap: 15px;
+  align-items: center;
+  z-index: 1000;
+}
+
+.original-btn {
+  border-radius: 12px;
+  border: 1px solid var(--nair-border);
+  padding: 0 20px;
+  text-decoration: none;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.3em;
+  line-height: 50px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  height: 50px;
+  background-color: var(--nair-primary);
+  color: var(--nair-text);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.original-btn:hover {
+  transform: scale(1.15);
+  z-index: 10;
+  background-color: rgba(33, 40, 33, 0.9);
+  border-color: rgba(212, 237, 222, 0.7);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* ===== КАРТА ===== */
 .map-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 70vh;
+  min-height: 600px;
   border: 2px solid var(--nair-border);
-  border-radius: 0.75rem;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
   touch-action: none;
-  background: var(--bs-dark);
+  background: #1a1a1a;
+  margin: 20px auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  min-height: 600px;
 }
 
 .map-image {
@@ -120,32 +250,42 @@ body {
 
 .map-controls {
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 25px;
+  right: 25px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .map-btn {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 50px;
+  height: 50px;
   background: rgba(33, 40, 33, 0.95);
   border: 2px solid var(--nair-border);
-  border-radius: 0.75rem;
+  border-radius: 8px;
   color: var(--nair-text);
-  font-size: 1.4rem;
+  font-size: 22px;
   font-weight: bold;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+  font-family: 'Fira Sans', sans-serif;
 }
 
 .map-btn:hover:not(:disabled) {
   background: rgba(33, 40, 33, 1);
-  transform: scale(1.1);
+  transform: scale(1.15);
   border-color: rgba(212, 237, 222, 0.8);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.map-btn:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 .map-btn:disabled {
@@ -154,130 +294,17 @@ body {
   transform: none;
 }
 
-/* ===== КНОПКИ И КОНТРОЛЫ ===== */
-.btn-custom {
-  background: var(--nair-primary);
-  border: 1px solid var(--nair-border);
-  border-radius: 0.75rem;
-  color: var(--nair-text);
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 1.1rem;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 140px;
-}
-
-.btn-custom:hover {
-  transform: scale(1.05);
-  background: rgba(33, 40, 33, 0.9);
-  border-color: rgba(212, 237, 222, 0.7);
-}
-
-.bottom-action-buttons {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
-  gap: 0.75rem;
-}
-
-/* VK кнопка */
-.vk-button {
-  position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 1050;
-  transition: transform 0.3s ease;
-}
-
-.vk-button:hover {
-  transform: scale(1.15);
-}
-
-.vk-button img {
-  width: 3rem;
-  height: auto;
-}
-
-/* ===== ПОИСК ===== */
-.search-container {
-  position: relative;
-}
-
-.search-input {
-  background: transparent !important;
-  border: none !important;
-  color: var(--bs-light) !important;
-  padding: 1rem 1.25rem !important;
-  font-size: 1rem;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.search-input:focus {
-  box-shadow: none !important;
-  background: rgba(255, 255, 255, 0.1) !important;
-}
-
-.suggestions {
-  background: var(--bs-secondary);
-  border: 1px solid var(--bs-border-color);
-  border-radius: 0.5rem;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-  display: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
-.suggestion-item {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  border-bottom: 1px solid var(--bs-border-color);
-  transition: background-color 0.2s ease;
-}
-
-.suggestion-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.suggestion-item:last-child {
-  border-bottom: none;
-}
-
-/* ===== КАРТОЧКИ ===== */
-.card-custom {
-  background: var(--bs-secondary);
-  border: 1px solid var(--nair-border);
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.card-custom:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border-color: rgba(212, 237, 222, 0.7);
-}
-
 /* ===== АНИМАЦИИ ===== */
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
 }
 
-@keyframes fadeInUp {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -298,86 +325,97 @@ body {
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
-@media (max-width: 992px) {
-  .sidebar {
-    width: 100%;
-    min-height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--nair-border);
-  }
-  
+@media (max-width: 768px) {
   body {
     flex-direction: column;
   }
   
-  .hero-banner {
-    min-height: 300px;
+  .original-nav {
+    width: 100%;
+    padding-left: 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--nair-border);
   }
   
-  .hero-content {
-    top: 50px;
-    left: 20px;
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
-}
-
-@media (max-width: 768px) {
+  
+  .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .button-background {
+    width: 95%;
+    aspect-ratio: 16 / 9;
+  }
+  
+  .button-text {
+    font-size: 1.5em;
+    top: 50px;
+    left: 15px;
+  }
+  
+  .top-left-link {
+    top: 3%;
+    left: 3%;
+  }
+  
+  .top-left-link img {
+    width: 40px;
+  }
+  
+  .bottom-right-links {
+    bottom: 15px;
+    right: 15px;
+    gap: 10px;
+  }
+  
+  .original-btn {
+    min-width: 100px;
+    font-size: 1.1em;
+    line-height: 40px;
+    height: 40px;
+    padding: 0 15px;
+  }
+  
   .map-container {
+    height: 50vh;
     min-height: 400px;
-    margin: 1rem;
+    margin: 10px;
   }
   
   .map-controls {
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 15px;
+    right: 15px;
   }
   
   .map-btn {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
+
+/* Улучшения для больших экранов */
+@media (min-width: 1200px) {
+  .button-background {
+    width: 80%;
   }
   
-  .bottom-action-buttons {
-    bottom: 1rem;
-    right: 1rem;
+  .button-text {
+    font-size: 2.5em;
+    top: 120px;
+    left: 40px;
   }
   
-  .btn-custom {
-    min-width: 120px;
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
+  .original-btn {
+    font-size: 1.5em;
+    min-width: 160px;
+    height: 60px;
   }
-  
-  .vk-button {
-    top: 1rem;
-    left: 1rem;
-  }
-  
-  .vk-button img {
-    width: 2.5rem;
-  }
-}
-
-/* Утилиты для текста */
-.text-nair {
-  color: var(--nair-text) !important;
-}
-
-.text-accent {
-  color: var(--nair-accent) !important;
-}
-
-.bg-nair-primary {
-  background-color: var(--nair-primary) !important;
-}
-
-.bg-nair-secondary {
-  background-color: var(--nair-secondary) !important;
-}
-
-/* Кастомные бордеры */
-.border-nair {
-  border-color: var(--nair-border) !important;
 }
 
 /* Плавные переходы */
@@ -390,10 +428,4 @@ body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 300;
   letter-spacing: -0.02em;
-}
-
-.lead-nair {
-  font-family: 'Fira Sans', sans-serif;
-  font-weight: 300;
-  opacity: 0.9;
 }
