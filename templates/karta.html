@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Левая панель - меню -->
+<nav>
+  <ul>
+    <li>
+        <input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
+        <div id="suggestions" class="suggestions"></div>
+    </li>
+    <li><a href="{{ url_for('index') }}">Главная</a></li>
+    <li><a href="{{ url_for('karta') }}" class="active">Карта</a></li>
+    <li><a href="{{ url_for('lor') }}">Лор</a></li>
+    <li><a href="{{ url_for('ankety') }}">Анкеты</a></li>
+  </ul>
+</nav>
+
+<!-- Правый блок - основной контент -->
+<main>
+  <div class="map-container">
+    <!-- Здесь будет ваша карта -->
+    <img src="{{ url_for('static', filename='photo/map.jpg') }}" alt="Карта Наира" class="map-image">
+  </div>
+  
+  <!-- Ссылка на ВК в левом верхнем углу -->
+  <a href="https://vk.com/club182026147" class="top-left-link">
+    <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="Кнопка">
+  </a>
+</main>
+{% endblock %}

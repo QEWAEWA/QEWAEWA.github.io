@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Левая панель - меню -->
+<nav>
+  <ul>
+    <li>
+        <input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
+        <div id="suggestions" class="suggestions"></div>
+    </li>
+    <li><a href="{{ url_for('index') }}" class="active">Главная</a></li>
+    <li><a href="{{ url_for('karta') }}">Карта</a></li>
+    <li><a href="{{ url_for('lor') }}">Лор</a></li>
+    <li><a href="{{ url_for('ankety') }}">Анкеты</a></li>
+  </ul>
+</nav>
+
+<!-- Правый блок - основной контент -->
+<main>
+  <!-- Кнопка с фоном -->
+  <div class="button-background">
+    <span class="button-text">Ваш текст</span>
+  </div>
+  
+  <!-- Ссылка на ВК в левом верхнем углу -->
+  <a href="https://vk.com/club182026147" class="top-left-link">
+    <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="Кнопка">
+  </a>
+  
+  <!-- Три ссылки в правом нижнем углу -->
+  <div class="bottom-right-links">
+    <a id="button1" class="btn" href="{{ url_for('lor') }}">Лор</a>
+    <a id="button2" class="btn" href="{{ url_for('ankety') }}">Персонажи</a>
+    <a id="button3" class="btn" href="https://vk.com/club182026147">VK</a>
+  </div>
+</main>
+{% endblock %}
