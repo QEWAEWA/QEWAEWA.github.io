@@ -1,19 +1,15 @@
-name: Deploy Flask Site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: 🚀 Checkout code
+    - name: 🚀 Checkout
       uses: actions/checkout@v4
       
     - name: 🐍 Setup Python
@@ -21,26 +17,23 @@ jobs:
       with:
         python-version: '3.10'
         
-    - name: 📦 Install dependencies
+    - name: 📦 Install Flask
+      run: pip install flask
+      
+    - name: 🏗️ Build site
+      run: python generate_static.py
+      
+    - name: 📁 List files
+      run: ls -la docs/
+      
+    - name: 📤 Deploy
       run: |
-        python -m pip install --upgrade pip
-        pip install flask
+        # Настройка git
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "github-actions@users.noreply.github.com"
         
-    - name: 🏗️ Generate static site
-      run: |
-        python generate_static.py
-        
-    - name: 📁 Check generated files
-      run: |
-        echo "Содержимое папки docs:"
-        ls -la docs/
-        echo "HTML файлы:"
-        ls -la docs/*.html || echo "No HTML files"
-        
-    - name: 📤 Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        publish_branch: main
-        force_orphan: true
+        # Добавляем docs в корень и коммитим
+        cp -r docs/* .
+        git add .
+        git commit -m "Deploy: $(date)" || exit 0
+        git push
