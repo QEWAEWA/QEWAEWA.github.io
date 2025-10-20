@@ -5,48 +5,20 @@
 
 /* Обновлённая цветовая схема на основе текстовых цветов */
 :root {
-  /* Основные цвета */
-  --nair-bg: #0a1218;
-  --nair-nav-bg: #0e1a20;
-  --nair-card-bg: #142028;
+  --nair-bg: #1a1a1a;
+  --nair-nav-bg: #222222;
+  --nair-card-bg: #2a2a2a;
   --nair-text: #e4ecec;
-  --nair-accent: #d4eded;
+  --nair-accent: #d4a0ed;
   
-  /* Дополнительные акцентные цвета */
-  --nair-accent-secondary: #a8d8d8;
-  --nair-accent-glow: rgba(212, 237, 237, 0.15);
-  
-  /* Границы с улучшенной видимостью */
-  --nair-border: rgba(168, 216, 216, 0.3);
-  --nair-border-light: rgba(168, 216, 216, 0.15);
-  --nair-border-dark: rgba(168, 216, 216, 0.5);
-  --nair-border-accent: rgba(212, 237, 237, 0.4);
-  
-  /* Состояния и интерактивность */
-  --nair-primary: #1c2d35;
-  --nair-hover: rgba(168, 216, 216, 0.12);
-  --nair-active: rgba(212, 237, 237, 0.2);
-  --nair-focus: rgba(212, 237, 237, 0.25);
-  
-  /* Тени и эффекты */
-  --nair-shadow: rgba(5, 10, 15, 0.8);
-  --nair-shadow-glow: rgba(212, 237, 237, 0.1);
-  --nair-shadow-card: rgba(5, 12, 18, 0.6);
-  
-  /* Кнопки и интерактивные элементы */
-  --nair-button-bg: rgba(168, 216, 216, 0.08);
-  --nair-button-hover: rgba(168, 216, 216, 0.15);
-  --nair-button-active: rgba(212, 237, 237, 0.2);
-  
-  /* Градиенты */
-  --nair-gradient-primary: linear-gradient(135deg, #142028 0%, #1c2d35 100%);
-  --nair-gradient-accent: linear-gradient(135deg, rgba(212, 237, 237, 0.1) 0%, rgba(168, 216, 216, 0.05) 100%);
-  
-  /* Статусы и уведомления */
-  --nair-success: rgba(168, 216, 200, 0.3);
-  --nair-warning: rgba(237, 212, 168, 0.3);
-  --nair-error: rgba(237, 168, 168, 0.3);
-  --nair-info: rgba(168, 200, 237, 0.3);
+  --nair-border: rgba(212, 160, 237, 0.4);
+  --nair-border-light: rgba(212, 160, 237, 0.2);
+  --nair-border-dark: rgba(212, 160, 237, 0.6);
+  --nair-primary: #333333;
+  --nair-hover: rgba(212, 160, 237, 0.1);
+  --nair-shadow: rgba(0, 0, 0, 0.5);
+  --nair-button-bg: rgba(212, 160, 237, 0.08);
+  --nair-button-hover: rgba(212, 160, 237, 0.15);
 }
 
 /* Улучшенные тени для карточек */
