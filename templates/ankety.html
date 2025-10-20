@@ -1,688 +1,694 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Персонажи игроков</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @font-face {
-            font-family: 'Fira Sans';
-            src: url('../photo/FiraSans-Italic.ttf') format('truetype');
-        }
+{% extends "base.html" %}
 
-        :root {
-            --nair-bg: #0a1212;
-            --nair-nav-bg: #0c1515;
-            --nair-card-bg: #101a1a;
-            --nair-text: #e4ecec;
-            --nair-accent: #d4eded;
-            --nair-border: rgba(212, 237, 237, 0.4);
-            --nair-border-light: rgba(212, 237, 237, 0.2);
-            --nair-border-dark: rgba(212, 237, 237, 0.6);
-            --nair-primary: #1a2525;
-            --nair-hover: rgba(212, 237, 237, 0.08);
-            --nair-shadow: rgba(0, 0, 0, 0.6);
-            --nair-button-bg: rgba(212, 237, 237, 0.05);
-            --nair-button-hover: rgba(212, 237, 237, 0.1);
-        }
+{% block title %}Анкеты - Наир{% endblock %}
 
-        body {
-            margin: 0;
-            font-family: 'Fira Sans', Arial, sans-serif;
-            color: var(--nair-text);
-            background: var(--nair-bg);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+{% block content %}
+<!-- Левая панель - меню -->
+<nav class="original-nav">
+  <ul class="nav-list">
+    <li class="nav-item">
+        <input type="text" id="search" placeholder="Поиск..." autocomplete="off" class="search-input" />
+        <div id="suggestions" class="suggestions"></div>
+    </li>
+    <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+    <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
+    <li class="nav-item"><a href="lor.html" class="nav-link">Лор</a></li>
+    <li class="nav-item"><a href="ankety.html" class="nav-link active">Анкеты</a></li>
+  </ul>
+</nav>
 
-        .page-title {
-            text-align: center;
-            margin: 30px 0;
-            font-size: 2.5rem;
-            color: var(--nair-accent);
-            text-shadow: 0 0 10px rgba(212, 237, 237, 0.3);
-        }
+<!-- Правый блок - основной контент -->
+<main class="original-main">
 
-        /* Кнопки персонажей */
-        .character-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            padding: 0 15px;
-        }
 
-        .character-btn {
-            width: 300px;
-            height: 400px;
-            background-size: cover;
-            background-position: center;
-            border: 2px solid var(--nair-border);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 15px var(--nair-shadow);
-        }
+  <!-- Главная страница с кнопками персонажей -->
+  <div id="main-page" class="active-page">
+    <h1 class="page-title">ПЕРСОНАЖИ ИГРОКОВ</h1>
+    
+    <div class="character-buttons">
+      <!-- Кнопка персонажа 1 -->
+<div class="character-btn" 
+     data-character="maldis" 
+     data-image-url="/static/photo/character-art/maldys.jpg"
+     style="background-image: url('/static/photo/character-art/maldys.jpg');">
+    <div class="character-name">Малдис Канталия</div>
+</div>
+      
+      <!-- Кнопка персонажа 2 -->
+      <div class="character-btn" data-character="character2" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2');">
+        <div class="character-name">Имя Персонажа 2</div>
+      </div>
+      
+      <!-- Кнопка персонажа 3 -->
+      <div class="character-btn" data-character="character3" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3');">
+        <div class="character-name">Имя Персонажа 3</div>
+      </div>
+      
+      <!-- Кнопка персонажа 4 -->
+      <div class="character-btn" data-character="character4" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4');">
+        <div class="character-name">Имя Персонажа 4</div>
+      </div>
+    </div>
 
-        .character-btn:hover {
-            transform: translateY(-5px);
-            border-color: var(--nair-border-dark);
-            box-shadow: 0 8px 25px var(--nair-shadow);
-        }
-
-        .character-btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60%;
-            background: linear-gradient(to top, rgba(10, 18, 18, 0.9), transparent);
-        }
-
-        .character-name {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            color: var(--nair-text);
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 2;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Анимация смены страницы */
-        .page-transition {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--nair-bg);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: translateX(100%);
-            transition: transform 0.8s ease;
-        }
-
-        .page-transition.active {
-            transform: translateX(0);
-        }
-
-        .transition-image {
-            width: 300px;
-            height: 400px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(212, 237, 237, 0.3);
-        }
-
-        /* Контейнер анкеты */
-        .profile-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: none;
-        }
-
-        .profile-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .profile-header {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .profile-art {
-            flex: 0 0 400px;
-            height: 500px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-            border: 2px solid var(--nair-border);
-            box-shadow: 0 4px 15px var(--nair-shadow);
-        }
-
-        .profile-info {
-            flex: 1;
-            background: var(--nair-card-bg);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid var(--nair-border);
-        }
-
-        .profile-name {
-            font-size: 2rem;
-            color: var(--nair-accent);
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--nair-border-light);
-            padding-bottom: 10px;
-        }
-
-        .profile-details {
-            margin-bottom: 20px;
-        }
-
-        .profile-detail {
-            margin-bottom: 8px;
-            display: flex;
-        }
-
-        .detail-label {
-            font-weight: bold;
-            min-width: 150px;
-            color: var(--nair-accent);
-        }
-
-        .quick-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .quick-link {
-            color: var(--nair-accent);
-            text-decoration: none;
-            padding: 8px 15px;
-            border: 1px solid var(--nair-border);
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            background: var(--nair-button-bg);
-        }
-
-        .quick-link:hover {
-            background: var(--nair-button-hover);
-            border-color: var(--nair-border-dark);
-        }
-
-        .accordion-section {
-            margin-top: 30px;
-        }
-
-        .accordion-item {
-            background: var(--nair-card-bg);
-            border: 1px solid var(--nair-border);
-            margin-bottom: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .accordion-header {
-            padding: 15px 20px;
-            background: var(--nair-primary);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .accordion-header:hover {
-            background: var(--nair-hover);
-        }
-
-        .accordion-body {
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .accordion-body.active {
-            padding: 20px;
-            max-height: 1000px;
-        }
-
-        .ability-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--nair-border-light);
-            padding-bottom: 15px;
-        }
-
-        .ability-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .ability-name {
-            font-weight: bold;
-            color: var(--nair-accent);
-            margin-bottom: 5px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ability-description {
-            padding-top: 10px;
-            display: none;
-        }
-
-        .ability-description.active {
-            display: block;
-        }
-
-        .owner-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--nair-accent);
-            text-decoration: none;
-            padding: 8px 15px;
-            border: 1px solid var(--nair-border);
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            background: var(--nair-button-bg);
-        }
-
-        .owner-link:hover {
-            background: var(--nair-button-hover);
-            border-color: var(--nair-border-dark);
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: var(--nair-accent);
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid var(--nair-border);
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            background: var(--nair-button-bg);
-        }
-
-        .back-button:hover {
-            background: var(--nair-button-hover);
-            border-color: var(--nair-border-dark);
-        }
-
-        @media (max-width: 992px) {
-            .profile-header {
-                flex-direction: column;
-            }
-            
-            .profile-art {
-                flex: 0 0 300px;
-                height: 400px;
-            }
-            
-            .character-btn {
-                width: 250px;
-                height: 350px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .character-btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .quick-links {
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Главная страница с кнопками персонажей -->
-    <div id="main-page" class="active-page">
-        <h1 class="page-title">ПЕРСОНАЖИ ИГРОКОВ</h1>
+  <!-- Анимация перехода -->
+  <div class="page-transition" id="page-transition">
+    <div class="transition-image" id="transition-image"></div>
+  </div>
+  
+  <!-- Анкета Малдис Канталия -->
+  <div class="profile-container" id="maldis-profile">
+    <a href="#" class="back-button" id="back-button">
+      <i class="fas fa-arrow-left"></i> Назад к персонажам
+    </a>
+    
+    <div class="profile-header">
+      <div class="profile-art" style="background-image: url('/static/photo/character-art/maldys.jpg');"></div>
+      
+      <div class="profile-info">
+        <h2 class="profile-name">Малдис Канталия</h2>
         
-        <div class="character-buttons">
-            <!-- Кнопка персонажа 1 -->
-            <div class="character-btn" data-character="maldis" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Малдис');">
-                <div class="character-name">Малдис Канталия</div>
-            </div>
-            
-            <!-- Кнопка персонажа 2 -->
-            <div class="character-btn" data-character="character2" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2');">
-                <div class="character-name">Имя Персонажа 2</div>
-            </div>
-            
-            <!-- Кнопка персонажа 3 -->
-            <div class="character-btn" data-character="character3" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3');">
-                <div class="character-name">Имя Персонажа 3</div>
-            </div>
-            
-            <!-- Кнопка персонажа 4 -->
-            <div class="character-btn" data-character="character4" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4');">
-                <div class="character-name">Имя Персонажа 4</div>
-            </div>
+        <div class="profile-details">
+          <div class="profile-detail">
+            <span class="detail-label">Владелец:</span>
+            <span>Николай Шахов</span>
+          </div>
+          <div class="profile-detail">
+            <span class="detail-label">Возраст:</span>
+            <span>28 лет</span>
+          </div>
+          <div class="profile-detail">
+            <span class="detail-label">Раса:</span>
+            <span>Человек, Граальд</span>
+          </div>
+          <div class="profile-detail">
+            <span class="detail-label">Избранный бога:</span>
+            <span>Нет</span>
+          </div>
         </div>
-    </div>
-    
-    <!-- Анимация перехода -->
-    <div class="page-transition" id="page-transition">
-        <div class="transition-image" id="transition-image"></div>
-    </div>
-    
-    <!-- Анкета Малдис Канталия -->
-    <div class="profile-container" id="maldis-profile">
-        <a href="#" class="back-button" id="back-button">
-            <i class="fas fa-arrow-left"></i> Назад к персонажам
+        
+        <div class="quick-links">
+          <a href="#" class="quick-link" data-target="appearance">Описание внешности</a>
+          <a href="#" class="quick-link" data-target="character">Характер</a>
+          <a href="#" class="quick-link" data-target="history">История</a>
+          <a href="#" class="quick-link" data-target="abilities">Способности</a>
+          <a href="#" class="quick-link" data-target="physical">Физические параметры</a>
+          <a href="#" class="quick-link" data-target="other">Прочие особенности</a>
+        </div>
+        
+        <a href="#" class="owner-link">
+          <i class="fas fa-user"></i> Страница владельца персонажа
         </a>
-        
-        <div class="profile-header">
-            <div class="profile-art" style="background-image: url('https://via.placeholder.com/400x500/1a2525/d4eded?text=Арт+Малдис');"></div>
-            
-            <div class="profile-info">
-                <h2 class="profile-name">Малдис Канталия</h2>
-                
-                <div class="profile-details">
-                    <div class="profile-detail">
-                        <span class="detail-label">Владелец:</span>
-                        <span>Николай Шахов</span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Возраст:</span>
-                        <span>28 лет</span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Раса:</span>
-                        <span>Человек, Граальд</span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Избранный бога:</span>
-                        <span>Нет</span>
-                    </div>
-                </div>
-                
-                <div class="quick-links">
-                    <a href="#" class="quick-link" data-target="appearance">Описание внешности</a>
-                    <a href="#" class="quick-link" data-target="character">Характер</a>
-                    <a href="#" class="quick-link" data-target="history">История</a>
-                    <a href="#" class="quick-link" data-target="abilities">Способности</a>
-                    <a href="#" class="quick-link" data-target="physical">Физические параметры</a>
-                    <a href="#" class="quick-link" data-target="other">Прочие особенности</a>
-                </div>
-                
-                <a href="#" class="owner-link">
-                    <i class="fas fa-user"></i> Страница владельца персонажа
-                </a>
-            </div>
-        </div>
-        
-        <div class="accordion-section">
-            <!-- Внешность -->
-            <div class="accordion-item">
-                <div class="accordion-header" data-target="appearance">
-                    <span>Описание внешности</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-body" id="appearance">
-                    <p>Описание внешности персонажа будет здесь.</p>
-                </div>
-            </div>
-            
-            <!-- Характер -->
-            <div class="accordion-item">
-                <div class="accordion-header" data-target="character">
-                    <span>Характер</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-body" id="character">
-                    <p>Старается следовать законам и правилам, но часто ставит справедливость (в своем понимании) выше закона. Дворянка, обладает всеми сопутствующими умениями, печется о репутации своего рода. В большинстве случаев старается помогать окружающим. Ревностно почитает и крайне предана императрице Арайе Брей, а потому не потерпит неуважительных высказываний в ее сторону. Малдис колеблется в дальнейших целях в жизни между карьерой специалиста-мага в магическом институте и военной службой Корвусу.</p>
-                </div>
-            </div>
-            
-            <!-- История -->
-            <div class="accordion-item">
-                <div class="accordion-header" data-target="history">
-                    <span>История</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-body" id="history">
-                    <p>Был договор между Корвусом и одним из магических институтов, согласно которому одаренных магией отпрысков знати отправляли учиться магии, с тем чтобы по завершению обучения те вернулись на родину и отслужили определенное время на благо империи. Целью обучения боевых магов- было хоть немного увеличить количество специалистов-заклинателей на службе империи. Малдис была одной из таких. Хоть ее и научили всем основным премудростям, которые должна уметь аристократка, большую часть времени она провела в стенах магического института, вдали от дома. Малдис лишь пару лет назад вернулась на родину, где ее сделали офицером.</p>
-                    
-                    <p>Авантюристы ненадежны, жадны и не слишком эффективны. Вспомогательные сотни- это те же авантюристы, только получающие регулярное жалование и питание, а также они могут рассчитывать на выдачу снаряжения и какую-никакую помощь лекарей. Обратной стороной медали является то, что вспомогательные войска не могут сами выбирать себе задания и не могут отказаться от заданий, которые выдает им начальство, а конкретно лично Малдис. Кроме того, они вынуждены следовать воинскому кодексу и нести наказания за его нарушение , поскольку формально являются не горсткой авантюристов, а частью армии Корвуса.</p>
-                    
-                    <p>Однако редко во вспомогательных войсках можно встретить представителей экзотических рас с даром магии. Большая часть состава- это заключенные, штрафники из других родов войск или просто сельские парни, желающие сменить плуг на копье и жизнь авантюристов. В мирное время вспомогательные войска занимаются противостоянием с чудовищами, выслеживанием бандитов , культистов и всех прочих угроз, на которых регулярные войска не слишком хотят тратить собственные ресурсы.</p>
-                    
-                    <p>Часто в задачи Малдис входят поиск артефактов или ликвидация угроз особо опасных монстров или преступников. Также она обладает властью выполнять функции военного офицера, согласно своему званию. В институте магии она развивала магии пространства и ветра. Формально, она не закончила обучения и хотела бы продолжить его поскольку ее редкий тип магии интересен и магам, но также ее беспокоит и безопасность жителей Корвуса.</p>
-                </div>
-            </div>
-            
-            <!-- Способности -->
-            <div class="accordion-item">
-                <div class="accordion-header" data-target="abilities">
-                    <span>Способности</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-body" id="abilities">
-                    <div class="ability-item">
-                        <div class="ability-name">
-                            <span>Телекинез</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="ability-description">
-                            <p>(основное и любимое заклинание) оперируя магией подпространства, Малдис может силой мысли поднимать и манипулировать объектами на расстоянии до 50 метров, как будто они находятся в ее руке. Для поднятия объекта и манипуляций с ним нужна свободная рука. В случае повреждения обеих рук заклинание не может быть использовано.</p>
-                            <p>Максимальный вес поднятия одной рукой соответствует 40 кг.</p>
-                            <p>Суммарно за день Малдис может использовать телекинез не более получаса.</p>
-                            <p>Целью телекинеза не могут быть объекты, которые Малдис не видит или являются живым организмом (или сплавом из нескольких металлов, чем больше веществ и примесей в материале, тем хуже работает телекинез). Однако выбить оружие из рук или толкнуть в доспех врага на расстоянии она вполне способна.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="ability-item">
-                        <div class="ability-name">
-                            <span>Скачек</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="ability-description">
-                            <p>Малдис может переместиться на расстояние до 100 метров в точку, которую видит.</p>
-                            <p>Всего у Малдис пять зарядов, для восстановления каждого из которых нужно ни меньше часа.</p>
-                            <p>При перемещении гасится гравитация и таким образом можно спастись от падения с большой высоты.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="ability-item">
-                        <div class="ability-name">
-                            <span>Карманное подпространство</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="ability-description">
-                            <p>Малдис может создать "пространственный карман" который способен вместить до 200 кг веса. Однако в подпространство не могут быть помещены живые существа. Кроме того, подпространству нужна привязка к существующему в реальном мире объекту (кольцу, палочке, ножнам, сумке и т.д). В случае уничтожения объекта, все содержимое подпространства немедленно появится в месте уничтожения.</p>
-                            <p>Малдис не может создать более одного подпространства и пользоваться им может только она. Из подпространства предмет может появляться либо в руке, либо рядом с привязаным объектом. Это заклинание помогает ей сэкономить на повозках с фуражом.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="ability-item">
-                        <div class="ability-name">
-                            <span>Ветряная сфера</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="ability-description">
-                            <p>К выбраному объекту привязывается ветряная сфера радиусом в пять метров.</p>
-                            <p>Существует в течении получаса, может начать закручиваться, создавая ветряной поток. Но чем сильнее закручивается сфера, тем меньше времени она существует (предельные возможности- сильный отталкивающий поток ветра, существует 5 мин, защищает от стрел или клинков, но не от достаточно крупных объектов или особо пробивных заклинаний).</p>
-                            <p>Сфера снабжает воздухом всех находящихся в ее пределах и уничтожается при уничтожении объекта привязки или истечению времени. Непроницаема для воздуха из вне ее пределов, а потому делает глухими тех, кто находится внутри сферы. В течении дня можно дважды применить сферу.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="ability-item">
-                        <div class="ability-name">
-                            <span>Призыв элементаля</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="ability-description">
-                            <p>Малдис тратит минуту призывая элементаля ветра. Для его создания необходимо магически сплести ядро, вокруг которого рождается элементаль. Элементаль представляет собой прозрачного гуманоида размером с орка вместо нижней части которого (от пояса до ступней) крутится вихрь ветра. Оружие попавшее в тело элементаля будет двигаться медленнее , стремясь вытолкнуться наружу и не причиняя урон порождению ветра (сам элементаль способен восстанавливать частицы своего тела, если их снесли чем-то мощным. Однако выстрел из арбалета или достаточно мощный удар даже железным оружием, может пробиться сквозь его плоть и повредить ядро, что находится на месте сердца . При повреждении ядра элементаль мгновенно рассеивается(основная сложность попасть по ядру размером с кулак).</p>
-                            <p>Элементаль атакует конусом ветра с каждой из рук, будто нанося удар кулаком, что вблизи ощущается как удар двумя молотами и с расстоянием теряет силу, полностью рассеиваясь на расстоянии 30 метров. Также элементаль способен парить на расстоянии до 30 метров над землей, перенося до сотни кг веса. Элементаль живет в течении часа и повторный призыв возможен через 8 часов.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="ability-item">
-                        <div class="ability-name">
-                            <span>Удар сквозь пространство</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="ability-description">
-                            <p>Раз в день Малдис может нанести удар клинком, рукой , ногой или любой другой частью тела - проходящей сквозь пространство на расстояние до 50 сантиметров . Визуально кажется, что в точке применения заклинания, ее клинок исчезает и появляется на некотором расстоянии. Заклинание действует до 6 секунд, после чего необходимо успеть убрать "перенесенную" часть тела или оружия назад.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Физические параметры -->
-            <div class="accordion-item">
-                <div class="accordion-header" data-target="physical">
-                    <span>Физические параметры</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-body" id="physical">
-                    <p>Малдис обучена ношению тяжелой брони и владеет копьем и мечом на достаточном уровне, чтобы обучать знающих базовые основы солдат более продвинутым навыкам. Однако сама по себе не является мастером и навряд ли прошла бы отбор в условную гвардию. Хоть латы и меч создают видимость война, основная ее сила- это магические способности, поскольку она в первую очередь -боевой маг. В остальном здоровая девушка, способная выдерживать будни солдатской жизни и влияние собственных способностей на организм. За исключением вышесказанного Малдис- обычная девушка, не обладающая сверх силой, феноменальной реакцией или несгибаемой волей. Она обладает всем спектром человеческих страхов и ей есть что терять, хоть военная подготовка и позволяет их преодолевать. Поэтому перед боем ей желательно дать немного времени чтобы настроится на схватку.</p>
-                    
-                    <p>Как и все граальды, она хрупка (в сравнении с другими расами) и обладает всеми сопутствующими уязвимостями, а ее магические навыки можно законтрить даже не обладая магией, нанеся достаточный урон конечностям. С другой стороны, она настолько хорошо умеет пользоваться своими способности, что при минимальном прикрытии , способна удивить как врагов, так и союзников.</p>
-                </div>
-            </div>
-            
-            <!-- Прочие особенности -->
-            <div class="accordion-item">
-                <div class="accordion-header" data-target="other">
-                    <span>Прочие особенности</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="accordion-body" id="other">
-                    <p>Офицер армии Корвуса, временно исполняющая обязанности командира вспомогательных войск, имеет начальника в лице придворного мага Императрицы. Может получать золото от начальства на нужды войск, но не может использовать их для собственного усиления, т.к отчитывается за каждый златник. Может вербовать в вспомогательные войска других персонажей при их желании.</p>
-                    
-                    <p><strong>Подконтрольные элементы и типы магии:</strong> Элементы: ветер, земля, свет; Типы магии: пространство и ветер.</p>
-                    
-                    <p><strong>Способ активирования заклинаний:</strong> Мысленное представление глифов</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
     
-    <!-- Другие анкеты (шаблон) -->
-    <div class="profile-container" id="character2-profile">
-        <!-- Содержимое анкеты для персонажа 2 -->
+    <div class="accordion-section">
+      <!-- Внешность -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="appearance">
+          <span>Описание внешности</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body" id="appearance">
+          <p>Описание внешности персонажа будет здесь.</p>
+        </div>
+      </div>
+      
+      <!-- Характер -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="character">
+          <span>Характер</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body" id="character">
+          <p>Старается следовать законам и правилам, но часто ставит справедливость (в своем понимании) выше закона. Дворянка, обладает всеми сопутствующими умениями, печется о репутации своего рода. В большинстве случаев старается помогать окружающим. Ревностно почитает и крайне предана императрице Арайе Брей, а потому не потерпит неуважительных высказываний в ее сторону. Малдис колеблется в дальнейших целях в жизни между карьерой специалиста-мага в магическом институте и военной службой Корвусу.</p>
+        </div>
+      </div>
+      
+      <!-- История -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="history">
+          <span>История</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body" id="history">
+          <p>Был договор между Корвусом и одним из магических институтов, согласно которому одаренных магией отпрысков знати отправляли учиться магии, с тем чтобы по завершению обучения те вернулись на родину и отслужили определенное время на благо империи. Целью обучения боевых магов- было хоть немного увеличить количество специалистов-заклинателей на службе империи. Малдис была одной из таких. Хоть ее и научили всем основным премудростям, которые должна уметь аристократка, большую часть времени она провела в стенах магического института, вдали от дома. Малдис лишь пару лет назад вернулась на родину, где ее сделали офицером.</p>
+          
+          <p>Авантюристы ненадежны, жадны и не слишком эффективны. Вспомогательные сотни- это те же авантюристы, только получающие регулярное жалование и питание, а также они могут рассчитывать на выдачу снаряжения и какую-никакую помощь лекарей. Обратной стороной медали является то, что вспомогательные войска не могут сами выбирать себе задания и не могут отказаться от заданий, которые выдает им начальство, а конкретно лично Малдис. Кроме того, они вынуждены следовать воинскому кодексу и нести наказания за его нарушение , поскольку формально являются не горсткой авантюристов, а частью армии Корвуса.</p>
+          
+          <p>Однако редко во вспомогательных войсках можно встретить представителей экзотических рас с даром магии. Большая часть состава- это заключенные, штрафники из других родов войск или просто сельские парни, желающие сменить плуг на копье и жизнь авантюристов. В мирное время вспомогательные войска занимаются противостоянием с чудовищами, выслеживанием бандитов , культистов и всех прочих угроз, на которых регулярные войска не слишком хотят тратить собственные ресурсы.</p>
+          
+          <p>Часто в задачи Малдис входят поиск артефактов или ликвидация угроз особо опасных монстров или преступников. Также она обладает властью выполнять функции военного офицера, согласно своему званию. В институте магии она развивала магии пространства и ветра. Формально, она не закончила обучения и хотела бы продолжить его поскольку ее редкий тип магии интересен и магам, но также ее беспокоит и безопасность жителей Корвуса.</p>
+        </div>
+      </div>
+      
+      <!-- Способности -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="abilities">
+          <span>Способности</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body" id="abilities">
+          <div class="ability-item">
+            <div class="ability-name">
+              <span>Телекинез</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="ability-description">
+              <p>(основное и любимое заклинание) оперируя магией подпространства, Малдис может силой мысли поднимать и манипулировать объектами на расстоянии до 50 метров, как будто они находятся в ее руке. Для поднятия объекта и манипуляций с ним нужна свободная рука. В случае повреждения обеих рук заклинание не может быть использовано.</p>
+              <p>Максимальный вес поднятия одной рукой соответствует 40 кг.</p>
+              <p>Суммарно за день Малдис может использовать телекинез не более получаса.</p>
+              <p>Целью телекинеза не могут быть объекты, которые Малдис не видит или являются живым организмом (или сплавом из нескольких металлов, чем больше веществ и примесей в материале, тем хуже работает телекинез). Однако выбить оружие из рук или толкнуть в доспех врага на расстоянии она вполне способна.</p>
+            </div>
+          </div>
+          
+          <div class="ability-item">
+            <div class="ability-name">
+              <span>Скачек</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="ability-description">
+              <p>Малдис может переместиться на расстояние до 100 метров в точку, которую видит.</p>
+              <p>Всего у Малдис пять зарядов, для восстановления каждого из которых нужно ни меньше часа.</p>
+              <p>При перемещении гасится гравитация и таким образом можно спастись от падения с большой высоты.</p>
+            </div>
+          </div>
+          
+          <div class="ability-item">
+            <div class="ability-name">
+              <span>Карманное подпространство</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="ability-description">
+              <p>Малдис может создать "пространственный карман" который способен вместить до 200 кг веса. Однако в подпространство не могут быть помещены живые существа. Кроме того, подпространству нужна привязка к существующему в реальном мире объекту (кольцу, палочке, ножнам, сумке и т.д). В случае уничтожения объекта, все содержимое подпространства немедленно появится в месте уничтожения.</p>
+              <p>Малдис не может создать более одного подпространства и пользоваться им может только она. Из подпространства предмет может появляться либо в руке, либо рядом с привязаным объектом. Это заклинание помогает ей сэкономить на повозках с фуражом.</p>
+            </div>
+          </div>
+          
+          <div class="ability-item">
+            <div class="ability-name">
+              <span>Ветряная сфера</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="ability-description">
+              <p>К выбраному объекту привязывается ветряная сфера радиусом в пять метров.</p>
+              <p>Существует в течении получаса, может начать закручиваться, создавая ветряной поток. Но чем сильнее закручивается сфера, тем меньше времени она существует (предельные возможности- сильный отталкивающий поток ветра, существует 5 мин, защищает от стрел или клинков, но не от достаточно крупных объектов или особо пробивных заклинаний).</p>
+              <p>Сфера снабжает воздухом всех находящихся в ее пределах и уничтожается при уничтожении объекта привязки или истечению времени. Непроницаема для воздуха из вне ее пределов, а потому делает глухими тех, кто находится внутри сферы. В течении дня можно дважды применить сферу.</p>
+            </div>
+          </div>
+          
+          <div class="ability-item">
+            <div class="ability-name">
+              <span>Призыв элементаля</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="ability-description">
+              <p>Малдис тратит минуту призывая элементаля ветра. Для его создания необходимо магически сплести ядро, вокруг которого рождается элементаль. Элементаль представляет собой прозрачного гуманоида размером с орка вместо нижней части которого (от пояса до ступней) крутится вихрь ветра. Оружие попавшее в тело элементаля будет двигаться медленнее , стремясь вытолкнуться наружу и не причиняя урон порождению ветра (сам элементаль способен восстанавливать частицы своего тела, если их снесли чем-то мощным. Однако выстрел из арбалета или достаточно мощный удар даже железным оружием, может пробиться сквозь его плоть и повредить ядро, что находится на месте сердца . При повреждении ядра элементаль мгновенно рассеивается(основная сложность попасть по ядру размером с кулак).</p>
+              <p>Элементаль атакует конусом ветра с каждой из рук, будто нанося удар кулаком, что вблизи ощущается как удар двумя молотами и с расстоянием теряет силу, полностью рассеиваясь на расстоянии 30 метров. Также элементаль способен парить на расстоянии до 30 метров над землей, перенося до сотни кг веса. Элементаль живет в течении часа и повторный призыв возможен через 8 часов.</p>
+            </div>
+          </div>
+          
+          <div class="ability-item">
+            <div class="ability-name">
+              <span>Удар сквозь пространство</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="ability-description">
+              <p>Раз в день Малдис может нанести удар клинком, рукой , ногой или любой другой частью тела - проходящей сквозь пространство на расстояние до 50 сантиметров . Визуально кажется, что в точке применения заклинания, ее клинок исчезает и появляется на некотором расстоянии. Заклинание действует до 6 секунд, после чего необходимо успеть убрать "перенесенную" часть тела или оружия назад.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Физические параметры -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="physical">
+          <span>Физические параметры</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body" id="physical">
+          <p>Малдис обучена ношению тяжелой брони и владеет копьем и мечом на достаточном уровне, чтобы обучать знающих базовые основы солдат более продвинутым навыкам. Однако сама по себе не является мастером и навряд ли прошла бы отбор в условную гвардию. Хоть латы и меч создают видимость война, основная ее сила- это магические способности, поскольку она в первую очередь -боевой маг. В остальном здоровая девушка, способная выдерживать будни солдатской жизни и влияние собственных способностей на организм. За исключением вышесказанного Малдис- обычная девушка, не обладающая сверх силой, феноменальной реакцией или несгибаемой волей. Она обладает всем спектром человеческих страхов и ей есть что терять, хоть военная подготовка и позволяет их преодолевать. Поэтому перед боем ей желательно дать немного времени чтобы настроится на схватку.</p>
+          
+          <p>Как и все граальды, она хрупка (в сравнении с другими расами) и обладает всеми сопутствующими уязвимостями, а ее магические навыки можно законтрить даже не обладая магией, нанеся достаточный урон конечностям. С другой стороны, она настолько хорошо умеет пользоваться своими способности, что при минимальном прикрытии , способна удивить как врагов, так и союзников.</p>
+        </div>
+      </div>
+      
+      <!-- Прочие особенности -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="other">
+          <span>Прочие особенности</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body" id="other">
+          <p>Офицер армии Корвуса, временно исполняющая обязанности командира вспомогательных войск, имеет начальника в лице придворного мага Императрицы. Может получать золото от начальства на нужды войск, но не может использовать их для собственного усиления, т.к отчитывается за каждый златник. Может вербовать в вспомогательные войска других персонажей при их желании.</p>
+          
+          <p><strong>Подконтрольные элементы и типы магии:</strong> Элементы: ветер, земля, свет; Типы магии: пространство и ветер.</p>
+          
+          <p><strong>Способ активирования заклинаций:</strong> Мысленное представление глифов</p>
+        </div>
+      </div>
     </div>
+  </div>
+  
+  <!-- Другие анкеты (шаблон) -->
+  <div class="profile-container" id="character2-profile">
+    <!-- Содержимое анкеты для персонажа 2 -->
+  </div>
+</main>
+
+<style>
+.page-title {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 2.5rem;
+    color: var(--nair-accent);
+    text-shadow: 0 0 10px rgba(212, 237, 237, 0.3);
+}
+
+/* Кнопки персонажей */
+.character-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 0 15px;
+}
+
+.character-btn {
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--nair-border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+.character-btn:hover {
+    transform: translateY(-5px);
+    border-color: var(--nair-border-dark);
+    box-shadow: 0 8px 25px var(--nair-shadow);
+}
+
+.character-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(10, 18, 18, 0.9), transparent);
+}
+
+.character-name {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--nair-text);
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Анимация смены страницы */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--nair-bg);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.8s ease;
+}
+
+.page-transition.active {
+    transform: translateX(0);
+}
+
+.transition-image {
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(212, 237, 237, 0.3);
+}
+
+/* Контейнер анкеты */
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: none;
+}
+
+.profile-container.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.profile-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-art {
+    flex: 0 0 400px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    border: 2px solid var(--nair-border);
+    box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+.profile-info {
+    flex: 1;
+    background: var(--nair-card-bg);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--nair-border);
+}
+
+.profile-name {
+    font-size: 2rem;
+    color: var(--nair-accent);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--nair-border-light);
+    padding-bottom: 10px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.profile-detail {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.detail-label {
+    font-weight: bold;
+    min-width: 150px;
+    color: var(--nair-accent);
+}
+
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.quick-link {
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.quick-link:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+.accordion-section {
+    margin-top: 30px;
+}
+
+.accordion-item {
+    background: var(--nair-card-bg);
+    border: 1px solid var(--nair-border);
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 15px 20px;
+    background: var(--nair-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: var(--nair-hover);
+}
+
+.accordion-body {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-body.active {
+    padding: 20px;
+    max-height: 1000px;
+}
+
+.ability-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--nair-border-light);
+    padding-bottom: 15px;
+}
+
+.ability-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ability-name {
+    font-weight: bold;
+    color: var(--nair-accent);
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ability-description {
+    padding-top: 10px;
+    display: none;
+}
+
+.ability-description.active {
+    display: block;
+}
+
+.owner-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.owner-link:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.back-button:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+/* Скрываем главную страницу при просмотре анкеты */
+.active-page {
+    display: block;
+}
+
+.profile-container.active ~ #main-page {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .profile-header {
+        flex-direction: column;
+    }
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Элементы страницы
-            const mainPage = document.getElementById('main-page');
-            const pageTransition = document.getElementById('page-transition');
-            const transitionImage = document.getElementById('transition-image');
-            const backButton = document.getElementById('back-button');
+    .profile-art {
+        flex: 0 0 300px;
+        height: 400px;
+    }
+    
+    .character-btn {
+        width: 250px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .character-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .quick-links {
+        justify-content: center;
+    }
+    
+    .right-bottom-buttons {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 30px;
+        text-align: center;
+    }
+    
+    .container-buttons {
+        align-items: center;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Элементы страницы
+    const mainPage = document.getElementById('main-page');
+    const pageTransition = document.getElementById('page-transition');
+    const transitionImage = document.getElementById('transition-image');
+    const backButton = document.getElementById('back-button');
+    
+    // Обработчики для кнопок персонажей
+    document.querySelectorAll('.character-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const characterId = this.getAttribute('data-character');
+            const characterImage = this.getAttribute('data-image-url');
             
-            // Обработчики для кнопок персонажей
-            document.querySelectorAll('.character-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const characterId = this.getAttribute('data-character');
-                    const characterImage = this.style.backgroundImage;
-                    
-                    // Устанавливаем изображение для анимации
-                    transitionImage.style.backgroundImage = characterImage;
-                    
-                    // Запускаем анимацию перехода
-                    pageTransition.classList.add('active');
-                    
-                    // После завершения анимации показываем анкету
-                    setTimeout(() => {
-                        mainPage.classList.remove('active-page');
-                        document.getElementById(`${characterId}-profile`).classList.add('active');
-                        
-                        // Завершаем анимацию
-                        setTimeout(() => {
-                            pageTransition.classList.remove('active');
-                        }, 100);
-                    }, 800);
-                });
-            });
+            // Устанавливаем изображение для анимации
+            transitionImage.style.backgroundImage = characterImage;
             
-            // Обработчик для кнопки "Назад"
-            backButton.addEventListener('click', function(e) {
-                e.preventDefault();
+            // Запускаем анимацию перехода
+            pageTransition.classList.add('active');
+            
+            // После завершения анимации показываем анкету
+            setTimeout(() => {
+                mainPage.style.display = 'none';
+                document.getElementById(`${characterId}-profile`).classList.add('active');
                 
-                // Скрываем все анкеты
-                document.querySelectorAll('.profile-container').forEach(container => {
-                    container.classList.remove('active');
-                });
-                
-                // Показываем главную страницу
-                mainPage.classList.add('active-page');
-            });
+                // Завершаем анимацию
+                setTimeout(() => {
+                    pageTransition.classList.remove('active');
+                }, 100);
+            }, 800);
+        });
+    });
+    
+    // Обработчик для кнопки "Назад"
+    backButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Скрываем все анкеты
+        document.querySelectorAll('.profile-container').forEach(container => {
+            container.classList.remove('active');
+        });
+        
+        // Показываем главную страницу
+        mainPage.style.display = 'block';
+    });
+    
+    // Обработчики для аккордеона
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const targetBody = document.getElementById(targetId);
+            const icon = this.querySelector('i');
             
-            // Обработчики для аккордеона
-            document.querySelectorAll('.accordion-header').forEach(header => {
-                header.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-target');
-                    const targetBody = document.getElementById(targetId);
-                    const icon = this.querySelector('i');
-                    
-                    // Переключаем активное состояние
-                    targetBody.classList.toggle('active');
-                    
-                    // Меняем иконку
-                    if (targetBody.classList.contains('active')) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    } else {
-                        icon.classList.remove('fa-chevron-up');
-                        icon.classList.add('fa-chevron-down');
-                    }
-                });
-            });
+            // Переключаем активное состояние
+            targetBody.classList.toggle('active');
             
-            // Обработчики для быстрых ссылок
-            document.querySelectorAll('.quick-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('data-target');
-                    const targetHeader = document.querySelector(`.accordion-header[data-target="${targetId}"]`);
-                    
-                    // Открываем соответствующий раздел
-                    targetHeader.click();
-                    
-                    // Прокручиваем к разделу
-                    document.getElementById(targetId).scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                });
-            });
+            // Меняем иконку
+            if (targetBody.classList.contains('active')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+    
+    // Обработчики для быстрых ссылок
+    document.querySelectorAll('.quick-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            const targetHeader = document.querySelector(`.accordion-header[data-target="${targetId}"]`);
             
-            // Обработчики для способностей
-            document.querySelectorAll('.ability-name').forEach(ability => {
-                ability.addEventListener('click', function() {
-                    const description = this.nextElementSibling;
-                    const icon = this.querySelector('i');
-                    
-                    // Переключаем активное состояние
-                    description.classList.toggle('active');
-                    
-                    // Меняем иконку
-                    if (description.classList.contains('active')) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    } else {
-                        icon.classList.remove('fa-chevron-up');
-                        icon.classList.add('fa-chevron-down');
-                    }
-                });
+            // Открываем соответствующий раздел
+            targetHeader.click();
+            
+            // Прокручиваем к разделу
+            document.getElementById(targetId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
         });
-    </script>
-</body>
-</html>
+    });
+    
+    // Обработчики для способностей
+    document.querySelectorAll('.ability-name').forEach(ability => {
+        ability.addEventListener('click', function() {
+            const description = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            // Переключаем активное состояние
+            description.classList.toggle('active');
+            
+            // Меняем иконку
+            if (description.classList.contains('active')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
