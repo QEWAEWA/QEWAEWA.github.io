@@ -513,3 +513,332 @@ body {
     text-shadow: 2px 2px 8px rgba(212, 237, 237, 0.3);
   }
 }
+
+
+.page-title {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 2.5rem;
+    color: var(--nair-accent);
+    text-shadow: 0 0 10px rgba(212, 237, 237, 0.3);
+}
+
+/* Кнопки персонажей */
+.character-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 0 15px;
+}
+
+.character-btn {
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--nair-border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+.character-btn:hover {
+    transform: translateY(-5px);
+    border-color: var(--nair-border-dark);
+    box-shadow: 0 8px 25px var(--nair-shadow);
+}
+
+.character-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(10, 18, 18, 0.9), transparent);
+}
+
+.character-name {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--nair-text);
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Анимация смены страницы */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--nair-bg);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.8s ease;
+}
+
+.page-transition.active {
+    transform: translateX(0);
+}
+
+.transition-image {
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(212, 237, 237, 0.3);
+}
+
+/* Контейнер анкеты */
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: none;
+}
+
+.profile-container.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.profile-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-art {
+    flex: 0 0 400px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    border: 2px solid var(--nair-border);
+    box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+.profile-info {
+    flex: 1;
+    background: var(--nair-card-bg);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--nair-border);
+}
+
+.profile-name {
+    font-size: 2rem;
+    color: var(--nair-accent);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--nair-border-light);
+    padding-bottom: 10px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.profile-detail {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.detail-label {
+    font-weight: bold;
+    min-width: 150px;
+    color: var(--nair-accent);
+}
+
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.quick-link {
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.quick-link:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+.accordion-section {
+    margin-top: 30px;
+}
+
+.accordion-item {
+    background: var(--nair-card-bg);
+    border: 1px solid var(--nair-border);
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 15px 20px;
+    background: var(--nair-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: var(--nair-hover);
+}
+
+.accordion-body {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-body.active {
+    padding: 20px;
+    max-height: 1000px;
+}
+
+.ability-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--nair-border-light);
+    padding-bottom: 15px;
+}
+
+.ability-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ability-name {
+    font-weight: bold;
+    color: var(--nair-accent);
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ability-description {
+    padding-top: 10px;
+    display: none;
+}
+
+.ability-description.active {
+    display: block;
+}
+
+.owner-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.owner-link:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.back-button:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+/* Скрываем главную страницу при просмотре анкеты */
+.active-page {
+    display: block;
+}
+
+.profile-container.active ~ #main-page {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .profile-header {
+        flex-direction: column;
+    }
+    
+    .profile-art {
+        flex: 0 0 300px;
+        height: 400px;
+    }
+    
+    .character-btn {
+        width: 250px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .character-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .quick-links {
+        justify-content: center;
+    }
+    
+    .right-bottom-buttons {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 30px;
+        text-align: center;
+    }
+    
+    .container-buttons {
+        align-items: center;
+    }
+}
