@@ -8,11 +8,15 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: 🚀 Checkout code
       uses: actions/checkout@v4
-      
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
@@ -27,13 +31,13 @@ jobs:
       run: |
         python generate_static.py
         
-    - name: 📁 List generated files
+    - name: 📤 Deploy to main branch
       run: |
-        ls -la docs/
-        
-    - name: 🚀 Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        force_orphan: true
+        cd docs
+        git init
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Deploy to GitHub Pages" -a
+        git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        git push origin main:main --force
