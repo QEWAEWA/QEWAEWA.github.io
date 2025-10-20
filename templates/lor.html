@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-page">
+    <h1>Лор мира Наир</h1>
+    <p>Здесь будет информация о мире, истории, расах и фракциях.</p>
+    
+    <div class="lore-section">
+        <h2>История мира</h2>
+        <p>Наир - мир, переживший великую катастрофу...</p>
+    </div>
+    
+    <div class="lore-section">
+        <h2>Расы</h2>
+        <p>Люди, эльфы, дворфы и другие народы населяют этот мир...</p>
+    </div>
+</div>
+
+<!-- Ссылка на ВК -->
+<a href="https://vk.com/club182026147" class="top-left-link">
+    <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="VK">
+</a>
+{% endblock %}

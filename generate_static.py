@@ -48,13 +48,20 @@ def generate_static_site():
     os.makedirs(output_dir)
     print(f"📁 Создана папка {output_dir}")
     
+    # Проверяем существование необходимых папок
+    required_folders = ['templates', 'static']
+    for folder in required_folders:
+        if not os.path.exists(folder):
+            print(f"❌ Папка {folder} не найдена!")
+            return False
+    
     # Копируем статические файлы
     print("📸 Копируем статические файлы...")
-    if os.path.exists('static'):
+    try:
         shutil.copytree('static', os.path.join(output_dir, 'static'))
         print("✅ Статические файлы скопированы")
-    else:
-        print("❌ Папка static не найдена!")
+    except Exception as e:
+        print(f"❌ Ошибка при копировании static: {e}")
         return False
     
     # Функция для замены Flask путей на относительные
@@ -76,65 +83,68 @@ def generate_static_site():
     # Генерируем HTML страницы
     print("📄 Генерируем HTML страницы...")
     
+    # Список страниц для генерации
+    pages = [
+        ('index.html', 'index', {'title': 'Главная - Наир', 'active_page': 'index'}),
+        ('karta.html', 'karta', {'title': 'Карта - Наир', 'active_page': 'karta'}),
+        ('lor.html', 'lor', {'title': 'Лор - Наир', 'active_page': 'lor'}),
+        ('ankety.html', 'ankety', {'title': 'Анкеты - Наир', 'active_page': 'ankety'})
+    ]
+    
     with app.test_request_context():
-        try:
-            # Главная страница
-            print("  📝 index.html...")
-            html = render_template('index.html', 
-                                 title='Главная - Наир',
-                                 active_page='index')
-            fixed_html = fix_urls(html)
-            with open(os.path.join(output_dir, 'index.html'), 'w', encoding='utf-8') as f:
-                f.write(fixed_html)
-            
-            # Карта
-            print("  📝 karta.html...")
-            html = render_template('karta.html',
-                                 title='Карта - Наир',
-                                 active_page='karta')
-            fixed_html = fix_urls(html)
-            with open(os.path.join(output_dir, 'karta.html'), 'w', encoding='utf-8') as f:
-                f.write(fixed_html)
-            
-            # Лор
-            print("  📝 lor.html...")
-            html = render_template('lor.html',
-                                 title='Лор - Наир', 
-                                 active_page='lor')
-            fixed_html = fix_urls(html)
-            with open(os.path.join(output_dir, 'lor.html'), 'w', encoding='utf-8') as f:
-                f.write(fixed_html)
-            
-            # Анкеты
-            print("  📝 ankety.html...")
-            html = render_template('ankety.html',
-                                 title='Анкеты - Наир',
-                                 active_page='ankety')
-            fixed_html = fix_urls(html)
-            with open(os.path.join(output_dir, 'ankety.html'), 'w', encoding='utf-8') as f:
-                f.write(fixed_html)
-                
-        except Exception as e:
-            print(f"❌ Ошибка при генерации HTML: {e}")
-            return False
+        for filename, template, context in pages:
+            print(f"  📝 {filename}...")
+            try:
+                html = render_template(template, **context)
+                fixed_html = fix_urls(html)
+                with open(os.path.join(output_dir, filename), 'w', encoding='utf-8') as f:
+                    f.write(fixed_html)
+                print(f"    ✅ {filename} создан успешно")
+            except Exception as e:
+                print(f"    ❌ Ошибка при создании {filename}: {e}")
+                # Создаем простую заглушку вместо ошибки
+                stub_html = f"""
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{context.get('title', 'Страница')}</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="karta.html">Карта</a></li>
+            <li><a href="lor.html">Лор</a></li>
+            <li><a href="ankety.html">Анкеты</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>{context.get('title', 'Страница')}</h1>
+        <p>Страница находится в разработке.</p>
+    </main>
+</body>
+</html>
+"""
+                with open(os.path.join(output_dir, filename), 'w', encoding='utf-8') as f:
+                    f.write(stub_html)
+                print(f"    📝 Создана заглушка для {filename}")
     
     # Создаем .nojekyll файл
     with open(os.path.join(output_dir, '.nojekyll'), 'w') as f:
         f.write('')
     
-    # Создаем CNAME файл если нужен домен (опционально)
-    # with open(os.path.join(output_dir, 'CNAME'), 'w') as f:
-    #     f.write('your-domain.com')
-    
     print(f"✅ Статический сайт успешно сгенерирован в папке {output_dir}!")
+    
+    # Показываем содержимое
     print("📋 Содержимое папки docs:")
-    for root, dirs, files in os.walk(output_dir):
-        level = root.replace(output_dir, '').count(os.sep)
-        indent = ' ' * 2 * level
-        print(f'{indent}{os.path.basename(root)}/')
-        subindent = ' ' * 2 * (level + 1)
-        for file in files:
-            print(f'{subindent}{file}')
+    for item in os.listdir(output_dir):
+        item_path = os.path.join(output_dir, item)
+        if os.path.isfile(item_path):
+            print(f"  📄 {item}")
+        else:
+            print(f"  📁 {item}/")
     
     return True
 

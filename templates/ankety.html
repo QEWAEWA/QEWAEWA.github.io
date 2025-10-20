@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-page">
+    <h1>Анкеты персонажей</h1>
+    <p>Здесь находятся анкеты игроков нашего мира.</p>
+    
+    <div class="characters-list">
+        <div class="character-card">
+            <h3>Имя персонажа 1</h3>
+            <p>Раса: Человек</p>
+            <p>Класс: Воин</p>
+        </div>
+        
+        <div class="character-card">
+            <h3>Имя персонажа 2</h3>
+            <p>Раса: Эльф</p>
+            <p>Класс: Маг</p>
+        </div>
+    </div>
+</div>
+
+<!-- Ссылка на ВК -->
+<a href="https://vk.com/club182026147" class="top-left-link">
+    <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="VK">
+</a>
+{% endblock %}

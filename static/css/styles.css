@@ -200,3 +200,39 @@ main {
   max-width: 100%;
   height: auto;
 }
+
+/* Стили для страниц контента */
+.content-page {
+    padding: 20px;
+    max-width: 800px;
+}
+
+.lore-section, .characters-list {
+    margin-bottom: 30px;
+}
+
+.character-card {
+    border: 1px solid rgba(212, 237, 222, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(33, 40, 33, 0.5);
+}
+
+.character-card h3 {
+    margin-top: 0;
+    color: #d4eded;
+}
+
+/* Адаптивность для карты */
+@media (max-width: 768px) {
+    .map-container {
+        width: 100%;
+        height: 400px;
+    }
+    
+    nav {
+        width: 250px;
+        padding-left: 20px;
+    }
+}
