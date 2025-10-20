@@ -18,9 +18,45 @@
 <!-- Правый блок - основной контент -->
 <main>
   <div class="map-container">
-    <!-- Здесь будет ваша карта -->
     <img src="{{ url_for('static', filename='photo/Karta.png') }}" alt="Карта Наира" class="map-image">
+    
+    <!-- Кнопки управления картой -->
+    <div class="map-controls">
+      <button class="map-btn" onclick="resetMap()" title="Сбросить">⟲</button>
+      <button class="map-btn" onclick="zoomIn()" title="Увеличить">+</button>
+      <button class="map-btn" onclick="zoomOut()" title="Уменьшить">-</button>
+    </div>
   </div>
-  
 </main>
+
+<!-- Подключение скрипта карты -->
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+<script>
+// Глобальные функции для кнопок
+function resetMap() {
+  if (window.currentMap) {
+    window.currentMap.resetTransform();
+  }
+}
+
+function zoomIn() {
+  if (window.currentMap) {
+    const rect = window.currentMap.container.getBoundingClientRect();
+    window.currentMap.zoom(0.5, rect.width / 2, rect.height / 2);
+  }
+}
+
+function zoomOut() {
+  if (window.currentMap) {
+    const rect = window.currentMap.container.getBoundingClientRect();
+    window.currentMap.zoom(-0.5, rect.width / 2, rect.height / 2);
+  }
+}
+</script>
+
+<!-- Ссылка на ВК -->
+<a href="https://vk.com/club182026147" class="top-left-link">
+  <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="VK">
+</a>
 {% endblock %}
