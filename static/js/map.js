@@ -10,7 +10,7 @@ class InteractiveMap {
         this.translateY = 0;
         this.scale = 1;
         
-        this.minScale = 0.8;
+        this.minScale = 0.3;
         this.maxScale = 10;
         
         this.initialDistance = 0;

@@ -245,7 +245,7 @@ main {
 @media (max-width: 768px) {
     .map-container {
         height: 50vh;
-        min-height: 300px;
+        min-height: 600px;
         margin: 10px;
     }
     
