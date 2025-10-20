@@ -3,21 +3,21 @@
   src: url('../photo/FiraSans-Italic.ttf') format('truetype');
 }
 
-/* Обновлённая цветовая схема */
+/* Обновлённая цветовая схема на основе текстовых цветов */
 :root {
-  --nair-bg: #0d1a1a;
-  --nair-nav-bg: #0f1f1f;
-  --nair-card-bg: #1a2a2a;
+  --nair-bg: #0a1212;
+  --nair-nav-bg: #0c1515;
+  --nair-card-bg: #101a1a;
   --nair-text: #e4ecec;
   --nair-accent: #d4eded;
-  --nair-border: rgba(212, 237, 237, 0.6);
-  --nair-border-light: rgba(212, 237, 237, 0.3);
-  --nair-border-dark: rgba(212, 237, 237, 0.8);
-  --nair-primary: #2a3d3d;
-  --nair-hover: rgba(212, 237, 237, 0.15);
-  --nair-shadow: rgba(0, 0, 0, 0.5);
-  --nair-button-bg: #1e2e2e;
-  --nair-button-hover: #2a3d3d;
+  --nair-border: rgba(212, 237, 237, 0.4);
+  --nair-border-light: rgba(212, 237, 237, 0.2);
+  --nair-border-dark: rgba(212, 237, 237, 0.6);
+  --nair-primary: #1a2525;
+  --nair-hover: rgba(212, 237, 237, 0.08);
+  --nair-shadow: rgba(0, 0, 0, 0.6);
+  --nair-button-bg: rgba(212, 237, 237, 0.05);
+  --nair-button-hover: rgba(212, 237, 237, 0.1);
 }
 
 body {
@@ -36,7 +36,7 @@ body {
   background-color: var(--nair-nav-bg);
   padding: 25px 20px;
   box-sizing: border-box;
-  border-right: 1px solid var(--nair-border);
+  border-right: 1px solid var(--nair-border-light);
   padding-left: 40px;
   backdrop-filter: blur(10px);
 }
@@ -57,7 +57,7 @@ body {
   text-decoration: none;
   display: block;
   padding: 12px 20px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
   background: transparent;
   position: relative;
@@ -68,38 +68,40 @@ body {
   border: 1px solid transparent;
 }
 
-.nav-link::after {
+.nav-link::before {
   content: "";
   position: absolute;
-  bottom: 0;
   left: 0;
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(90deg, var(--nair-border), transparent);
-  display: none;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--nair-accent);
+  border-radius: 2px;
+  transition: height 0.3s ease;
 }
 
 .nav-link.active {
   background: var(--nair-primary);
-  border: 1px solid var(--nair-border-light);
-  box-shadow: 0 2px 8px var(--nair-shadow);
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 2px 12px var(--nair-shadow);
 }
 
-.nav-link.active::after {
-  display: block;
+.nav-link.active::before {
+  height: 70%;
 }
 
 .nav-link:hover {
   background: var(--nair-hover);
-  transform: translateX(8px);
+  transform: translateX(5px);
   border: 1px solid var(--nair-border-light);
 }
 
 /* ===== ПОИСК ===== */
 .search-input {
-  background: rgba(212, 237, 237, 0.08);
+  background: rgba(212, 237, 237, 0.03);
   border: 1px solid var(--nair-border-light);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 15px 20px;
   outline: none;
   color: var(--nair-text);
@@ -111,18 +113,18 @@ body {
 }
 
 .search-input::placeholder {
-  color: rgba(212, 237, 237, 0.5);
+  color: rgba(212, 237, 237, 0.4);
 }
 
 .search-input:focus {
   border-color: var(--nair-border);
-  box-shadow: 0 0 0 2px rgba(212, 237, 237, 0.15);
-  background: rgba(212, 237, 237, 0.12);
+  box-shadow: 0 0 0 2px rgba(212, 237, 237, 0.1);
+  background: rgba(212, 237, 237, 0.05);
 }
 
 .suggestions {
   border: 1px solid var(--nair-border);
-  border-radius: 6px;
+  border-radius: 8px;
   max-height: 200px;
   overflow-y: auto;
   position: absolute;
@@ -170,7 +172,7 @@ body {
   background-position: center;
   border-radius: 12px;
   overflow: hidden;
-  border: 2px solid var(--nair-border);
+  border: 1px solid var(--nair-border);
   position: relative;
   box-shadow: 0 8px 32px var(--nair-shadow);
   backdrop-filter: blur(5px);
@@ -197,10 +199,10 @@ body {
   text-align: left;
   z-index: 2;
   font-family: 'Fira Sans', sans-serif;
-  background: rgba(13, 26, 26, 0.85);
+  background: rgba(10, 18, 18, 0.9);
   padding: 20px;
-  border-radius: 10px;
-  border: 1px solid var(--nair-border-light);
+  border-radius: 8px;
+  border: 1px solid var(--nair-border);
   backdrop-filter: blur(10px);
 }
 
@@ -257,7 +259,7 @@ body {
   gap: 10px;
   background: var(--nair-button-bg);
   border: 1px solid var(--nair-border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 12px 20px;
   color: var(--nair-text);
   text-decoration: none;
@@ -302,14 +304,14 @@ body {
   height: auto;
   display: block;
   transition: transform 0.3s ease;
-  border-radius: 10px;
-  border: 1px solid var(--nair-border-light);
+  border-radius: 8px;
+  border: 1px solid var(--nair-border);
   box-shadow: 0 4px 12px var(--nair-shadow);
 }
 
 .top-left-link:hover img {
   transform: scale(1.15);
-  border-color: var(--nair-border);
+  border-color: var(--nair-border-dark);
 }
 
 /* ===== КАРТА ===== */
@@ -318,7 +320,7 @@ body {
   max-width: 1200px;
   height: 75vh;
   min-height: 650px;
-  border: 2px solid var(--nair-border);
+  border: 1px solid var(--nair-border);
   border-radius: 12px;
   overflow: hidden;
   position: relative;
@@ -360,8 +362,8 @@ body {
   width: 55px;
   height: 55px;
   background: var(--nair-button-bg);
-  border: 2px solid var(--nair-border);
-  border-radius: 10px;
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
   color: var(--nair-text);
   font-size: 24px;
   font-weight: bold;
@@ -416,7 +418,7 @@ body {
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(212, 237, 237, 0.4);
+    box-shadow: 0 0 0 0 rgba(212, 237, 237, 0.3);
   }
   70% {
     box-shadow: 0 0 0 8px rgba(212, 237, 237, 0);
@@ -435,7 +437,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   }
   to {
-    text-shadow: 2px 2px 8px rgba(212, 237, 237, 0.4);
+    text-shadow: 2px 2px 8px rgba(212, 237, 237, 0.3);
   }
 }
 
@@ -445,7 +447,7 @@ body {
 .card-custom {
   background: var(--nair-card-bg);
   border: 1px solid var(--nair-border);
-  border-radius: 12px;
+  border-radius: 10px;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
 }
@@ -461,11 +463,12 @@ body {
   border-bottom: 1px solid var(--nair-border);
   color: var(--nair-accent);
   font-family: 'Fira Sans', sans-serif;
+  padding: 15px 20px;
 }
 
 /* Кнопки для других страниц */
 .original-btn {
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid var(--nair-border);
   padding: 0 25px;
   text-decoration: none;
@@ -504,6 +507,20 @@ body {
   z-index: 1000;
 }
 
+/* Новые стили для разделителей и границ */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--nair-border), transparent);
+  margin: 20px 0;
+  border: none;
+}
+
+.border-gradient {
+  border: 1px solid transparent;
+  background: linear-gradient(var(--nair-card-bg), var(--nair-card-bg)) padding-box,
+              linear-gradient(135deg, var(--nair-border-light), var(--nair-border)) border-box;
+}
+
 /* ===== АДАПТИВНОСТЬ ===== */
 @media (max-width: 768px) {
   body {
@@ -514,7 +531,7 @@ body {
     width: 100%;
     padding-left: 20px;
     border-right: none;
-    border-bottom: 1px solid var(--nair-border);
+    border-bottom: 1px solid var(--nair-border-light);
   }
   
   .nav-list {
