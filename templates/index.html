@@ -10,8 +10,8 @@
         <input type="text" id="search" placeholder="Поиск..." autocomplete="off" class="search-input" />
         <div id="suggestions" class="suggestions"></div>
     </li>
-    <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-    <li class="nav-item"><a href="karta.html" class="nav-link active">Карта</a></li>
+    <li class="nav-item"><a href="index.html" class="nav-link active">Главная</a></li>
+    <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
     <li class="nav-item"><a href="lor.html" class="nav-link">Лор</a></li>
     <li class="nav-item"><a href="ankety.html" class="nav-link">Анкеты</a></li>
   </ul>
@@ -19,21 +19,39 @@
 
 <!-- Правый блок - основной контент -->
 <main class="original-main">
-  <!-- Кнопка с фоном -->
+  <!-- Контейнер с фоном -->
   <div class="button-background">
     <span class="button-text">Добро пожаловать в Наир</span>
+    
+    <!-- Текстовая информация в правом нижнем углу контейнера -->
+    <div class="container-info">
+      <div class="info-text">
+        <div class="info-line">Средневековье, фэнтези</div>
+        <div class="info-line">Наир, Бранн</div>
+        <div class="info-line">2018-2025 | Текстовая ролевая | NC-21</div>
+      </div>
+      
+      <!-- Три кнопки с иконками -->
+      <div class="container-buttons">
+        <a href="lor.html" class="container-btn">
+          <i class="bi bi-book"></i>
+          <span>Лор</span>
+        </a>
+        <a href="ankety.html" class="container-btn">
+          <i class="bi bi-people"></i>
+          <span>Персонажи</span>
+        </a>
+        <a href="https://vk.com/club182026147" class="container-btn">
+          <i class="bi bi-chat-dots"></i>
+          <span>VK</span>
+        </a>
+      </div>
+    </div>
   </div>
   
   <!-- Ссылка на ВК в левом верхнем углу -->
   <a href="https://vk.com/club182026147" class="top-left-link">
     <img src="static/photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png" alt="VK">
   </a>
-  
-  <!-- Три ссылки в правом нижнем углу -->
-  <div class="bottom-right-links">
-    <a id="button1" class="btn original-btn" href="lor.html">Лор</a>
-    <a id="button2" class="btn original-btn" href="ankety.html">Персонажи</a>
-    <a id="button3" class="btn original-btn" href="https://vk.com/club182026147">VK</a>
-  </div>
 </main>
 {% endblock %}

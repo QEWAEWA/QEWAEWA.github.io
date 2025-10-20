@@ -149,6 +149,73 @@ body {
   font-weight: 300;
 }
 
+/* ===== КОНТЕЙНЕР С ИНФОРМАЦИЕЙ И КНОПКАМИ ===== */
+.container-info {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  text-align: right;
+  z-index: 2;
+}
+
+.info-text {
+  margin-bottom: 20px;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.info-line {
+  color: var(--nair-text);
+  font-size: 0.9em;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin-bottom: 3px;
+  opacity: 0.9;
+}
+
+.info-line:first-child {
+  font-size: 1em;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.container-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(33, 40, 33, 0.9);
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--nair-text);
+  text-decoration: none;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.container-btn:hover {
+  transform: translateX(-5px);
+  background: rgba(33, 40, 33, 1);
+  border-color: rgba(212, 237, 222, 0.7);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.container-btn i {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
 /* Ссылка на ВК */
 .top-left-link {
   position: absolute;
@@ -175,7 +242,7 @@ body {
   transform: scale(1.2);
 }
 
-/* Три ссылки в правом нижнем углу */
+/* Три ссылки в правом нижнем углу (оставлены для других страниц) */
 .bottom-right-links {
   display: flex;
   position: fixed;
@@ -358,6 +425,33 @@ body {
     left: 15px;
   }
   
+  .container-info {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .info-text {
+    margin-bottom: 15px;
+  }
+  
+  .info-line {
+    font-size: 0.8em;
+  }
+  
+  .info-line:first-child {
+    font-size: 0.9em;
+  }
+  
+  .container-btn {
+    min-width: 100px;
+    padding: 6px 12px;
+    font-size: 0.8em;
+  }
+  
+  .container-btn i {
+    font-size: 1em;
+  }
+  
   .top-left-link {
     top: 3%;
     left: 3%;
@@ -409,6 +503,29 @@ body {
     font-size: 2.5em;
     top: 120px;
     left: 40px;
+  }
+  
+  .container-info {
+    bottom: 40px;
+    right: 40px;
+  }
+  
+  .info-text {
+    margin-bottom: 25px;
+  }
+  
+  .info-line {
+    font-size: 1em;
+  }
+  
+  .info-line:first-child {
+    font-size: 1.1em;
+  }
+  
+  .container-btn {
+    min-width: 140px;
+    padding: 10px 20px;
+    font-size: 1em;
   }
   
   .original-btn {
