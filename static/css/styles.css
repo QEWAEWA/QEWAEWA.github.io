@@ -189,8 +189,8 @@ body {
   padding-top: 8px;
 }
 
-/* ===== КОНТЕЙНЕР С КНОПКАМИ В ПРАВОМ НИЖНЕМ УГЛУ ===== */
-.container-info {
+/* ===== КНОПКИ В ПРАВОМ НИЖНЕМ УГЛУ ===== */
+.right-bottom-buttons {
   position: absolute;
   bottom: 30px;
   right: 30px;
@@ -475,7 +475,7 @@ body {
     font-size: 0.8em;
   }
   
-  .container-info {
+  .right-bottom-buttons {
     bottom: 20px;
     right: 20px;
   }
@@ -560,7 +560,7 @@ body {
     font-size: 1em;
   }
   
-  .container-info {
+  .right-bottom-buttons {
     bottom: 40px;
     right: 40px;
   }
