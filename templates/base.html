@@ -1,24 +1,86 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Наир - текстовая фэнтези ролевая{% endblock %}</title>
     
-    <!-- Bootstrap 5 CSS CDN -->
+    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Ваши кастомные стили -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Кастомные стили -->
+    <link rel="stylesheet" href="static/css/styles.css">
+    <!-- Favicon -->
+    <link rel="icon" href="static/photo/favicon.ico" type="image/x-icon">
 </head>
-<body class="d-flex">
-    {% block content %}{% endblock %}
-    
-    <!-- Bootstrap JS Bundle -->
+<body class="d-flex flex-column flex-lg-row">
+    <!-- Боковая панель -->
+    <nav class="sidebar d-flex flex-column">
+        <div class="p-4 flex-grow-1">
+            <!-- Бренд -->
+            <div class="mb-5">
+                <h1 class="h4 text-accent mb-0 display-nair">
+                    <i class="bi bi-compass me-2"></i>Наир
+                </h1>
+                <small class="text-muted">Текстовая фэнтези ролевая</small>
+            </div>
+
+            <!-- Поиск -->
+            <div class="mb-4">
+                <div class="search-container">
+                    <input type="text" id="search" class="form-control search-input" 
+                           placeholder="Поиск по миру..." autocomplete="off">
+                    <div id="suggestions" class="suggestions mt-2"></div>
+                </div>
+            </div>
+
+            <!-- Навигация -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link nav-link-custom {% if active_page == 'index' %}active{% endif %}">
+                        <i class="bi bi-house me-3"></i>Главная
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="karta.html" class="nav-link nav-link-custom {% if active_page == 'karta' %}active{% endif %}">
+                        <i class="bi bi-map me-3"></i>Карта мира
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="lor.html" class="nav-link nav-link-custom {% if active_page == 'lor' %}active{% endif %}">
+                        <i class="bi bi-book me-3"></i>Лор и история
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="ankety.html" class="nav-link nav-link-custom {% if active_page == 'ankety' %}active{% endif %}">
+                        <i class="bi bi-person me-3"></i>Анкеты
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Футер сайдбара -->
+        <div class="p-4 border-top border-nair">
+            <small class="text-muted">© 2024 Мир Наир</small>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="main-content flex-grow-1">
+        <div class="container-fluid p-4">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- VK кнопка -->
+    <a href="https://vk.com/club182026147" class="vk-button" title="Наша группа ВК">
+        <img src="static/photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png" alt="VK" class="rounded-3 shadow">
+    </a>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Ваши скрипты -->
-    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/button.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

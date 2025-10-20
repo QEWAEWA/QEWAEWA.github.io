@@ -1,67 +1,144 @@
 {% extends "base.html" %}
 
+{% block title %}Карта мира - Наир{% endblock %}
+
 {% block content %}
-<!-- Левая панель - меню -->
-<nav>
-  <ul>
-    <li>
-        <input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
-        <div id="suggestions" class="suggestions"></div>
-    </li>
-    <li><a href="{{ url_for('index') }}">Главная</a></li>
-    <li><a href="{{ url_for('karta') }}" class="active">Карта</a></li>
-    <li><a href="{{ url_for('lor') }}">Лор</a></li>
-    <li><a href="{{ url_for('ankety') }}">Анкеты</a></li>
-  </ul>
-</nav>
+<div class="row fade-in-up">
+    <div class="col-12">
+        <!-- Заголовок и управление -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-nair text-accent mb-2">
+                    <i class="bi bi-map-fill me-3"></i>Карта мира Наир
+                </h1>
+                <p class="lead-nair text-muted">Исследуйте и открывайте тайны фэнтези мира</p>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-outline-info btn-sm" onclick="if(window.map) window.map.resetTransform()">
+                    <i class="bi bi-arrow-counterclockwise me-2"></i>Сбросить вид
+                </button>
+            </div>
+        </div>
 
-<!-- Правый блок - основной контент -->
-<main>
-  <div class="map-container" id="mapContainer">
-    <img src="{{ url_for('static', filename='photo/Karta.png') }}" alt="Карта Наира" class="map-image" id="mapImage">
-    
-    <!-- Кнопки управления картой -->
-    <div class="map-controls">
-      <button class="map-btn" id="resetBtn" title="Сбросить">⟲</button>
-      <button class="map-btn" id="zoomInBtn" title="Увеличить">+</button>
-      <button class="map-btn" id="zoomOutBtn" title="Уменьшить">-</button>
+        <!-- Карта -->
+        <div class="card card-custom border-0 overflow-hidden">
+            <div class="card-body p-0">
+                <div class="map-container" id="mapContainer">
+                    <img src="static/photo/Karta.png" 
+                         alt="Карта Наира" 
+                         class="map-image" 
+                         id="mapImage">
+                    
+                    <!-- Контролы карты -->
+                    <div class="map-controls d-flex flex-column gap-2">
+                        <button class="map-btn" id="zoomInBtn" title="Увеличить">
+                            <i class="bi bi-zoom-in"></i>
+                        </button>
+                        <button class="map-btn" id="zoomOutBtn" title="Уменьшить">
+                            <i class="bi bi-zoom-out"></i>
+                        </button>
+                        <button class="map-btn" id="resetBtn" title="Сбросить">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Легенда и информация -->
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="card card-custom">
+                    <div class="card-header bg-primary bg-opacity-25 border-bottom border-nair">
+                        <h5 class="card-title mb-0 text-accent">
+                            <i class="bi bi-info-circle me-2"></i>Легенда карты
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-3 p-2">●</span>
+                            <div>
+                                <strong class="text-accent">Города и столицы</strong>
+                                <p class="text-muted mb-0 small">Крупные поселения и центры цивилизации</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-success me-3 p-2">●</span>
+                            <div>
+                                <strong class="text-accent">Леса и долины</strong>
+                                <p class="text-muted mb-0 small">Природные зоны и заповедные территории</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-warning me-3 p-2">●</span>
+                            <div>
+                                <strong class="text-accent">Горные цепи</strong>
+                                <p class="text-muted mb-0 small">Высокие горы и труднодоступные области</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="card card-custom">
+                    <div class="card-header bg-success bg-opacity-25 border-bottom border-nair">
+                        <h5 class="card-title mb-0 text-accent">
+                            <i class="bi bi-compass me-2"></i>Управление картой
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong class="text-accent d-block mb-2">
+                                <i class="bi bi-mouse me-2"></i>Перетаскивание
+                            </strong>
+                            <p class="text-muted small mb-0">Зажмите левую кнопку мыши и двигайте для навигации</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong class="text-accent d-block mb-2">
+                                <i class="bi bi-mouse2 me-2"></i>Масштабирование
+                            </strong>
+                            <p class="text-muted small mb-0">Используйте колесо мыши или кнопки +/- для изменения масштаба</p>
+                        </div>
+                        <div>
+                            <strong class="text-accent d-block mb-2">
+                                <i class="bi bi-arrow-counterclockwise me-2"></i>Сброс
+                            </strong>
+                            <p class="text-muted small mb-0">Верните карту к исходному состоянию</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</main>
+</div>
+{% endblock %}
 
+{% block scripts %}
 <!-- Подключение скрипта карты -->
-<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script src="static/js/map.js"></script>
 
 <script>
 // Отладочный скрипт для проверки кликов
-console.log('=== ПРОВЕРКА КНОПОК ===');
+console.log('=== ПРОВЕРКА КНОПОК КАРТЫ ===');
 
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('map-btn')) {
-        console.log('🎯 Клик по кнопке:', e.target.id);
-        console.log('Текст кнопки:', e.target.textContent);
+    if (e.target.classList.contains('map-btn') || e.target.closest('.map-btn')) {
+        const btn = e.target.classList.contains('map-btn') ? e.target : e.target.closest('.map-btn');
+        console.log('🎯 Клик по кнопке:', btn.id);
     }
 });
 
-// Проверяем элементы
-console.log('Элементы карты:');
-console.log('mapContainer:', document.getElementById('mapContainer'));
-console.log('mapImage:', document.getElementById('mapImage'));
-console.log('resetBtn:', document.getElementById('resetBtn'));
-console.log('zoomInBtn:', document.getElementById('zoomInBtn'));
-console.log('zoomOutBtn:', document.getElementById('zoomOutBtn'));
-
-// Проверяем стили кнопок
-const buttons = document.querySelectorAll('.map-btn');
-buttons.forEach(btn => {
-    console.log('Кнопка', btn.id, 'стили:', {
-        display: window.getComputedStyle(btn).display,
-        visibility: window.getComputedStyle(btn).visibility,
-        opacity: window.getComputedStyle(btn).opacity,
-        pointerEvents: window.getComputedStyle(btn).pointerEvents,
-        zIndex: window.getComputedStyle(btn).zIndex
-    });
+// Проверяем элементы после загрузки
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        console.log('Элементы карты:');
+        console.log('mapContainer:', document.getElementById('mapContainer'));
+        console.log('mapImage:', document.getElementById('mapImage'));
+        console.log('resetBtn:', document.getElementById('resetBtn'));
+        console.log('zoomInBtn:', document.getElementById('zoomInBtn'));
+        console.log('zoomOutBtn:', document.getElementById('zoomOutBtn'));
+    }, 1000);
 });
 </script>
-
 {% endblock %}

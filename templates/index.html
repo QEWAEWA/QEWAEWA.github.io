@@ -1,37 +1,132 @@
 {% extends "base.html" %}
 
-{% block content %}
-<!-- Левая панель - меню -->
-<nav>
-  <ul>
-    <li>
-        <input type="text" id="search" placeholder="Поиск..." autocomplete="off" />
-        <div id="suggestions" class="suggestions"></div>
-    </li>
-    <li><a href="{{ url_for('index') }}" class="active">Главная</a></li>
-    <li><a href="{{ url_for('karta') }}">Карта</a></li>
-    <li><a href="{{ url_for('lor') }}">Лор</a></li>
-    <li><a href="{{ url_for('ankety') }}">Анкеты</a></li>
-  </ul>
-</nav>
+{% block title %}Главная - Наир{% endblock %}
 
-<!-- Правый блок - основной контент -->
-<main>
-  <!-- Кнопка с фоном -->
-  <div class="button-background">
-    <span class="button-text">Ваш текст</span>
-  </div>
-  
-  <!-- Ссылка на ВК в левом верхнем углу -->
-  <a href="https://vk.com/club182026147" class="top-left-link">
-    <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="Кнопка">
-  </a>
-  
-  <!-- Три ссылки в правом нижнем углу -->
-  <div class="bottom-right-links">
-    <a id="button1" class="btn" href="{{ url_for('lor') }}">Лор</a>
-    <a id="button2" class="btn" href="{{ url_for('ankety') }}">Персонажи</a>
-    <a id="button3" class="btn" href="https://vk.com/club182026147">VK</a>
-  </div>
-</main>
+{% block content %}
+<div class="row fade-in-up">
+    <div class="col-12">
+        <!-- Герой-баннер -->
+        <div class="hero-banner rounded-3 mb-5 position-relative overflow-hidden">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold text-light mb-3 display-nair">Добро пожаловать в Наир</h1>
+                <p class="lead text-light mb-4 lead-nair">Текстовая фэнтези ролевая игра с богатым миром и глубоким лором</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="karta.html" class="btn btn-primary btn-lg px-4 py-3">
+                        <i class="bi bi-map me-2"></i>Исследовать карту
+                    </a>
+                    <a href="lor.html" class="btn btn-outline-light btn-lg px-4 py-3">
+                        <i class="bi bi-book me-2"></i>Изучить лор
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Декоративные элементы -->
+            <div class="position-absolute bottom-0 end-0 m-4">
+                <div class="text-light text-end">
+                    <small class="opacity-75">Откройте для себя мир полный тайн и приключений</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Быстрые действия -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="display-nair text-accent mb-4 text-center">
+                    <i class="bi bi-lightning-fill me-3"></i>Быстрый старт
+                </h2>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card card-custom h-100 transition-all text-center">
+                    <div class="card-body p-4">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-map display-4 text-primary"></i>
+                        </div>
+                        <h4 class="card-title text-accent mb-3">Исследуйте мир</h4>
+                        <p class="card-text text-muted mb-4">
+                            Откройте для себя огромный фэнтези мир с уникальной географией, 
+                            городами и достопримечательностями
+                        </p>
+                        <a href="karta.html" class="btn btn-primary px-4">
+                            <i class="bi bi-arrow-right me-2"></i>Начать путешествие
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card card-custom h-100 transition-all text-center">
+                    <div class="card-body p-4">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-book display-4 text-success"></i>
+                        </div>
+                        <h4 class="card-title text-accent mb-3">Изучите историю</h4>
+                        <p class="card-text text-muted mb-4">
+                            Погрузитесь в богатую историю, мифологию и культуру народов, 
+                            населяющих мир Наир
+                        </p>
+                        <a href="lor.html" class="btn btn-success px-4">
+                            <i class="bi bi-arrow-right me-2"></i>Читать лор
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card card-custom h-100 transition-all text-center">
+                    <div class="card-body p-4">
+                        <div class="icon-wrapper mb-3">
+                            <i class="bi bi-person display-4 text-warning"></i>
+                        </div>
+                        <h4 class="card-title text-accent mb-3">Создайте героя</h4>
+                        <p class="card-text text-muted mb-4">
+                            Присоединяйтесь к сообществу, создайте уникального персонажа 
+                            и начните своё приключение
+                        </p>
+                        <a href="ankety.html" class="btn btn-warning px-4">
+                            <i class="bi bi-arrow-right me-2"></i>Создать анкету
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Дополнительные действия -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h3 class="text-accent mb-2 display-nair">Присоединяйтесь к сообществу</h3>
+                                <p class="text-muted mb-0">
+                                    Общайтесь с другими игроками, делитесь историями своих персонажей 
+                                    и участвуйте в развитии мира
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <a href="https://vk.com/club182026147" class="btn btn-outline-info btn-lg px-4">
+                                    <i class="bi bi-chat-dots me-2"></i>Группа ВК
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Кнопки быстрого доступа -->
+<div class="bottom-action-buttons d-flex flex-column">
+    <a href="lor.html" class="btn btn-custom mb-2 pulse-glow">
+        <i class="bi bi-book me-2"></i>Лор
+    </a>
+    <a href="ankety.html" class="btn btn-custom mb-2">
+        <i class="bi bi-people me-2"></i>Персонажи
+    </a>
+    <a href="https://vk.com/club182026147" class="btn btn-custom">
+        <i class="bi bi-chat-dots me-2"></i>Сообщество
+    </a>
+</div>
 {% endblock %}
