@@ -1,57 +1,39 @@
-name: Deploy Flask site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  
-  # Разрешаем ручной запуск
+    branches: [ main ]
   workflow_dispatch:
 
-# Даем разрешения для записи в репозиторий
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 📥 Checkout code
+    - name: 🚀 Checkout code
       uses: actions/checkout@v4
-    
+      
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        cache: 'pip'
-    
+        
     - name: 📦 Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    
+        pip install flask
+        
     - name: 🏗️ Generate static site
       run: |
         python generate_static.py
-    
-    - name: 📁 Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: docs/
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
+        
+    - name: 📁 List generated files
+      run: |
+        ls -la docs/
+        
     - name: 🚀 Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        force_orphan: true
