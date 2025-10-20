@@ -19,37 +19,59 @@
 
 <!-- Правый блок - основной контент -->
 <main class="original-main">
-
+  <!-- Ссылка на ВК в левом верхнем углу -->
+  <a href="https://vk.com/club182026147" class="top-left-link">
+    <img src="static/photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png" alt="VK">
+  </a>
 
   <!-- Главная страница с кнопками персонажей -->
   <div id="main-page" class="active-page">
     <h1 class="page-title">ПЕРСОНАЖИ ИГРОКОВ</h1>
     
-      <div class="character-buttons">
+    <div class="character-buttons">
       <!-- Кнопка персонажа 1 -->
       <div class="character-btn" 
          data-character="maldis" 
          data-image-url="/static/photo/character-art/maldys.jpg"
          style="background-image: url('/static/photo/character-art/maldys.jpg');">
-         <div class="character-name">Малдис Канталия</div>
+        <div class="character-name">Малдис Канталия</div>
       </div>
       
       <!-- Кнопка персонажа 2 -->
-      <div class="character-btn" data-character="character2" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2');">
+      <div class="character-btn" data-character="character2" data-image-url="https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2');">
         <div class="character-name">Имя Персонажа 2</div>
       </div>
       
       <!-- Кнопка персонажа 3 -->
-      <div class="character-btn" data-character="character3" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3');">
+      <div class="character-btn" data-character="character3" data-image-url="https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3');">
         <div class="character-name">Имя Персонажа 3</div>
       </div>
       
       <!-- Кнопка персонажа 4 -->
-      <div class="character-btn" data-character="character4" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4');">
+      <div class="character-btn" data-character="character4" data-image-url="https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4');">
         <div class="character-name">Имя Персонажа 4</div>
       </div>
     </div>
 
+    <!-- Кнопки в правом нижнем углу -->
+    <div class="right-bottom-buttons">
+      <div class="container-buttons">
+        <a href="lor.html" class="container-btn">
+          <i class="bi bi-book"></i>
+          <span>Лор</span>
+        </a>
+        <a href="ankety.html" class="container-btn">
+          <i class="bi bi-people"></i>
+          <span>Персонажи</span>
+        </a>
+        <a href="https://vk.com/club182026147" class="container-btn">
+          <i class="bi bi-chat-dots"></i>
+          <span>VK</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
   <!-- Анимация перехода -->
   <div class="page-transition" id="page-transition">
     <div class="transition-image" id="transition-image"></div>
@@ -600,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const characterImage = this.getAttribute('data-image-url');
             
             // Устанавливаем изображение для анимации
-            transitionImage.style.backgroundImage = characterImage;
+            transitionImage.style.backgroundImage = `url('${characterImage}')`;
             
             // Запускаем анимацию перехода
             pageTransition.classList.add('active');
