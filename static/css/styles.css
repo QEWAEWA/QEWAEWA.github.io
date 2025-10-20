@@ -196,6 +196,7 @@ body {
 }
 
 /* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ ===== */
+/* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ ===== */
 .original-nav {
   width: 300px;
   padding: 25px 20px;
@@ -206,14 +207,45 @@ body {
   position: relative;
   overflow: hidden;
   
-  /* ИСПРАВЛЕННЫЙ ВАРИАНТ - более явная заливка и размытие */
+  /* УСИЛЕННОЕ РАЗМЫТИЕ ФОНА */
   background: 
-    linear-gradient(135deg, rgba(20, 18, 26, 0.95) 0%, rgba(35, 31, 43, 0.93) 100%),
-    url('/static/photo/nav-background.jpg');
+    linear-gradient(135deg, rgba(20, 18, 26, 0.95) 0%, rgba(35, 31, 43, 0.93) 100%);
   background-size: cover;
   background-position: center;
-  background-blend-mode: overlay;
-  filter: blur(0.5px); /* Лёгкое размытие всего меню */
+}
+
+/* Фоновое изображение с СИЛЬНЫМ размытием */
+.original-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/static/photo/nav-background.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(15px) brightness(0.5) contrast(1.2); /* УВЕЛИЧИЛ РАЗМЫТИЕ ДО 15px */
+  z-index: -2;
+  transform: scale(1.1);
+}
+
+/* Полупрозрачная заливка поверх изображения */
+.original-nav::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(
+      135deg, 
+      rgba(20, 18, 26, 0.85) 0%, 
+      rgba(35, 31, 43, 0.82) 50%,
+      rgba(20, 18, 26, 0.88) 100%
+    );
+  z-index: -1;
 }
 
 /* Обновляем z-index для контента меню */
