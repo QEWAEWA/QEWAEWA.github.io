@@ -20,40 +20,25 @@ jobs:
     - name: 📦 Install Flask
       run: pip install flask
       
+    - name: 🔍 Debug file structure
+      run: |
+        echo "=== СТРУКТУРА ФАЙЛОВ ==="
+        find . -type f -name "*.html" -o -name "*.py" | sort
+        echo ""
+        echo "=== ПАПКА TEMPLATES ==="
+        ls -la templates/ || echo "❌ Папка templates не существует!"
+        echo ""
+        echo "=== СОДЕРЖИМОЕ TEMPLATES ==="
+        ls -la templates/*.html 2>/dev/null || echo "Нет HTML файлов в templates"
+      
     - name: 🏗️ Build site
       run: python generate_static.py
       
-    - name: 📁 Debug - Check files
+    - name: 📤 Deploy
       run: |
-        echo "=== Содержимое корня ==="
-        ls -la
-        echo "=== Содержимое docs ==="
-        ls -la docs/ || echo "Папка docs не существует"
-        echo "=== Файлы в docs ==="
-        ls -la docs/* 2>/dev/null || echo "Нет файлов в docs"
-      
-    - name: 🧹 Clean and deploy
-      run: |
-        # Проверяем существование docs
-        if [ ! -d "docs" ]; then
-          echo "❌ Папка docs не существует!"
-          exit 1
-        fi
-        
-        # Удаляем всё кроме .git и docs
-        find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name 'docs' -exec rm -rf {} +
-        
-        # Копируем из docs в корень
         cp -r docs/* .
-        
-        # Удаляем пустую папку docs
-        rm -rf docs
-        
-        # Настраиваем git
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions@github.com"
-        
-        # Коммитим и пушим
         git add .
         git commit -m "🚀 Deploy site" || exit 0
         git push
