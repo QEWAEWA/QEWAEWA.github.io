@@ -149,33 +149,53 @@ body {
   font-weight: 300;
 }
 
-/* ===== КОНТЕЙНЕР С ИНФОРМАЦИЕЙ И КНОПКАМИ ===== */
+/* ===== ИНФОРМАЦИЯ В ЛЕВОМ НИЖНЕМ УГЛУ ===== */
+.left-bottom-info {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  text-align: left;
+  z-index: 2;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.info-title {
+  color: var(--nair-text);
+  font-size: 1.4em;
+  font-weight: 600;
+  line-height: 1.3;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.info-subtitle {
+  color: var(--nair-accent);
+  font-size: 1.1em;
+  font-weight: 500;
+  line-height: 1.3;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  opacity: 0.95;
+}
+
+.info-meta {
+  color: var(--nair-text);
+  font-size: 0.9em;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  opacity: 0.85;
+  border-top: 1px solid rgba(212, 237, 222, 0.3);
+  padding-top: 8px;
+}
+
+/* ===== КОНТЕЙНЕР С КНОПКАМИ В ПРАВОМ НИЖНЕМ УГЛУ ===== */
 .container-info {
   position: absolute;
   bottom: 30px;
   right: 30px;
   text-align: right;
   z-index: 2;
-}
-
-.info-text {
-  margin-bottom: 20px;
-  font-family: 'Fira Sans', sans-serif;
-}
-
-.info-line {
-  color: var(--nair-text);
-  font-size: 0.9em;
-  line-height: 1.4;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  margin-bottom: 3px;
-  opacity: 0.9;
-}
-
-.info-line:first-child {
-  font-size: 1em;
-  font-weight: 500;
-  opacity: 1;
 }
 
 .container-buttons {
@@ -391,6 +411,19 @@ body {
   }
 }
 
+.text-glow {
+  animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  to {
+    text-shadow: 2px 2px 6px rgba(212, 237, 222, 0.3);
+  }
+}
+
 /* ===== АДАПТИВНОСТЬ ===== */
 @media (max-width: 768px) {
   body {
@@ -425,21 +458,26 @@ body {
     left: 15px;
   }
   
-  .container-info {
+  .left-bottom-info {
     bottom: 20px;
-    right: 20px;
+    left: 20px;
   }
   
-  .info-text {
-    margin-bottom: 15px;
+  .info-title {
+    font-size: 1.2em;
   }
   
-  .info-line {
+  .info-subtitle {
+    font-size: 1em;
+  }
+  
+  .info-meta {
     font-size: 0.8em;
   }
   
-  .info-line:first-child {
-    font-size: 0.9em;
+  .container-info {
+    bottom: 20px;
+    right: 20px;
   }
   
   .container-btn {
@@ -505,21 +543,26 @@ body {
     left: 40px;
   }
   
-  .container-info {
+  .left-bottom-info {
     bottom: 40px;
-    right: 40px;
+    left: 40px;
   }
   
-  .info-text {
-    margin-bottom: 25px;
+  .info-title {
+    font-size: 1.6em;
   }
   
-  .info-line {
+  .info-subtitle {
+    font-size: 1.3em;
+  }
+  
+  .info-meta {
     font-size: 1em;
   }
   
-  .info-line:first-child {
-    font-size: 1.1em;
+  .container-info {
+    bottom: 40px;
+    right: 40px;
   }
   
   .container-btn {
