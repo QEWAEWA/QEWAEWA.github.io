@@ -1,22 +1,21 @@
-name: Deploy to GitHub Pages
+name: Deploy Flask Site to GitHub Pages
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     
     steps:
     - name: 🚀 Checkout code
       uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        
+      
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
@@ -31,21 +30,17 @@ jobs:
       run: |
         python generate_static.py
         
-    - name: 📤 Deploy to GitHub Pages
+    - name: 📁 Check generated files
       run: |
-        cd docs
+        echo "Содержимое папки docs:"
+        ls -la docs/
+        echo "HTML файлы:"
+        ls -la docs/*.html || echo "No HTML files"
         
-        # Инициализируем git с правильной веткой
-        git init
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-        # Создаем ветку main вместо master
-        git checkout -b main
-        
-        git add .
-        git commit -m "Deploy to GitHub Pages" -a
-        
-        # Пушим в ветку main
-        git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        git push origin main --force
+    - name: 📤 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        publish_branch: main
+        force_orphan: true
