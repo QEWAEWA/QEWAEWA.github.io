@@ -183,7 +183,7 @@ main {
     width: 100%;
     max-width: 1200px;
     height: 70vh;
-    min-height: 500px;
+    min-height: 700px;
     border: 2px solid rgba(212, 237, 222, 0.5);
     border-radius: 8px;
     overflow: hidden;
@@ -245,7 +245,7 @@ main {
 @media (max-width: 768px) {
     .map-container {
         height: 50vh;
-        min-height: 600px;
+        min-height: 300px;
         margin: 10px;
     }
     

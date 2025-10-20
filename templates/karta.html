@@ -17,42 +17,19 @@
 
 <!-- Правый блок - основной контент -->
 <main>
-  <div class="map-container">
-    <img src="{{ url_for('static', filename='photo/Karta.png') }}" alt="Карта Наира" class="map-image">
+  <div class="map-container" id="mapContainer">
+    <img src="{{ url_for('static', filename='photo/Karta.png') }}" alt="Карта Наира" class="map-image" id="mapImage">
     
     <!-- Кнопки управления картой -->
     <div class="map-controls">
-      <button class="map-btn" onclick="resetMap()" title="Сбросить">⟲</button>
-      <button class="map-btn" onclick="zoomIn()" title="Увеличить">+</button>
-      <button class="map-btn" onclick="zoomOut()" title="Уменьшить">-</button>
+      <button class="map-btn" id="resetBtn" title="Сбросить">⟲</button>
+      <button class="map-btn" id="zoomInBtn" title="Увеличить">+</button>
+      <button class="map-btn" id="zoomOutBtn" title="Уменьшить">-</button>
     </div>
   </div>
 </main>
 
 <!-- Подключение скрипта карты -->
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
-
-<script>
-// Глобальные функции для кнопок
-function resetMap() {
-  if (window.currentMap) {
-    window.currentMap.resetTransform();
-  }
-}
-
-function zoomIn() {
-  if (window.currentMap) {
-    const rect = window.currentMap.container.getBoundingClientRect();
-    window.currentMap.zoom(0.5, rect.width / 2, rect.height / 2);
-  }
-}
-
-function zoomOut() {
-  if (window.currentMap) {
-    const rect = window.currentMap.container.getBoundingClientRect();
-    window.currentMap.zoom(-0.5, rect.width / 2, rect.height / 2);
-  }
-}
-</script>
 
 {% endblock %}
