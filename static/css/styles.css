@@ -111,7 +111,65 @@ body {
   box-sizing: border-box;
   border-right: 1px solid var(--nair-border-light);
   padding-left: 40px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Фоновое изображение с размытием */
+.original-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../photo/nav-background.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px) brightness(0.6) contrast(1.1);
+  z-index: -2;
+  transform: scale(1.1); /* Убирает тёмные края от размытия */
+}
+
+/* Полупрозрачная заливка поверх изображения */
+.original-nav::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    rgba(26, 24, 32, 0.92) 0%, 
+    rgba(45, 41, 53, 0.88) 50%,
+    rgba(26, 24, 32, 0.85) 100%
+  );
+  z-index: -1;
+}
+
+/* Обновляем z-index для контента меню */
+.nav-list,
+.search-input,
+.suggestions {
+  position: relative;
+  z-index: 1;
+}
+
+/* Дополнительные эффекты для улучшения атмосферы */
+.original-nav {
+  background-image: 
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(200, 194, 212, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(168, 160, 184, 0.02) 0%,
+      transparent 50%
+    );
 }
 
 .nav-list {
