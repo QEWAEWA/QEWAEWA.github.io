@@ -5,19 +5,92 @@
 
 /* Обновлённая цветовая схема на основе текстовых цветов */
 :root {
-  --nair-bg: #0a1212;
-  --nair-nav-bg: #0c1515;
-  --nair-card-bg: #101a1a;
+  /* Основные цвета */
+  --nair-bg: #0a1218;
+  --nair-nav-bg: #0e1a20;
+  --nair-card-bg: #142028;
   --nair-text: #e4ecec;
   --nair-accent: #d4eded;
-  --nair-border: rgba(212, 237, 237, 0.4);
-  --nair-border-light: rgba(212, 237, 237, 0.2);
-  --nair-border-dark: rgba(212, 237, 237, 0.6);
-  --nair-primary: #1a2525;
-  --nair-hover: rgba(212, 237, 237, 0.08);
-  --nair-shadow: rgba(0, 0, 0, 0.6);
-  --nair-button-bg: rgba(212, 237, 237, 0.05);
-  --nair-button-hover: rgba(212, 237, 237, 0.1);
+  
+  /* Дополнительные акцентные цвета */
+  --nair-accent-secondary: #a8d8d8;
+  --nair-accent-glow: rgba(212, 237, 237, 0.15);
+  
+  /* Границы с улучшенной видимостью */
+  --nair-border: rgba(168, 216, 216, 0.3);
+  --nair-border-light: rgba(168, 216, 216, 0.15);
+  --nair-border-dark: rgba(168, 216, 216, 0.5);
+  --nair-border-accent: rgba(212, 237, 237, 0.4);
+  
+  /* Состояния и интерактивность */
+  --nair-primary: #1c2d35;
+  --nair-hover: rgba(168, 216, 216, 0.12);
+  --nair-active: rgba(212, 237, 237, 0.2);
+  --nair-focus: rgba(212, 237, 237, 0.25);
+  
+  /* Тени и эффекты */
+  --nair-shadow: rgba(5, 10, 15, 0.8);
+  --nair-shadow-glow: rgba(212, 237, 237, 0.1);
+  --nair-shadow-card: rgba(5, 12, 18, 0.6);
+  
+  /* Кнопки и интерактивные элементы */
+  --nair-button-bg: rgba(168, 216, 216, 0.08);
+  --nair-button-hover: rgba(168, 216, 216, 0.15);
+  --nair-button-active: rgba(212, 237, 237, 0.2);
+  
+  /* Градиенты */
+  --nair-gradient-primary: linear-gradient(135deg, #142028 0%, #1c2d35 100%);
+  --nair-gradient-accent: linear-gradient(135deg, rgba(212, 237, 237, 0.1) 0%, rgba(168, 216, 216, 0.05) 100%);
+  
+  /* Статусы и уведомления */
+  --nair-success: rgba(168, 216, 200, 0.3);
+  --nair-warning: rgba(237, 212, 168, 0.3);
+  --nair-error: rgba(237, 168, 168, 0.3);
+  --nair-info: rgba(168, 200, 237, 0.3);
+}
+
+/* Улучшенные тени для карточек */
+.character-btn, .profile-info, .accordion-item {
+  box-shadow: 
+    0 4px 20px var(--nair-shadow-card),
+    0 2px 8px var(--nair-shadow);
+}
+
+/* Glow эффекты для акцентных элементов */
+.nav-link.active, .character-btn:hover, .container-btn:hover {
+  box-shadow: 
+    0 4px 20px var(--nair-shadow-card),
+    0 0 15px var(--nair-shadow-glow);
+}
+
+/* Улучшенные градиенты для фонов */
+.original-nav {
+  background: var(--nair-gradient-primary);
+}
+
+.profile-info, .accordion-item {
+  background: var(--nair-gradient-primary);
+  border: 1px solid var(--nair-border);
+}
+
+/* Анимации с акцентными цветами */
+.character-btn:hover {
+  border-color: var(--nair-border-accent);
+  transform: translateY(-5px) scale(1.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Улучшенные текстовые эффекты */
+.page-title {
+  color: var(--nair-accent);
+  text-shadow: 
+    0 0 20px var(--nair-accent-glow),
+    0 2px 8px var(--nair-shadow);
+}
+
+.profile-name {
+  background: var(--nair-gradient-accent);
+  border-bottom: 2px solid var(--nair-border-accent);
 }
 
 body {
@@ -106,7 +179,7 @@ body {
   outline: none;
   color: var(--nair-text);
   font-size: 16px;
-  width: 100%;
+  width: 90%;
   font-family: 'Fira Sans', sans-serif;
   transition: all 0.3s ease;
   margin-bottom: 10px;
