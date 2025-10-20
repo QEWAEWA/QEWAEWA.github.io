@@ -1,168 +1,230 @@
-const container = document.querySelector('.map-container');
-const img = document.querySelector('.map-image');
-
-let isDragging = false;
-let startX = 0;
-let startY = 0;
-let translateX = 0;
-let translateY = 0;
-let scale = 1;
-
-const minScale = 0.8;
-const maxScale = 10;
-
-// Начальные установки при загрузке
-window.addEventListener('load', () => {
-  scale = minScale;
-  img.style.transform = `translate(0px, 0px) scale(${scale})`;
-});
-
-// Обработка касаний и мыши
-function getTransform() {
-  const style = window.getComputedStyle(img);
-  const matrix = new DOMMatrixReadOnly(style.transform);
-  return { x: matrix.m41, y: matrix.m42, scale: matrix.a };
+class InteractiveMap {
+    constructor(container, image) {
+        this.container = container;
+        this.image = image;
+        
+        this.isDragging = false;
+        this.startX = 0;
+        this.startY = 0;
+        this.translateX = 0;
+        this.translateY = 0;
+        this.scale = 1;
+        
+        this.minScale = 0.8;
+        this.maxScale = 10;
+        
+        this.initialDistance = 0;
+        this.initialScale = 1;
+        
+        this.init();
+    }
+    
+    init() {
+        this.setupEventListeners();
+        this.resetTransform();
+    }
+    
+    setupEventListeners() {
+        // Мышь
+        this.container.addEventListener('mousedown', this.handleMouseDown.bind(this));
+        document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+        document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+        
+        // Касания
+        this.container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+        document.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this));
+        
+        // Колесо мыши
+        this.container.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+        
+        // Сброс при изменении размера окна
+        window.addEventListener('resize', this.debounce(this.resetTransform.bind(this), 250));
+    }
+    
+    handleMouseDown(e) {
+        e.preventDefault();
+        this.startDragging(e.clientX, e.clientY);
+    }
+    
+    handleMouseMove(e) {
+        if (!this.isDragging) return;
+        e.preventDefault();
+        this.drag(e.clientX, e.clientY);
+    }
+    
+    handleMouseUp() {
+        this.stopDragging();
+    }
+    
+    handleTouchStart(e) {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            this.startDragging(e.touches[0].clientX, e.touches[0].clientY);
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            this.startPinch(e.touches);
+        }
+    }
+    
+    handleTouchMove(e) {
+        if (e.touches.length === 1 && this.isDragging) {
+            e.preventDefault();
+            this.drag(e.touches[0].clientX, e.touches[0].clientY);
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            this.pinch(e.touches);
+        }
+    }
+    
+    handleTouchEnd() {
+        this.stopDragging();
+    }
+    
+    handleWheel(e) {
+        e.preventDefault();
+        const delta = Math.sign(e.deltaY) * -0.2; // Инвертируем для привычного zoom
+        this.zoom(delta, e.clientX, e.clientY);
+    }
+    
+    startDragging(clientX, clientY) {
+        this.isDragging = true;
+        this.startX = clientX;
+        this.startY = clientY;
+        
+        const transform = this.getCurrentTransform();
+        this.translateX = transform.x;
+        this.translateY = transform.y;
+        
+        this.image.style.cursor = 'grabbing';
+    }
+    
+    drag(clientX, clientY) {
+        const dx = clientX - this.startX;
+        const dy = clientY - this.startY;
+        
+        const newX = this.translateX + dx;
+        const newY = this.translateY + dy;
+        
+        this.applyTransform(newX, newY, this.scale);
+    }
+    
+    stopDragging() {
+        this.isDragging = false;
+        this.image.style.cursor = 'grab';
+    }
+    
+    startPinch(touches) {
+        this.initialDistance = this.getTouchDistance(touches);
+        this.initialScale = this.scale;
+    }
+    
+    pinch(touches) {
+        if (touches.length !== 2) return;
+        
+        const currentDistance = this.getTouchDistance(touches);
+        const scaleFactor = currentDistance / this.initialDistance;
+        let newScale = this.initialScale * scaleFactor;
+        
+        // Ограничение масштаба
+        newScale = Math.max(this.minScale, Math.min(this.maxScale, newScale));
+        
+        // Масштабирование относительно центра жеста
+        const center = this.getTouchCenter(touches);
+        this.zoomToScale(newScale, center.x, center.y);
+    }
+    
+    zoom(delta, clientX, clientY) {
+        const newScale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
+        this.zoomToScale(newScale, clientX, clientY);
+    }
+    
+    zoomToScale(newScale, clientX, clientY) {
+        const transform = this.getCurrentTransform();
+        const rect = this.image.getBoundingClientRect();
+        const containerRect = this.container.getBoundingClientRect();
+        
+        // Вычисляем смещение для zoom к курсору
+        const offsetX = clientX - containerRect.left - rect.left;
+        const offsetY = clientY - containerRect.top - rect.top;
+        
+        const scaleRatio = newScale / this.scale;
+        const newX = transform.x - (newScale - this.scale) * offsetX / this.scale;
+        const newY = transform.y - (newScale - this.scale) * offsetY / this.scale;
+        
+        this.applyTransform(newX, newY, newScale);
+    }
+    
+    applyTransform(x, y, scale) {
+        const clamped = this.clampTranslation(x, y, scale);
+        this.image.style.transform = `translate(${clamped.x}px, ${clamped.y}px) scale(${scale})`;
+        this.scale = scale;
+    }
+    
+    clampTranslation(x, y, scale) {
+        const rect = this.image.getBoundingClientRect();
+        const containerRect = this.container.getBoundingClientRect();
+        
+        const scaledWidth = rect.width * (scale / this.scale);
+        const scaledHeight = rect.height * (scale / this.scale);
+        
+        const maxX = Math.min(0, containerRect.width - scaledWidth);
+        const maxY = Math.min(0, containerRect.height - scaledHeight);
+        
+        return {
+            x: Math.max(maxX, Math.min(0, x)),
+            y: Math.max(maxY, Math.min(0, y))
+        };
+    }
+    
+    getCurrentTransform() {
+        const style = window.getComputedStyle(this.image);
+        const matrix = new DOMMatrixReadOnly(style.transform);
+        return {
+            x: matrix.m41,
+            y: matrix.m42,
+            scale: matrix.a
+        };
+    }
+    
+    getTouchDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+    
+    getTouchCenter(touches) {
+        const containerRect = this.container.getBoundingClientRect();
+        return {
+            x: (touches[0].clientX + touches[1].clientX) / 2 - containerRect.left,
+            y: (touches[0].clientY + touches[1].clientY) / 2 - containerRect.top
+        };
+    }
+    
+    resetTransform() {
+        this.scale = this.minScale;
+        this.applyTransform(0, 0, this.scale);
+    }
+    
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
 }
 
-// Начало взаимодействия
-function startInteraction(e) {
-  isDragging = true;
-  if (e.type.startsWith('touch')) {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  } else {
-    startX = e.clientX;
-    startY = e.clientY;
-  }
-  const { x, y } = getTransform();
-  translateX = x;
-  translateY = y;
-}
-
-// Конец взаимодействия
-function endInteraction() {
-  isDragging = false;
-}
-
-// Перетаскивание
-function moveInteraction(e) {
-  if (!isDragging) return;
-  let currentX, currentY;
-  if (e.type.startsWith('touch')) {
-    currentX = e.touches[0].clientX;
-    currentY = e.touches[0].clientY;
-  } else {
-    currentX = e.clientX;
-    currentY = e.clientY;
-  }
-  const dx = currentX - startX;
-  const dy = currentY - startY;
-
-  const containerRect = container.getBoundingClientRect();
-  const rect = img.getBoundingClientRect();
-  const width = rect.width;
-  const height = rect.height;
-  const { x, y } = clampTranslate(translateX + dx, translateY + dy, width, height, containerRect.width, containerRect.height);
-
-  img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-}
-
-// Ограничение перемещения
-function clampTranslate(x, y, width, height, containerW, containerH) {
-  const clampedX = Math.min(0, Math.max(x, containerW - width));
-  const clampedY = Math.min(0, Math.max(y, containerH - height));
-  return { x: clampedX, y: clampedY };
-}
-
-// Масштабирование жестами (pinch)
-let initialDistance = 0;
-let initialScale = scale;
-
-function getDistance(touches) {
-  const dx = touches[0].clientX - touches[1].clientX;
-  const dy = touches[0].clientY - touches[1].clientY;
-  return Math.hypot(dx, dy);
-}
-
-function startPinch(e) {
-  if (e.touches.length === 2) {
-    initialDistance = getDistance(e.touches);
-    initialScale = scale;
-  }
-}
-
-function pinchMove(e) {
-  if (e.touches.length === 2) {
-    const currentDistance = getDistance(e.touches);
-    let newScale = initialScale * (currentDistance / initialDistance);
-    if (newScale < minScale) newScale = minScale;
-    if (newScale > maxScale) newScale = maxScale;
-
-    // Центр жеста
-    const rect = img.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - containerRect.left;
-    const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - containerRect.top;
-
-    // Новое смещение для масштабирования относительно центра
-    const offsetX = centerX - rect.left;
-    const offsetY = centerY - rect.top;
-
-    const prevTransform = getTransform();
-    const newX = prevTransform.x - (newScale - prevTransform.scale) * offsetX / prevTransform.scale;
-    const newY = prevTransform.y - (newScale - prevTransform.scale) * offsetY / prevTransform.scale;
-
-    const width = rect.width * (newScale / prevTransform.scale);
-    const height = rect.height * (newScale / prevTransform.scale);
-    const { x, y } = clampTranslate(newX, newY, width, height, containerRect.width, containerRect.height);
-
-    img.style.transform = `translate(${x}px, ${y}px) scale(${newScale})`;
-    scale = newScale;
-  }
-}
-
-// Обработчики
-container.addEventListener('mousedown', startInteraction);
-container.addEventListener('touchstart', (e) => {
-  startInteraction(e);
-  startPinch(e);
-});
-document.addEventListener('mouseup', endInteraction);
-document.addEventListener('touchend', endInteraction);
-document.addEventListener('touchcancel', endInteraction);
-container.addEventListener('mousemove', moveInteraction);
-container.addEventListener('touchmove', (e) => {
-  moveInteraction(e);
-  startPinch(e);
-  if (e.touches.length === 2) {
-    pinchMove(e);
-  }
-});
-
-// Масштаб по колесику мыши
-container.addEventListener('wheel', (e) => {
-  e.preventDefault();
-
-  const delta = Math.sign(e.deltaY);
-  const prevScale = scale;
-  let newScale = scale - delta * 0.1;
-
-  if (newScale < minScale) newScale = minScale;
-  if (newScale > maxScale) newScale = maxScale;
-
-  const rect = img.getBoundingClientRect();
-  const containerRect = container.getBoundingClientRect();
-
-  const offsetX = e.clientX - containerRect.left - rect.left;
-  const offsetY = e.clientY - containerRect.top - rect.top;
-
-  const newX = getTransform().x - (newScale - prevScale) * offsetX / prevScale;
-  const newY = getTransform().y - (newScale - prevScale) * offsetY / prevScale;
-
-  const width = rect.width * (newScale / prevScale);
-  const height = rect.height * (newScale / prevScale);
-  const { x, y } = clampTranslate(newX, newY, width, height, containerRect.width, containerRect.height);
-
-  img.style.transform = `translate(${x}px, ${y}px) scale(${newScale})`;
-  scale = newScale;
+// Автоматическая инициализация при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.map-container');
+    const image = document.querySelector('.map-image');
+    
+    if (container && image) {
+        new InteractiveMap(container, image);
+    }
 });
