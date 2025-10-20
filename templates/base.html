@@ -16,6 +16,12 @@
     {% block content %}{% endblock %}
     
     <!-- Ваши скрипты -->
+
+  <script src="{{ url_for('static', filename='js/smooth-scroll.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/parallax.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/interactive-cards.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/lazy-loading.js') }}"></script>
+
     {% block scripts %}{% endblock %}
 </body>
 </html>
