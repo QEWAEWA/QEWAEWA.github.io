@@ -32,4 +32,36 @@
 <!-- Подключение скрипта карты -->
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 
+<script>
+// Отладочный скрипт для проверки кликов
+console.log('=== ПРОВЕРКА КНОПОК ===');
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('map-btn')) {
+        console.log('🎯 Клик по кнопке:', e.target.id);
+        console.log('Текст кнопки:', e.target.textContent);
+    }
+});
+
+// Проверяем элементы
+console.log('Элементы карты:');
+console.log('mapContainer:', document.getElementById('mapContainer'));
+console.log('mapImage:', document.getElementById('mapImage'));
+console.log('resetBtn:', document.getElementById('resetBtn'));
+console.log('zoomInBtn:', document.getElementById('zoomInBtn'));
+console.log('zoomOutBtn:', document.getElementById('zoomOutBtn'));
+
+// Проверяем стили кнопок
+const buttons = document.querySelectorAll('.map-btn');
+buttons.forEach(btn => {
+    console.log('Кнопка', btn.id, 'стили:', {
+        display: window.getComputedStyle(btn).display,
+        visibility: window.getComputedStyle(btn).visibility,
+        opacity: window.getComputedStyle(btn).opacity,
+        pointerEvents: window.getComputedStyle(btn).pointerEvents,
+        zIndex: window.getComputedStyle(btn).zIndex
+    });
+});
+</script>
+
 {% endblock %}
