@@ -23,17 +23,18 @@ jobs:
     - name: 🏗️ Build site
       run: python generate_static.py
       
-    - name: 📁 List files
-      run: ls -la docs/
-      
-    - name: 📤 Deploy
+    - name: 📤 Deploy with PAT
       run: |
         # Настройка git
         git config --global user.name "GitHub Actions"
-        git config --global user.email "github-actions@users.noreply.github.com"
+        git config --global user.email "github-actions@github.com"
         
-        # Добавляем docs в корень и коммитим
+        # Копируем статический сайт в корень
         cp -r docs/* .
+        
+        # Коммитим изменения
         git add .
-        git commit -m "Deploy: $(date)" || exit 0
-        git push
+        git commit -m "🚀 Deploy site" || echo "No changes to commit"
+        
+        # Пушим используя PAT
+        git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git main
