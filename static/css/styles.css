@@ -5,20 +5,20 @@
 
 /* Обновлённая цветовая схема на основе текстовых цветов */
 :root {
-  --nair-bg: #1a1a1a;
-  --nair-nav-bg: #222222;
-  --nair-card-bg: #2a2a2a;
+  --nair-bg: #1a1510;
+  --nair-nav-bg: #221c15;
+  --nair-card-bg: #2a241c;
   --nair-text: #e4ecec;
-  --nair-accent: #d4a0ed;
+  --nair-accent: #d4a06a;
   
-  --nair-border: rgba(212, 160, 237, 0.4);
-  --nair-border-light: rgba(212, 160, 237, 0.2);
-  --nair-border-dark: rgba(212, 160, 237, 0.6);
-  --nair-primary: #333333;
-  --nair-hover: rgba(212, 160, 237, 0.1);
-  --nair-shadow: rgba(0, 0, 0, 0.5);
-  --nair-button-bg: rgba(212, 160, 237, 0.08);
-  --nair-button-hover: rgba(212, 160, 237, 0.15);
+  --nair-border: rgba(212, 160, 106, 0.4);
+  --nair-border-light: rgba(212, 160, 106, 0.2);
+  --nair-border-dark: rgba(212, 160, 106, 0.6);
+  --nair-primary: #332c24;
+  --nair-hover: rgba(212, 160, 106, 0.1);
+  --nair-shadow: rgba(15, 10, 5, 0.6);
+  --nair-button-bg: rgba(212, 160, 106, 0.08);
+  --nair-button-hover: rgba(212, 160, 106, 0.15);
 }
 
 /* Улучшенные тени для карточек */
