@@ -23,18 +23,22 @@ jobs:
     - name: 🏗️ Build site
       run: python generate_static.py
       
-    - name: 📤 Deploy with PAT
+    - name: 🧹 Clean and deploy
       run: |
-        # Настройка git
+        # Удаляем ВСЕ файлы кроме .git
+        find . -maxdepth 1 ! -name '.' ! -name '.git' -exec rm -rf {} +
+        
+        # Копируем только статический сайт из docs
+        cp -r docs/* .
+        
+        # Удаляем папку docs
+        rm -rf docs
+        
+        # Настраиваем git
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions@github.com"
         
-        # Копируем статический сайт в корень
-        cp -r docs/* .
-        
-        # Коммитим изменения
+        # Коммитим и пушим
         git add .
-        git commit -m "🚀 Deploy site" || echo "No changes to commit"
-        
-        # Пушим используя PAT
-        git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git main
+        git commit -m "🚀 Deploy clean site" || exit 0
+        git push
