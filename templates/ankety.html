@@ -3,345 +3,329 @@
 {% block title %}Анкеты - Наир{% endblock %}
 
 {% block content %}
-<!-- Левая панель - меню -->
-<nav class="original-nav">
-  <ul class="nav-list">
-    <li class="nav-item">
+<div class="ankety-page">
+  <!-- Левая панель - меню -->
+  <nav class="original-nav">
+    <ul class="nav-list">
+      <li class="nav-item">
         <input type="text" id="search" placeholder="Поиск..." autocomplete="off" class="search-input" />
         <div id="suggestions" class="suggestions"></div>
-    </li>
-    <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-    <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
-    <li class="nav-item"><a href="lor.html" class="nav-link">Лор</a></li>
-    <li class="nav-item"><a href="ankety.html" class="nav-link active">Анкеты</a></li>
-  </ul>
-</nav>
+      </li>
+      <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+      <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
+      <li class="nav-item"><a href="lor.html" class="nav-link">Лор</a></li>
+      <li class="nav-item"><a href="ankety.html" class="nav-link active">Анкеты</a></li>
+    </ul>
+  </nav>
 
-<!-- Правый блок - основной контент -->
-<main class="original-main">
-  <div class="ankety-container">
-    <h1 class="page-title">ПЕРСОНАЖИ ИГРОКОВ</h1>
-    
-    <div class="characters-grid">
-      <!-- Карточка Малдис Канталия -->
-      <div class="character-card" data-character="maldys">
-        <img src="static/photo/character-art/maldys.jpg" alt="Малдис Канталия" class="character-art">
-        <div class="character-info">
-          <div class="character-name">Малдис Канталия</div>
-          <div class="character-race">Человек, Граальд</div>
+  <!-- Правый блок - основной контент -->
+  <main class="original-main">
+    <div class="ankety-container">
+      <h1 class="page-title">ПЕРСОНАЖИ ИГРОКОВ</h1>
+      
+      <!-- Сетка кнопок персонажей -->
+      <div class="characters-grid">
+        <!-- Малдис Канталия -->
+        <div class="character-button" data-character="maldys" data-art="static/photo/character-art/maldys.jpg">
+          <img src="static/photo/character-art/maldys.jpg" alt="Малдис Канталия" class="character-button-bg">
+          <div class="character-button-info">
+            <div class="character-button-name">Малдис Канталия</div>
+            <div class="character-button-race">Человек, Граальд</div>
+          </div>
         </div>
         
-        <!-- Детали анкеты (скрыты по умолчанию) -->
-        <div class="character-details">
-          <!-- Шапка анкеты -->
-          <div class="character-header">
-            <div class="character-main-info">
-              <div class="character-text-info">
-                <h1 class="character-title">Малдис Канталия</h1>
-                <div class="character-subtitle">
-                  Офицер армии Корвуса, боевой маг специализирующийся на пространственной магии
-                </div>
-                
-                <!-- Основные факты с чекбоксами -->
-                <div class="character-facts">
-                  <div class="fact-item">
-                    <div class="fact-checkbox"></div>
-                    <span class="fact-label">Владелец:</span>
-                    <span class="fact-value">Николай Шахов</span>
+        <!-- Другие персонажи -->
+        <div class="character-button" data-character="saga" data-art="static/photo/character-art/saga.jpg">
+          <img src="static/photo/character-art/saga.jpg" alt="Саги Шенав" class="character-button-bg">
+          <div class="character-button-info">
+            <div class="character-button-name">Саги Шенав</div>
+            <div class="character-button-race">Эмпир (полу-эльф)</div>
+          </div>
+        </div>
+        
+        <div class="character-button" data-character="gromdar" data-art="static/photo/character-art/gromdar.jpg">
+          <img src="static/photo/character-art/gromdar.jpg" alt="Громдар" class="character-button-bg">
+          <div class="character-button-info">
+            <div class="character-button-name">Громдар</div>
+            <div class="character-button-race">Дварф</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Контейнер для анкет -->
+      <div class="ankety-content">
+        <!-- Анкета Малдис -->
+        <div class="anketa-container" id="anketa-maldys">
+          <button class="back-button">← Назад к списку</button>
+          
+          <div class="anketa-layout">
+            <!-- Левая часть - контент -->
+            <div class="anketa-content">
+              <!-- Краткое описание -->
+              <div class="quick-info">
+                <div class="info-grid">
+                  <div class="info-item">
+                    <span class="info-label">Имя</span>
+                    <span class="info-value">Малдис Канталия</span>
                   </div>
-                  <div class="fact-item">
-                    <div class="fact-checkbox checked"></div>
-                    <span class="fact-label">Имя:</span>
-                    <span class="fact-value">Малдис Канталия</span>
+                  <div class="info-item">
+                    <span class="info-label">Раса</span>
+                    <span class="info-value">Человек, Граальд</span>
                   </div>
-                  <div class="fact-item">
-                    <div class="fact-checkbox checked"></div>
-                    <span class="fact-label">Раса:</span>
-                    <span class="fact-value">Человек, Граальд</span>
+                  <div class="info-item">
+                    <span class="info-label">Возраст</span>
+                    <span class="info-value">28 лет</span>
                   </div>
-                  <div class="fact-item">
-                    <div class="fact-checkbox checked"></div>
-                    <span class="fact-label">Возраст:</span>
-                    <span class="fact-value">28 лет</span>
-                  </div>
-                  <div class="fact-item">
-                    <div class="fact-checkbox"></div>
-                    <span class="fact-label">Избранный бога:</span>
-                    <span class="fact-value">Нет</span>
+                  <div class="info-item">
+                    <span class="info-label">Избранный бога</span>
+                    <span class="info-value">Нет</span>
                   </div>
                 </div>
               </div>
               
-              <img src="static/photo/character-art/maldys.jpg" alt="Малдис Канталия" class="character-art-expanded">
-            </div>
-          </div>
-          
-          <!-- Содержание -->
-          <div class="character-toc">
-            <div class="toc-title">Содержание</div>
-            <div class="toc-items">
-              <div class="toc-item" data-section="vneshnost">
-                <div class="toc-checkbox"></div>
-                <span class="toc-label">Описание внешности</span>
+              <!-- Навигационные ссылки -->
+              <div class="section-nav">
+                <a class="nav-link" data-section="vneshnost">Описание внешности</a>
+                <a class="nav-link" data-section="harakter">Характер</a>
+                <a class="nav-link" data-section="istoriya">История</a>
+                <a class="nav-link" data-section="sposobnosti">Способности</a>
+                <a class="nav-link" data-section="fizika">Физические параметры</a>
+                <a class="nav-link" data-section="prochee">Прочие особенности</a>
               </div>
-              <div class="toc-item" data-section="harakter">
-                <div class="toc-checkbox"></div>
-                <span class="toc-label">Характер</span>
-              </div>
-              <div class="toc-item" data-section="istoriya">
-                <div class="toc-checkbox"></div>
-                <span class="toc-label">История</span>
-              </div>
-              <div class="toc-item" data-section="sposobnosti">
-                <div class="toc-checkbox"></div>
-                <span class="toc-label">Способности</span>
-              </div>
-              <div class="toc-item" data-section="fizika">
-                <div class="toc-checkbox"></div>
-                <span class="toc-label">Физические параметры</span>
-              </div>
-              <div class="toc-item" data-section="prochee">
-                <div class="toc-checkbox"></div>
-                <span class="toc-label">Прочие особенности</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Контент секций -->
-          <div class="character-content">
-            <!-- Внешность -->
-            <div class="character-section active" id="content-vneshnost">
-              <h2 class="section-title">Описание внешности</h2>
-              <div class="section-content">
-                <p>Описание внешности персонажа будет здесь...</p>
-              </div>
-            </div>
-            
-            <!-- Характер -->
-            <div class="character-section" id="content-harakter">
-              <h2 class="section-title">Характер</h2>
-              <div class="section-content">
-                <p>Старается следовать законам и правилам, но часто ставит справедливость (в своем понимании) выше закона. Дворянка, обладает всеми сопутствующими умениями, печется о репутации своего рода. В большинстве случаев старается помогать окружающим. Ревностно почитает и крайне предана императрице Арайе Брей, а потому не потерпит неуважительных высказываний в ее сторону. Малдис колеблется в дальнейших целях в жизни между карьерой специалиста-мага в магическом институте и военной службой Корвусу.</p>
-              </div>
-            </div>
-            
-            <!-- История -->
-            <div class="character-section" id="content-istoriya">
-              <h2 class="section-title">История</h2>
-              <div class="section-content">
-                <p>Был договор между Корвусом и одним из магических институтов, согласно которому одаренных магией отпрысков знати отправляли учиться магии, с тем чтобы по завершению обучения те вернулись на родину и отслужили определенное время на благо империи. Целью обучения боевых магов- было хоть немного увеличить количество специалистов-заклинателей на службе империи. Малдис была одной из таких. Хоть ее и научили всем основным премудростям, которые должна уметь аристократка, большую часть времени она провела в стенах магического института, вдали от дома. Малдис лишь пару лет назад вернулась на родину, где ее сделали офицером.</p>
-                
-                <p>Авантюристы ненадежны, жадны и не слишком эффективны. Вспомогательные сотни- это те же авантюристы, только получающие регулярное жалование и питание, а также они могут рассчитывать на выдачу снаряжения и какую-никакую помощь лекарей. Обратной стороной медали является то, что вспомогательные войска не могут сами выбирать себе задания и не могут отказаться от заданий, которые выдает им начальство, а конкретно лично Малдис. Кроме того, они вынуждены следовать воинскому кодексу и нести наказания за его нарушение , поскольку формально являются не горсткой авантюристов, а частью армии Корвуса.</p>
-              </div>
-            </div>
-            
-            <!-- Способности -->
-            <div class="character-section" id="content-sposobnosti">
-              <h2 class="section-title">Способности</h2>
-              <div class="section-content">
-                <div class="ability-accordion">
-                  <div class="ability-header">
-                    <div class="ability-name">Телекинез <span>▼</span></div>
+              
+              <!-- Аккордеоны -->
+              <div class="accordions-container">
+                <!-- Внешность -->
+                <div class="accordion-section">
+                  <div class="accordion-header" data-target="vneshnost">
+                    <h3>Описание внешности</h3>
+                    <span class="accordion-icon">▼</span>
                   </div>
-                  <div class="ability-description">
-                    <p><strong>Основное и любимое заклинание</strong> - оперируя магией подпространства, Малдис может силой мысли поднимать и манипулировать объектами на расстоянии до 50 метров, как будто они находятся в ее руке.</p>
-                    <p><strong>Ограничения:</strong> Максимальный вес поднятия одной рукой соответствует 40 кг. Суммарно за день Малдис может использовать телекинез не более получаса.</p>
+                  <div class="accordion-content" id="vneshnost">
+                    <p>Описание внешности персонажа будет здесь...</p>
                   </div>
                 </div>
                 
-                <div class="ability-accordion">
-                  <div class="ability-header">
-                    <div class="ability-name">Скачек <span>▼</span></div>
+                <!-- Характер -->
+                <div class="accordion-section">
+                  <div class="accordion-header" data-target="harakter">
+                    <h3>Характер</h3>
+                    <span class="accordion-icon">▼</span>
                   </div>
-                  <div class="ability-description">
-                    <p>Малдис может переместиться на расстояние до 100 метров в точку, которую видит.</p>
-                    <p><strong>Ограничения:</strong> Всего у Малдис пять зарядов, для восстановления каждого из которых нужно ни меньше часа.</p>
-                  </div>
-                </div>
-                
-                <div class="ability-accordion">
-                  <div class="ability-header">
-                    <div class="ability-name">Карманное подпространство <span>▼</span></div>
-                  </div>
-                  <div class="ability-description">
-                    <p>Малдис может создать "пространственный карман" который способен вместить до 200 кг веса.</p>
-                    <p><strong>Особенности:</strong> Малдис не может создать более одного подпространства и пользоваться им может только она.</p>
+                  <div class="accordion-content" id="harakter">
+                    <p>Старается следовать законам и правилам, но часто ставит справедливость (в своем понимании) выше закона. Дворянка, обладает всеми сопутствующими умениями, печется о репутации своего рода. В большинстве случаев старается помогать окружающим. Ревностно почитает и крайне предана императрице Арайе Брей, а потому не потерпит неуважительных высказываний в ее сторону. Малдис колеблется в дальнейших целях в жизни между карьерой специалиста-мага в магическом институте и военной службой Корвусу.</p>
                   </div>
                 </div>
                 
-                <div class="ability-accordion">
-                  <div class="ability-header">
-                    <div class="ability-name">Ветряная сфера <span>▼</span></div>
+                <!-- История -->
+                <div class="accordion-section">
+                  <div class="accordion-header" data-target="istoriya">
+                    <h3>История</h3>
+                    <span class="accordion-icon">▼</span>
                   </div>
-                  <div class="ability-description">
-                    <p>К выбранному объекту привязывается ветряная сфера радиусом в пять метров.</p>
-                    <p><strong>Длительность:</strong> Существует в течении получаса, может начать закручиваться, создавая ветряной поток.</p>
-                  </div>
-                </div>
-                
-                <div class="ability-accordion">
-                  <div class="ability-header">
-                    <div class="ability-name">Призыв элементаля <span>▼</span></div>
-                  </div>
-                  <div class="ability-description">
-                    <p>Малдис тратит минуту призывая элементаля ветра.</p>
-                    <p><strong>Характеристики:</strong> Элементаль живет в течении часа и повторный призыв возможен через 8 часов.</p>
+                  <div class="accordion-content" id="istoriya">
+                    <p>Был договор между Корвусом и одним из магических институтов, согласно которому одаренных магией отпрысков знати отправляли учиться магии, с тем чтобы по завершению обучения те вернулись на родину и отслужили определенное время на благо империи. Целью обучения боевых магов- было хоть немного увеличить количество специалистов-заклинателей на службе империи. Малдис была одной из таких. Хоть ее и научили всем основным премудростям, которые должна уметь аристократка, большую часть времени она провела в стенах магического института, вдали от дома. Малдис лишь пару лет назад вернулась на родину, где ее сделали офицером.</p>
+                    
+                    <p>Авантюристы ненадежны, жадны и не слишком эффективны. Вспомогательные сотни- это те же авантюристы, только получающие регулярное жалование и питание, а также они могут рассчитывать на выдачу снаряжения и какую-никакую помощь лекарей. Обратной стороной медали является то, что вспомогательные войска не могут сами выбирать себе задания и не могут отказаться от заданий, которые выдает им начальство, а конкретно лично Малдис. Кроме того, они вынуждены следовать воинскому кодексу и нести наказания за его нарушение , поскольку формально являются не горсткой авантюристов, а частью армии Корвуса.</p>
+                    
+                    <p>Однако редко во вспомогательных войсках можно встретить представителей экзотических рас с даром магии. Большая часть состава- это заключенные, штрафники из других родов войск или просто сельские парни, желающие сменить плуг на копье и жизнь авантюристов. В мирное время вспомогательные войска занимаются противостоянием с чудовищами, выслеживанием бандитов , культистов и всех прочих угроз, на которых регулярные войска не слишком хотят тратить собственные ресурсы.</p>
+                    
+                    <p>Часто в задачи Малдис входят поиск артефактов или ликвидация угроз особо опасных монстров или преступников. Также она обладает властью выполнять функции военного офицера, согласно своему званию. В институте магии она развивала магии пространства и ветра. Формально, она не закончила обучения и хотела бы продолжить его поскольку ее редкий тип магии интересен и магам, но также ее беспокоит и безопасность жителей Корвуса.</p>
                   </div>
                 </div>
                 
-                <div class="ability-accordion">
-                  <div class="ability-header">
-                    <div class="ability-name">Удар сквозь пространство <span>▼</span></div>
+                <!-- Способности -->
+                <div class="accordion-section">
+                  <div class="accordion-header" data-target="sposobnosti">
+                    <h3>Способности</h3>
+                    <span class="accordion-icon">▼</span>
                   </div>
-                  <div class="ability-description">
-                    <p>Раз в день Малдис может нанести удар клинком, рукой, ногой или любой другой частью тела - проходящей сквозь пространство.</p>
-                    <p><strong>Ограничения:</strong> Заклинание действует до 6 секунд.</p>
+                  <div class="accordion-content" id="sposobnosti">
+                    <!-- Телекинез -->
+                    <div class="ability-accordion">
+                      <div class="ability-header">
+                        <div class="ability-name">Телекинез <span>▼</span></div>
+                      </div>
+                      <div class="ability-description">
+                        <p><strong>Основное и любимое заклинание</strong> - оперируя магией подпространства, Малдис может силой мысли поднимать и манипулировать объектами на расстоянии до 50 метров, как будто они находятся в ее руке. Для поднятия объекта и манипуляций с ним нужна свободная рука. В случае повреждения обеих рук заклинание не может быть использовано.</p>
+                        <p><strong>Ограничения:</strong> Максимальный вес поднятия одной рукой соответствует 40 кг. Суммарно за день Малдис может использовать телекинез не более получаса. Целью телекинеза не могут быть объекты, которые Малдис не видит или являются живым организмом (или сплавом из нескольких металлов, чем больше веществ и примесей в материале, тем хуже работает телекинез). Однако выбить оружие из рук или толкнуть в доспех врага на расстоянии она вполне способна.</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Скачек -->
+                    <div class="ability-accordion">
+                      <div class="ability-header">
+                        <div class="ability-name">Скачек <span>▼</span></div>
+                      </div>
+                      <div class="ability-description">
+                        <p>Малдис может переместиться на расстояние до 100 метров в точку, которую видит.</p>
+                        <p><strong>Ограничения:</strong> Всего у Малдис пять зарядов, для восстановления каждого из которых нужно ни меньше часа. При перемещении гасится гравитация и таким образом можно спастись от падения с большой высоты.</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Добавьте остальные способности по аналогии -->
+                    
+                  </div>
+                </div>
+                
+                <!-- Физические параметры -->
+                <div class="accordion-section">
+                  <div class="accordion-header" data-target="fizika">
+                    <h3>Физические параметры</h3>
+                    <span class="accordion-icon">▼</span>
+                  </div>
+                  <div class="accordion-content" id="fizika">
+                    <p>Малдис обучена ношению тяжелой брони и владеет копьем и мечом на достаточном уровне, чтобы обучать знающих базовые основы солдат более продвинутым навыкам. Однако сама по себе не является мастером и навряд ли прошла бы отбор в условную гвардию. Хоть латы и меч создают видимость война, основная ее сила- это магические способности, поскольку она в первую очередь -боевой маг. В остальном здоровая девушка, способная выдерживать будни солдатской жизни и влияние собственных способностей на организм. За исключением вышесказанного Малдис- обычная девушка, не обладающая сверх силой, феноменальной реакцией или несгибаемой волей. Она обладает всем спектром человеческих страхов и ей есть что терять, хоть военная подготовка и позволяет их преодолевать. Поэтому перед боем ей желательно дать немного времени чтобы настроится на схватку.</p>
+                    
+                    <p>Как и все граальды, она хрупка (в сравнении с другими расами) и обладает всеми сопутствующими уязвимостями, а ее магические навыки можно законтрить даже не обладая магией, нанеся достаточный урон конечностям. С другой стороны, она настолько хорошо умеет пользоваться своими способности, что при минимальном прикрытии , способна удивить как врагов, так и союзников.</p>
+                  </div>
+                </div>
+                
+                <!-- Прочие особенности -->
+                <div class="accordion-section">
+                  <div class="accordion-header" data-target="prochee">
+                    <h3>Прочие особенности</h3>
+                    <span class="accordion-icon">▼</span>
+                  </div>
+                  <div class="accordion-content" id="prochee">
+                    <p>Офицер армии Корвуса, временно исполняющая обязанности командира вспомогательных войск, имеет начальника в лице придворного мага Императрицы. Может получать золото от начальства на нужды войск, но не может использовать их для собственного усиления, т.к отчитывается за каждый златник. Может вербовать в вспомогательные войска других персонажей при их желании.</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <!-- Физические параметры -->
-            <div class="character-section" id="content-fizika">
-              <h2 class="section-title">Физические параметры</h2>
-              <div class="section-content">
-                <p>Малдис обучена ношению тяжелой брони и владеет копьем и мечом на достаточном уровне, чтобы обучать знающих базовые основы солдат более продвинутым навыкам. Однако сама по себе не является мастером и навряд ли прошла бы отбор в условную гвардию.</p>
-                
-                <p>Как и все граальды, она хрупка (в сравнении с другими расами) и обладает всеми сопутствующими уязвимостями, а ее магические навыки можно законтрить даже не обладая магией, нанеся достаточный урон конечностям.</p>
-              </div>
-            </div>
-            
-            <!-- Прочие особенности -->
-            <div class="character-section" id="content-prochee">
-              <h2 class="section-title">Прочие особенности</h2>
-              <div class="section-content">
-                <p>Офицер армии Корвуса, временно исполняющая обязанности командира вспомогательных войск, имеет начальника в лице придворного мага Императрицы. Может получать золото от начальства на нужды войск, но не может использовать их для собственного усиления, т.к отчитывается за каждый златник. Может вербовать в вспомогательные войска других персонажей при их желании.</p>
+            <!-- Правая часть - арт и владелец -->
+            <div class="anketa-sidebar">
+              <img src="static/photo/character-art/maldys.jpg" alt="Малдис Канталия" class="anketa-art" id="maldys-art">
+              <div class="owner-link">
+                Владелец персонажа: <a href="https://vk.com/id123456789" target="_blank">Николай Шахов</a>
               </div>
             </div>
           </div>
         </div>
         
-        <button class="close-btn">×</button>
+        <!-- Здесь можно добавить другие анкеты по аналогии -->
       </div>
-      
-      <!-- Пример других анкет (можно добавить больше) -->
-      <div class="character-card">
-        <img src="static/photo/character-art/placeholder.jpg" alt="Персонаж 2" class="character-art">
-        <div class="character-info">
-          <div class="character-name">Элриндор</div>
-          <div class="character-race">Эльф</div>
-        </div>
-      </div>
-      
-      <div class="character-card">
-        <img src="static/photo/character-art/placeholder.jpg" alt="Персонаж 3" class="character-art">
-        <div class="character-info">
-          <div class="character-name">Громдар</div>
-          <div class="character-race">Дварф</div>
-        </div>
-      </div>
-      
-      <!-- Добавьте больше карточек по аналогии -->
     </div>
-  </div>
-  
-  <!-- Оверлей для затемнения фона -->
-  <div class="overlay"></div>
-</main>
+  </main>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const characterCards = document.querySelectorAll('.character-card');
-  const overlay = document.querySelector('.overlay');
+  const characterButtons = document.querySelectorAll('.character-button');
+  const anketaContainers = document.querySelectorAll('.anketa-container');
+  const backButton = document.querySelector('.back-button');
+  let currentAnketa = null;
   
-  // Открытие карточки
-  characterCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-      if (!this.classList.contains('expanded') && !e.target.classList.contains('close-btn')) {
-        // Закрываем другие открытые карточки
-        document.querySelectorAll('.character-card.expanded').forEach(openCard => {
-          openCard.classList.remove('expanded');
+  // Анимация открытия анкеты
+  characterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const characterId = this.getAttribute('data-character');
+      const artSrc = this.getAttribute('data-art');
+      
+      // Создаем анимируемое фото
+      const rect = this.getBoundingClientRect();
+      const animatedPhoto = document.createElement('img');
+      animatedPhoto.src = artSrc;
+      animatedPhoto.className = 'photo-animation';
+      animatedPhoto.style.width = rect.width + 'px';
+      animatedPhoto.style.height = rect.height + 'px';
+      animatedPhoto.style.left = rect.left + 'px';
+      animatedPhoto.style.top = rect.top + 'px';
+      animatedPhoto.style.borderRadius = '15px';
+      
+      document.body.appendChild(animatedPhoto);
+      
+      // Запускаем анимацию
+      setTimeout(() => {
+        const targetRect = document.getElementById(characterId + '-art')?.getBoundingClientRect();
+        if (targetRect) {
+          animatedPhoto.style.width = targetRect.width + 'px';
+          animatedPhoto.style.height = targetRect.height + 'px';
+          animatedPhoto.style.left = targetRect.left + 'px';
+          animatedPhoto.style.top = targetRect.top + 'px';
+          animatedPhoto.style.borderRadius = '12px';
+        }
+      }, 50);
+      
+      // Показываем анкету после анимации
+      setTimeout(() => {
+        // Скрываем все анкеты
+        anketaContainers.forEach(container => {
+          container.classList.remove('active');
+          if (container.classList.contains('exiting')) {
+            container.classList.remove('exiting');
+          }
         });
         
-        // Открываем текущую
-        this.classList.add('expanded');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        // Показываем выбранную анкету
+        const targetAnketa = document.getElementById('anketa-' + characterId);
+        if (targetAnketa) {
+          targetAnketa.classList.add('active');
+          currentAnketa = targetAnketa;
+          
+          // Прокрутка к верху
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Удаляем анимированное фото
+        setTimeout(() => {
+          if (animatedPhoto.parentNode) {
+            animatedPhoto.parentNode.removeChild(animatedPhoto);
+          }
+        }, 100);
+      }, 800);
+    });
+  });
+  
+  // Кнопка назад
+  backButton.addEventListener('click', function() {
+    if (currentAnketa) {
+      currentAnketa.classList.add('exiting');
+      currentAnketa.classList.remove('active');
+      
+      setTimeout(() => {
+        currentAnketa.classList.remove('exiting');
+        currentAnketa = null;
+      }, 600);
+    }
+  });
+  
+  // Аккордеоны
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const content = document.getElementById(targetId);
+      const isActive = content.classList.contains('active');
+      
+      // Закрываем все аккордеоны
+      document.querySelectorAll('.accordion-content').forEach(acc => {
+        acc.classList.remove('active');
+      });
+      document.querySelectorAll('.accordion-header').forEach(h => {
+        h.classList.remove('active');
+      });
+      
+      // Открываем текущий, если был закрыт
+      if (!isActive) {
+        content.classList.add('active');
+        this.classList.add('active');
       }
     });
   });
   
-  // Закрытие карточки
-  function closeCard() {
-    document.querySelectorAll('.character-card.expanded').forEach(card => {
-      card.classList.remove('expanded');
+  // Навигационные ссылки
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      const sectionId = this.getAttribute('data-section');
+      const accordionHeader = document.querySelector(`.accordion-header[data-target="${sectionId}"]`);
+      if (accordionHeader) {
+        accordionHeader.click();
+      }
     });
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  
-  // Закрытие по крестику
-  document.querySelectorAll('.close-btn').forEach(btn => {
-    btn.addEventListener('click', closeCard);
   });
-  
-  // Закрытие по оверлею
-  overlay.addEventListener('click', closeCard);
-  
-  // Закрытие по ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closeCard();
-    }
-  });
-  
-  // Функциональность для чекбоксов
-  function initCharacterCheckboxes() {
-    // Чекбоксы фактов
-    const factCheckboxes = document.querySelectorAll('.fact-checkbox');
-    factCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener('click', function() {
-        this.classList.toggle('checked');
-      });
-    });
-    
-    // Чекбоксы содержания
-    const tocItems = document.querySelectorAll('.toc-item');
-    tocItems.forEach(item => {
-      item.addEventListener('click', function() {
-        const checkbox = this.querySelector('.toc-checkbox');
-        const sectionId = this.getAttribute('data-section');
-        
-        // Переключаем чекбокс
-        checkbox.classList.toggle('checked');
-        
-        // Показываем секцию
-        showCharacterSection(sectionId);
-      });
-    });
-  }
-
-  function showCharacterSection(sectionId) {
-    // Скрываем все секции
-    document.querySelectorAll('.character-section').forEach(section => {
-      section.classList.remove('active');
-    });
-    
-    // Показываем выбранную секцию
-    const targetSection = document.getElementById(`content-${sectionId}`);
-    if (targetSection) {
-      targetSection.classList.add('active');
-      
-      // Прокрутка к секции
-      targetSection.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      });
-    }
-  }
-
-  // Инициализация чекбоксов
-  initCharacterCheckboxes();
   
   // Аккордеоны способностей
   const abilityHeaders = document.querySelectorAll('.ability-header');
