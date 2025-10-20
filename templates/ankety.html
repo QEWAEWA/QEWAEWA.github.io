@@ -33,50 +33,43 @@
         
         <!-- Детали анкеты (скрыты по умолчанию) -->
         <div class="character-details">
-          <div class="owner-link">
-            Владелец персонажа: <a href="https://vk.com/id266021164" target="_blank">Николай Шахов</a>
-          </div>
-          
-          <div class="basic-info">
-            <div class="info-column">
-              <h3>Основная информация</h3>
+          <!-- Быстрая информация слева -->
+          <div class="quick-info">
+            <div class="owner-link">
+              Владелец: <a href="https://vk.com/id123456789" target="_blank">Николай Шахов</a>
+            </div>
+            
+            <div class="basic-info-grid">
               <div class="info-item">
                 <span class="info-label">Имя:</span>
-                <span>Малдис Канталия</span>
+                <span class="info-value">Малдис Канталия</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Раса:</span>
-                <span>Человек, Граальд</span>
+                <span class="info-value">Человек, Граальд</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Возраст:</span>
-                <span>28 лет</span>
+                <span class="info-value">28 лет</span>
               </div>
               <div class="info-item">
-                <span class="info-label">Избранный бога:</span>
-                <span>Нет</span>
-              </div>
-            </div>
-            <div class="info-column">
-              <h3>Магические способности</h3>
-              <div class="info-item">
-                <span class="info-label">Элементы:</span>
-                <span>Ветер, Земля, Свет</span>
+                <span class="info-label">Статус:</span>
+                <span class="info-value">Офицер Корвуса</span>
               </div>
               <div class="info-item">
-                <span class="info-label">Типы магии:</span>
-                <span>Пространство и Ветер</span>
+                <span class="info-label">Стиль боя:</span>
+                <span class="info-value">Боевой маг</span>
               </div>
               <div class="info-item">
-                <span class="info-label">Активация:</span>
-                <span>Мысленное представление глифов</span>
+                <span class="info-label">Специализация:</span>
+                <span class="info-value">Пространственная магия</span>
               </div>
             </div>
           </div>
           
           <!-- Навигационные ссылки -->
           <div class="section-nav">
-            <a class="nav-link" data-section="vneshnost">Описание внешности</a>
+            <a class="nav-link" data-section="vneshnost">Внешность</a>
             <a class="nav-link" data-section="harakter">Характер</a>
             <a class="nav-link" data-section="istoriya">История</a>
             <a class="nav-link" data-section="sposobnosti">Способности</a>
@@ -87,7 +80,7 @@
           <!-- Аккордеоны -->
           <div class="accordions-container">
             <!-- Внешность -->
-            <div class="accordion-section">
+            <div class="accordion-section" id="section-vneshnost">
               <div class="accordion-header" data-target="vneshnost">
                 <h4>Описание внешности</h4>
                 <span class="accordion-icon">▼</span>
@@ -98,7 +91,7 @@
             </div>
             
             <!-- Характер -->
-            <div class="accordion-section">
+            <div class="accordion-section" id="section-harakter">
               <div class="accordion-header" data-target="harakter">
                 <h4>Характер</h4>
                 <span class="accordion-icon">▼</span>
@@ -109,7 +102,7 @@
             </div>
             
             <!-- История -->
-            <div class="accordion-section">
+            <div class="accordion-section" id="section-istoriya">
               <div class="accordion-header" data-target="istoriya">
                 <h4>История</h4>
                 <span class="accordion-icon">▼</span>
@@ -118,15 +111,11 @@
                 <p>Был договор между Корвусом и одним из магических институтов, согласно которому одаренных магией отпрысков знати отправляли учиться магии, с тем чтобы по завершению обучения те вернулись на родину и отслужили определенное время на благо империи. Целью обучения боевых магов- было хоть немного увеличить количество специалистов-заклинателей на службе империи. Малдис была одной из таких. Хоть ее и научили всем основным премудростям, которые должна уметь аристократка, большую часть времени она провела в стенах магического института, вдали от дома. Малдис лишь пару лет назад вернулась на родину, где ее сделали офицером.</p>
                 
                 <p>Авантюристы ненадежны, жадны и не слишком эффективны. Вспомогательные сотни- это те же авантюристы, только получающие регулярное жалование и питание, а также они могут рассчитывать на выдачу снаряжения и какую-никакую помощь лекарей. Обратной стороной медали является то, что вспомогательные войска не могут сами выбирать себе задания и не могут отказаться от заданий, которые выдает им начальство, а конкретно лично Малдис. Кроме того, они вынуждены следовать воинскому кодексу и нести наказания за его нарушение , поскольку формально являются не горсткой авантюристов, а частью армии Корвуса.</p>
-                
-                <p>Однако редко во вспомогательных войсках можно встретить представителей экзотических рас с даром магии. Большая часть состава- это заключенные, штрафники из других родов войск или просто сельские парни, желающие сменить плуг на копье и жизнь авантюристов. В мирное время вспомогательные войска занимаются противостоянием с чудовищами, выслеживанием бандитов , культистов и всех прочих угроз, на которых регулярные войска не слишком хотят тратить собственные ресурсы.</p>
-                
-                <p>Часто в задачи Малдис входят поиск артефактов или ликвидация угроз особо опасных монстров или преступников. Также она обладает властью выполнять функции военного офицера, согласно своему званию. В институте магии она развивала магии пространства и ветра. Формально, она не закончила обучения и хотела бы продолжить его поскольку ее редкий тип магии интересен и магам, но также ее беспокоит и безопасность жителей Корвуса.</p>
               </div>
             </div>
             
             <!-- Способности -->
-            <div class="accordion-section">
+            <div class="accordion-section" id="section-sposobnosti">
               <div class="accordion-header" data-target="sposobnosti">
                 <h4>Способности</h4>
                 <span class="accordion-icon">▼</span>
@@ -137,8 +126,8 @@
                     <div class="ability-name">Телекинез <span>▼</span></div>
                   </div>
                   <div class="ability-description">
-                    <p><strong>Основное и любимое заклинание</strong> - оперируя магией подпространства, Малдис может силой мысли поднимать и манипулировать объектами на расстоянии до 50 метров, как будто они находятся в ее руке. Для поднятия объекта и манипуляций с ним нужна свободная рука. В случае повреждения обеих рук заклинание не может быть использовано.</p>
-                    <p><strong>Ограничения:</strong> Максимальный вес поднятия одной рукой соответствует 40 кг. Суммарно за день Малдис может использовать телекинез не более получаса. Целью телекинеза не могут быть объекты, которые Малдис не видит или являются живым организмом (или сплавом из нескольких металлов, чем больше веществ и примесей в материале, тем хуже работает телекинез). Однако выбить оружие из рук или толкнуть в доспех врага на расстоянии она вполне способна.</p>
+                    <p><strong>Основное и любимое заклинание</strong> - оперируя магией подпространства, Малдис может силой мысли поднимать и манипулировать объектами на расстоянии до 50 метров, как будто они находятся в ее руке.</p>
+                    <p><strong>Ограничения:</strong> Максимальный вес поднятия одной рукой соответствует 40 кг. Суммарно за день Малдис может использовать телекинез не более получаса.</p>
                   </div>
                 </div>
                 
@@ -148,7 +137,7 @@
                   </div>
                   <div class="ability-description">
                     <p>Малдис может переместиться на расстояние до 100 метров в точку, которую видит.</p>
-                    <p><strong>Ограничения:</strong> Всего у Малдис пять зарядов, для восстановления каждого из которых нужно ни меньше часа. При перемещении гасится гравитация и таким образом можно спастись от падения с большой высоты.</p>
+                    <p><strong>Ограничения:</strong> Всего у Малдис пять зарядов, для восстановления каждого из которых нужно ни меньше часа.</p>
                   </div>
                 </div>
                 
@@ -157,31 +146,58 @@
                     <div class="ability-name">Карманное подпространство <span>▼</span></div>
                   </div>
                   <div class="ability-description">
-                    <p>Малдис может создать "пространственный карман" который способен вместить до 200 кг веса. Однако в подпространство не могут быть помещены живые существа. Кроме того, подпространству нужна привязка к существующему в реальном мире объекту (кольцу, палочке, ножнам, сумке и т.д). В случае уничтожения объекта, все содержимое подпространства немедленно появится в месте уничтожения.</p>
-                    <p><strong>Особенности:</strong> Малдис не может создать более одного подпространства и пользоваться им может только она. Из подпространства предмет может появляться либо в руке, либо рядом с привязаным объектом. Это заклинание помогает ей сэкономить на повозках с фуражом.</p>
+                    <p>Малдис может создать "пространственный карман" который способен вместить до 200 кг веса.</p>
+                    <p><strong>Особенности:</strong> Малдис не может создать более одного подпространства и пользоваться им может только она.</p>
                   </div>
                 </div>
                 
-                <!-- Добавьте остальные способности по аналогии -->
+                <div class="ability-accordion">
+                  <div class="ability-header">
+                    <div class="ability-name">Ветряная сфера <span>▼</span></div>
+                  </div>
+                  <div class="ability-description">
+                    <p>К выбранному объекту привязывается ветряная сфера радиусом в пять метров.</p>
+                    <p><strong>Длительность:</strong> Существует в течении получаса, может начать закручиваться, создавая ветряной поток.</p>
+                  </div>
+                </div>
                 
+                <div class="ability-accordion">
+                  <div class="ability-header">
+                    <div class="ability-name">Призыв элементаля <span>▼</span></div>
+                  </div>
+                  <div class="ability-description">
+                    <p>Малдис тратит минуту призывая элементаля ветра.</p>
+                    <p><strong>Характеристики:</strong> Элементаль живет в течении часа и повторный призыв возможен через 8 часов.</p>
+                  </div>
+                </div>
+                
+                <div class="ability-accordion">
+                  <div class="ability-header">
+                    <div class="ability-name">Удар сквозь пространство <span>▼</span></div>
+                  </div>
+                  <div class="ability-description">
+                    <p>Раз в день Малдис может нанести удар клинком, рукой, ногой или любой другой частью тела - проходящей сквозь пространство.</p>
+                    <p><strong>Ограничения:</strong> Заклинание действует до 6 секунд.</p>
+                  </div>
+                </div>
               </div>
             </div>
             
             <!-- Физические параметры -->
-            <div class="accordion-section">
+            <div class="accordion-section" id="section-fizika">
               <div class="accordion-header" data-target="fizika">
                 <h4>Физические параметры</h4>
                 <span class="accordion-icon">▼</span>
               </div>
               <div class="accordion-content" id="fizika">
-                <p>Малдис обучена ношению тяжелой брони и владеет копьем и мечом на достаточном уровне, чтобы обучать знающих базовые основы солдат более продвинутым навыкам. Однако сама по себе не является мастером и навряд ли прошла бы отбор в условную гвардию. Хоть латы и меч создают видимость война, основная ее сила- это магические способности, поскольку она в первую очередь -боевой маг. В остальном здоровая девушка, способная выдерживать будни солдатской жизни и влияние собственных способностей на организм. За исключением вышесказанного Малдис- обычная девушка, не обладающая сверх силой, феноменальной реакцией или несгибаемой волей. Она обладает всем спектром человеческих страхов и ей есть что терять, хоть военная подготовка и позволяет их преодолевать. Поэтому перед боем ей желательно дать немного времени чтобы настроится на схватку.</p>
+                <p>Малдис обучена ношению тяжелой брони и владеет копьем и мечом на достаточном уровне, чтобы обучать знающих базовые основы солдат более продвинутым навыкам. Однако сама по себе не является мастером и навряд ли прошла бы отбор в условную гвардию.</p>
                 
-                <p>Как и все граальды, она хрупка (в сравнении с другими расами) и обладает всеми сопутствующими уязвимостями, а ее магические навыки можно законтрить даже не обладая магией, нанеся достаточный урон конечностям. С другой стороны, она настолько хорошо умеет пользоваться своими способности, что при минимальном прикрытии , способна удивить как врагов, так и союзников.</p>
+                <p>Как и все граальды, она хрупка (в сравнении с другими расами) и обладает всеми сопутствующими уязвимостями, а ее магические навыки можно законтрить даже не обладая магией, нанеся достаточный урон конечностям.</p>
               </div>
             </div>
             
             <!-- Прочие особенности -->
-            <div class="accordion-section">
+            <div class="accordion-section" id="section-prochee">
               <div class="accordion-header" data-target="prochee">
                 <h4>Прочие особенности</h4>
                 <span class="accordion-icon">▼</span>
@@ -196,7 +212,24 @@
         <button class="close-btn">×</button>
       </div>
       
-      <!-- Здесь можно добавить другие карточки персонажей -->
+      <!-- Пример других анкет (можно добавить больше) -->
+      <div class="character-card">
+        <img src="static/photo/character-art/placeholder.jpg" alt="Персонаж 2" class="character-art">
+        <div class="character-info">
+          <div class="character-name">Элриндор</div>
+          <div class="character-race">Эльф</div>
+        </div>
+      </div>
+      
+      <div class="character-card">
+        <img src="static/photo/character-art/placeholder.jpg" alt="Персонаж 3" class="character-art">
+        <div class="character-info">
+          <div class="character-name">Громдар</div>
+          <div class="character-race">Дварф</div>
+        </div>
+      </div>
+      
+      <!-- Добавьте больше карточек по аналогии -->
     </div>
   </div>
   
@@ -205,16 +238,14 @@
 </main>
 
 <script>
-// JavaScript для анимации и взаимодействия
 document.addEventListener('DOMContentLoaded', function() {
   const characterCards = document.querySelectorAll('.character-card');
   const overlay = document.querySelector('.overlay');
-  const closeBtn = document.querySelector('.close-btn');
   
   // Открытие карточки
   characterCards.forEach(card => {
     card.addEventListener('click', function(e) {
-      if (!this.classList.contains('expanded')) {
+      if (!this.classList.contains('expanded') && !e.target.classList.contains('close-btn')) {
         // Закрываем другие открытые карточки
         document.querySelectorAll('.character-card.expanded').forEach(openCard => {
           openCard.classList.remove('expanded');
@@ -237,7 +268,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.overflow = '';
   }
   
-  closeBtn.addEventListener('click', closeCard);
+  // Закрытие по крестику
+  document.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', closeCard);
+  });
+  
+  // Закрытие по оверлею
   overlay.addEventListener('click', closeCard);
   
   // Закрытие по ESC
@@ -267,18 +303,33 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!isActive) {
         content.classList.add('active');
         this.classList.add('active');
+        
+        // Прокручиваем к открытому аккордеону
+        content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
   });
   
-  // Навигационные ссылки
+  // Навигационные ссылки - прокрутка к секциям
   const navLinks = document.querySelectorAll('.nav-link[data-section]');
   navLinks.forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
       const sectionId = this.getAttribute('data-section');
+      const sectionElement = document.getElementById(`section-${sectionId}`);
       const accordionHeader = document.querySelector(`.accordion-header[data-target="${sectionId}"]`);
-      if (accordionHeader) {
+      
+      if (sectionElement && accordionHeader) {
+        // Открываем аккордеон
         accordionHeader.click();
+        
+        // Плавная прокрутка к секции
+        setTimeout(() => {
+          sectionElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start'
+          });
+        }, 300);
       }
     });
   });
