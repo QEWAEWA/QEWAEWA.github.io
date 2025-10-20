@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Fira Sans';
-  src: url('../photo/FiraSans-Italic.ttf') format('truetype');
+  src: url('/static/FiraSans-Italic.ttf') format('truetype');
 }
 
 /* Обновлённая цветовая схема на основе текстовых цветов */
@@ -49,43 +49,132 @@
   --nair-info: rgba(160, 180, 212, 0.25);
 }
 
-/* Улучшенные тени для карточек */
-.character-btn, .profile-info, .accordion-item {
+/* ===== СТИЛЬ ДЛЯ СЕТКИ КНОПОК КАК НА СКРИНШОТЕ ===== */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  background: var(--nair-card-bg);
+  border: 2px solid var(--nair-border);
+  border-radius: 12px;
+  padding: 30px 25px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--nair-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
   box-shadow: 
-    0 4px 20px var(--nair-shadow-card),
-    0 2px 8px var(--nair-shadow);
+    0 8px 32px var(--nair-shadow-card),
+    0 4px 16px var(--nair-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--nair-gradient-accent);
+  transition: left 0.6s ease;
+  z-index: 0;
+}
+
+.grid-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--nair-border-accent);
+  box-shadow: 
+    0 12px 40px var(--nair-shadow-card),
+    0 0 25px var(--nair-shadow-glow);
+  color: var(--nair-accent);
+}
+
+.grid-item:hover::before {
+  left: 0;
+}
+
+.grid-icon {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 8px var(--nair-shadow);
+}
+
+.grid-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px var(--nair-shadow);
+}
+
+/* Специальный стиль для кнопки "Назад" */
+.grid-item:last-child {
+  background: var(--nair-primary);
+  border-color: var(--nair-border-dark);
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  max-width: 200px;
+  justify-self: center;
+}
+
+.grid-item:last-child:hover {
+  background: var(--nair-hover);
+  border-color: var(--nair-border-accent);
+}
+
+/* Улучшенные тени для карточек */
+.character-btn, .profile-info, .accordion-item, .grid-item {
+  box-shadow: 
+    0 8px 32px var(--nair-shadow-card),
+    0 4px 16px var(--nair-shadow);
 }
 
 /* Glow эффекты для акцентных элементов */
-.nav-link.active, .character-btn:hover, .container-btn:hover {
+.nav-link.active, .character-btn:hover, .container-btn:hover, .grid-item:hover {
   box-shadow: 
-    0 4px 20px var(--nair-shadow-card),
-    0 0 15px var(--nair-shadow-glow);
+    0 8px 32px var(--nair-shadow-card),
+    0 0 20px var(--nair-shadow-glow);
 }
 
 /* Улучшенные градиенты для фонов */
-.original-nav {
-  background: var(--nair-gradient-primary);
-}
-
 .profile-info, .accordion-item {
   background: var(--nair-gradient-primary);
   border: 1px solid var(--nair-border);
 }
 
 /* Анимации с акцентными цветами */
-.character-btn:hover {
+.character-btn:hover, .grid-item:hover {
   border-color: var(--nair-border-accent);
-  transform: translateY(-5px) scale(1.02);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-8px) scale(1.02);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Улучшенные текстовые эффекты */
 .page-title {
   color: var(--nair-accent);
   text-shadow: 
-    0 0 20px var(--nair-accent-glow),
-    0 2px 8px var(--nair-shadow);
+    0 0 25px var(--nair-accent-glow),
+    0 4px 12px var(--nair-shadow);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .profile-name {
@@ -101,12 +190,14 @@ body {
   min-height: 100vh;
   background: var(--nair-bg);
   line-height: 1.6;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(200, 194, 212, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 160, 184, 0.02) 0%, transparent 50%);
 }
 
 /* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ ===== */
 .original-nav {
   width: 300px;
-  background-color: var(--nair-nav-bg);
   padding: 25px 20px;
   box-sizing: border-box;
   border-right: 1px solid var(--nair-border-light);
@@ -129,7 +220,7 @@ body {
   background-position: center;
   filter: blur(10px) brightness(0.6) contrast(1.1);
   z-index: -2;
-  transform: scale(1.1); /* Убирает тёмные края от размытия */
+  transform: scale(1.1);
 }
 
 /* Полупрозрачная заливка поверх изображения */
@@ -140,26 +231,13 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg, 
-    rgba(26, 24, 32, 0.92) 0%, 
-    rgba(45, 41, 53, 0.88) 50%,
-    rgba(26, 24, 32, 0.85) 100%
-  );
-  z-index: -1;
-}
-
-/* Обновляем z-index для контента меню */
-.nav-list,
-.search-input,
-.suggestions {
-  position: relative;
-  z-index: 1;
-}
-
-/* Дополнительные эффекты для улучшения атмосферы */
-.original-nav {
-  background-image: 
+  background: 
+    linear-gradient(
+      135deg, 
+      rgba(26, 24, 32, 0.92) 0%, 
+      rgba(45, 41, 53, 0.88) 50%,
+      rgba(26, 24, 32, 0.85) 100%
+    ),
     radial-gradient(
       circle at 20% 80%,
       rgba(200, 194, 212, 0.03) 0%,
@@ -170,6 +248,15 @@ body {
       rgba(168, 160, 184, 0.02) 0%,
       transparent 50%
     );
+  z-index: -1;
+}
+
+/* Обновляем z-index для контента меню */
+.nav-list,
+.search-input,
+.suggestions {
+  position: relative;
+  z-index: 1;
 }
 
 .nav-list {
@@ -187,16 +274,17 @@ body {
   color: var(--nair-accent);
   text-decoration: none;
   display: block;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 15px 20px;
+  border-radius: 10px;
   border: none;
   background: transparent;
   position: relative;
-  padding-left: 20px;
-  transition: all 0.3s ease;
+  padding-left: 25px;
+  transition: all 0.4s ease;
   font-family: 'Fira Sans', sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   border: 1px solid transparent;
+  letter-spacing: 0.3px;
 }
 
 .nav-link::before {
@@ -205,32 +293,33 @@ body {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 3px;
+  width: 4px;
   height: 0;
   background: var(--nair-accent);
   border-radius: 2px;
-  transition: height 0.3s ease;
+  transition: height 0.4s ease;
+  box-shadow: 0 0 10px var(--nair-accent-glow);
 }
 
 .nav-link.active {
   background: var(--nair-primary);
   border: 1px solid var(--nair-border);
-  box-shadow: 0 2px 12px var(--nair-shadow);
+  box-shadow: 0 4px 20px var(--nair-shadow);
 }
 
 .nav-link.active::before {
-  height: 70%;
+  height: 80%;
 }
 
 .nav-link:hover {
   background: var(--nair-hover);
-  transform: translateX(5px);
+  transform: translateX(8px);
   border: 1px solid var(--nair-border-light);
 }
 
 /* ===== ПОИСК ===== */
 .search-input {
-  background: rgba(212, 237, 237, 0.03);
+  background: rgba(200, 194, 212, 0.05);
   border: 1px solid var(--nair-border-light);
   border-radius: 10px;
   padding: 15px 20px;
@@ -241,16 +330,18 @@ body {
   font-family: 'Fira Sans', sans-serif;
   transition: all 0.3s ease;
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .search-input::placeholder {
-  color: rgba(212, 237, 237, 0.4);
+  color: rgba(200, 194, 212, 0.4);
 }
 
 .search-input:focus {
   border-color: var(--nair-border);
-  box-shadow: 0 0 0 2px rgba(212, 237, 237, 0.1);
-  background: rgba(212, 237, 237, 0.05);
+  box-shadow: 0 0 0 2px rgba(200, 194, 212, 0.1);
+  background: rgba(200, 194, 212, 0.08);
 }
 
 .suggestions {
@@ -288,17 +379,28 @@ body {
 /* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
 .original-main {
   flex: 1;
-  padding: 30px;
+  padding: 40px;
   background: var(--nair-bg);
   position: relative;
   min-height: 100vh;
+  overflow-y: auto;
+}
+
+.page-title {
+  text-align: center;
+  margin: 40px 0 50px 0;
+  font-size: 3rem;
+  color: var(--nair-accent);
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  font-weight: 600;
+  letter-spacing: 1.5px;
 }
 
 /* Кнопка с фоном */
 .button-background {
   width: 85%;
   aspect-ratio: 16 / 9;
-  background-image: url('../photo/fon.png');
+  background-image: url('/static/photo/fon.png');
   background-size: cover;
   background-position: center;
   border-radius: 12px;
@@ -330,7 +432,7 @@ body {
   text-align: left;
   z-index: 2;
   font-family: 'Fira Sans', sans-serif;
-  background: rgba(10, 18, 18, 0.9);
+  background: rgba(15, 14, 20, 0.9);
   padding: 20px;
   border-radius: 8px;
   border: 1px solid var(--nair-border);
@@ -342,7 +444,7 @@ body {
   font-size: 1.5em;
   font-weight: 600;
   line-height: 1.3;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 4px var(--nair-shadow);
   margin-bottom: 8px;
   letter-spacing: 0.5px;
 }
@@ -352,7 +454,7 @@ body {
   font-size: 1.2em;
   font-weight: 500;
   line-height: 1.3;
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 3px var(--nair-shadow);
   margin-bottom: 12px;
   opacity: 0.95;
 }
@@ -361,7 +463,7 @@ body {
   color: var(--nair-text);
   font-size: 0.95em;
   line-height: 1.4;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 2px var(--nair-shadow);
   opacity: 0.9;
   border-top: 1px solid var(--nair-border-light);
   padding-top: 10px;
@@ -549,13 +651,13 @@ body {
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(212, 237, 237, 0.3);
+    box-shadow: 0 0 0 0 rgba(200, 194, 212, 0.3);
   }
   70% {
-    box-shadow: 0 0 0 8px rgba(212, 237, 237, 0);
+    box-shadow: 0 0 0 8px rgba(200, 194, 212, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(212, 237, 237, 0);
+    box-shadow: 0 0 0 0 rgba(200, 194, 212, 0);
   }
 }
 
@@ -565,20 +667,11 @@ body {
 
 @keyframes textGlow {
   from {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 4px var(--nair-shadow);
   }
   to {
-    text-shadow: 2px 2px 8px rgba(212, 237, 237, 0.3);
+    text-shadow: 2px 2px 8px rgba(200, 194, 212, 0.3);
   }
-}
-
-
-.page-title {
-    text-align: center;
-    margin: 30px 0;
-    font-size: 2.5rem;
-    color: var(--nair-accent);
-    text-shadow: 0 0 10px rgba(212, 237, 237, 0.3);
 }
 
 /* Кнопки персонажей */
@@ -618,7 +711,7 @@ body {
     left: 0;
     width: 100%;
     height: 60%;
-    background: linear-gradient(to top, rgba(10, 18, 18, 0.9), transparent);
+    background: linear-gradient(to top, rgba(15, 14, 20, 0.9), transparent);
 }
 
 .character-name {
@@ -631,7 +724,7 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     z-index: 2;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 4px var(--nair-shadow);
 }
 
 /* Анимация смены страницы */
@@ -660,7 +753,7 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-    box-shadow: 0 0 30px rgba(212, 237, 237, 0.3);
+    box-shadow: 0 0 30px rgba(200, 194, 212, 0.3);
 }
 
 /* Контейнер анкеты */
@@ -860,6 +953,33 @@ body {
 
 .profile-container.active ~ #main-page {
     display: none;
+}
+
+/* Адаптивность для сетки */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .grid-item {
+    min-height: 120px;
+    padding: 25px 20px;
+  }
+  
+  .grid-icon {
+    font-size: 2em;
+  }
+  
+  .grid-title {
+    font-size: 1.1em;
+  }
+  
+  .page-title {
+    font-size: 2.2rem;
+    margin: 30px 0 40px 0;
+  }
 }
 
 @media (max-width: 992px) {
