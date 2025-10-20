@@ -720,32 +720,33 @@ body {
 
 .characters-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
   margin-bottom: 50px;
 }
 
 .character-card {
   background: var(--nair-card-bg);
   border: 1px solid var(--nair-border);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  height: 120px;
+  height: 200px;
   display: flex;
+  flex-direction: column;
 }
 
 .character-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   border-color: var(--nair-border-dark);
-  box-shadow: 0 8px 25px var(--nair-shadow);
+  box-shadow: 0 12px 30px var(--nair-shadow);
 }
 
 .character-art {
-  width: 100px;
-  height: 100%;
+  width: 100%;
+  height: 120px;
   object-fit: cover;
   transition: all 0.4s ease;
   flex-shrink: 0;
@@ -757,18 +758,21 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 }
 
 .character-name {
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: var(--nair-accent);
+  line-height: 1.2;
 }
 
 .character-race {
-  font-size: 0.9em;
-  opacity: 0.8;
+  font-size: 1em;
+  opacity: 0.9;
+  line-height: 1.3;
 }
 
 /* Анимация разворачивания */
@@ -783,17 +787,7 @@ body {
   cursor: default;
   display: block;
   max-width: 1200px;
-}
-
-.character-card.expanded .character-art {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 150px;
-  height: 200px;
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-  box-shadow: 0 4px 15px var(--nair-shadow);
+  flex-direction: row;
 }
 
 .character-details {
@@ -801,6 +795,7 @@ body {
   padding: 30px;
   height: 100%;
   overflow-y: auto;
+  position: relative;
 }
 
 .character-card.expanded .character-details {
@@ -822,9 +817,22 @@ body {
   display: block;
 }
 
-/* Основная информация слева от картинки */
+/* Арт персонажа в правой части */
+.character-art-expanded {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 200px;
+  height: 280px;
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+/* Основная информация слева */
 .quick-info {
-  margin-right: 180px;
+  margin-right: 230px;
   margin-bottom: 25px;
   padding: 20px;
   background: rgba(16, 26, 26, 0.4);
@@ -877,7 +885,7 @@ body {
   gap: 12px;
   margin-bottom: 25px;
   flex-wrap: wrap;
-  margin-right: 180px;
+  margin-right: 230px;
 }
 
 .nav-link {
@@ -902,7 +910,7 @@ body {
 /* Аккордеоны */
 .accordion-section {
   margin-bottom: 10px;
-  margin-right: 180px;
+  margin-right: 230px;
 }
 
 .accordion-header {
@@ -1034,36 +1042,49 @@ body {
 }
 
 /* Адаптивность для анкет */
+@media (max-width: 1024px) {
+  .characters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+  }
+  
+  .character-card {
+    height: 180px;
+  }
+  
+  .character-art {
+    height: 100px;
+  }
+}
+
 @media (max-width: 768px) {
   .page-title {
     font-size: 2.2em;
   }
   
   .characters-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 15px;
   }
   
   .character-card {
-    height: 100px;
-    flex-direction: column;
+    height: 160px;
   }
   
   .character-art {
-    width: 100%;
-    height: 60px;
+    height: 90px;
   }
   
   .character-info {
-    padding: 8px;
+    padding: 12px;
   }
   
   .character-name {
-    font-size: 0.9em;
+    font-size: 1.1em;
   }
   
   .character-race {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
   
   .character-card.expanded {
@@ -1071,13 +1092,13 @@ body {
     height: 90vh;
   }
   
-  .character-card.expanded .character-art {
+  .character-art-expanded {
     position: relative;
     top: auto;
     right: auto;
-    width: 120px;
-    height: 160px;
-    margin: 0 auto 15px;
+    width: 150px;
+    height: 200px;
+    margin: 0 auto 20px;
   }
   
   .quick-info,
@@ -1103,21 +1124,22 @@ body {
 @media (max-width: 480px) {
   .characters-grid {
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
   }
   
   .character-card {
-    height: 90px;
+    height: 150px;
   }
   
   .character-art {
-    height: 50px;
+    height: 80px;
   }
   
   .character-name {
-    font-size: 0.8em;
+    font-size: 1em;
   }
   
   .character-race {
-    font-size: 0.75em;
+    font-size: 0.85em;
   }
 }
