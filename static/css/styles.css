@@ -206,22 +206,15 @@ body {
   position: relative;
   overflow: hidden;
   
-  /* ИСПРАВЛЕННЫЙ ВАРИАНТ - простой и надежный */
+  /* ИСПРАВЛЕННЫЙ ВАРИАНТ - более явная заливка и размытие */
   background: 
-    linear-gradient(135deg, rgba(26, 24, 32, 0.95) 0%, rgba(45, 41, 53, 0.92) 100%),
+    linear-gradient(135deg, rgba(20, 18, 26, 0.95) 0%, rgba(35, 31, 43, 0.93) 100%),
     url('/static/photo/nav-background.jpg');
   background-size: cover;
   background-position: center;
   background-blend-mode: overlay;
+  filter: blur(0.5px); /* Лёгкое размытие всего меню */
 }
-
-/* УБИРАЕМ конфликтующие псевдоэлементы */
-/*
-.original-nav::before,
-.original-nav::after {
-  display: none;
-}
-*/
 
 /* Обновляем z-index для контента меню */
 .nav-list,
@@ -248,15 +241,15 @@ body {
   display: block;
   padding: 15px 20px;
   border-radius: 10px;
-  border: none;
+  border: 1px solid var(--nair-border); /* Добавляем обводку */
   background: transparent;
   position: relative;
   padding-left: 25px;
   transition: all 0.4s ease;
   font-family: 'Fira Sans', sans-serif;
   font-weight: 500;
-  border: 1px solid transparent;
   letter-spacing: 0.3px;
+  backdrop-filter: blur(5px);
 }
 
 .nav-link::before {
@@ -275,7 +268,7 @@ body {
 
 .nav-link.active {
   background: var(--nair-primary);
-  border: 1px solid var(--nair-border);
+  border: 1px solid var(--nair-border-accent); /* Более яркая обводка для активной кнопки */
   box-shadow: 0 4px 20px var(--nair-shadow);
 }
 
@@ -286,13 +279,13 @@ body {
 .nav-link:hover {
   background: var(--nair-hover);
   transform: translateX(8px);
-  border: 1px solid var(--nair-border-light);
+  border: 1px solid var(--nair-border-dark); /* Более яркая обводка при наведении */
 }
 
 /* ===== ПОИСК ===== */
 .search-input {
   background: rgba(200, 194, 212, 0.05);
-  border: 1px solid var(--nair-border-light);
+  border: 1px solid var(--nair-border);
   border-radius: 10px;
   padding: 15px 20px;
   outline: none;
@@ -304,6 +297,7 @@ body {
   margin-bottom: 10px;
   position: relative;
   z-index: 1;
+  backdrop-filter: blur(5px);
 }
 
 .search-input::placeholder {
@@ -311,7 +305,7 @@ body {
 }
 
 .search-input:focus {
-  border-color: var(--nair-border);
+  border-color: var(--nair-border-accent);
   box-shadow: 0 0 0 2px rgba(200, 194, 212, 0.1);
   background: rgba(200, 194, 212, 0.08);
 }
@@ -407,8 +401,9 @@ body {
   background: rgba(15, 14, 20, 0.9);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid var(--nair-border);
+  border: 1px solid var(--nair-border); /* Добавляем обводку как у кнопок */
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px var(--nair-shadow); /* Добавляем тень как у кнопок */
 }
 
 .info-title {
