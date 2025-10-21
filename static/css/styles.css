@@ -203,6 +203,7 @@ body {
   border-right: 1px solid var(--nair-border-light);
   padding-left: 40px;
   backdrop-filter: blur(15px);
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
   
