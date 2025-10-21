@@ -15,6 +15,26 @@
 <body>
     {% block content %}{% endblock %}
     
+<nav class="original-nav">
+    <div class="search-input-container">
+        <input type="text" class="search-input" placeholder="Поиск...">
+        <div class="suggestions"></div>
+    </div>
+    
+    <ul class="nav-list">
+        <li class="nav-item"><a href="templates/index.html" class="nav-link active">Главная</a></li>
+
+       <!-- Разделительная линия -->
+       <div class="nav-divider"></div>
+        
+        <li class="nav-item"><a href="templates/karta.html" class="nav-link">Карта</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Магия</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Экономика</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Система прокачки</a></li>
+        <li class="nav-item"><a href="templates/ankety.html" class="nav-link">Анкеты</a></li>
+    </ul>
+</nav>
+
     <!-- Ваши скрипты -->
     {% block scripts %}{% endblock %}
 </body>
