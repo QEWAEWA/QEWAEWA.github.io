@@ -1,0 +1,1042 @@
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('/static/FiraSans-Italic.ttf') format('truetype');
+}
+
+/* Обновлённая цветовая схема на основе текстовых цветов */
+:root {
+  /* Основные цвета - приглушённые мистические тона */
+  --nair-bg: #0f0e14;
+  --nair-nav-bg: #1a1820;
+  --nair-card-bg: #24212a;
+  --nair-text: #e8e4ec;
+  --nair-accent: #c8c2d4;
+  
+  /* Дополнительные акцентные цвета - приглушённые фиолетовые оттенки */
+  --nair-accent-secondary: #a8a0b8;
+  --nair-accent-glow: rgba(200, 194, 212, 0.15);
+  
+  /* Границы с приглушённым фиолетовым оттенком */
+  --nair-border: rgba(168, 160, 184, 0.3);
+  --nair-border-light: rgba(168, 160, 184, 0.15);
+  --nair-border-dark: rgba(168, 160, 184, 0.4);
+  --nair-border-accent: rgba(200, 194, 212, 0.35);
+  
+  /* Состояния и интерактивность */
+  --nair-primary: #2d2935;
+  --nair-hover: rgba(168, 160, 184, 0.1);
+  --nair-active: rgba(200, 194, 212, 0.15);
+  --nair-focus: rgba(200, 194, 212, 0.2);
+  
+  /* Тени и эффекты */
+  --nair-shadow: rgba(10, 8, 15, 0.8);
+  --nair-shadow-glow: rgba(200, 194, 212, 0.08);
+  --nair-shadow-card: rgba(8, 6, 12, 0.6);
+  
+  /* Кнопки и интерактивные элементы */
+  --nair-button-bg: rgba(168, 160, 184, 0.06);
+  --nair-button-hover: rgba(168, 160, 184, 0.12);
+  --nair-button-active: rgba(200, 194, 212, 0.15);
+  
+  /* Градиенты с приглушёнными тонами */
+  --nair-gradient-primary: linear-gradient(135deg, #24212a 0%, #2d2935 100%);
+  --nair-gradient-accent: linear-gradient(135deg, rgba(200, 194, 212, 0.08) 0%, rgba(168, 160, 184, 0.04) 100%);
+  
+  /* Статусы и уведомления */
+  --nair-success: rgba(160, 200, 180, 0.25);
+  --nair-warning: rgba(212, 194, 160, 0.25);
+  --nair-error: rgba(212, 160, 160, 0.25);
+  --nair-info: rgba(160, 180, 212, 0.25);
+}
+
+/* ===== СТИЛЬ ДЛЯ СЕТКИ КНОПОК КАК НА СКРИНШОТЕ ===== */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  background: var(--nair-card-bg);
+  border: 2px solid var(--nair-border);
+  border-radius: 12px;
+  padding: 30px 25px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--nair-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  box-shadow: 
+    0 8px 32px var(--nair-shadow-card),
+    0 4px 16px var(--nair-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--nair-gradient-accent);
+  transition: left 0.6s ease;
+  z-index: 0;
+}
+
+.grid-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--nair-border-accent);
+  box-shadow: 
+    0 12px 40px var(--nair-shadow-card),
+    0 0 25px var(--nair-shadow-glow);
+  color: var(--nair-accent);
+}
+
+.grid-item:hover::before {
+  left: 0;
+}
+
+.grid-icon {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 8px var(--nair-shadow);
+}
+
+.grid-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px var(--nair-shadow);
+}
+
+/* Специальный стиль для кнопки "Назад" */
+.grid-item:last-child {
+  background: var(--nair-primary);
+  border-color: var(--nair-border-dark);
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  max-width: 200px;
+  justify-self: center;
+}
+
+.grid-item:last-child:hover {
+  background: var(--nair-hover);
+  border-color: var(--nair-border-accent);
+}
+
+/* Улучшенные тени для карточек */
+.character-btn, .profile-info, .accordion-item, .grid-item {
+  box-shadow: 
+    0 8px 32px var(--nair-shadow-card),
+    0 4px 16px var(--nair-shadow);
+}
+
+/* Glow эффекты для акцентных элементов */
+.nav-link.active, .character-btn:hover, .container-btn:hover, .grid-item:hover {
+  box-shadow: 
+    0 8px 32px var(--nair-shadow-card),
+    0 0 20px var(--nair-shadow-glow);
+}
+
+/* Улучшенные градиенты для фонов */
+.profile-info, .accordion-item {
+  background: var(--nair-gradient-primary);
+  border: 1px solid var(--nair-border);
+}
+
+/* Анимации с акцентными цветами */
+.character-btn:hover, .grid-item:hover {
+  border-color: var(--nair-border-accent);
+  transform: translateY(-8px) scale(1.02);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Улучшенные текстовые эффекты */
+.page-title {
+  color: var(--nair-accent);
+  text-shadow: 
+    0 0 25px var(--nair-accent-glow),
+    0 4px 12px var(--nair-shadow);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.profile-name {
+  background: var(--nair-gradient-accent);
+  border-bottom: 2px solid var(--nair-border-accent);
+}
+
+body {
+  margin: 0;
+  font-family: 'Fira Sans', Arial, sans-serif;
+  color: var(--nair-text);
+  display: flex;
+  min-height: 100vh;
+  background: var(--nair-bg);
+  line-height: 1.6;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(200, 194, 212, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 160, 184, 0.02) 0%, transparent 50%);
+}
+
+/* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ (ОБНОВЛЁННАЯ ВЕРСИЯ) ===== */
+.original-nav {
+  width: 300px;
+  padding: 25px 20px;
+  box-sizing: border-box;
+  border-right: 1px solid var(--nair-border-light);
+  padding-left: 40px;
+  backdrop-filter: blur(15px);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  
+  /* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
+  background: 
+    linear-gradient(135deg, rgba(26, 24, 32, 0.85) 0%, rgba(45, 41, 53, 0.82) 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Фоновое изображение с УМЕРЕННЫМ размытием */
+.original-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/static/photo/nav-background.jpg');
+  background-size: cover;
+  background-position: right;
+  filter: blur(4px) brightness(0.7) contrast(1.1); /* Исправлено затемнение */
+  z-index: -2;
+  transform: scale(1.05);
+}
+
+/* ЛЁГКАЯ заливка поверх изображения */
+.original-nav::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(
+      135deg, 
+      rgba(26, 24, 32, 0.7) 0%, 
+      rgba(45, 41, 53, 0.65) 50%,
+      rgba(26, 24, 32, 0.75) 100%
+    );
+  z-index: -1;
+}
+
+/* Разделительная линия после поиска */
+.nav-divider {
+  height: 1px;
+  background: var(--nair-border-light);
+  margin: 30px 0 40px 0; /* Увеличил отступы чтобы опустить меню ниже */
+  width: 90%;
+}
+
+/* Обновляем z-index для контента меню */
+.nav-list,
+.search-input,
+.suggestions {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 20px; /* Опускаем меню ниже */
+}
+
+.nav-item {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.nav-link {
+  color: var(--nair-accent);
+  text-decoration: none;
+  display: block;
+  padding: 12px 20px;
+  border: none; /* Убираем обводку */
+  background: transparent;
+  position: relative;
+  padding-left: 25px;
+  transition: all 0.4s ease;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(5px);
+  border-radius: 0; /* Убираем скругление */
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 0;
+  background: var(--nair-accent);
+  border-radius: 2px;
+  transition: height 0.4s ease;
+  box-shadow: 0 0 10px var(--nair-accent-glow);
+}
+
+/* ПОДСВЕТКА вместо заливки для активного пункта */
+.nav-link.active {
+  background: transparent; /* Убираем заливку */
+  border: none;
+  color: var(--nair-accent);
+  text-shadow: 0 0 10px var(--nair-accent-glow);
+  box-shadow: none;
+}
+
+.nav-link.active::before {
+  height: 80%;
+}
+
+/* Подсветка при наведении */
+.nav-link:hover {
+  background: transparent; /* Убираем заливку */
+  transform: translateX(8px);
+  border: none;
+  color: var(--nair-accent);
+  text-shadow: 0 0 8px var(--nair-accent-glow);
+}
+
+/* ===== ПОИСК ===== */
+.search-input {
+  background: rgba(200, 194, 212, 0.05);
+  border: 1px solid var(--nair-border);
+  border-radius: 10px;
+  padding: 15px 20px;
+  outline: none;
+  color: var(--nair-text);
+  font-size: 16px;
+  width: 80%;
+  font-family: 'Fira Sans', sans-serif;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(5px);
+}
+
+.search-input::placeholder {
+  color: rgba(200, 194, 212, 0.4);
+}
+
+.search-input:focus {
+  border-color: var(--nair-border-accent);
+  box-shadow: 0 0 0 2px rgba(200, 194, 212, 0.1);
+  background: rgba(200, 194, 212, 0.08);
+}
+
+.suggestions {
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  background: var(--nair-card-bg);
+  width: calc(100% - 40px);
+  display: none;
+  z-index: 1000;
+  box-shadow: 0 4px 20px var(--nair-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-family: 'Fira Sans', sans-serif;
+  color: var(--nair-text);
+  border-bottom: 1px solid var(--nair-border-light);
+  transition: all 0.2s ease;
+}
+
+.suggestion-item:hover {
+  background: var(--nair-hover);
+  color: var(--nair-accent);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+/* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
+.original-main {
+  flex: 1;
+  padding: 40px;
+  background: var(--nair-bg);
+  position: relative;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.page-title {
+  text-align: center;
+  margin: 40px 0 50px 0;
+  font-size: 3rem;
+  color: var(--nair-accent);
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+/* Кнопка с фоном */
+.button-background {
+  width: 85%;
+  aspect-ratio: 16 / 9;
+  background-image: url('/static/photo/fon.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--nair-border);
+  position: relative;
+  box-shadow: 0 8px 32px var(--nair-shadow);
+  backdrop-filter: blur(5px);
+}
+
+.button-text {
+  color: var(--nair-text);
+  font-size: 2.2em;
+  z-index: 1;
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* ===== ИНФОРМАЦИЯ В ЛЕВОМ НИЖНЕМ УГЛУ ===== */
+.left-bottom-info {
+  position: absolute;
+  bottom: 35px;
+  left: 35px;
+  text-align: left;
+  z-index: 2;
+  font-family: 'Fira Sans', sans-serif;
+  background: rgba(15, 14, 20, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--nair-border); /* Добавляем обводку как у кнопок */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px var(--nair-shadow); /* Добавляем тень как у кнопок */
+}
+
+.info-title {
+  color: var(--nair-text);
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1.3;
+  text-shadow: 2px 2px 4px var(--nair-shadow);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.info-subtitle {
+  color: var(--nair-accent);
+  font-size: 1.2em;
+  font-weight: 500;
+  line-height: 1.3;
+  text-shadow: 2px 2px 3px var(--nair-shadow);
+  margin-bottom: 12px;
+  opacity: 0.95;
+}
+
+.info-meta {
+  color: var(--nair-text);
+  font-size: 0.95em;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px var(--nair-shadow);
+  opacity: 0.9;
+  border-top: 1px solid var(--nair-border-light);
+  padding-top: 10px;
+}
+
+/* ===== КНОПКИ В ПРАВОМ НИЖНЕМ УГЛУ ===== */
+.right-bottom-buttons {
+  position: absolute;
+  bottom: 35px;
+  right: 35px;
+  text-align: right;
+  z-index: 2;
+}
+
+.container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.container-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--nair-button-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: var(--nair-text);
+  text-decoration: none;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px var(--nair-shadow);
+}
+
+.container-btn:hover {
+  transform: translateX(-5px);
+  background: var(--nair-button-hover);
+  border-color: var(--nair-border-dark);
+  box-shadow: 0 6px 20px var(--nair-shadow);
+  color: var(--nair-accent);
+}
+
+.container-btn i {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+/* Ссылка на ВК */
+.top-left-link {
+  position: absolute;
+  top: 6%;
+  left: 5%;
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.top-left-link img {
+  width: 55px;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 4px 12px var(--nair-shadow);
+}
+
+.top-left-link:hover img {
+  transform: scale(1.15);
+  border-color: var(--nair-border-dark);
+}
+
+/* ===== КАРТА ===== */
+.map-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 75vh;
+  min-height: 650px;
+  border: 1px solid var(--nair-border);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+  background: var(--nair-nav-bg);
+  margin: 25px auto;
+  box-shadow: 0 8px 32px var(--nair-shadow);
+}
+
+.map-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  user-select: none;
+  transform-origin: 0 0;
+  will-change: transform;
+  max-width: none;
+  height: auto;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Поднимаем карту выше */
+.map-container {
+  margin-top: 20px !important; /* Уменьшаем отступ сверху */
+  height: 80vh !important; /* Увеличиваем высоту */
+}
+
+.map-image:active {
+  cursor: grabbing;
+  transition: transform 0.1s ease-out;
+}
+
+.map-controls {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-btn {
+  width: 55px;
+  height: 55px;
+  background: var(--nair-button-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  color: var(--nair-text);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px var(--nair-shadow);
+  z-index: 1001;
+  font-family: 'Fira Sans', sans-serif;
+  backdrop-filter: blur(5px);
+}
+
+.map-btn:hover:not(:disabled) {
+  background: var(--nair-button-hover);
+  transform: scale(1.15);
+  border-color: var(--nair-border-dark);
+  box-shadow: 0 6px 20px var(--nair-shadow);
+  color: var(--nair-accent);
+}
+
+.map-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.map-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+/* ===== АНИМАЦИИ ===== */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(200, 194, 212, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(200, 194, 212, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(200, 194, 212, 0);
+  }
+}
+
+.text-glow {
+  animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 2px 2px 4px var(--nair-shadow);
+  }
+  to {
+    text-shadow: 2px 2px 8px rgba(200, 194, 212, 0.3);
+  }
+}
+
+/* Кнопки персонажей */
+.character-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 0 15px;
+}
+
+.character-btn {
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--nair-border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+.character-btn:hover {
+    transform: translateY(-5px);
+    border-color: var(--nair-border-dark);
+    box-shadow: 0 8px 25px var(--nair-shadow);
+}
+
+.character-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(15, 14, 20, 0.9), transparent);
+}
+
+.character-name {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--nair-text);
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 2;
+    text-shadow: 0 2px 4px var(--nair-shadow);
+}
+
+/* Анимация смены страницы */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--nair-bg);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.8s ease;
+}
+
+.page-transition.active {
+    transform: translateX(0);
+}
+
+.transition-image {
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(200, 194, 212, 0.3);
+}
+
+/* Контейнер анкеты */
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: none;
+}
+
+.profile-container.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.profile-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-art {
+    flex: 0 0 400px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    border: 2px solid var(--nair-border);
+    box-shadow: 0 4px 15px var(--nair-shadow);
+}
+
+.profile-info {
+    flex: 1;
+    background: var(--nair-card-bg);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--nair-border);
+}
+
+.profile-name {
+    font-size: 2rem;
+    color: var(--nair-accent);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--nair-border-light);
+    padding-bottom: 10px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.profile-detail {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.detail-label {
+    font-weight: bold;
+    min-width: 150px;
+    color: var(--nair-accent);
+}
+
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.quick-link {
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.quick-link:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+.accordion-section {
+    margin-top: 30px;
+}
+
+.accordion-item {
+    background: var(--nair-card-bg);
+    border: 1px solid var(--nair-border);
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 15px 20px;
+    background: var(--nair-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: var(--nair-hover);
+}
+
+.accordion-body {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-body.active {
+    padding: 20px;
+    max-height: 1000px;
+}
+
+.ability-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--nair-border-light);
+    padding-bottom: 15px;
+}
+
+.ability-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ability-name {
+    font-weight: bold;
+    color: var(--nair-accent);
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ability-description {
+    padding-top: 10px;
+    display: none;
+}
+
+.ability-description.active {
+    display: block;
+}
+
+.owner-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.owner-link:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--nair-accent);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--nair-border);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--nair-button-bg);
+}
+
+.back-button:hover {
+    background: var(--nair-button-hover);
+    border-color: var(--nair-border-dark);
+}
+
+/* Скрываем главную страницу при просмотре анкеты */
+.active-page {
+    display: block;
+}
+
+.profile-container.active ~ #main-page {
+    display: none;
+}
+
+/* Адаптивность для сетки */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .grid-item {
+    min-height: 120px;
+    padding: 25px 20px;
+  }
+  
+  .grid-icon {
+    font-size: 2em;
+  }
+  
+  .grid-title {
+    font-size: 1.1em;
+  }
+  
+  .page-title {
+    font-size: 2.2rem;
+    margin: 30px 0 40px 0;
+  }
+}
+
+@media (max-width: 992px) {
+    .profile-header {
+        flex-direction: column;
+    }
+    
+    .profile-art {
+        flex: 0 0 300px;
+        height: 400px;
+    }
+    
+    .character-btn {
+        width: 250px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .character-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .quick-links {
+        justify-content: center;
+    }
+    
+    .right-bottom-buttons {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 30px;
+        text-align: center;
+    }
+    
+    .container-buttons {
+        align-items: center;
+    }
+}
