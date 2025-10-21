@@ -35,6 +35,24 @@ class StaticSiteGenerator:
             return render_template('ankety.html',
                                  title='Анкеты - Наир', 
                                  active_page='ankety')
+        
+        @self.app.route('/magic')
+        def magic():
+            return render_template('magic.html',
+                                 title='Магия - Наир', 
+                                 active_page='magic')
+        
+        @self.app.route('/economy')
+        def economy():
+            return render_template('economy.html',
+                                 title='Экономика - Наир', 
+                                 active_page='economy')
+        
+        @self.app.route('/leveling')
+        def leveling():
+            return render_template('leveling.html',
+                                 title='Система прокачки - Наир', 
+                                 active_page='leveling')
     
     def clean_output_dir(self):
         """Очистка выходной директории"""
@@ -57,7 +75,18 @@ class StaticSiteGenerator:
             "{{ url_for('karta') }}": "karta.html", 
             "{{ url_for('lor') }}": "lor.html",
             "{{ url_for('ankety') }}": "ankety.html",
-            "') }}": ""
+            "{{ url_for('magic') }}": "magic.html",
+            "{{ url_for('economy') }}": "economy.html",
+            "{{ url_for('leveling') }}": "leveling.html",
+            "') }}": "",
+            # Убираем проверки активной страницы, так как request.endpoint не будет работать в статическом сайте
+            "{% if request.endpoint == 'index' %}active{% endif %}": "",
+            "{% if request.endpoint == 'karta' %}active{% endif %}": "",
+            "{% if request.endpoint == 'lor' %}active{% endif %}": "",
+            "{% if request.endpoint == 'ankety' %}active{% endif %}": "",
+            "{% if request.endpoint == 'magic' %}active{% endif %}": "",
+            "{% if request.endpoint == 'economy' %}active{% endif %}": "",
+            "{% if request.endpoint == 'leveling' %}active{% endif %}": ""
         }
         
         for old, new in replacements.items():
@@ -83,6 +112,18 @@ class StaticSiteGenerator:
             ('ankety.html', 'ankety.html', {
                 'title': 'Анкеты - Наир', 
                 'active_page': 'ankety'
+            }),
+            ('magic.html', 'magic.html', {
+                'title': 'Магия - Наир', 
+                'active_page': 'magic'
+            }),
+            ('economy.html', 'economy.html', {
+                'title': 'Экономика - Наир', 
+                'active_page': 'economy'
+            }),
+            ('leveling.html', 'leveling.html', {
+                'title': 'Система прокачки - Наир', 
+                'active_page': 'leveling'
             })
         ]
         
