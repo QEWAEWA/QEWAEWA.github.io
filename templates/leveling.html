@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Наир{% endblock %}
+
+{% block content %}
+
+
+<!-- Правый блок - основной контент -->
+<main class="original-main">
+  <!-- Контейнер с фоном -->
+  <div class="button-background">
+    
+    <!-- Информация в левом нижнем углу -->
+    <div class="left-bottom-info">
+      <div class="info-title text-glow">Средневековье, фэнтези</div>
+      <div class="info-subtitle">Наир, Бранн</div>
+      <div class="info-meta">2018-2025 | Текстовая ролевая | NC-21</div>
+    </div>
+    
+    <!-- Кнопки в правом нижнем углу -->
+    <div class="right-bottom-buttons">
+      <div class="container-buttons">
+        <a href="lor.html" class="container-btn">
+          <i class="bi bi-book"></i>
+          <span>Лор</span>
+        </a>
+        <a href="ankety.html" class="container-btn">
+          <i class="bi bi-people"></i>
+          <span>Персонажи</span>
+        </a>
+        <a href="https://vk.com/club182026147" class="container-btn">
+          <i class="bi bi-chat-dots"></i>
+          <span>VK</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Ссылка на ВК в левом верхнем углу -->
+  <a href="https://vk.com/club182026147" class="top-left-link">
+    <img src="static/photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png" alt="VK">
+  </a>
+</main>
+{% endblock %}
