@@ -590,6 +590,12 @@ body {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Поднимаем карту выше */
+.map-container {
+  margin-top: 20px !important; /* Уменьшаем отступ сверху */
+  height: 80vh !important; /* Увеличиваем высоту */
+}
+
 .map-image:active {
   cursor: grabbing;
   transition: transform 0.1s ease-out;
