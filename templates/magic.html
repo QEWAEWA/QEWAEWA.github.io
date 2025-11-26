@@ -1,44 +1,443 @@
 {% extends "base.html" %}
 
-{% block title %}Главная - Наир{% endblock %}
+{% block title %}Магия - Наир{% endblock %}
 
 {% block content %}
 
-
 <!-- Правый блок - основной контент -->
 <main class="original-main">
-  <!-- Контейнер с фоном -->
-  <div class="button-background">
+
+  <!-- Главная страница с описанием магии -->
+  <div id="main-page" class="active-page">
+    <h1 class="page-title">МАГИЯ НАИРА</h1>
     
-    <!-- Информация в левом нижнем углу -->
-    <div class="left-bottom-info">
-      <div class="info-title text-glow">Средневековье, фэнтези</div>
-      <div class="info-subtitle">Наир, Бранн</div>
-      <div class="info-meta">2018-2025 | Текстовая ролевая | NC-21</div>
+    <div class="magic-intro">
+      <p>Здесь описано всё необходимое о магии от её основ до описания определённого типа магии.</p>
     </div>
     
-    <!-- Кнопки в правом нижнем углу -->
-    <div class="right-bottom-buttons">
-      <div class="container-buttons">
-        <a href="lor.html" class="container-btn">
-          <i class="bi bi-book"></i>
-          <span>Лор</span>
-        </a>
-        <a href="ankety.html" class="container-btn">
-          <i class="bi bi-people"></i>
-          <span>Персонажи</span>
-        </a>
-        <a href="https://vk.com/club182026147" class="container-btn">
-          <i class="bi bi-chat-dots"></i>
-          <span>VK</span>
-        </a>
+    <!-- Меню магии -->
+    <div class="magic-menu">
+      
+      <!-- Раздел 1: Общие пояснения основ магии -->
+      <div class="magic-section">
+        <h2 class="section-title">Общие пояснения основ магии</h2>
+        <div class="magic-grid">
+          <div class="magic-btn" data-section="magic-basics">
+            <div class="magic-image" style="background-image: url('/static/photo/magic/basics.jpg');"></div>
+            <div class="magic-name">Магия</div>
+          </div>
+          
+          <div class="magic-btn" data-section="magic-usage">
+            <div class="magic-image" style="background-image: url('/static/photo/magic/usage.jpg');"></div>
+            <div class="magic-name">Применение магии</div>
+          </div>
+          
+          <div class="magic-btn" data-section="mages">
+            <div class="magic-image" style="background-image: url('/static/photo/magic/mages.jpg');"></div>
+            <div class="magic-name">Маги</div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Раздел 2: Элементы и типы магии -->
+      <div class="magic-section">
+        <h2 class="section-title">Элементы и типы магии</h2>
+        <div class="magic-grid">
+          <div class="magic-btn" data-section="elements-types">
+            <div class="magic-image" style="background-image: url('/static/photo/magic/elements.jpg');"></div>
+            <div class="magic-name">Элементы и типы магии</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Раздел 3: Типы магии -->
+      <div class="magic-section">
+        <h2 class="section-title">Типы магии</h2>
+        <div class="magic-grid magic-grid-large">
+          <!-- 30 кнопок-заглушек для типов магии -->
+          {% for i in range(1, 31) %}
+          <div class="magic-btn magic-type-btn" data-section="magic-type-{{ i }}">
+            <div class="magic-image" style="background-image: url('/static/photo/magic/type-{{ i }}.jpg');"></div>
+            <div class="magic-name">Тип магии {{ i }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
     </div>
   </div>
   
-  <!-- Ссылка на ВК в левом верхнем углу -->
-  <a href="https://vk.com/club182026147" class="top-left-link">
-    <img src="static/photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png" alt="VK">
-  </a>
+  <!-- Контейнеры для контента разделов -->
+  <div class="content-container" id="magic-basics-content">
+    <a href="#" class="back-button magic-back-button">
+      <i class="fas fa-arrow-left"></i> Назад к разделам магии
+    </a>
+    <h2>Магия</h2>
+    <div class="content-body">
+      <p>Здесь будет подробное описание основ магии...</p>
+    </div>
+  </div>
+  
+  <div class="content-container" id="magic-usage-content">
+    <a href="#" class="back-button magic-back-button">
+      <i class="fas fa-arrow-left"></i> Назад к разделам магии
+    </a>
+    <h2>Применение магии</h2>
+    <div class="content-body">
+      <p>Здесь будет описание применения магии...</p>
+    </div>
+  </div>
+  
+  <div class="content-container" id="mages-content">
+    <a href="#" class="back-button magic-back-button">
+      <i class="fas fa-arrow-left"></i> Назад к разделам магии
+    </a>
+    <h2>Маги</h2>
+    <div class="content-body">
+      <p>Здесь будет информация о магах...</p>
+    </div>
+  </div>
+  
+  <div class="content-container" id="elements-types-content">
+    <a href="#" class="back-button magic-back-button">
+      <i class="fas fa-arrow-left"></i> Назад к разделам магии
+    </a>
+    <h2>Элементы и типы магии</h2>
+    <div class="content-body">
+      <p>Здесь будет описание элементов и типов магии...</p>
+    </div>
+  </div>
+  
+  <!-- Контейнеры для типов магии -->
+  {% for i in range(1, 31) %}
+  <div class="content-container" id="magic-type-{{ i }}-content">
+    <a href="#" class="back-button magic-back-button">
+      <i class="fas fa-arrow-left"></i> Назад к разделам магии
+    </a>
+    <h2>Тип магии {{ i }}</h2>
+    <div class="content-body">
+      <p>Здесь будет подробное описание типа магии {{ i }}...</p>
+    </div>
+  </div>
+  {% endfor %}
+  
 </main>
+
+<style>
+/* Стили для страницы магии */
+.magic-intro {
+  text-align: center;
+  margin: 30px 0 50px 0;
+  font-size: 1.2em;
+  color: var(--nair-accent);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.magic-menu {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.magic-section {
+  margin-bottom: 60px;
+}
+
+.section-title {
+  color: var(--nair-accent);
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 2px solid var(--nair-border-light);
+  padding-bottom: 15px;
+  text-shadow: 0 0 15px var(--nair-accent-glow);
+}
+
+.magic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  justify-content: center;
+}
+
+.magic-grid-large {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.magic-btn {
+  background: var(--nair-card-bg);
+  border: 2px solid var(--nair-border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  height: 200px;
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
+}
+
+.magic-type-btn {
+  height: 180px;
+}
+
+.magic-btn:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--nair-border-accent);
+  box-shadow: 
+    0 12px 40px var(--nair-shadow-card),
+    0 0 25px var(--nair-shadow-glow);
+}
+
+.magic-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.4s ease;
+}
+
+.magic-btn:hover .magic-image {
+  transform: scale(1.1);
+}
+
+.magic-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(15, 14, 20, 0.95), transparent);
+  z-index: 1;
+}
+
+.magic-name {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--nair-text);
+  font-size: 1.3em;
+  font-weight: 600;
+  z-index: 2;
+  text-shadow: 0 2px 8px var(--nair-shadow);
+  padding: 0 15px;
+  transition: all 0.3s ease;
+}
+
+.magic-type-btn .magic-name {
+  font-size: 1.1em;
+  bottom: 15px;
+}
+
+.magic-btn:hover .magic-name {
+  color: var(--nair-accent);
+  transform: translateY(-5px);
+}
+
+/* Контейнеры для контента */
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.content-container.active {
+  display: block;
+}
+
+.content-body {
+  background: var(--nair-card-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 20px;
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
+}
+
+.content-body h3 {
+  color: var(--nair-accent);
+  margin: 25px 0 15px 0;
+  border-bottom: 1px solid var(--nair-border-light);
+  padding-bottom: 8px;
+}
+
+.content-body p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.content-body ul, .content-body ol {
+  margin: 15px 0;
+  padding-left: 25px;
+}
+
+.content-body li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Кнопка назад для магии */
+.magic-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: var(--nair-accent);
+  text-decoration: none;
+  padding: 12px 24px;
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: var(--nair-button-bg);
+  font-weight: 500;
+}
+
+.magic-back-button:hover {
+  background: var(--nair-button-hover);
+  border-color: var(--nair-border-dark);
+  transform: translateX(-5px);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .magic-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .magic-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .magic-intro {
+    font-size: 1.1em;
+    margin: 20px 0 40px 0;
+    padding: 0 15px;
+  }
+  
+  .section-title {
+    font-size: 1.7rem;
+    margin-bottom: 25px;
+  }
+  
+  .magic-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .magic-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .magic-btn {
+    height: 160px;
+  }
+  
+  .magic-type-btn {
+    height: 140px;
+  }
+  
+  .magic-name {
+    font-size: 1.1em;
+  }
+  
+  .magic-type-btn .magic-name {
+    font-size: 1em;
+  }
+  
+  .content-body {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .magic-grid-large {
+    grid-template-columns: 1fr;
+  }
+  
+  .magic-menu {
+    padding: 0 15px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Элементы страницы
+    const mainPage = document.getElementById('main-page');
+    const backButtons = document.querySelectorAll('.magic-back-button');
+    
+    // Обработчики для кнопок магии
+    document.querySelectorAll('.magic-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const sectionId = this.getAttribute('data-section');
+            const contentContainer = document.getElementById(`${sectionId}-content`);
+            
+            if (contentContainer) {
+                // Скрываем главную страницу
+                mainPage.style.display = 'none';
+                
+                // Показываем контент выбранного раздела
+                contentContainer.classList.add('active');
+                
+                // Прокручиваем к верху
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+    
+    // Обработчики для кнопок "Назад"
+    backButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Скрываем все контейнеры с контентом
+            document.querySelectorAll('.content-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            // Показываем главную страницу
+            mainPage.style.display = 'block';
+            
+            // Прокручиваем к верху
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+    
+    // Добавляем placeholder для изображений, если они не загружаются
+    document.querySelectorAll('.magic-image').forEach(img => {
+        img.addEventListener('error', function() {
+            this.style.backgroundImage = 'linear-gradient(135deg, #2d2935 0%, #24212a 100%)';
+            this.style.display = 'flex';
+            this.style.alignItems = 'center';
+            this.style.justifyContent = 'center';
+            this.innerHTML = '<span style="color: var(--nair-accent); font-size: 0.9em; opacity: 0.7;">Изображение</span>';
+        });
+    });
+});
+</script>
+
 {% endblock %}
