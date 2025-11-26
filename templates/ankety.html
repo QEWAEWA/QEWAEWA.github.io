@@ -18,21 +18,33 @@
          data-image-url="/static/photo/character-art/maldys.jpg"
          style="background-image: url('/static/photo/character-art/maldys.jpg');">
         <div class="character-name">Малдис Канталия</div>
+        <div class="character-overlay">
+          <span>Посмотреть анкету</span>
+        </div>
       </div>
       
       <!-- Кнопка персонажа 2 -->
       <div class="character-btn" data-character="character2" data-image-url="https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+2');">
         <div class="character-name">Имя Персонажа 2</div>
+        <div class="character-overlay">
+          <span>Посмотреть анкету</span>
+        </div>
       </div>
       
       <!-- Кнопка персонажа 3 -->
       <div class="character-btn" data-character="character3" data-image-url="https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+3');">
         <div class="character-name">Имя Персонажа 3</div>
+        <div class="character-overlay">
+          <span>Посмотреть анкету</span>
+        </div>
       </div>
       
       <!-- Кнопка персонажа 4 -->
       <div class="character-btn" data-character="character4" data-image-url="https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4" style="background-image: url('https://via.placeholder.com/300x400/1a2525/d4eded?text=Персонаж+4');">
         <div class="character-name">Имя Персонажа 4</div>
+        <div class="character-overlay">
+          <span>Посмотреть анкету</span>
+        </div>
       </div>
     </div>
   </div> <!-- ЗАКРЫВАЮЩИЙ ТЕГ ДЛЯ main-page -->
@@ -40,6 +52,7 @@
   <!-- Анимация перехода -->
   <div class="page-transition" id="page-transition">
     <div class="transition-image" id="transition-image"></div>
+    <div class="transition-overlay"></div>
   </div>
   
   <!-- Анкета Малдис Канталия -->
@@ -242,6 +255,237 @@
   </div>
 </main>
 
+<style>
+/* Стили для улучшенной анимации */
+.character-btn {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateZ(0);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.character-btn:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.character-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    rgba(120, 119, 116, 0.1) 0%, 
+    rgba(120, 119, 116, 0.3) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.character-btn:hover::before {
+  opacity: 1;
+}
+
+.character-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 37, 37, 0.85) 0%,
+    rgba(42, 63, 63, 0.9) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 2;
+  border-radius: 12px;
+}
+
+.character-btn:hover .character-overlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.character-overlay span {
+  color: #d4eded;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Анимация перехода между страницами */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 37, 37, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.page-transition.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.transition-image {
+  width: 300px;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  transform: scale(0.8) rotateY(90deg);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.page-transition.active .transition-image {
+  transform: scale(1) rotateY(0deg);
+  opacity: 1;
+}
+
+.transition-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(120, 119, 116, 0.1) 0%,
+    rgba(212, 237, 237, 0.05) 50%,
+    rgba(120, 119, 116, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.page-transition.active .transition-overlay {
+  opacity: 1;
+}
+
+/* Анимация появления анкеты */
+.profile-container {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.profile-container.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Анимация для кнопки назад */
+.back-button {
+  transition: all 0.3s ease;
+  transform: translateX(-10px);
+  opacity: 0.8;
+}
+
+.back-button:hover {
+  transform: translateX(-5px);
+  opacity: 1;
+}
+
+/* Плавные анимации для аккордеона */
+.accordion-body, .ability-description {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+.accordion-header, .ability-name {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.accordion-header:hover, .ability-name:hover {
+  background: rgba(120, 119, 116, 0.1);
+  transform: translateX(5px);
+}
+
+/* Анимация для быстрых ссылок */
+.quick-link {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #d4eded;
+  transition: width 0.3s ease;
+}
+
+.quick-link:hover::before {
+  width: 100%;
+}
+
+.quick-link:hover {
+  transform: translateY(-2px);
+}
+
+/* Анимация загрузки */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.character-buttons {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Адаптивность анимаций */
+@media (max-width: 768px) {
+  .character-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+  
+  .transition-image {
+    width: 250px;
+    height: 350px;
+  }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Элементы страницы
@@ -256,22 +500,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const characterId = this.getAttribute('data-character');
             const characterImage = this.getAttribute('data-image-url');
             
+            // Добавляем эффект нажатия
+            this.style.transform = 'scale(0.95)';
+            
             // Устанавливаем изображение для анимации
             transitionImage.style.backgroundImage = `url('${characterImage}')`;
             
             // Запускаем анимацию перехода
-            pageTransition.classList.add('active');
+            setTimeout(() => {
+                pageTransition.classList.add('active');
+            }, 150);
             
             // После завершения анимации показываем анкету
             setTimeout(() => {
                 mainPage.style.display = 'none';
-                document.getElementById(`${characterId}-profile`).classList.add('active');
+                const profile = document.getElementById(`${characterId}-profile`);
+                profile.classList.add('active');
+                
+                // Прокручиваем к верху анкеты
+                window.scrollTo({ top: 0, behavior: 'instant' });
                 
                 // Завершаем анимацию
                 setTimeout(() => {
                     pageTransition.classList.remove('active');
-                }, 100);
-            }, 800);
+                    // Восстанавливаем кнопку
+                    this.style.transform = '';
+                }, 800);
+            }, 1000);
         });
     });
     
@@ -279,13 +534,23 @@ document.addEventListener('DOMContentLoaded', function() {
     backButton.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Скрываем все анкеты
-        document.querySelectorAll('.profile-container').forEach(container => {
-            container.classList.remove('active');
-        });
+        // Запускаем обратную анимацию
+        pageTransition.classList.add('active');
         
-        // Показываем главную страницу
-        mainPage.style.display = 'block';
+        setTimeout(() => {
+            // Скрываем все анкеты
+            document.querySelectorAll('.profile-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            // Показываем главную страницу
+            mainPage.style.display = 'block';
+            
+            // Завершаем анимацию
+            setTimeout(() => {
+                pageTransition.classList.remove('active');
+            }, 600);
+        }, 300);
     });
     
     // Обработчики для аккордеона
@@ -294,6 +559,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('data-target');
             const targetBody = document.getElementById(targetId);
             const icon = this.querySelector('i');
+            
+            // Анимация переключения
+            if (targetBody.classList.contains('active')) {
+                targetBody.style.maxHeight = targetBody.scrollHeight + 'px';
+                setTimeout(() => {
+                    targetBody.style.maxHeight = '0px';
+                }, 10);
+            } else {
+                targetBody.style.maxHeight = targetBody.scrollHeight + 'px';
+                setTimeout(() => {
+                    targetBody.style.maxHeight = 'none';
+                }, 400);
+            }
             
             // Переключаем активное состояние
             targetBody.classList.toggle('active');
@@ -315,15 +593,20 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const targetId = this.getAttribute('data-target');
             const targetHeader = document.querySelector(`.accordion-header[data-target="${targetId}"]`);
+            const targetBody = document.getElementById(targetId);
             
-            // Открываем соответствующий раздел
-            targetHeader.click();
+            // Если раздел закрыт, открываем его
+            if (!targetBody.classList.contains('active')) {
+                targetHeader.click();
+            }
             
-            // Прокручиваем к разделу
-            document.getElementById(targetId).scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            // Плавная прокрутка к разделу
+            setTimeout(() => {
+                targetBody.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
         });
     });
     
@@ -332,6 +615,19 @@ document.addEventListener('DOMContentLoaded', function() {
         ability.addEventListener('click', function() {
             const description = this.nextElementSibling;
             const icon = this.querySelector('i');
+            
+            // Анимация высоты
+            if (description.classList.contains('active')) {
+                description.style.maxHeight = description.scrollHeight + 'px';
+                setTimeout(() => {
+                    description.style.maxHeight = '0px';
+                }, 10);
+            } else {
+                description.style.maxHeight = description.scrollHeight + 'px';
+                setTimeout(() => {
+                    description.style.maxHeight = 'none';
+                }, 400);
+            }
             
             // Переключаем активное состояние
             description.classList.toggle('active');
@@ -345,6 +641,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon.classList.add('fa-chevron-down');
             }
         });
+    });
+    
+    // Инициализация максимальной высоты для аккордеонов
+    document.querySelectorAll('.accordion-body, .ability-description').forEach(element => {
+        if (element.classList.contains('active')) {
+            element.style.maxHeight = 'none';
+        } else {
+            element.style.maxHeight = '0px';
+        }
     });
 });
 </script>
