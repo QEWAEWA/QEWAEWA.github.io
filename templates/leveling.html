@@ -12,32 +12,19 @@
     <h1 class="page-title">СИСТЕМА ПРОКАЧКИ</h1>
     
     <div class="leveling-intro">
-      <p>Вся информация о развитии персонажей, магических возможностях и путях совершенствования</p>
+      <p>Здесь описано всё необходимое о развитии персонажей, магических возможностях и путях совершенствования</p>
     </div>
 
-    <!-- Простая навигация в виде списка -->
+    <!-- Простая навигация -->
     <div class="simple-nav">
       <div class="nav-section">
-        <h2 class="nav-title">Основы</h2>
+        <h2 class="nav-title">Основные разделы</h2>
         <div class="nav-links">
           <a href="#character-development" class="nav-link">Развитие персонажа</a>
-          <a href="#magic-abilities" class="nav-link">Магические способности</a>
+          <a href="#magic-abilities" class="nav-link">Описание магических способностей</a>
           <a href="#mana-system" class="nav-link">Запасы маны</a>
-        </div>
-      </div>
-      
-      <div class="nav-section">
-        <h2 class="nav-title">Особые возможности</h2>
-        <div class="nav-links">
-          <a href="#chosen-ones" class="nav-link">Избранные богов</a>
-        </div>
-      </div>
-      
-      <div class="nav-section">
-        <h2 class="nav-title">Методы прокачки</h2>
-        <div class="nav-links">
-          <a href="#leveling-methods" class="nav-link">Способы развития</a>
-          <a href="#post-requirements" class="nav-link">Требования к постам</a>
+          <a href="#chosen-ones" class="nav-link">Избранные</a>
+          <a href="#leveling-methods" class="nav-link">Как прокачиваться?</a>
           <a href="#magic-books" class="nav-link">Магические книги</a>
         </div>
       </div>
@@ -48,272 +35,91 @@
       
       <!-- Развитие персонажа -->
       <section id="character-development" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-user-plus"></i>
-          Развитие персонажа
-        </h2>
+        <h2 class="section-title">Развитие персонажа</h2>
         
         <div class="section-content">
-          <div class="limits-grid">
-            <div class="limit-card">
-              <div class="limit-icon">
-                <i class="fas fa-wind"></i>
-              </div>
-              <h3>Стихии</h3>
-              <div class="limit-value">3 максимум</div>
-              <p>Базовые магические элементы персонажа</p>
-            </div>
-            
-            <div class="limit-card">
-              <div class="limit-icon">
-                <i class="fas fa-hat-wizard"></i>
-              </div>
-              <h3>Типы магии</h3>
-              <div class="limit-value">2 максимум</div>
-              <p>Специализации из доступных стихий</p>
-            </div>
-            
-            <div class="limit-card">
-              <div class="limit-icon">
-                <i class="fas fa-bolt"></i>
-              </div>
-              <h3>Способности</h3>
-              <div class="limit-value">6 максимум</div>
-              <p>Конкретные заклинания и умения</p>
-            </div>
-          </div>
-          
-          <div class="info-box">
-            <h4>💡 Будущее развитие</h4>
-            <p>Все ограничения можно увеличивать через участие в ивентах и целенаправленную прокачку. По мере развития персонажа открываются новые возможности.</p>
+          <div class="text-content">
+            <p>У каждого персонажа с самого начала может быть до 3 стихий и до 2 типов магии, состоящих из этих стихий.</p>
+            <p>В будущем можно будет совершенствовать своё владение магией, увеличивая подвластные себе стихии и типы магии. Всё это можно будет увеличивать с помощью участия в ивентах. Способностей в начале может быть максимум 6.</p>
           </div>
         </div>
       </section>
 
-      <!-- Магические способности -->
+      <!-- Описание магических способностей -->
       <section id="magic-abilities" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-fire"></i>
-          Магические способности
-        </h2>
+        <h2 class="section-title">Описание магических способностей</h2>
         
         <div class="section-content">
-          <div class="requirements-list">
-            <h3>Обязательные параметры в описании способности:</h3>
-            
-            <div class="requirement">
-              <span class="req-number">1</span>
-              <div class="req-content">
-                <h4>Количество</h4>
-                <p>Чёткое указание количества (5 лучей света, 3 скелета и т.д.)</p>
-              </div>
-            </div>
-            
-            <div class="requirement">
-              <span class="req-number">2</span>
-              <div class="req-content">
-                <h4>Перезарядка</h4>
-                <p>Время восстановления (минуты/секунды/часы)</p>
-              </div>
-            </div>
-            
-            <div class="requirement">
-              <span class="req-number">3</span>
-              <div class="req-content">
-                <h4>Сила заклинания</h4>
-                <p>Мощность и эффективность способности</p>
-              </div>
-            </div>
-            
-            <div class="requirement">
-              <span class="req-number">4</span>
-              <div class="req-content">
-                <h4>Длительность</h4>
-                <p>Время действия способности</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="note-box">
-            <p><strong>Примечание:</strong> Не все способности строго связаны этими параметрами. Возможны заклинания без ограничения по длительности или зависящие от других факторов.</p>
+          <div class="text-content">
+            <p>В описании способности укажите количество чего-либо призываемого (5 лучей света, 3 скелета и тд.), перезарядку в минутах/секундах/часах и тд, силу заклинания, длительность действия. Остальные нюансы может уточнить анкетолог. Ну и стоит понимать, что возможны заклинания без ограничения по длительности, зависящие от чего-то другого, и так далее, не всё связанно этими пунктами.</p>
           </div>
         </div>
       </section>
 
       <!-- Запасы маны -->
       <section id="mana-system" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-tint"></i>
-          Запасы маны
-        </h2>
+        <h2 class="section-title">Запасы маны</h2>
         
         <div class="section-content">
-          <div class="mana-info">
-            <div class="mana-point">
-              <h3>⚡ Стандартное использование</h3>
-              <p>Магу среднего уровня хватает маны на <strong>1-2 минуты</strong> активного боя.</p>
-            </div>
+          <div class="text-content">
+            <p>Запас маны каждого мага ограничен, и может прокачиваться по ходу игры также, как и физические параметры. Магу среднего пошиба хватает своих запасов маны на минуты-две активного использования средне затратных заклинаний в купе своей. После этого ему необходим отдых на минут 10 дабы восполнить ману, ибо дальнейшее использование маны может вызвать неприятные последствия в виде головной боли, потери сознания и так далее. Также дальнейшее использование будет затруднять восполнение маны в дальнейшем.</p>
             
-            <div class="mana-point">
-              <h3>🔄 Восстановление</h3>
-              <p>После боя требуется <strong>10 минут</strong> отдыха для полного восстановления.</p>
-            </div>
-            
-            <div class="mana-point warning">
-              <h3>⚠️ Истощение</h3>
-              <p>При превышении лимита: головная боль, потеря сознания, затруднённое восстановление.</p>
-            </div>
-            
-            <div class="mana-point danger">
-              <h3>🚫 Злоупотребление</h3>
-              <p>Частое использование на пределе требует длительного отдыха - до целого дня.</p>
-            </div>
+            <p>Если же маг довольно часто пользуется магией на пределе запасов в течении дня, то источаться его мана также начинает быстрее. Магу становиться нужен всё больший отдых, а в итоге может понадобиться и вовсе перерыв около дня.</p>
           </div>
         </div>
       </section>
 
       <!-- Избранные -->
       <section id="chosen-ones" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-crown"></i>
-          Избранные богов
-        </h2>
+        <h2 class="section-title">Избранные</h2>
         
         <div class="section-content">
-          <div class="chosen-rules">
-            <div class="rule">
-              <h3>🎯 Выбор бога</h3>
-              <p>Персонаж может быть избранным с самого начала. Способности проявляются в разном возрасте и ситуациях.</p>
-            </div>
+          <div class="text-content">
+            <p>Изначально персонаж может быть избранным какого-либо бога. Избранные - счастливчики, которых боги случайно выбирают для будущего становления героем, дабы те несли имя бога и укреплял веру остальных в него. Способности могут проявляться в самый разный возраст, а также в самых разных ситуациях. При этом божественные способности проявляются независимо от того, имеет ли избранный дар к магии или нет (в том числе природно).</p>
             
-            <div class="rule">
-              <h3>⚖️ Баланс силы</h3>
-              <p>Начальные способности не могут превышать по силе обычные магические умения.</p>
-            </div>
+            <p>Некоторые условия способностей избранных:</p>
             
-            <div class="rule">
-              <h3>🙏 Специфика божества</h3>
-              <p>Способности связаны с domain бога. Избранный бога войны не может специализироваться на лечении.</p>
-            </div>
-            
-            <div class="rule important">
-              <h3>📜 Обязательства</h3>
-              <p>Без поклонения и прославления божества способности деградируют. Обычная магическая практика не работает.</p>
-            </div>
+            <ul>
+              <li>В начале способности избранных не могут превышать по силе обычные магические способности.</li>
+              <li>Способности связанны с спецификой божества, который избрал чемпиона. То есть избранный Грума не может владеть в основе своей способностями, связанными, например, с лечением.</li>
+              <li>Бытие избранным накладывает свои специфики на игру. Не получиться прокачиваться и усиливать способности, не поклоняясь своему божеству и не славя его. Так как это не магия, обычная практика просто не сработает. Если персонаж вовсе забрасывает веру, то его способности могут и деградировать.</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <!-- Способы прокачки -->
+      <!-- Как прокачиваться -->
       <section id="leveling-methods" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-chart-line"></i>
-          Как прокачиваться?
-        </h2>
+        <h2 class="section-title">Как прокачиваться?</h2>
         
         <div class="section-content">
-          <div class="methods">
-            <div class="method">
-              <h3>🎭 Через сюжет</h3>
-              <p>Администраторы сами награждают развитием по ходу игры за значимые действия и достижения.</p>
-            </div>
+          <div class="text-content">
+            <p>Как физические, так и магические параметры персонажа могут самостоятельно развиваться по ходу сюжета. Администраторы сами решают, в какой момент персонаж получает бонусы. Так же по этому поводу можно и нужно писать администраторам самим, чтобы они рассмотрели прокачку персонажа.</p>
             
-            <div class="method">
-              <h3>✍️ Посты прокачки</h3>
-              <p>Целенаправленное написание постов для развития конкретных навыков.</p>
-            </div>
+            <p>Также прокачивать что-либо можно целенаправленно путём написания постов прокачки. Количество постов для прокачки лишь примерное, так как может отличаться из-за размера постов, а также из-за специфики сферы изучения (например, из-за того какой элемент или тип магии изучается). Пост должен быть не меньше 150 слов. Расчёты далее подходят для минимума в 150 слов:</p>
             
-            <div class="method">
-              <h3>📨 Личные запросы</h3>
-              <p>Можно писать администраторам с предложениями по развитию персонажа.</p>
-            </div>
-          </div>
-          
-          <div class="tag-notice">
-            <p><strong>Важно:</strong> Посты прокачки нужно помечать тегом <span class="tag">#прокачка</span></p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Требования к постам -->
-      <section id="post-requirements" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-graduation-cap"></i>
-          Требования к постам прокачки
-        </h2>
-        
-        <div class="section-content">
-          <div class="requirements-table">
-            <div class="table-header">
-              <span>Что прокачиваем</span>
-              <span>Постов нужно</span>
-              <span>Примечания</span>
-            </div>
+            <ul>
+              <li>Изучение нового элемента - 3 поста.</li>
+              <li>Изучение нового типа магии - 5 постов. Если тип магии схож по смыслу с тем, что уже есть у персонажа, или является продолжением развития имеющегося типа магии, то прокачка сокращается до 2-х постов ориентировочно.</li>
+              <li>Увеличение магических сил (сюда входят увеличение запасов маны и тому подобное) - 3 поста.</li>
+              <li>Улучшение имеющейся способности - 4 поста.</li>
+              <li>Изучение новой способности - 8 постов. Если тип магии способности магу очень хорошо известен, то прокачка сокращается до 3-х постов ориентировочно.</li>
+            </ul>
             
-            <div class="table-row">
-              <span class="skill-name">Новый элемент</span>
-              <span class="posts-count">3</span>
-              <span class="notes">-</span>
-            </div>
+            <p>Также есть исключения в прокачке, зависящие от анкет. Если персонаж по анкете достаточно опытный маг, то его прокачка может сильно упраздниться по решению администрации. По такому поводу стоит писать лично администрации, заранее обговорив что вы хотите улучшить.</p>
             
-            <div class="table-row">
-              <span class="skill-name">Новый тип магии</span>
-              <span class="posts-count">5</span>
-              <span class="notes">Если тип схож с имеющимся - 2 поста</span>
-            </div>
-            
-            <div class="table-row">
-              <span class="skill-name">Запасы маны</span>
-              <span class="posts-count">3</span>
-              <span class="notes">-</span>
-            </div>
-            
-            <div class="table-row">
-              <span class="skill-name">Улучшение способности</span>
-              <span class="posts-count">4</span>
-              <span class="notes">-</span>
-            </div>
-            
-            <div class="table-row">
-              <span class="skill-name">Новая способность</span>
-              <span class="posts-count">8</span>
-              <span class="notes">Если тип магии хорошо известен - 3 поста</span>
-            </div>
-          </div>
-          
-          <div class="requirements-note">
-            <p><strong>Минимум 150 слов на пост.</strong> Точное количество постов может отличаться в зависимости от размера постов и специфики изучаемой магии.</p>
+            <p>Посты связанные с прокачкой персонажа нужно помечать тегом <strong>#прокачка</strong>.</p>
           </div>
         </div>
       </section>
 
       <!-- Магические книги -->
       <section id="magic-books" class="content-section">
-        <h2 class="section-title">
-          <i class="fas fa-book"></i>
-          Магические книги
-        </h2>
+        <h2 class="section-title">Магические книги</h2>
         
         <div class="section-content">
-          <div class="book-info">
-            <div class="book-feature">
-              <h3>📚 Ускоренное обучение</h3>
-              <p>Книги, пропитанные магическими печатями для быстрого усвоения знаний.</p>
-            </div>
-            
-            <div class="book-feature">
-              <h3>⏰ Одноразовость</h3>
-              <p>Одну книгу может использовать только 1 персонаж, после чего она теряет силу.</p>
-            </div>
-            
-            <div class="book-feature">
-              <h3>📝 Процесс прокачки</h3>
-              <p>После достаточного времени обучения напишите ГМ в лс, приложив первый пост прокачки.</p>
-            </div>
-          </div>
-          
-          <div class="gm-notice">
-            <p><strong>ГМ выносит вердикт</strong> - достаточно ли постов или нужно продолжить обучение.</p>
+          <div class="text-content">
+            <p>Магические книги - книги пропитанные с помощью магии печатей знаниями, чтобы они быстро усваивались. Так что использовать книгу одновременно может лишь 1 персонаж, а далее она теряет свою силу. Когда вы считаете, что достаточно потратили времени на прокачку, нужно написать ГА в лс что вы качали, скинув первый пост из всей серии прокачки определённого параметра. Га выносит вердикт, и говорит нужны ли ещё посты.</p>
           </div>
         </div>
       </section>
@@ -338,51 +144,48 @@
 
 /* Простая навигация */
 .simple-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin: 50px 0;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 50px auto;
 }
 
 .nav-section {
   background: var(--nair-card-bg);
   border: 1px solid var(--nair-border);
   border-radius: 12px;
-  padding: 25px;
+  padding: 30px;
 }
 
 .nav-title {
   color: var(--nair-accent);
-  margin: 0 0 20px 0;
-  font-size: 1.4em;
+  margin: 0 0 25px 0;
+  font-size: 1.5em;
+  text-align: center;
   border-bottom: 2px solid var(--nair-border-light);
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 .nav-links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
 }
 
 .nav-link {
   color: var(--nair-text);
   text-decoration: none;
-  padding: 12px 20px;
+  padding: 15px 20px;
   border: 1px solid var(--nair-border);
   border-radius: 8px;
   transition: all 0.3s ease;
   background: var(--nair-button-bg);
   font-weight: 500;
+  text-align: center;
 }
 
 .nav-link:hover {
   background: var(--nair-button-hover);
   border-color: var(--nair-border-accent);
-  transform: translateX(10px);
+  transform: translateY(-3px);
   color: var(--nair-accent);
 }
 
@@ -392,7 +195,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 60px;
 }
 
 .content-section {
@@ -401,17 +204,11 @@
 
 .section-title {
   color: var(--nair-accent);
-  font-size: 1.8em;
-  margin-bottom: 25px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  border-bottom: 2px solid var(--nair-border-light);
-  padding-bottom: 10px;
-}
-
-.section-title i {
-  font-size: 1.2em;
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 3px solid var(--nair-border-light);
+  padding-bottom: 15px;
   text-shadow: 0 0 15px var(--nair-accent-glow);
 }
 
@@ -419,348 +216,92 @@
   background: var(--nair-card-bg);
   border: 1px solid var(--nair-border);
   border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 4px 20px var(--nair-shadow);
+  padding: 40px;
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
 }
 
-/* Сетка ограничений */
-.limits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 25px;
-}
-
-.limit-card {
-  text-align: center;
-  padding: 20px;
-  background: var(--nair-gradient-accent);
-  border: 1px solid var(--nair-border);
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.limit-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--nair-border-accent);
-}
-
-.limit-icon {
-  font-size: 2.5em;
-  color: var(--nair-accent);
-  margin-bottom: 15px;
-  text-shadow: 0 0 15px var(--nair-accent-glow);
-}
-
-.limit-card h3 {
-  color: var(--nair-accent);
-  margin: 0 0 10px 0;
+.text-content {
+  line-height: 1.7;
   font-size: 1.1em;
 }
 
-.limit-value {
-  font-size: 1.3em;
-  font-weight: bold;
+.text-content p {
+  margin-bottom: 20px;
+}
+
+.text-content ul {
+  margin: 20px 0;
+  padding-left: 30px;
+}
+
+.text-content li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.text-content strong {
   color: var(--nair-accent);
-  margin-bottom: 10px;
-}
-
-.limit-card p {
-  margin: 0;
-  font-size: 0.9em;
-  opacity: 0.9;
-}
-
-/* Информационные боксы */
-.info-box, .note-box, .tag-notice, .gm-notice {
-  padding: 20px;
-  background: rgba(212, 200, 232, 0.1);
-  border: 1px solid var(--nair-border-accent);
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-.info-box h4, .note-box h4 {
-  color: var(--nair-accent);
-  margin: 0 0 10px 0;
-}
-
-.info-box p, .note-box p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-.tag {
-  background: var(--nair-accent);
-  color: var(--nair-nav-bg);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 0.9em;
-}
-
-/* Список требований */
-.requirements-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.requirement {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 15px;
-  background: var(--nair-gradient-accent);
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-}
-
-.req-number {
-  background: var(--nair-accent);
-  color: var(--nair-nav-bg);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  flex-shrink: 0;
-}
-
-.req-content h4 {
-  color: var(--nair-accent);
-  margin: 0 0 5px 0;
-  font-size: 1.1em;
-}
-
-.req-content p {
-  margin: 0;
-  opacity: 0.9;
-}
-
-/* Система маны */
-.mana-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.mana-point {
-  padding: 20px;
-  background: var(--nair-gradient-accent);
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-}
-
-.mana-point.warning {
-  border-color: rgba(212, 194, 160, 0.5);
-  background: rgba(212, 194, 160, 0.1);
-}
-
-.mana-point.danger {
-  border-color: rgba(212, 160, 160, 0.5);
-  background: rgba(212, 160, 160, 0.1);
-}
-
-.mana-point h3 {
-  color: var(--nair-accent);
-  margin: 0 0 10px 0;
-  font-size: 1.1em;
-}
-
-.mana-point p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-/* Правила для избранных */
-.chosen-rules {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.rule {
-  padding: 20px;
-  background: var(--nair-gradient-accent);
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-}
-
-.rule.important {
-  border-color: var(--nair-border-accent);
-  background: rgba(212, 200, 232, 0.15);
-}
-
-.rule h3 {
-  color: var(--nair-accent);
-  margin: 0 0 10px 0;
-  font-size: 1.1em;
-}
-
-.rule p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-/* Методы прокачки */
-.methods {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 25px;
-}
-
-.method {
-  padding: 20px;
-  background: var(--nair-gradient-accent);
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-  text-align: center;
-}
-
-.method h3 {
-  color: var(--nair-accent);
-  margin: 0 0 10px 0;
-  font-size: 1.1em;
-}
-
-.method p {
-  margin: 0;
-  line-height: 1.5;
-  font-size: 0.95em;
-}
-
-/* Таблица требований */
-.requirements-table {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.table-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr 2fr;
-  background: var(--nair-gradient-accent);
-  padding: 15px 20px;
-  font-weight: bold;
-  color: var(--nair-accent);
-  border-bottom: 1px solid var(--nair-border);
-}
-
-.table-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 2fr;
-  padding: 15px 20px;
-  border-bottom: 1px solid var(--nair-border-light);
-  align-items: center;
-}
-
-.table-row:last-child {
-  border-bottom: none;
-}
-
-.skill-name {
-  font-weight: 500;
-  color: var(--nair-text);
-}
-
-.posts-count {
-  font-weight: bold;
-  color: var(--nair-accent);
-  text-align: center;
-}
-
-.notes {
-  font-size: 0.9em;
-  opacity: 0.8;
-  text-align: center;
-}
-
-.requirements-note {
-  margin-top: 20px;
-  padding: 15px;
-  background: rgba(212, 200, 232, 0.1);
-  border-radius: 6px;
-  text-align: center;
-}
-
-.requirements-note p {
-  margin: 0;
-  font-size: 0.95em;
-}
-
-/* Информация о книгах */
-.book-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.book-feature {
-  padding: 20px;
-  background: var(--nair-gradient-accent);
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-}
-
-.book-feature h3 {
-  color: var(--nair-accent);
-  margin: 0 0 10px 0;
-  font-size: 1.1em;
-}
-
-.book-feature p {
-  margin: 0;
-  line-height: 1.5;
+  font-weight: 600;
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
+  .leveling-intro {
+    margin: 20px 0 40px 0;
+    font-size: 1.1em;
+    padding: 0 15px;
+  }
+  
   .simple-nav {
-    margin: 30px 0;
+    margin: 30px 15px;
   }
   
   .nav-section {
-    padding: 20px;
+    padding: 25px 20px;
   }
   
-  .limits-grid {
+  .nav-links {
     grid-template-columns: 1fr;
   }
   
-  .methods {
-    grid-template-columns: 1fr;
+  .nav-link {
+    padding: 12px 15px;
   }
   
-  .table-header, .table-row {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    text-align: center;
+  .section-title {
+    font-size: 1.7em;
+    margin-bottom: 25px;
   }
   
   .section-content {
-    padding: 20px;
+    padding: 25px 20px;
+    margin: 0 15px;
   }
   
   .content-sections {
-    gap: 30px;
+    gap: 40px;
+  }
+  
+  .text-content {
+    font-size: 1em;
+  }
+  
+  .text-content ul {
+    padding-left: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .leveling-intro {
-    font-size: 1.1em;
-    margin: 20px 0 40px 0;
-  }
-  
   .section-title {
     font-size: 1.5em;
+  }
+  
+  .section-content {
+    padding: 20px 15px;
+  }
+  
+  .nav-title {
+    font-size: 1.3em;
   }
 }
 </style>
@@ -778,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.getElementById(targetId);
             
             if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 100;
+                const offsetTop = targetElement.offsetTop - 80;
                 
                 window.scrollTo({
                     top: offsetTop,
