@@ -3,50 +3,50 @@
   src: url('/static/FiraSans-Italic.ttf') format('truetype');
 }
 
-/* Обновлённая цветовая схема на основе текстовых цветов */
+/* Обновлённая цветовая схема с улучшенными акцентными цветами */
 :root {
   /* Основные цвета - приглушённые мистические тона */
   --nair-bg: #0f0e14;
   --nair-nav-bg: #1a1820;
   --nair-card-bg: #24212a;
   --nair-text: #e8e4ec;
-  --nair-accent: #c8c2d4;
+  --nair-accent: #d4c8e8;
   
-  /* Дополнительные акцентные цвета - приглушённые фиолетовые оттенки */
-  --nair-accent-secondary: #a8a0b8;
-  --nair-accent-glow: rgba(200, 194, 212, 0.15);
+  /* Улучшенные акцентные цвета - более насыщенные фиолетовые оттенки */
+  --nair-accent-secondary: #b8a8d0;
+  --nair-accent-glow: rgba(212, 200, 232, 0.25);
   
-  /* Границы с приглушённым фиолетовым оттенком */
-  --nair-border: rgba(168, 160, 184, 0.3);
-  --nair-border-light: rgba(168, 160, 184, 0.15);
-  --nair-border-dark: rgba(168, 160, 184, 0.4);
-  --nair-border-accent: rgba(200, 194, 212, 0.35);
+  /* Границы с улучшенной видимостью */
+  --nair-border: rgba(184, 168, 208, 0.4);
+  --nair-border-light: rgba(184, 168, 208, 0.2);
+  --nair-border-dark: rgba(184, 168, 208, 0.6);
+  --nair-border-accent: rgba(212, 200, 232, 0.5);
   
   /* Состояния и интерактивность */
   --nair-primary: #2d2935;
-  --nair-hover: rgba(168, 160, 184, 0.1);
-  --nair-active: rgba(200, 194, 212, 0.15);
-  --nair-focus: rgba(200, 194, 212, 0.2);
+  --nair-hover: rgba(184, 168, 208, 0.15);
+  --nair-active: rgba(212, 200, 232, 0.2);
+  --nair-focus: rgba(212, 200, 232, 0.25);
   
   /* Тени и эффекты */
   --nair-shadow: rgba(10, 8, 15, 0.8);
-  --nair-shadow-glow: rgba(200, 194, 212, 0.08);
+  --nair-shadow-glow: rgba(212, 200, 232, 0.12);
   --nair-shadow-card: rgba(8, 6, 12, 0.6);
   
-  /* Кнопки и интерактивные элементы */
-  --nair-button-bg: rgba(168, 160, 184, 0.06);
-  --nair-button-hover: rgba(168, 160, 184, 0.12);
-  --nair-button-active: rgba(200, 194, 212, 0.15);
+  /* Кнопки и интерактивные элементы - УЛУЧШЕННАЯ ВИДИМОСТЬ */
+  --nair-button-bg: rgba(184, 168, 208, 0.12);
+  --nair-button-hover: rgba(184, 168, 208, 0.18);
+  --nair-button-active: rgba(212, 200, 232, 0.2);
   
-  /* Градиенты с приглушёнными тонами */
+  /* Градиенты с улучшенными тонами */
   --nair-gradient-primary: linear-gradient(135deg, #24212a 0%, #2d2935 100%);
-  --nair-gradient-accent: linear-gradient(135deg, rgba(200, 194, 212, 0.08) 0%, rgba(168, 160, 184, 0.04) 100%);
+  --nair-gradient-accent: linear-gradient(135deg, rgba(212, 200, 232, 0.12) 0%, rgba(184, 168, 208, 0.08) 100%);
   
   /* Статусы и уведомления */
-  --nair-success: rgba(160, 200, 180, 0.25);
-  --nair-warning: rgba(212, 194, 160, 0.25);
-  --nair-error: rgba(212, 160, 160, 0.25);
-  --nair-info: rgba(160, 180, 212, 0.25);
+  --nair-success: rgba(160, 200, 180, 0.3);
+  --nair-warning: rgba(212, 194, 160, 0.3);
+  --nair-error: rgba(212, 160, 160, 0.3);
+  --nair-info: rgba(160, 180, 212, 0.3);
 }
 
 /* ===== СТИЛЬ ДЛЯ СЕТКИ КНОПОК КАК НА СКРИНШОТЕ ===== */
@@ -191,8 +191,8 @@ body {
   background: var(--nair-bg);
   line-height: 1.6;
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(200, 194, 212, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(168, 160, 184, 0.02) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(212, 200, 232, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(184, 168, 208, 0.03) 0%, transparent 50%);
 }
 
 /* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ (ОБНОВЛЁННАЯ ВЕРСИЯ) ===== */
@@ -225,7 +225,7 @@ body {
   background-image: url('/static/photo/nav-background.jpg');
   background-size: cover;
   background-position: right;
-  filter: blur(4px) brightness(0.7) contrast(1.1); /* Исправлено затемнение */
+  filter: blur(4px) brightness(0.7) contrast(1.1);
   z-index: -2;
   transform: scale(1.05);
 }
@@ -252,7 +252,7 @@ body {
 .nav-divider {
   height: 1px;
   background: var(--nair-border-light);
-  margin: 30px 0 40px 0; /* Увеличил отступы чтобы опустить меню ниже */
+  margin: 30px 0 40px 0;
   width: 90%;
 }
 
@@ -268,7 +268,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-top: 20px; /* Опускаем меню ниже */
+  margin-top: 20px;
 }
 
 .nav-item {
@@ -281,8 +281,8 @@ body {
   text-decoration: none;
   display: block;
   padding: 12px 20px;
-  border: none; /* Убираем обводку */
-  background: transparent;
+  border: none;
+  background: rgba(184, 168, 208, 0.08); /* УЛУЧШЕННАЯ ЗАЛИВКА */
   position: relative;
   padding-left: 25px;
   transition: all 0.4s ease;
@@ -290,7 +290,8 @@ body {
   font-weight: 500;
   letter-spacing: 0.3px;
   backdrop-filter: blur(5px);
-  border-radius: 0; /* Убираем скругление */
+  border-radius: 6px; /* ВОЗВРАЩАЕМ СКРУГЛЕНИЕ */
+  border: 1px solid rgba(184, 168, 208, 0.2); /* ДОБАВЛЯЕМ РАМКУ */
 }
 
 .nav-link::before {
@@ -307,31 +308,31 @@ body {
   box-shadow: 0 0 10px var(--nair-accent-glow);
 }
 
-/* ПОДСВЕТКА вместо заливки для активного пункта */
+/* УЛУЧШЕННАЯ ПОДСВЕТКА для активного пункта */
 .nav-link.active {
-  background: transparent; /* Убираем заливку */
-  border: none;
+  background: rgba(212, 200, 232, 0.15); /* БОЛЕЕ ВИДИМАЯ ЗАЛИВКА */
+  border: 1px solid var(--nair-border-accent);
   color: var(--nair-accent);
   text-shadow: 0 0 10px var(--nair-accent-glow);
-  box-shadow: none;
+  box-shadow: 0 0 15px var(--nair-shadow-glow);
 }
 
 .nav-link.active::before {
   height: 80%;
 }
 
-/* Подсветка при наведении */
+/* УЛУЧШЕННАЯ подсветка при наведении */
 .nav-link:hover {
-  background: transparent; /* Убираем заливку */
+  background: rgba(184, 168, 208, 0.15); /* БОЛЕЕ ВИДИМАЯ ЗАЛИВКА */
   transform: translateX(8px);
-  border: none;
+  border: 1px solid var(--nair-border);
   color: var(--nair-accent);
   text-shadow: 0 0 8px var(--nair-accent-glow);
 }
 
 /* ===== ПОИСК ===== */
 .search-input {
-  background: rgba(200, 194, 212, 0.05);
+  background: rgba(212, 200, 232, 0.08);
   border: 1px solid var(--nair-border);
   border-radius: 10px;
   padding: 15px 20px;
@@ -348,13 +349,13 @@ body {
 }
 
 .search-input::placeholder {
-  color: rgba(200, 194, 212, 0.4);
+  color: rgba(212, 200, 232, 0.5);
 }
 
 .search-input:focus {
   border-color: var(--nair-border-accent);
-  box-shadow: 0 0 0 2px rgba(200, 194, 212, 0.1);
-  background: rgba(200, 194, 212, 0.08);
+  box-shadow: 0 0 0 2px rgba(212, 200, 232, 0.15);
+  background: rgba(212, 200, 232, 0.12);
 }
 
 .suggestions {
@@ -448,9 +449,9 @@ body {
   background: rgba(15, 14, 20, 0.9);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid var(--nair-border); /* Добавляем обводку как у кнопок */
+  border: 1px solid var(--nair-border);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px var(--nair-shadow); /* Добавляем тень как у кнопок */
+  box-shadow: 0 4px 16px var(--nair-shadow);
 }
 
 .info-title {
@@ -592,8 +593,8 @@ body {
 
 /* Поднимаем карту выше */
 .map-container {
-  margin-top: 20px !important; /* Уменьшаем отступ сверху */
-  height: 80vh !important; /* Увеличиваем высоту */
+  margin-top: 20px !important;
+  height: 80vh !important;
 }
 
 .map-image:active {
@@ -671,13 +672,13 @@ body {
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(200, 194, 212, 0.3);
+    box-shadow: 0 0 0 0 rgba(212, 200, 232, 0.4);
   }
   70% {
-    box-shadow: 0 0 0 8px rgba(200, 194, 212, 0);
+    box-shadow: 0 0 0 8px rgba(212, 200, 232, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(200, 194, 212, 0);
+    box-shadow: 0 0 0 0 rgba(212, 200, 232, 0);
   }
 }
 
@@ -690,7 +691,7 @@ body {
     text-shadow: 2px 2px 4px var(--nair-shadow);
   }
   to {
-    text-shadow: 2px 2px 8px rgba(200, 194, 212, 0.3);
+    text-shadow: 2px 2px 8px rgba(212, 200, 232, 0.4);
   }
 }
 
@@ -773,7 +774,7 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-    box-shadow: 0 0 30px rgba(200, 194, 212, 0.3);
+    box-shadow: 0 0 30px rgba(212, 200, 232, 0.4);
 }
 
 /* Контейнер анкеты */
