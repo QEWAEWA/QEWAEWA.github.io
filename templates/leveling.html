@@ -15,19 +15,49 @@
       <p>Здесь описано всё необходимое о развитии персонажей, магических возможностях и путях совершенствования</p>
     </div>
 
-    <!-- Простая навигация -->
-    <div class="simple-nav">
-      <div class="nav-section">
-        <h2 class="nav-title">Основные разделы</h2>
-        <div class="nav-links">
-          <a href="#character-development" class="nav-link">Развитие персонажа</a>
-          <a href="#magic-abilities" class="nav-link">Описание магических способностей</a>
-          <a href="#mana-system" class="nav-link">Запасы маны</a>
-          <a href="#chosen-ones" class="nav-link">Избранные</a>
-          <a href="#leveling-methods" class="nav-link">Как прокачиваться?</a>
-          <a href="#magic-books" class="nav-link">Магические книги</a>
+    <!-- Навигация в виде сетки как в вашем стиле -->
+    <div class="grid-container">
+      <a href="#character-development" class="grid-item">
+        <div class="grid-icon">
+          <i class="fas fa-user-plus"></i>
         </div>
-      </div>
+        <div class="grid-title">Развитие персонажа</div>
+      </a>
+      
+      <a href="#magic-abilities" class="grid-item">
+        <div class="grid-icon">
+          <i class="fas fa-fire"></i>
+        </div>
+        <div class="grid-title">Магические способности</div>
+      </a>
+      
+      <a href="#mana-system" class="grid-item">
+        <div class="grid-icon">
+          <i class="fas fa-tint"></i>
+        </div>
+        <div class="grid-title">Запасы маны</div>
+      </a>
+      
+      <a href="#chosen-ones" class="grid-item">
+        <div class="grid-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="grid-title">Избранные</div>
+      </a>
+      
+      <a href="#leveling-methods" class="grid-item">
+        <div class="grid-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="grid-title">Как прокачиваться?</div>
+      </a>
+      
+      <a href="#magic-books" class="grid-item">
+        <div class="grid-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="grid-title">Магические книги</div>
+      </a>
     </div>
 
     <!-- Основной контент на одной странице -->
@@ -35,7 +65,10 @@
       
       <!-- Развитие персонажа -->
       <section id="character-development" class="content-section">
-        <h2 class="section-title">Развитие персонажа</h2>
+        <div class="section-header">
+          <i class="fas fa-user-plus"></i>
+          <h2>Развитие персонажа</h2>
+        </div>
         
         <div class="section-content">
           <div class="text-content">
@@ -47,7 +80,10 @@
 
       <!-- Описание магических способностей -->
       <section id="magic-abilities" class="content-section">
-        <h2 class="section-title">Описание магических способностей</h2>
+        <div class="section-header">
+          <i class="fas fa-fire"></i>
+          <h2>Описание магических способностей</h2>
+        </div>
         
         <div class="section-content">
           <div class="text-content">
@@ -58,7 +94,10 @@
 
       <!-- Запасы маны -->
       <section id="mana-system" class="content-section">
-        <h2 class="section-title">Запасы маны</h2>
+        <div class="section-header">
+          <i class="fas fa-tint"></i>
+          <h2>Запасы маны</h2>
+        </div>
         
         <div class="section-content">
           <div class="text-content">
@@ -71,7 +110,10 @@
 
       <!-- Избранные -->
       <section id="chosen-ones" class="content-section">
-        <h2 class="section-title">Избранные</h2>
+        <div class="section-header">
+          <i class="fas fa-crown"></i>
+          <h2>Избранные</h2>
+        </div>
         
         <div class="section-content">
           <div class="text-content">
@@ -90,7 +132,10 @@
 
       <!-- Как прокачиваться -->
       <section id="leveling-methods" class="content-section">
-        <h2 class="section-title">Как прокачиваться?</h2>
+        <div class="section-header">
+          <i class="fas fa-chart-line"></i>
+          <h2>Как прокачиваться?</h2>
+        </div>
         
         <div class="section-content">
           <div class="text-content">
@@ -115,7 +160,10 @@
 
       <!-- Магические книги -->
       <section id="magic-books" class="content-section">
-        <h2 class="section-title">Магические книги</h2>
+        <div class="section-header">
+          <i class="fas fa-book"></i>
+          <h2>Магические книги</h2>
+        </div>
         
         <div class="section-content">
           <div class="text-content">
@@ -130,7 +178,7 @@
 </main>
 
 <style>
-/* Стили для упрощённой системы прокачки */
+/* Стили для системы прокачки в вашем стиле */
 .leveling-intro {
   text-align: center;
   margin: 30px 0 50px 0;
@@ -142,51 +190,81 @@
   line-height: 1.6;
 }
 
-/* Простая навигация */
-.simple-nav {
-  max-width: 800px;
-  margin: 50px auto;
-}
-
-.nav-section {
-  background: var(--nair-card-bg);
-  border: 1px solid var(--nair-border);
-  border-radius: 12px;
-  padding: 30px;
-}
-
-.nav-title {
-  color: var(--nair-accent);
-  margin: 0 0 25px 0;
-  font-size: 1.5em;
-  text-align: center;
-  border-bottom: 2px solid var(--nair-border-light);
-  padding-bottom: 15px;
-}
-
-.nav-links {
+/* Сетка навигации как в вашем стиле */
+.grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
 }
 
-.nav-link {
-  color: var(--nair-text);
-  text-decoration: none;
-  padding: 15px 20px;
-  border: 1px solid var(--nair-border);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  background: var(--nair-button-bg);
-  font-weight: 500;
+.grid-item {
+  background: var(--nair-card-bg);
+  border: 2px solid var(--nair-border);
+  border-radius: 12px;
+  padding: 40px 30px;
   text-align: center;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--nair-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  box-shadow: 
+    0 8px 32px var(--nair-shadow-card),
+    0 4px 16px var(--nair-shadow);
+  position: relative;
+  overflow: hidden;
 }
 
-.nav-link:hover {
-  background: var(--nair-button-hover);
+.grid-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--nair-gradient-accent);
+  transition: left 0.6s ease;
+  z-index: 0;
+}
+
+.grid-item:hover {
+  transform: translateY(-8px) scale(1.02);
   border-color: var(--nair-border-accent);
-  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 40px var(--nair-shadow-card),
+    0 0 25px var(--nair-shadow-glow);
   color: var(--nair-accent);
+}
+
+.grid-item:hover::before {
+  left: 0;
+}
+
+.grid-icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 8px var(--nair-shadow);
+  color: var(--nair-accent);
+}
+
+.grid-title {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px var(--nair-shadow);
 }
 
 /* Секции контента */
@@ -196,52 +274,114 @@
   display: flex;
   flex-direction: column;
   gap: 60px;
+  padding: 0 30px;
 }
 
 .content-section {
-  scroll-margin-top: 20px;
+  scroll-margin-top: 100px;
 }
 
-.section-title {
-  color: var(--nair-accent);
-  font-size: 2em;
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   margin-bottom: 30px;
-  text-align: center;
-  border-bottom: 3px solid var(--nair-border-light);
-  padding-bottom: 15px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--nair-border-accent);
+}
+
+.section-header i {
+  font-size: 2.5em;
+  color: var(--nair-accent);
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+}
+
+.section-header h2 {
+  color: var(--nair-accent);
+  margin: 0;
+  font-size: 2.2em;
+  font-weight: 600;
   text-shadow: 0 0 15px var(--nair-accent-glow);
 }
 
 .section-content {
   background: var(--nair-card-bg);
-  border: 1px solid var(--nair-border);
+  border: 2px solid var(--nair-border);
   border-radius: 12px;
   padding: 40px;
-  box-shadow: 0 8px 32px var(--nair-shadow-card);
+  box-shadow: 
+    0 8px 32px var(--nair-shadow-card),
+    0 4px 16px var(--nair-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--nair-gradient-accent);
+  z-index: 1;
 }
 
 .text-content {
   line-height: 1.7;
   font-size: 1.1em;
+  color: var(--nair-text);
 }
 
 .text-content p {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  text-align: justify;
 }
 
 .text-content ul {
-  margin: 20px 0;
+  margin: 25px 0;
   padding-left: 30px;
 }
 
 .text-content li {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   line-height: 1.6;
+  position: relative;
+  padding-left: 10px;
+}
+
+.text-content li::before {
+  content: '•';
+  color: var(--nair-accent);
+  font-weight: bold;
+  position: absolute;
+  left: -15px;
+  text-shadow: 0 0 10px var(--nair-accent-glow);
 }
 
 .text-content strong {
   color: var(--nair-accent);
   font-weight: 600;
+  text-shadow: 0 0 8px var(--nair-accent-glow);
+}
+
+/* Акцентные цвета для границ */
+.content-section .section-content {
+  border-color: var(--nair-border);
+}
+
+.content-section .section-content:hover {
+  border-color: var(--nair-border-accent);
+}
+
+/* Убираем прозрачные рамки и делаем акцентные */
+.section-header {
+  border-bottom-color: var(--nair-border-accent);
+}
+
+/* Анимации в вашем стиле */
+.grid-item, .section-content {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Адаптивность */
@@ -252,34 +392,49 @@
     padding: 0 15px;
   }
   
-  .simple-nav {
-    margin: 30px 15px;
-  }
-  
-  .nav-section {
-    padding: 25px 20px;
-  }
-  
-  .nav-links {
+  .grid-container {
     grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
   }
   
-  .nav-link {
-    padding: 12px 15px;
+  .grid-item {
+    padding: 30px 25px;
+    min-height: 140px;
   }
   
-  .section-title {
-    font-size: 1.7em;
+  .grid-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+  }
+  
+  .grid-title {
+    font-size: 1.2em;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
     margin-bottom: 25px;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8em;
+  }
+  
+  .section-header i {
+    font-size: 2em;
   }
   
   .section-content {
     padding: 25px 20px;
-    margin: 0 15px;
+    margin: 0 10px;
   }
   
   .content-sections {
     gap: 40px;
+    padding: 0 15px;
   }
   
   .text-content {
@@ -292,31 +447,36 @@
 }
 
 @media (max-width: 480px) {
-  .section-title {
-    font-size: 1.5em;
+  .section-header h2 {
+    font-size: 1.6em;
   }
   
   .section-content {
     padding: 20px 15px;
   }
   
-  .nav-title {
-    font-size: 1.3em;
+  .grid-item {
+    padding: 25px 20px;
   }
+}
+
+/* Прокрутка к якорям с отступом */
+html {
+  scroll-padding-top: 100px;
 }
 </style>
 
 <script>
 // Плавная прокрутка к якорям
 document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const gridItems = document.querySelectorAll('.grid-item');
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+    gridItems.forEach(item => {
+        item.addEventListener('click', function(e) {
             e.preventDefault();
             
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
                 const offsetTop = targetElement.offsetTop - 80;
@@ -327,6 +487,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+    });
+    
+    // Добавляем подсветку текущей секции при прокрутке
+    const sections = document.querySelectorAll('.content-section');
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '-100px 0px -100px 0px'
+    };
+    
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    sections.forEach(section => {
+        section.style.opacity = '0.7';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'all 0.6s ease';
+        sectionObserver.observe(section);
     });
 });
 </script>
