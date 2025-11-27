@@ -15,49 +15,39 @@
       <p>Здесь описано всё необходимое о развитии персонажей, магических возможностях и путях совершенствования</p>
     </div>
 
-    <!-- Навигация в виде сетки как в вашем стиле -->
-    <div class="grid-container">
-      <a href="#character-development" class="grid-item">
-        <div class="grid-icon">
+    <!-- Компактная навигация в виде горизонтального меню -->
+    <div class="compact-nav">
+      <div class="nav-scroll-container">
+        <a href="#character-development" class="nav-item">
           <i class="fas fa-user-plus"></i>
-        </div>
-        <div class="grid-title">Развитие персонажа</div>
-      </a>
-      
-      <a href="#magic-abilities" class="grid-item">
-        <div class="grid-icon">
+          <span>Развитие</span>
+        </a>
+        
+        <a href="#magic-abilities" class="nav-item">
           <i class="fas fa-fire"></i>
-        </div>
-        <div class="grid-title">Магические способности</div>
-      </a>
-      
-      <a href="#mana-system" class="grid-item">
-        <div class="grid-icon">
+          <span>Способности</span>
+        </a>
+        
+        <a href="#mana-system" class="nav-item">
           <i class="fas fa-tint"></i>
-        </div>
-        <div class="grid-title">Запасы маны</div>
-      </a>
-      
-      <a href="#chosen-ones" class="grid-item">
-        <div class="grid-icon">
+          <span>Мана</span>
+        </a>
+        
+        <a href="#chosen-ones" class="nav-item">
           <i class="fas fa-crown"></i>
-        </div>
-        <div class="grid-title">Избранные</div>
-      </a>
-      
-      <a href="#leveling-methods" class="grid-item">
-        <div class="grid-icon">
+          <span>Избранные</span>
+        </a>
+        
+        <a href="#leveling-methods" class="nav-item">
           <i class="fas fa-chart-line"></i>
-        </div>
-        <div class="grid-title">Как прокачиваться?</div>
-      </a>
-      
-      <a href="#magic-books" class="grid-item">
-        <div class="grid-icon">
+          <span>Прокачка</span>
+        </a>
+        
+        <a href="#magic-books" class="nav-item">
           <i class="fas fa-book"></i>
-        </div>
-        <div class="grid-title">Магические книги</div>
-      </a>
+          <span>Книги</span>
+        </a>
+      </div>
     </div>
 
     <!-- Основной контент на одной странице -->
@@ -122,7 +112,7 @@
             <p>Некоторые условия способностей избранных:</p>
             
             <ul>
-              <li>В начале способности избранных не могут превышать по силе обычные магические способности.</li>
+              <li>В начале способности избранных не могут превывать по силе обычные магические способности.</li>
               <li>Способности связанны с спецификой божества, который избрал чемпиона. То есть избранный Грума не может владеть в основе своей способностями, связанными, например, с лечением.</li>
               <li>Бытие избранным накладывает свои специфики на игру. Не получиться прокачиваться и усиливать способности, не поклоняясь своему божеству и не славя его. Так как это не магия, обычная практика просто не сработает. Если персонаж вовсе забрасывает веру, то его способности могут и деградировать.</li>
             </ul>
@@ -181,7 +171,7 @@
 /* Стили для системы прокачки в вашем стиле */
 .leveling-intro {
   text-align: center;
-  margin: 30px 0 50px 0;
+  margin: 30px 0 40px 0;
   font-size: 1.2em;
   color: var(--nair-accent);
   max-width: 800px;
@@ -190,81 +180,59 @@
   line-height: 1.6;
 }
 
-/* Сетка навигации как в вашем стиле */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto 60px auto;
-}
-
-.grid-item {
+/* Компактная навигация */
+.compact-nav {
   background: var(--nair-card-bg);
   border: 2px solid var(--nair-border);
   border-radius: 12px;
-  padding: 40px 30px;
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--nair-text);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 160px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto 50px auto;
   box-shadow: 
     0 8px 32px var(--nair-shadow-card),
     0 4px 16px var(--nair-shadow);
-  position: relative;
-  overflow: hidden;
 }
 
-.grid-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--nair-gradient-accent);
-  transition: left 0.6s ease;
-  z-index: 0;
+.nav-scroll-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.grid-item:hover {
-  transform: translateY(-8px) scale(1.02);
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--nair-button-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--nair-text);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-weight: 500;
+  font-size: 0.95em;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.nav-item:hover {
+  background: var(--nair-button-hover);
   border-color: var(--nair-border-accent);
-  box-shadow: 
-    0 12px 40px var(--nair-shadow-card),
-    0 0 25px var(--nair-shadow-glow);
+  transform: translateY(-3px);
   color: var(--nair-accent);
+  box-shadow: 0 4px 15px var(--nair-shadow-glow);
 }
 
-.grid-item:hover::before {
-  left: 0;
-}
-
-.grid-icon {
-  font-size: 3em;
-  margin-bottom: 20px;
-  opacity: 0.9;
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 2px 8px var(--nair-shadow);
+.nav-item i {
+  font-size: 1.1em;
   color: var(--nair-accent);
+  text-shadow: 0 0 10px var(--nair-accent-glow);
 }
 
-.grid-title {
-  font-size: 1.4em;
-  font-weight: 600;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 4px var(--nair-shadow);
+.nav-item span {
+  white-space: nowrap;
 }
 
 /* Секции контента */
@@ -374,42 +342,37 @@
   border-color: var(--nair-border-accent);
 }
 
-/* Убираем прозрачные рамки и делаем акцентные */
-.section-header {
-  border-bottom-color: var(--nair-border-accent);
-}
-
 /* Анимации в вашем стиле */
-.grid-item, .section-content {
+.nav-item, .section-content {
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
   .leveling-intro {
-    margin: 20px 0 40px 0;
+    margin: 20px 0 30px 0;
     font-size: 1.1em;
     padding: 0 15px;
   }
   
-  .grid-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 20px;
+  .compact-nav {
+    margin: 0 15px 40px 15px;
+    padding: 15px;
   }
   
-  .grid-item {
-    padding: 30px 25px;
-    min-height: 140px;
+  .nav-scroll-container {
+    gap: 6px;
   }
   
-  .grid-icon {
-    font-size: 2.5em;
-    margin-bottom: 15px;
+  .nav-item {
+    padding: 10px 15px;
+    min-width: 100px;
+    font-size: 0.9em;
+    gap: 8px;
   }
   
-  .grid-title {
-    font-size: 1.2em;
+  .nav-item i {
+    font-size: 1em;
   }
   
   .section-header {
@@ -455,8 +418,14 @@
     padding: 20px 15px;
   }
   
-  .grid-item {
-    padding: 25px 20px;
+  .nav-item {
+    min-width: 80px;
+    padding: 8px 12px;
+    font-size: 0.85em;
+  }
+  
+  .nav-scroll-container {
+    justify-content: space-between;
   }
 }
 
@@ -464,14 +433,24 @@
 html {
   scroll-padding-top: 100px;
 }
+
+/* Активный пункт меню при прокрутке */
+.nav-item.active {
+  background: var(--nair-button-hover);
+  border-color: var(--nair-border-accent);
+  color: var(--nair-accent);
+  box-shadow: 0 0 15px var(--nair-shadow-glow);
+}
 </style>
 
 <script>
-// Плавная прокрутка к якорям
+// Плавная прокрутка к якорям и подсветка активного пункта
 document.addEventListener('DOMContentLoaded', function() {
-    const gridItems = document.querySelectorAll('.grid-item');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.content-section');
     
-    gridItems.forEach(item => {
+    // Прокрутка к секциям
+    navItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -489,8 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Добавляем подсветку текущей секции при прокрутке
-    const sections = document.querySelectorAll('.content-section');
+    // Подсветка активного пункта меню при прокрутке
     const observerOptions = {
         threshold: 0.3,
         rootMargin: '-100px 0px -100px 0px'
@@ -499,18 +477,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Убираем активный класс у всех пунктов
+                navItems.forEach(item => item.classList.remove('active'));
+                
+                // Добавляем активный класс к соответствующему пункту
+                const activeNavItem = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+                if (activeNavItem) {
+                    activeNavItem.classList.add('active');
+                }
+                
+                // Анимация появления секции
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
     
+    // Инициализация анимаций секций
     sections.forEach(section => {
         section.style.opacity = '0.7';
         section.style.transform = 'translateY(20px)';
         section.style.transition = 'all 0.6s ease';
         sectionObserver.observe(section);
     });
+    
+    // Активируем первый пункт меню по умолчанию
+    if (navItems.length > 0) {
+        navItems[0].classList.add('active');
+    }
 });
 </script>
 
