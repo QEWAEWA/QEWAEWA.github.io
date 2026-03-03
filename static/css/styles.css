@@ -187,7 +187,6 @@ body {
   font-family: 'Fira Sans', Arial, sans-serif;
   color: var(--nair-text);
   display: flex;
-  flex-wrap: wrap;
   min-height: 100vh;
   background: var(--nair-bg);
   line-height: 1.6;
@@ -427,8 +426,6 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
-  width: calc(100% - 300px);
-  box-sizing: border-box;
 }
 
 .page-title {
