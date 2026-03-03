@@ -234,7 +234,7 @@ body {
   left: 0;
   top: 0;
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: hidden; /* запрещаем скролл */
   overflow-x: hidden;
   
   /* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
@@ -243,6 +243,11 @@ body {
   background-size: cover;
   background-position: center;
   z-index: 100;
+}
+
+/* при открытии на мобильных позволяем внутренний скролл */
+.original-nav.mobile-open {
+  overflow-y: hidden; /* выключаем собственный скролл даже при открытии */
 }
 
 /* Фоновое изображение с УМЕРЕННЫМ размытием */
@@ -471,16 +476,28 @@ body {
 }
 
 /* Полупрозрачный фон для контента */
-.original-main > .page-title,
-.original-main > .leveling-intro,
-.original-main > .content-sections,
-.original-main > .profile-container {
+.original-main > * {
+  position: relative;
+  z-index: 1;
   background: rgba(36, 33, 42, 0.7);
   backdrop-filter: blur(8px);
   border-radius: 12px;
   padding: 30px;
   margin: 20px auto;
   border: 1px solid var(--nair-border-light);
+  max-width: 1200px;
+}
+
+/* исключения: не хотим тёмного фон для некоторых вложенных элементов */
+.original-main .nav-toggle,
+.original-main .map-container,
+.original-main .button-background,
+.original-main .character-buttons,
+.original-main .container-buttons {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .page-title {
@@ -1162,7 +1179,24 @@ body {
   }
   
   .compact-nav {
-    padding: 15px;
+    background: var(--nair-card-bg);
+    border: 1px solid var(--nair-border);
+    border-radius: 12px;
+    padding: 20px 15px;
+    margin: 20px auto;
+    box-shadow: 0 8px 32px var(--nair-shadow-card);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-scroll-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
   }
 }
 
@@ -1171,6 +1205,23 @@ body {
   /* Основной макет */
   body {
     flex-direction: column;
+  }
+  
+  /* компактное меню превращается в фиксированную шапку */
+  .compact-nav {
+    margin: 0;
+    border-radius: 0;
+    padding: 15px 10px;
+  }
+  
+  .nav-item {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    min-width: 90px;
+  }
+  
+  .nav-scroll-container {
+    gap: 6px;
   }
   
   .original-nav {
@@ -1217,7 +1268,7 @@ body {
   .original-main > .profile-container {
     background: rgba(36, 33, 42, 0.65);
     backdrop-filter: blur(5px);
-    padding: 20px;
+    padding: 20px 15px;
     margin: 15px 0;
   }
   
