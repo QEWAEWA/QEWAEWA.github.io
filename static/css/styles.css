@@ -187,12 +187,39 @@ body {
   font-family: 'Fira Sans', Arial, sans-serif;
   color: var(--nair-text);
   display: flex;
+  flex-wrap: wrap;
   min-height: 100vh;
   background: var(--nair-bg);
   line-height: 1.6;
   background-image: 
     radial-gradient(circle at 20% 80%, rgba(212, 200, 232, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(184, 168, 208, 0.03) 0%, transparent 50%);
+}
+
+/* МОБИЛЬНОЕ МЕНЮ */
+.nav-toggle {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--nair-button-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--nair-text);
+  font-size: 1.5em;
+  cursor: pointer;
+  z-index: 2000;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle:hover {
+  background: var(--nair-button-hover);
+  border-color: var(--nair-border-dark);
+}
+
+.nav-toggle.active {
+  color: var(--nair-accent);
 }
 
 /* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ (ОБНОВЛЁННАЯ ВЕРСИЯ) ===== */
@@ -212,6 +239,8 @@ body {
     linear-gradient(135deg, rgba(26, 24, 32, 0.85) 0%, rgba(45, 41, 53, 0.82) 100%);
   background-size: cover;
   background-position: center;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 /* Фоновое изображение с УМЕРЕННЫМ размытием */
@@ -398,6 +427,8 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
+  width: calc(100% - 300px);
+  box-sizing: border-box;
 }
 
 .page-title {
@@ -976,68 +1007,682 @@ body {
     display: none;
 }
 
-/* Адаптивность для сетки */
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
+/* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
+
+/* Планшеты и большие экраны 1200px+ */
+@media (max-width: 1199px) {
+  .original-nav {
+    width: 280px;
+    padding-left: 30px;
   }
   
-  .grid-item {
-    min-height: 120px;
-    padding: 25px 20px;
+  .original-main {
+    width: calc(100% - 280px);
+    padding: 30px;
   }
   
-  .grid-icon {
-    font-size: 2em;
+  .page-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Планшеты и экраны среднего размера 768px - 1199px */
+@media (max-width: 1024px) {
+  .original-nav {
+    width: 250px;
+    padding-left: 20px;
   }
   
-  .grid-title {
-    font-size: 1.1em;
+  .original-main {
+    width: calc(100% - 250px);
+    padding: 25px;
+  }
+  
+  .profile-header {
+    flex-direction: column;
+  }
+  
+  .profile-art {
+    flex: 0 0 300px;
+    height: 400px;
+    max-width: 100%;
+  }
+  
+  .character-btn {
+    width: 250px;
+    height: 350px;
   }
   
   .page-title {
     font-size: 2.2rem;
-    margin: 30px 0 40px 0;
+    margin: 25px 0 35px 0;
+  }
+  
+  .button-background {
+    width: 95%;
+    aspect-ratio: 16 / 10;
+  }
+  
+  .button-text {
+    font-size: 1.8em;
+    top: 70px;
+    left: 20px;
+  }
+  
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .grid-item {
+    min-height: 100px;
+    padding: 20px 15px;
+  }
+  
+  .grid-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .grid-title {
+    font-size: 1em;
+  }
+  
+  .map-container {
+    height: 60vh;
+    min-height: 500px;
+  }
+  
+  .compact-nav {
+    padding: 15px;
   }
 }
 
-@media (max-width: 992px) {
-    .profile-header {
-        flex-direction: column;
-    }
-    
-    .profile-art {
-        flex: 0 0 300px;
-        height: 400px;
-    }
-    
-    .character-btn {
-        width: 250px;
-        height: 350px;
-    }
+/* Мобильные устройства и малые планшеты 480px - 767px */
+@media (max-width: 768px) {
+  /* Основной макет */
+  body {
+    flex-direction: column;
+  }
+  
+  .original-nav {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 0;
+    padding: 0;
+    padding-left: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--nair-border-light);
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1999;
+    transition: max-height 0.4s ease;
+    background-color: var(--nair-nav-bg);
+  }
+  
+  .original-nav.mobile-open {
+    max-height: 100vh;
+    padding: 60px 20px 25px 40px;
+    overflow-y: auto;
+  }
+  
+  .nav-toggle {
+    display: block;
+  }
+  
+  .original-main {
+    width: 100%;
+    min-width: 100%;
+    padding: 20px;
+    padding-top: 60px;
+    margin-top: 0;
+  }
+  
+  /* Навигация */
+  .nav-list {
+    flex-direction: column;
+  }
+  
+  .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .nav-link {
+    padding: 12px 15px;
+    font-size: 0.95em;
+  }
+  
+  .nav-divider {
+    margin: 20px 0 25px 0;
+    width: 80%;
+  }
+  
+  .search-input-container {
+    padding: 20px 20px 0 20px;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 1998;
+    background: var(--nair-nav-bg);
+  }
+  
+  .search-input {
+    width: 90%;
+    font-size: 14px;
+  }
+  
+  /* Заголовки */
+  .page-title {
+    font-size: 1.8rem;
+    margin: 20px 0 30px 0;
+  }
+  
+  /* Кнопки с фоном */
+  .button-background {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    margin-bottom: 30px;
+  }
+  
+  .button-text {
+    font-size: 1.4em;
+    top: 50px;
+    left: 15px;
+  }
+  
+  .left-bottom-info {
+    position: static;
+    bottom: auto;
+    left: auto;
+    background: var(--nair-card-bg);
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .right-bottom-buttons {
+    position: static;
+    bottom: auto;
+    right: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .container-buttons {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .container-btn {
+    min-width: 120px;
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+  
+  .top-left-link {
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    z-index: 2000;
+  }
+  
+  .top-left-link img {
+    width: 40px;
+    height: auto;
+  }
+  
+  /* Сетка */
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 15px;
+  }
+  
+  .grid-item {
+    min-height: 80px;
+    padding: 20px 15px;
+  }
+  
+  .grid-item:last-child {
+    grid-column: 1;
+    max-width: none;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .grid-icon {
+    font-size: 1.8em;
+    margin-bottom: 8px;
+  }
+  
+  .grid-title {
+    font-size: 1em;
+    letter-spacing: 0px;
+  }
+  
+  /* Персонажи */
+  .character-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0;
+  }
+  
+  .character-btn {
+    width: 100%;
+    max-width: 280px;
+    height: 350px;
+  }
+  
+  /* Профиль */
+  .profile-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .profile-art {
+    flex: 0 0 100%;
+    height: 300px;
+    max-width: 100%;
+  }
+  
+  .profile-info {
+    padding: 20px;
+  }
+  
+  .profile-name {
+    font-size: 1.5rem;
+  }
+  
+  .detail-label {
+    min-width: 100px;
+  }
+  
+  .quick-links {
+    justify-content: center;
+  }
+  
+  /* Карта */
+  .map-container {
+    height: 50vh;
+    min-height: 400px;
+    max-width: 100%;
+    margin: 15px auto;
+  }
+  
+  .map-controls {
+    bottom: 15px;
+    right: 15px;
+    gap: 8px;
+  }
+  
+  .map-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+  
+  /* Компактная навигация */
+  .compact-nav {
+    padding: 12px;
+    margin: 0 auto 30px auto;
+    max-width: 100%;
+  }
+  
+  .nav-scroll-container {
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  
+  .nav-scroll-container::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .nav-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .nav-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--nair-border);
+    border-radius: 2px;
+  }
+  
+  .nav-item {
+    font-size: 0.85em;
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+  
+  .leveling-intro {
+    font-size: 1em;
+    margin: 20px 0 30px 0;
+    padding: 0 10px;
+  }
+  
+  .content-section {
+    margin-bottom: 20px;
+  }
+  
+  .section-header {
+    padding: 15px;
+    font-size: 1.1em;
+  }
+  
+  .section-header h2 {
+    font-size: 1.3em;
+    margin: 0;
+  }
+  
+  .section-header i {
+    font-size: 1.2em;
+    margin-right: 10px;
+  }
+  
+  .text-content {
+    padding: 0 15px 15px 15px;
+    font-size: 0.95em;
+  }
+  
+  .text-content p, .text-content ul, .text-content li {
+    font-size: 0.95em;
+    line-height: 1.5;
+  }
+  
+  /* Кнопка Назад */
+  .back-button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
 }
 
+/* Малые мобильные устройства 320px - 479px */
+@media (max-width: 480px) {
+  .original-nav {
+    position: fixed;
+  }
+  
+  .original-main {
+    padding: 15px;
+    padding-top: 50px;
+  }
+  
+  .nav-toggle {
+    padding: 8px 10px;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2em;
+  }
+  
+  .top-left-link {
+    top: 12px;
+    left: 55px;
+  }
+  
+  .top-left-link img {
+    width: 35px;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+    margin: 15px 0 25px 0;
+  }
+  
+  .button-background {
+    aspect-ratio: 16 / 12;
+  }
+  
+  .button-text {
+    font-size: 1.1em;
+    top: 40px;
+    left: 10px;
+  }
+  
+  .left-bottom-info {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .info-title {
+    font-size: 1.2em;
+  }
+  
+  .info-subtitle {
+    font-size: 1em;
+  }
+  
+  .info-meta {
+    font-size: 0.85em;
+  }
+  
+  .container-btn {
+    min-width: 100px;
+    padding: 8px 12px;
+    font-size: 0.85em;
+  }
+  
+  .container-btn i {
+    font-size: 1em;
+  }
+  
+  .grid-container {
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .grid-item {
+    min-height: 70px;
+    padding: 15px 10px;
+  }
+  
+  .grid-icon {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+  }
+  
+  .grid-title {
+    font-size: 0.9em;
+  }
+  
+  .character-btn {
+    max-width: 100%;
+    height: 300px;
+  }
+  
+  .profile-art {
+    height: 250px;
+  }
+  
+  .profile-name {
+    font-size: 1.2rem;
+  }
+  
+  .profile-info {
+    padding: 15px;
+  }
+  
+  .detail-label {
+    min-width: 80px;
+    font-size: 0.9em;
+  }
+  
+  .map-container {
+    height: 45vh;
+    min-height: 350px;
+  }
+  
+  .map-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .compact-nav {
+    padding: 10px;
+    margin: 0 auto 25px auto;
+  }
+  
+  .nav-scroll-container {
+    gap: 3px;
+  }
+  
+  .nav-item {
+    font-size: 0.75em;
+    padding: 8px 10px;
+  }
+  
+  .leveling-intro {
+    font-size: 0.95em;
+  }
+  
+  .section-header {
+    padding: 12px;
+    font-size: 1em;
+  }
+  
+  .section-header h2 {
+    font-size: 1.1em;
+    margin: 0;
+  }
+  
+  .text-content {
+    padding: 0 12px 12px 12px;
+    font-size: 0.9em;
+  }
+  
+  .text-content p, .text-content ul, .text-content li {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+}
+
+/* ========== ДОПОЛНИТЕЛЬНЫЕ ОПТИМИЗАЦИИ ========== */
+
+/* Улучшение производительности на мобилах */
 @media (max-width: 768px) {
-    .character-btn {
-        width: 100%;
-        max-width: 300px;
+  /* Отключаем некоторые анимации на мобилах для лучшей производительности */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Улучшаем производительность изображений */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Предотвращаем масштабирование при вводе */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Улучшаем видимость фокуса на мобилах */
+  button:focus, a:focus {
+    outline: 2px solid var(--nair-accent);
+    outline-offset: 2px;
+  }
+  
+  /* Оптимизация скролла */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Правильное отображение на высоких значениях DPI */
+  @supports (aspect-ratio: 1 / 1) {
+    .button-background {
+      aspect-ratio: 16 / 10;
+    }
+  }
+}
+
+/* Поддержка портретной ориентации для объемных экранов */
+@media (max-height: 600px) and (max-width: 768px) {
+  .original-nav.mobile-open {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .page-title {
+    margin: 15px 0 20px 0;
+    font-size: 1.5rem;
+  }
+  
+  .button-background {
+    aspect-ratio: 16 / 12;
+  }
+  
+  .map-container {
+    height: 40vh;
+    min-height: 300px;
+  }
+}
+
+/* Улучшенная поддержка iPad и больших планшетов */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 18px;
+    padding: 25px;
+  }
+  
+  .character-buttons {
+    gap: 18px;
+  }
+  
+  .character-btn {
+    width: 280px;
+    height: 360px;
+  }
+  
+  .map-container {
+    height: 65vh;
+  }
+}
+
+/* Поддержка экранов с вырезом (notch) */
+@supports (padding: max(0px)) {
+  @media (max-width: 768px) {
+    body {
+      padding-left: max(10px, env(safe-area-inset-left));
+      padding-right: max(10px, env(safe-area-inset-right));
+      padding-top: max(10px, env(safe-area-inset-top));
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
     }
     
-    .quick-links {
-        justify-content: center;
+    .nav-toggle {
+      left: max(15px, env(safe-area-inset-left));
+      top: max(15px, env(safe-area-inset-top));
     }
     
-    .right-bottom-buttons {
-        position: relative;
-        bottom: auto;
-        right: auto;
-        margin-top: 30px;
-        text-align: center;
+    .top-left-link {
+      top: max(15px, env(safe-area-inset-top));
+      left: max(60px, calc(60px + env(safe-area-inset-left)));
     }
-    
-    .container-buttons {
-        align-items: center;
-    }
+  }
+}
+
+/* Оптимизация для низкого контраста на мобилах */
+@media (prefers-contrast: more) {
+  :root {
+    --nair-text: #ffffff;
+    --nair-accent: #ffd700;
+    --nair-border: rgba(255, 215, 0, 0.6);
+  }
+}
+
+/* Поддержка режима тёмной темы (тоже уже поддерживается) */
+@media (prefers-color-scheme: dark) {
+  /* Сайт уже тёмный, это просто для совместимости */
+  :root {
+    color-scheme: dark;
+  }
 }

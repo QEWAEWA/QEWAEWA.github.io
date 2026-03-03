@@ -2,7 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Наир - текстовая фэнтези ролевая игра">
+    <meta name="theme-color" content="#0f0e14">
     <title>{% block title %}Наир - текстовая фэнтези ролевая{% endblock %}</title>
     
     <!-- Bootstrap Icons -->
@@ -13,8 +15,13 @@
     <link rel="icon" href="{{ url_for('static', filename='photo/favicon.ico') }}" type="image/x-icon">
 </head>
 <body>
+    <!-- Кнопка меню для мобильных устройств -->
+    <button class="nav-toggle" id="navToggle" aria-label="Открыть/Закрыть меню">
+        <i class="bi bi-list"></i>
+    </button>
+    
     <!-- Навигация -->
-    <nav class="original-nav">
+    <nav class="original-nav" id="navMenu">
         <div class="search-input-container">
             <input type="text" class="search-input" placeholder="Поиск...">
             <div class="suggestions"></div>
@@ -38,6 +45,101 @@
     <main class="original-main">
         {% block content %}{% endblock %}
     </main>
+    
+    <!-- Скрипт для мобильного меню -->
+    <script>
+        // Мобильное меню
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        
+        // Открытие/закрытие меню
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('mobile-open');
+            navToggle.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('mobile-open');
+                navToggle.classList.remove('active');
+            });
+        });
+        
+        // Закрытие меню при клике вне его на мобилах
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navMenu.contains(event.target);
+            const isClickOnToggle = navToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnToggle && window.innerWidth <= 768) {
+                navMenu.classList.remove('mobile-open');
+                navToggle.classList.remove('active');
+            }
+        });
+        
+        // Закрытие меню при изменении размера окна
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navMenu.classList.remove('mobile-open');
+                navToggle.classList.remove('active');
+            }
+        });
+        
+        // Определение активной страницы
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Поиск
+        const searchInput = document.querySelector('.search-input');
+        const suggestionsDiv = document.querySelector('.suggestions');
+        const searchItems = [
+            { text: 'Главная', href: 'index.html' },
+            { text: 'Карта', href: 'karta.html' },
+            { text: 'Магия', href: 'magic.html' },
+            { text: 'Экономика', href: 'economy.html' },
+            { text: 'Система прокачки', href: 'leveling.html' },
+            { text: 'Анкеты', href: 'ankety.html' },
+            { text: 'Лор', href: 'lor.html' }
+        ];
+        
+        searchInput.addEventListener('input', function(e) {
+            const value = e.target.value.toLowerCase().trim();
+            
+            if (value.length === 0) {
+                suggestionsDiv.style.display = 'none';
+                return;
+            }
+            
+            const filtered = searchItems.filter(item => 
+                item.text.toLowerCase().includes(value)
+            );
+            
+            if (filtered.length === 0) {
+                suggestionsDiv.style.display = 'none';
+                return;
+            }
+            
+            suggestionsDiv.innerHTML = filtered.map(item => `
+                <div class="suggestion-item" onclick="window.location.href='${item.href}'">
+                    ${item.text}
+                </div>
+            `).join('');
+            suggestionsDiv.style.display = 'block';
+        });
+        
+        // Закрытие подсказок при клике вне
+        document.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('search-input')) {
+                suggestionsDiv.style.display = 'none';
+            }
+        });
+    </script>
     
     <!-- Ваши скрипты -->
     {% block scripts %}{% endblock %}

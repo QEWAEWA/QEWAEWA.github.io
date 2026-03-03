@@ -17,6 +17,11 @@ class InteractiveMap {
         this.translateY = 0;
         this.scale = 0.3; // Начальный масштаб
         
+        // Поддержка пинча (двухпальцевое масштабирование)
+        this.isPinching = false;
+        this.initialPinchDistance = 0;
+        this.initialPinchScale = 0;
+        
         this.minScale = 0.1; // Минимальный масштаб
         this.maxScale = 8;   // Максимальный масштаб
         
@@ -154,6 +159,10 @@ class InteractiveMap {
             e.preventDefault();
             this.image.style.transition = 'none';
             this.startDragging(e.touches[0].clientX, e.touches[0].clientY);
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            this.image.style.transition = 'none';
+            this.handlePinchStart(e);
         }
     }
     
@@ -161,16 +170,52 @@ class InteractiveMap {
         if (e.touches.length === 1 && this.isDragging) {
             e.preventDefault();
             this.drag(e.touches[0].clientX, e.touches[0].clientY);
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            this.handlePinchMove(e);
         }
     }
     
     handleTouchEnd() {
         this.stopDragging();
+        this.isPinching = false;
         if (this.zoomAnimation) {
             setTimeout(() => {
                 this.image.style.transition = 'transform 0.3s ease-out';
             }, 50);
         }
+    }
+    
+    handlePinchStart(e) {
+        this.isPinching = true;
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        this.initialPinchDistance = Math.hypot(
+            touch2.clientX - touch1.clientX,
+            touch2.clientY - touch1.clientY
+        );
+        this.initialPinchScale = this.scale;
+    }
+    
+    handlePinchMove(e) {
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const currentDistance = Math.hypot(
+            touch2.clientX - touch1.clientX,
+            touch2.clientY - touch1.clientY
+        );
+        
+        const pinchRatio = currentDistance / this.initialPinchDistance;
+        const targetScale = Math.max(
+            this.minScale, 
+            Math.min(this.maxScale, this.initialPinchScale * pinchRatio)
+        );
+        
+        // Центр двух касаний
+        const centerX = (touch1.clientX + touch2.clientX) / 2;
+        const centerY = (touch1.clientY + touch2.clientY) / 2;
+        
+        this.smoothZoom(targetScale - this.scale, centerX, centerY);
     }
     
     handleWheel(e) {
@@ -210,10 +255,18 @@ class InteractiveMap {
     
     // Плавное масштабирование
     smoothZoom(delta, clientX = null, clientY = null) {
-        const targetScale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
+        let targetScale = this.scale;
+        
+        // Если delta это число > 1, это абсолютный масштаб из пинча
+        if (delta > 0.5 && clientX && clientY) {
+            targetScale = delta;
+        } else {
+            // Иначе это относительное изменение
+            targetScale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
+        }
         
         // Если масштаб не изменился, выходим
-        if (targetScale === this.scale) return;
+        if (Math.abs(targetScale - this.scale) < 0.01) return;
         
         // Включаем анимацию для плавного zoom
         if (this.zoomAnimation) {
