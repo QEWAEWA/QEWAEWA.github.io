@@ -426,6 +426,40 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* фоновое изображение справа, аналогично меню */
+.original-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/static/photo/nav-backgroundmain.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px) brightness(0.7) contrast(1.1);
+  z-index: -2;
+  transform: scale(1.05);
+}
+
+.original-main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(
+      135deg, 
+      rgba(26, 24, 32, 0.7) 0%, 
+      rgba(45, 41, 53, 0.65) 50%,
+      rgba(26, 24, 32, 0.75) 100%
+    );
+  z-index: -1;
 }
 
 .page-title {
