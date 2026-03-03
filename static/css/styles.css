@@ -430,37 +430,16 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  background: var(--nair-bg) url('/static/photo/nav-backgroundmain.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--nair-bg); /* removed image and extra properties */
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
-  margin-left: 300px;
   box-sizing: border-box;
 }
 
 /* адаптивные отступы для основных экранов */
 
 
-.original-main::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(
-      135deg, 
-      rgba(15, 14, 20, 0.8) 0%, 
-      rgba(26, 24, 32, 0.75) 50%,
-      rgba(15, 14, 20, 0.85) 100%
-    );
-  z-index: 0;
-  pointer-events: none;
-}
 
 
 
@@ -1065,7 +1044,7 @@ body {
   }
   
   .original-main {
-    margin-left: 300px;
+    /* margin removed to revert to pre-background layout */
   }
 }
 
@@ -1077,7 +1056,7 @@ body {
   }
   
   .original-main {
-    margin-left: 280px;
+    /* reverted margin-left; keep padding adjustment */
     padding: 30px;
   }
   
@@ -1094,7 +1073,7 @@ body {
   }
   
   .original-main {
-    margin-left: 250px;
+    /* reverted margin-left; keep padding adjustment */
     padding: 25px;
   }
   
