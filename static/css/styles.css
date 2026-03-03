@@ -429,7 +429,7 @@ body {
 /* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
 .original-main {
   flex: 1;
-  padding: 40px 40px 40px 340px; /* оставляем место слева под фиксированное меню */
+  padding: 40px;
   background: var(--nair-bg) url('/static/photo/nav-backgroundmain.jpg');
   background-size: cover;
   background-position: center;
@@ -437,19 +437,12 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
+  margin-left: 300px;
   box-sizing: border-box;
 }
 
 /* адаптивные отступы для основных экранов */
-@media (max-width: 1199px) {
-  .original-main { padding-left: 320px; }
-}
-@media (max-width: 1024px) {
-  .original-main { padding-left: 290px; }
-}
-@media (max-width: 768px) {
-  .original-main { padding-left: 40px; }
-}
+
 
 .original-main::before {
   content: '';
@@ -1240,7 +1233,7 @@ body {
     min-width: 100%;
     padding: 20px;
     padding-top: 60px;
-    margin-left: 0;
+    margin-left: 0; /* mobile override */
     margin-top: 0;
   }
   
