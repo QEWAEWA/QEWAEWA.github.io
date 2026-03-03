@@ -422,10 +422,11 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  background: var(--nair-bg);
+  background: none; /* прозрачный, чтобы были видны псевдо-слои */
   position: relative;
   min-height: 100vh;
-  overflow-y: auto;
+  /* позволяем странице скроллиться как раньше */
+  overflow-y: visible;
   overflow-x: hidden;
 }
 
