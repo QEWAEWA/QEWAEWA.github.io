@@ -230,24 +230,16 @@ body {
   padding-left: 40px;
   backdrop-filter: blur(15px);
   flex-shrink: 0;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  overflow-y: hidden; /* запрещаем скролл */
-  overflow-x: hidden;
+  position: relative;
+  overflow: hidden;
   
   /* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
   background: 
     linear-gradient(135deg, rgba(26, 24, 32, 0.85) 0%, rgba(45, 41, 53, 0.82) 100%);
   background-size: cover;
   background-position: center;
-  z-index: 100;
-}
-
-/* при открытии на мобильных позволяем внутренний скролл */
-.original-nav.mobile-open {
-  overflow-y: hidden; /* выключаем собственный скролл даже при открытии */
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 /* Фоновое изображение с УМЕРЕННЫМ размытием */
@@ -429,7 +421,7 @@ body {
 /* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
 .original-main {
   flex: 1;
-  padding: 40px 20px; /* равные отступы слева и справа */
+  padding: 40px;
   background: var(--nair-bg) url('/static/photo/nav-backgroundmain.jpg');
   background-size: cover;
   background-position: center;
@@ -437,31 +429,24 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
-  margin-left: 300px;
-  box-sizing: border-box;
-
-  /* центрируем потомков */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-/* адаптивные отступы для основных экранов */
-
-
-/* overlay gradient removed to brighten right column */
-
-
-
-/* исключения: не хотим тёмного фон для некоторых вложенных элементов */
-.original-main .nav-toggle,
-.original-main .map-container,
-.original-main .character-buttons,
-.original-main .container-buttons {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
+.original-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(
+      135deg, 
+      rgba(15, 14, 20, 0.8) 0%, 
+      rgba(26, 24, 32, 0.75) 50%,
+      rgba(15, 14, 20, 0.85) 100%
+    );
+  z-index: 0;
+  pointer-events: none;
 }
 
 .page-title {
@@ -476,8 +461,7 @@ body {
 
 /* Кнопка с фоном */
 .button-background {
-  width: 100%;
-  max-width: 900px; /* ограничиваем ширину для центрирования */
+  width: 85%;
   aspect-ratio: 16 / 9;
   background-image: url('/static/photo/fon.png');
   background-size: cover;
@@ -486,10 +470,8 @@ body {
   overflow: hidden;
   border: 1px solid var(--nair-border);
   position: relative;
-  /* удалена тёмная тень и наложение */
-  box-shadow: none;
-  backdrop-filter: none;
-  margin: 0 auto;
+  box-shadow: 0 8px 32px var(--nair-shadow);
+  backdrop-filter: blur(5px);
 }
 
 .button-text {
@@ -633,8 +615,8 @@ body {
 .map-container {
   width: 100%;
   max-width: 1200px;
-  height: 85vh;
-  min-height: 700px;
+  height: 75vh;
+  min-height: 650px;
   border: 1px solid var(--nair-border);
   border-radius: 12px;
   overflow: hidden;
@@ -642,7 +624,7 @@ body {
   touch-action: none;
   background: var(--nair-nav-bg);
   margin: 25px auto;
-  box-shadow: none;
+  box-shadow: 0 8px 32px var(--nair-shadow);
 }
 
 .map-image {
@@ -661,7 +643,7 @@ body {
 /* Поднимаем карту выше */
 .map-container {
   margin-top: 20px !important;
-  height: 85vh !important;
+  height: 80vh !important;
 }
 
 .map-image:active {
@@ -766,15 +748,14 @@ body {
 .character-buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     gap: 20px;
     margin-bottom: 40px;
     padding: 0 15px;
 }
 
 .character-btn {
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: 300px;
+    width: 300px;
     height: 400px;
     background-size: cover;
     background-position: center;
@@ -1046,21 +1027,6 @@ body {
 
 /* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
 
-/* Больший экран - сохраняем меню слева */
-@media (min-width: 1200px) {
-  .original-nav {
-    position: fixed;
-    width: 300px;
-    left: 0;
-    top: 0;
-    height: 100vh;
-  }
-  
-  .original-main {
-    margin-left: 300px;
-  }
-}
-
 /* Планшеты и большие экраны 1200px+ */
 @media (max-width: 1199px) {
   .original-nav {
@@ -1069,7 +1035,7 @@ body {
   }
   
   .original-main {
-    margin-left: 280px;
+    width: calc(100% - 280px);
     padding: 30px;
   }
   
@@ -1086,7 +1052,7 @@ body {
   }
   
   .original-main {
-    margin-left: 250px;
+    width: calc(100% - 250px);
     padding: 25px;
   }
   
@@ -1101,8 +1067,7 @@ body {
   }
   
   .character-btn {
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: 300px;
+    width: 250px;
     height: 350px;
   }
   
@@ -1148,24 +1113,7 @@ body {
   }
   
   .compact-nav {
-    background: var(--nair-card-bg);
-    border: 1px solid var(--nair-border);
-    border-radius: 12px;
-    padding: 20px 15px;
-    margin: 20px auto;
-    box-shadow: 0 8px 32px var(--nair-shadow-card);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .nav-scroll-container {
-    display: flex;
-    gap: 8px;
-    flex-wrap: nowrap;
-  }
-
-  .nav-item {
-    flex: 0 0 auto;
+    padding: 15px;
   }
 }
 
@@ -1176,33 +1124,16 @@ body {
     flex-direction: column;
   }
   
-  /* компактное меню превращается в фиксированную шапку */
-  .compact-nav {
-    margin: 0;
-    border-radius: 0;
-    padding: 15px 10px;
-  }
-  
-  .nav-item {
-    padding: 8px 12px;
-    font-size: 0.9em;
-    min-width: 90px;
-  }
-  
-  .nav-scroll-container {
-    gap: 6px;
-  }
-  
   .original-nav {
     width: 100%;
-    height: auto;
+    min-width: 100%;
+    max-width: 100%;
     max-height: 0;
     padding: 0;
     padding-left: 0;
     border-right: none;
     border-bottom: 1px solid var(--nair-border-light);
-    overflow-y: hidden;
-    overflow-x: hidden;
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -1226,11 +1157,8 @@ body {
     min-width: 100%;
     padding: 20px;
     padding-top: 60px;
-    margin-left: 0; /* mobile override */
     margin-top: 0;
   }
-  
-
   
   /* Навигация */
   .nav-list {
