@@ -230,17 +230,24 @@ body {
   padding-left: 40px;
   backdrop-filter: blur(15px);
   flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-  
-  /* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
+
+  /* делаем меню фиксированным: оно остаётся на месте при скролле основного контента */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+
+  /* полностью отключаем внутреннюю прокрутку, чтобы полоса прокрутки не появлялась */
+  overflow-y: hidden;
+}
+/* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
+.original-nav {
   background: 
     linear-gradient(135deg, rgba(26, 24, 32, 0.85) 0%, rgba(45, 41, 53, 0.82) 100%);
   background-size: cover;
   background-position: center;
-  max-height: 100vh;
-  overflow-y: auto;
 }
+
 
 /* Фоновое изображение с УМЕРЕННЫМ размытием */
 .original-nav::before {
@@ -422,6 +429,7 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
+  margin-left: 300px; /* отступ, чтобы не накрывать фиксированное меню */
   background: var(--nair-bg) url('/static/photo/nav-backgroundmain.jpg');
   background-size: cover;
   background-position: center;
@@ -1035,7 +1043,7 @@ body {
   }
   
   .original-main {
-    width: calc(100% - 280px);
+    margin-left: 280px;
     padding: 30px;
   }
   
@@ -1052,7 +1060,7 @@ body {
   }
   
   .original-main {
-    width: calc(100% - 250px);
+    margin-left: 250px;
     padding: 25px;
   }
   
@@ -1155,6 +1163,7 @@ body {
   .original-main {
     width: 100%;
     min-width: 100%;
+    margin-left: 0;
     padding: 20px;
     padding-top: 60px;
     margin-top: 0;
