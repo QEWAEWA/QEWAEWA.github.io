@@ -9,7 +9,8 @@
   --nair-bg: #0f0e14;
   --nair-nav-bg: #1a1820;
   --nair-card-bg: #24212a;
-  --nair-text: #e8e4ec;
+  /* текстовый цвет: более «цветной» лавандово-серый, чтобы не казаться просто тёмно-серым */
+  --nair-text: #d8d0eb;
   --nair-accent: #d4c8e8;
   
   /* Улучшенные акцентные цвета - более насыщенные фиолетовые оттенки */
@@ -231,13 +232,11 @@ body {
   backdrop-filter: blur(15px);
   flex-shrink: 0;
 
-  /* делаем меню фиксированным: оно остаётся на месте при скролле основного контента */
-  position: fixed;
+  /* делаем меню «прилипающим» к верхней части; остаётся в потоке flex-контейнера */
+  position: sticky;
   top: 0;
-  left: 0;
-  height: 100vh;
 
-  /* полностью отключаем внутреннюю прокрутку, чтобы полоса прокрутки не появлялась */
+  /* скрываем полосу прокрутки, как и требовалось ранее */
   overflow-y: hidden;
 }
 /* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
@@ -429,7 +428,6 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  margin-left: 300px; /* отступ, чтобы не накрывать фиксированное меню */
   background: var(--nair-bg) url('/static/photo/nav-backgroundmain.jpg');
   background-size: cover;
   background-position: center;
@@ -1043,7 +1041,6 @@ body {
   }
   
   .original-main {
-    margin-left: 280px;
     padding: 30px;
   }
   
@@ -1060,7 +1057,6 @@ body {
   }
   
   .original-main {
-    margin-left: 250px;
     padding: 25px;
   }
   
@@ -1163,7 +1159,6 @@ body {
   .original-main {
     width: 100%;
     min-width: 100%;
-    margin-left: 0;
     padding: 20px;
     padding-top: 60px;
     margin-top: 0;
