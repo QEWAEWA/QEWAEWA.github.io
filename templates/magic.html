@@ -129,8 +129,10 @@
 <style>
 /* Стили для страницы магии */
 .magic-hero {
-  position: relative;
-  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -138,22 +140,27 @@
   text-align: center;
   padding: 80px 20px 60px;
   overflow: hidden;
-  --hero-bg-opacity: 0.65;
-  --hero-blur: 0px;
-  --hero-translate: 0px;
+  --hero-opacity: 1;
+  --hero-overlay: 0.35;
 }
 
-.magic-hero::before {
+.magic-hero {
+  background: url('/static/photo/mag.png') center top/cover no-repeat;
+}
+
+.magic-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/static/photo/mag.png') center top/cover no-repeat;
-  background-attachment: scroll;
-  opacity: var(--hero-bg-opacity);
-  filter: blur(var(--hero-blur));
-  transform: translateY(var(--hero-translate));
-  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
-  z-index: 0;
+  background: rgba(0, 0, 0, var(--hero-overlay));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.magic-menu,
+.content-container {
+  margin-top: -40vh;
+  padding-top: 40vh;
 }
 
 .magic-menu {
@@ -462,14 +469,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const fadeRange = window.innerHeight * 0.7;
         const progress = Math.max(0, Math.min(1, scroll / fadeRange));
 
-        // Плавное размытие и смещение фона
-        const blur = Math.min(18, progress * 18);
-        const translate = Math.min(40, progress * 40);
-        const overlay = Math.max(0.4, 0.65 - progress * 0.35);
+        const overlay = Math.max(0.25, 0.35 - progress * 0.3);
+        const heroOpacity = Math.max(0, 1 - progress);
 
-        hero.style.setProperty('--hero-blur', `${blur}px`);
-        hero.style.setProperty('--hero-translate', `${translate}px`);
-        hero.style.setProperty('--hero-bg-opacity', `${overlay}`);
+        hero.style.setProperty('--hero-overlay', `${overlay}`);
+        hero.style.opacity = String(heroOpacity);
 
         const heroInner = hero.querySelector('.magic-hero-inner');
         if (heroInner) {
