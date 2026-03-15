@@ -8,12 +8,14 @@
 
   <!-- Главная страница с описанием магии -->
   <div id="main-page" class="active-page">
-    <h1 class="page-title">МАГИЯ НАИРА</h1>
-    
-    <div class="magic-intro">
-      <p>Здесь описано всё необходимое о магии от её основ до описания определённого типа магии.</p>
+    <div class="magic-hero">
+      <h1 class="page-title">МАГИЯ НАИРА</h1>
+      
+      <div class="magic-intro">
+        <p>Здесь описано всё необходимое о магии от её основ до описания определённого типа магии.</p>
+      </div>
     </div>
-    
+
     <!-- Меню магии -->
     <div class="magic-menu">
       
@@ -124,30 +126,40 @@
 
 <style>
 /* Стили для страницы магии */
-#main-page {
+.magic-hero {
   position: relative;
-  --magic-bg-opacity: 1;
-}
-
-#main-page::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #1e1e1e url('/static/photo/mag.png') center/contain no-repeat;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  background: #1e1e1e url('/static/photo/mag.png') center/cover no-repeat;
   background-attachment: fixed;
-  filter: blur(2px);
-  opacity: var(--magic-bg-opacity);
-  transition: opacity 0.2s ease-out;
-  z-index: -2;
+  overflow: hidden;
 }
 
-#main-page::after {
+.magic-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(30, 30, 30, 0.6), rgba(30, 30, 30, 0));
-  pointer-events: none;
-  z-index: -1;
+  background: rgba(30, 30, 30, 0.65);
+  z-index: 0;
+}
+
+.magic-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 45%, rgba(30, 30, 30, 0.85) 95%);
+  z-index: 1;
+}
+
+.magic-hero .page-title,
+.magic-hero .magic-intro {
+  position: relative;
+  z-index: 2;
 }
 
 .magic-intro {
@@ -414,14 +426,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Элементы страницы
     const mainPage = document.getElementById('main-page');
     const backButtons = document.querySelectorAll('.magic-back-button');
-    // Плавное растворение фона при прокрутке
+    // Плавное исчезание шапки при прокрутке
+    const hero = document.querySelector('.magic-hero');
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const fadeStart = 50;
         const fadeEnd = 520;
         const raw = Math.max(0, Math.min(1, (scrollTop - fadeStart) / (fadeEnd - fadeStart)));
         const progress = Math.pow(raw, 1.2); // чуть плавнее
-        mainPage.style.setProperty('--magic-bg-opacity', String(1 - progress));
+        hero.style.opacity = String(1 - progress);
     });
     
     // Обработчики для кнопок магии
