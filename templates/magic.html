@@ -9,10 +9,12 @@
   <!-- Главная страница с описанием магии -->
   <div id="main-page" class="active-page">
     <div class="magic-hero">
-      <h1 class="page-title">МАГИЯ НАИРА</h1>
-      
-      <div class="magic-intro">
-        <p>Здесь описано всё необходимое о магии от её основ до описания определённого типа магии.</p>
+      <div class="magic-hero-inner">
+        <h1 class="page-title">МАГИЯ НАИРА</h1>
+
+        <div class="magic-intro">
+          <p>Здесь описано всё необходимое о магии от её основ до описания определённого типа магии.</p>
+        </div>
       </div>
     </div>
 
@@ -136,7 +138,14 @@
   text-align: center;
   padding: 0 20px;
   background: #1e1e1e url('/static/photo/mag.png') center/cover no-repeat;
+  background-attachment: fixed;
   overflow: hidden;
+}
+
+.magic-hero-inner {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease, opacity 0.25s ease;
 }
 
 .magic-hero::before {
@@ -438,6 +447,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', () => {
         const progress = getHeroFadeProgress();
         hero.style.opacity = String(1 - progress);
+
+        const heroInner = hero.querySelector('.magic-hero-inner');
+        if (heroInner) {
+            const translateY = Math.min(0, -progress * 80);
+            heroInner.style.transform = `translateY(${translateY}px)`;
+            heroInner.style.opacity = String(1 - progress * 1.1);
+        }
     });
     
     // Обработчики для кнопок магии
