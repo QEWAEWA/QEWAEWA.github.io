@@ -583,7 +583,7 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  background: var(--nair-bg);
+  background: transparent;
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
@@ -619,9 +619,9 @@ body {
   background: 
     linear-gradient(
       135deg, 
-      rgba(15, 14, 20, 0.8) 0%, 
-      rgba(26, 24, 32, 0.75) 50%,
-      rgba(15, 14, 20, 0.85) 100%
+      rgba(15, 14, 20, 0.22) 0%, 
+      rgba(26, 24, 32, 0.15) 50%,
+      rgba(15, 14, 20, 0.25) 100%
     );
   z-index: -1;
   pointer-events: none;
