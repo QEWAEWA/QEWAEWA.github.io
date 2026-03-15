@@ -129,23 +129,13 @@
 <style>
 /* Стили для страницы магии */
 .magic-hero {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 80px 20px 60px;
-  overflow: hidden;
-  --hero-opacity: 1;
-  --hero-overlay: 0.35;
-}
-
-.magic-hero {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background: url('/static/photo/mag.png') center top/cover no-repeat;
+  opacity: 1;
+  --hero-overlay: 0.35;
+  pointer-events: none;
 }
 
 .magic-hero::after {
@@ -153,43 +143,19 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, var(--hero-overlay));
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
+}
+
+.magic-page-header {
+  padding: 120px 20px 60px;
+  text-align: center;
 }
 
 .magic-menu,
 .content-container {
-  margin-top: -40vh;
-  padding-top: 40vh;
-}
-
-.magic-menu {
-  /* Menu flows naturally below hero */
-}
-
-.content-container {
-  /* Content flows naturally below hero */
-}
-
-.magic-hero-inner {
-  position: relative;
-  z-index: 2;
-  transition: transform 0.3s ease, opacity 0.25s ease;
-}
-
-.magic-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(rgba(30, 30, 30, 0.35), rgba(30, 30, 30, 0.25)),
-              radial-gradient(circle at center, transparent 35%, rgba(30, 30, 30, 0.55) 90%);
-  z-index: 1;
-}
-
-.magic-hero .page-title,
-.magic-hero .magic-intro {
-  position: relative;
-  z-index: 2;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .magic-intro {
@@ -474,13 +440,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         hero.style.setProperty('--hero-overlay', `${overlay}`);
         hero.style.opacity = String(heroOpacity);
-
-        const heroInner = hero.querySelector('.magic-hero-inner');
-        if (heroInner) {
-            const translateY = Math.max(-100, -scroll * 0.18);
-            heroInner.style.transform = `translateY(${translateY}px)`;
-            heroInner.style.opacity = String(1 - progress * 1.2);
-        }
     });
     
     // Обработчики для кнопок магии
