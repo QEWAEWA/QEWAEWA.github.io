@@ -583,7 +583,8 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  background: var(--nair-bg);
+  /* Прозрачный тон, чтобы было видно размытый фон (pseudo-element) */
+  background: rgba(15, 14, 20, 0.60);
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
