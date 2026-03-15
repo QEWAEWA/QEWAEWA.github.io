@@ -583,10 +583,7 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  background: var(--nair-bg) url('/static/photo/nav-backgroundmain.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--nair-bg);
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
@@ -606,6 +603,19 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  background: url('/static/photo/nav-backgroundmain.jpg') center/cover no-repeat;
+  filter: blur(4px) brightness(0.65) contrast(1.1);
+  z-index: -2;
+  pointer-events: none;
+}
+
+.original-main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: 
     linear-gradient(
       135deg, 
@@ -613,7 +623,7 @@ body {
       rgba(26, 24, 32, 0.75) 50%,
       rgba(15, 14, 20, 0.85) 100%
     );
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
