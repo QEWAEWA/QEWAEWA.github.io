@@ -133,22 +133,26 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 140px 20px 80px;
+  padding: 80px 20px 60px;
   overflow: hidden;
-  --hero-bg-opacity: 1;
+  --hero-bg-opacity: 0.65;
+  --hero-blur: 0px;
+  --hero-translate: 0px;
 }
 
 .magic-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/static/photo/mag.png') top center/cover no-repeat;
-  background-attachment: fixed;
+  background: url('/static/photo/mag.png') center top/cover no-repeat;
+  background-attachment: scroll;
   opacity: var(--hero-bg-opacity);
-  transition: opacity 0.2s ease;
+  filter: blur(var(--hero-blur));
+  transform: translateY(var(--hero-translate));
+  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
   z-index: 0;
 }
 
@@ -455,17 +459,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', () => {
         const scroll = window.scrollY;
-        const rect = hero.getBoundingClientRect();
-        const fadeRange = Math.min(rect.height, window.innerHeight) * 0.7;
+        const fadeRange = window.innerHeight * 0.7;
         const progress = Math.max(0, Math.min(1, scroll / fadeRange));
 
-        hero.style.setProperty('--hero-bg-opacity', String(1 - progress));
+        // Плавное размытие и смещение фона
+        const blur = Math.min(18, progress * 18);
+        const translate = Math.min(40, progress * 40);
+        const overlay = Math.max(0.4, 0.65 - progress * 0.35);
+
+        hero.style.setProperty('--hero-blur', `${blur}px`);
+        hero.style.setProperty('--hero-translate', `${translate}px`);
+        hero.style.setProperty('--hero-bg-opacity', `${overlay}`);
 
         const heroInner = hero.querySelector('.magic-hero-inner');
         if (heroInner) {
-            const translateY = Math.max(-120, -scroll * 0.25);
+            const translateY = Math.max(-100, -scroll * 0.18);
             heroInner.style.transform = `translateY(${translateY}px)`;
-            heroInner.style.opacity = String(1 - progress * 1.1);
+            heroInner.style.opacity = String(1 - progress * 1.2);
         }
     });
     
