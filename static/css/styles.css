@@ -583,8 +583,7 @@ body {
 .original-main {
   flex: 1;
   padding: 40px;
-  /* Прозрачный тон, чтобы было видно размытый фон (pseudo-element) */
-  background: rgba(15, 14, 20, 0.60);
+  background: var(--nair-bg);
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
@@ -605,7 +604,7 @@ body {
   right: 0;
   bottom: 0;
   background: url('/static/photo/nav-backgroundmain.jpg') center/cover no-repeat;
-  filter: blur(4px) brightness(0.65) contrast(1.1);
+  filter: blur(4px);
   z-index: -2;
   pointer-events: none;
 }
