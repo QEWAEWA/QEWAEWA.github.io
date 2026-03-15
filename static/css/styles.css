@@ -184,10 +184,10 @@
   max-width: 900px;
   margin: 0 auto 40px;
   font-size: 1.1em;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95) !important;
   line-height: 1.6;
   padding: 0 20px;
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 0 16px rgba(0, 0, 0, 0.55);
 }
 
 .compact-nav {
@@ -604,13 +604,15 @@ body {
   pointer-events: none;
 }
 
-.page-title {
+.original-main .page-title {
   text-align: center;
   margin: 40px 0 50px 0;
   font-size: 3rem;
-  color: var(--nair-accent);
-  text-shadow: 0 0 20px var(--nair-accent-glow);
-  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 
+    0 0 30px rgba(212, 200, 232, 0.95),
+    0 4px 16px rgba(0, 0, 0, 0.75);
+  font-weight: 800;
   letter-spacing: 1.5px;
 }
 
