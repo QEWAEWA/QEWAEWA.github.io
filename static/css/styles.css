@@ -5,49 +5,49 @@
 
 /* Обновлённая цветовая схема с улучшенными акцентными цветами */
 :root {
-  /* Основные цвета - приглушённые мистические тона */
-  --nair-bg: #0f0e14;
-  --nair-nav-bg: #1a1820;
-  --nair-card-bg: #24212a;
+  /* Основные цвета — тёмный фон под #1e1e1e */
+  --nair-bg: #1e1e1e;
+  --nair-nav-bg: #18181d;
+  --nair-card-bg: #23232b;
   /* текстовый цвет: усиленный контраст для читаемости на тёмном фоне */
-  --nair-text: rgba(255, 255, 255, 0.92);
-  --nair-accent: #d4c8e8;
+  --nair-text: rgba(240, 240, 255, 0.94);
+  --nair-accent: #c6a8f0;
   
-  /* Улучшенные акцентные цвета - более насыщенные фиолетовые оттенки */
-  --nair-accent-secondary: #b8a8d0;
-  --nair-accent-glow: rgba(212, 200, 232, 0.25);
+  /* Акцентные оттенки */
+  --nair-accent-secondary: #a38fd3;
+  --nair-accent-glow: rgba(198, 168, 240, 0.25);
   
-  /* Границы с улучшенной видимостью */
-  --nair-border: rgba(184, 168, 208, 0.4);
-  --nair-border-light: rgba(184, 168, 208, 0.2);
-  --nair-border-dark: rgba(184, 168, 208, 0.6);
-  --nair-border-accent: rgba(212, 200, 232, 0.5);
+  /* Границы */
+  --nair-border: rgba(180, 170, 220, 0.35);
+  --nair-border-light: rgba(180, 170, 220, 0.18);
+  --nair-border-dark: rgba(180, 170, 220, 0.55);
+  --nair-border-accent: rgba(198, 168, 240, 0.45);
   
   /* Состояния и интерактивность */
-  --nair-primary: #2d2935;
-  --nair-hover: rgba(184, 168, 208, 0.15);
-  --nair-active: rgba(212, 200, 232, 0.2);
-  --nair-focus: rgba(212, 200, 232, 0.25);
+  --nair-primary: #2a2430;
+  --nair-hover: rgba(198, 168, 240, 0.14);
+  --nair-active: rgba(198, 168, 240, 0.2);
+  --nair-focus: rgba(198, 168, 240, 0.22);
   
   /* Тени и эффекты */
-  --nair-shadow: rgba(10, 8, 15, 0.8);
-  --nair-shadow-glow: rgba(212, 200, 232, 0.12);
-  --nair-shadow-card: rgba(8, 6, 12, 0.6);
+  --nair-shadow: rgba(6, 6, 10, 0.85);
+  --nair-shadow-glow: rgba(198, 168, 240, 0.12);
+  --nair-shadow-card: rgba(6, 6, 10, 0.5);
   
-  /* Кнопки и интерактивные элементы - УЛУЧШЕННАЯ ВИДИМОСТЬ */
-  --nair-button-bg: rgba(184, 168, 208, 0.12);
-  --nair-button-hover: rgba(184, 168, 208, 0.18);
-  --nair-button-active: rgba(212, 200, 232, 0.2);
+  /* Кнопки и интерактивные элементы */
+  --nair-button-bg: rgba(180, 170, 220, 0.13);
+  --nair-button-hover: rgba(180, 170, 220, 0.2);
+  --nair-button-active: rgba(198, 168, 240, 0.24);
   
-  /* Градиенты с улучшенными тонами */
-  --nair-gradient-primary: linear-gradient(135deg, #24212a 0%, #2d2935 100%);
-  --nair-gradient-accent: linear-gradient(135deg, rgba(212, 200, 232, 0.12) 0%, rgba(184, 168, 208, 0.08) 100%);
+  /* Градиенты */
+  --nair-gradient-primary: linear-gradient(135deg, #1f1f27 0%, #2a2430 100%);
+  --nair-gradient-accent: linear-gradient(135deg, rgba(198, 168, 240, 0.12) 0%, rgba(180, 170, 220, 0.08) 100%);
   
   /* Статусы и уведомления */
-  --nair-success: rgba(160, 200, 180, 0.3);
-  --nair-warning: rgba(212, 194, 160, 0.3);
-  --nair-error: rgba(212, 160, 160, 0.3);
-  --nair-info: rgba(160, 180, 212, 0.3);
+  --nair-success: rgba(140, 185, 165, 0.28);
+  --nair-warning: rgba(220, 200, 130, 0.28);
+  --nair-error: rgba(220, 140, 140, 0.28);
+  --nair-info: rgba(150, 170, 210, 0.28);
 }
 
 /* ===== СТИЛЬ ДЛЯ СЕТКИ КНОПОК КАК НА СКРИНШОТЕ ===== */
