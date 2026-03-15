@@ -134,29 +134,30 @@
   z-index: -1;
   background: url('/static/photo/mag.png') center top/cover no-repeat;
   opacity: 1;
-  --hero-overlay: 0.8;
+  --hero-overlay: 0.9;
   pointer-events: none;
 
   /* Виньетка: затемнение краёв */
-  --hero-vignette: radial-gradient(circle at center, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
-
-  /* Вариант с прозрачными краями (если поддерживается) */
-  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
-  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
-  -webkit-mask-mode: alpha;
-  mask-mode: alpha;
+  --hero-vignette: radial-gradient(circle at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 85%);
 }
+
 
 .magic-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  /* Виньетка по краям + лёгкое затемнение */
-  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.85) 95%);
+  /* Виньетка по краям + тёмное затемнение */
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.95) 85%);
   opacity: var(--hero-overlay);
   z-index: 0;
   pointer-events: none;
 }
+
+.magic-page-header .page-title {
+  color: var(--nair-accent);
+  text-shadow: 0 0 12px var(--nair-shadow);
+}
+
 
 .magic-page-header {
   padding: 120px 20px 60px;
