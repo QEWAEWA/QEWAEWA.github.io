@@ -8,8 +8,6 @@
 
   <!-- Главная страница с описанием магии -->
   <div id="main-page" class="active-page">
-    <div class="magic-header"></div>
-
     <h1 class="page-title">МАГИЯ НАИРА</h1>
     
     <div class="magic-intro">
@@ -126,30 +124,30 @@
 
 <style>
 /* Стили для страницы магии */
-.magic-header {
-  height: 340px;
-  width: 100%;
-  background: #1e1e1e url('/static/photo/mag.png') center/contain no-repeat;
+#main-page {
   position: relative;
-  overflow: hidden;
-  margin-bottom: 40px;
-  transition: opacity 0.25s ease-out;
+  --magic-bg-opacity: 1;
 }
 
-.magic-header::before {
+#main-page::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 55%, rgba(30, 30, 30, 0.9) 95%);
-  pointer-events: none;
+  background: #1e1e1e url('/static/photo/mag.png') center/contain no-repeat;
+  background-attachment: fixed;
+  filter: blur(2px);
+  opacity: var(--magic-bg-opacity);
+  transition: opacity 0.2s ease-out;
+  z-index: -2;
 }
 
-.magic-header::after {
+#main-page::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(30, 30, 30, 0.6), rgba(30, 30, 30, 0));
   pointer-events: none;
+  z-index: -1;
 }
 
 .magic-intro {
@@ -416,16 +414,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Элементы страницы
     const mainPage = document.getElementById('main-page');
     const backButtons = document.querySelectorAll('.magic-back-button');
-    const header = document.querySelector('.magic-header');
-
-    // Плавное исчезание шапки при прокрутке
+    // Плавное растворение фона при прокрутке
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const fadeStart = 50;
         const fadeEnd = 520;
         const raw = Math.max(0, Math.min(1, (scrollTop - fadeStart) / (fadeEnd - fadeStart)));
         const progress = Math.pow(raw, 1.2); // чуть плавнее
-        header.style.opacity = String(1 - progress);
+        mainPage.style.setProperty('--magic-bg-opacity', String(1 - progress));
     });
     
     // Обработчики для кнопок магии
