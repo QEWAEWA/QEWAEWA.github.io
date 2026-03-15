@@ -167,4 +167,33 @@
   
 </main>
 
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('.compact-nav .nav-item');
+    const sections = document.querySelectorAll('.content-section');
+
+    function setActive(item) {
+      navItems.forEach(el => el.classList.toggle('active', el === item));
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => setActive(item));
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const sectionId = entry.target.id;
+        const activeLink = document.querySelector(`.compact-nav .nav-item[href="#${sectionId}"]`);
+        if (activeLink) setActive(activeLink);
+      });
+    }, {
+      rootMargin: '-35% 0px -55% 0px',
+      threshold: 0.1
+    });
+
+    sections.forEach(section => observer.observe(section));
+  });
+</script>
 {% endblock %}
