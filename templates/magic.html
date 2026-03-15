@@ -137,15 +137,19 @@
   --hero-overlay: 0.35;
   pointer-events: none;
 
-  /* Виньетка: прозрачные края */
-  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
-  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
-  -webkit-mask-size: 200% 200%;
-  mask-size: 200% 200%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+  /* Виньетка: затемнение краёв */
+  /* Важный момент: делаем плавное затемнение по кругу, чтобы фон не выглядел "обрезанным" */
+  --hero-vignette: radial-gradient(circle at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.75) 95%);
+}
+
+.magic-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hero-vignette);
+  opacity: var(--hero-overlay);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .magic-hero::after {
