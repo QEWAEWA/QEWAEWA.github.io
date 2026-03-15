@@ -129,18 +129,26 @@
 .magic-header {
   height: 340px;
   width: 100%;
-  background: url('/static/photo/mag.png') center/cover no-repeat;
+  background: #1e1e1e url('/static/photo/mag.png') center/contain no-repeat;
   position: relative;
   overflow: hidden;
   margin-bottom: 40px;
   transition: opacity 0.25s ease-out;
 }
 
+.magic-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 55%, rgba(30, 30, 30, 0.9) 95%);
+  pointer-events: none;
+}
+
 .magic-header::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(30, 30, 30, 0.65), rgba(30, 30, 30, 0));
+  background: linear-gradient(to bottom, rgba(30, 30, 30, 0.6), rgba(30, 30, 30, 0));
   pointer-events: none;
 }
 
@@ -413,9 +421,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Плавное исчезание шапки при прокрутке
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
-        const fadeStart = 100;
-        const fadeEnd = 280;
-        const progress = Math.max(0, Math.min(1, (scrollTop - fadeStart) / (fadeEnd - fadeStart)));
+        const fadeStart = 50;
+        const fadeEnd = 520;
+        const raw = Math.max(0, Math.min(1, (scrollTop - fadeStart) / (fadeEnd - fadeStart)));
+        const progress = Math.pow(raw, 1.2); // чуть плавнее
         header.style.opacity = String(1 - progress);
     });
     
