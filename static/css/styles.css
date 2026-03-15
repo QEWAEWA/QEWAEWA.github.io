@@ -407,7 +407,7 @@ body {
   background-image: url('/static/photo/nav-background.jpg');
   background-size: cover;
   background-position: right;
-  filter: blur(4px) brightness(0.7) contrast(1.1);
+  filter: blur(2px) brightness(0.7) contrast(1.1);
   z-index: -2;
   transform: scale(1.05);
   opacity: 0.9;
@@ -581,9 +581,12 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  filter: blur(2px) brightness(0.7) contrast(1.1);
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
 .original-main::before {
