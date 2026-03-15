@@ -395,28 +395,25 @@ body {
   -ms-overflow-style: none; /* IE/Edge */
   scrollbar-width: none; /* Firefox */
 
-  /* Стабильный фон вне зависимости от основной страницы */
-  background: linear-gradient(135deg, #1a1820 0%, #2d2935 100%);
-  background-size: cover;
-  background-position: center;
+  /* Стабильный фон, совпадающий с основным блоком */
+  background: var(--nair-bg);
 }
 
-
-/* Упрощённый фон (без изображений) */
 .original-nav::before {
+  /* Внешний слой, совпадающий с основным блоком */
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(26, 24, 32, 0.55);
+  background: rgba(15, 14, 20, 0.45);
   z-index: -2;
   pointer-events: none;
 }
 
-/* ЛЁГКАЯ заливка поверх изображения */
 .original-nav::after {
+  /* Мягкий градиент, аналогичный основному блоку */
   content: '';
   position: absolute;
   top: 0;
@@ -426,9 +423,9 @@ body {
   background: 
     linear-gradient(
       135deg, 
-      rgba(26, 24, 32, 0.7) 0%, 
-      rgba(45, 41, 53, 0.65) 50%,
-      rgba(26, 24, 32, 0.75) 100%
+      rgba(26, 24, 32, 0.28) 0%, 
+      rgba(45, 41, 53, 0.24) 50%,
+      rgba(26, 24, 32, 0.30) 100%
     );
   z-index: -1;
 }
