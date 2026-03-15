@@ -134,12 +134,17 @@
   z-index: -1;
   background: url('/static/photo/mag.png') center top/cover no-repeat;
   opacity: 1;
-  --hero-overlay: 0.35;
+  --hero-overlay: 0.8;
   pointer-events: none;
 
   /* Виньетка: затемнение краёв */
-  /* Важный момент: делаем плавное затемнение по кругу, чтобы фон не выглядел "обрезанным" */
-  --hero-vignette: radial-gradient(circle at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.75) 95%);
+  --hero-vignette: radial-gradient(circle at center, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
+
+  /* Вариант с прозрачными краями (если поддерживается) */
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
 }
 
 .magic-hero::after {
