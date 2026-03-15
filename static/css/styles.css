@@ -581,7 +581,6 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: blur(2px) brightness(0.7) contrast(1.1);
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
