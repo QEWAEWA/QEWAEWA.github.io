@@ -136,6 +136,13 @@
   opacity: 1;
   --hero-overlay: 0.35;
   pointer-events: none;
+
+  /* Виньетка: прозрачные края */
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 90%);
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
 }
 
 .magic-hero::after {
