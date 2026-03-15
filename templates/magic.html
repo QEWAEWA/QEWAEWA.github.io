@@ -128,7 +128,7 @@
 /* Стили для страницы магии */
 .magic-hero {
   position: relative;
-  height: 420px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,7 +136,6 @@
   text-align: center;
   padding: 0 20px;
   background: #1e1e1e url('/static/photo/mag.png') center/cover no-repeat;
-  background-attachment: fixed;
   overflow: hidden;
 }
 
@@ -428,12 +427,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const backButtons = document.querySelectorAll('.magic-back-button');
     // Плавное исчезание шапки при прокрутке
     const hero = document.querySelector('.magic-hero');
+    const getHeroFadeProgress = () => {
+        const rect = hero.getBoundingClientRect();
+        const start = 0;
+        const end = rect.height;
+        const progress = Math.max(0, Math.min(1, (-rect.top - start) / end));
+        return Math.pow(progress, 1.2);
+    };
+
     window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const fadeStart = 50;
-        const fadeEnd = 520;
-        const raw = Math.max(0, Math.min(1, (scrollTop - fadeStart) / (fadeEnd - fadeStart)));
-        const progress = Math.pow(raw, 1.2); // чуть плавнее
+        const progress = getHeroFadeProgress();
         hero.style.opacity = String(1 - progress);
     });
     
