@@ -382,10 +382,11 @@ body {
   position: sticky;
   top: 0;
 
-  /* Скролл по меню (на случай добавления элементов) */
-  overflow-y: auto;
+  /* Убираем видимые скроллы меню */
+  overflow: hidden;
   overscroll-behavior: contain;
-  scrolling-touch: smooth;
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
 
   /* Стабильный фон вне зависимости от основной страницы */
   background: linear-gradient(135deg, #1a1820 0%, #2d2935 100%);
@@ -1510,20 +1511,11 @@ body {
     gap: 4px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    scrollbar-width: none;
   }
   
   .nav-scroll-container::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  .nav-scroll-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .nav-scroll-container::-webkit-scrollbar-thumb {
-    background: var(--nair-border);
-    border-radius: 2px;
+    display: none;
   }
   
   .nav-item {
