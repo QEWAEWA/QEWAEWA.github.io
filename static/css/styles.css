@@ -370,6 +370,7 @@ body {
 /* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ (ОБНОВЛЁННАЯ ВЕРСИЯ) ===== */
 .original-nav {
   width: 300px;
+  height: 100vh;
   padding: 25px 20px;
   box-sizing: border-box;
   border-right: 1px solid var(--nair-border-light);
@@ -381,13 +382,13 @@ body {
   position: sticky;
   top: 0;
 
-  /* скрываем полосу прокрутки, как и требовалось ранее */
-  overflow-y: hidden;
-}
-/* БАЛАНСИРОВАННЫЙ ВАРИАНТ */
-.original-nav {
-  background: 
-    linear-gradient(135deg, rgba(26, 24, 32, 0.85) 0%, rgba(45, 41, 53, 0.82) 100%);
+  /* Скролл по меню (на случай добавления элементов) */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrolling-touch: smooth;
+
+  /* Стабильный фон вне зависимости от основной страницы */
+  background: linear-gradient(135deg, #1a1820 0%, #2d2935 100%);
   background-size: cover;
   background-position: center;
 }
@@ -407,6 +408,7 @@ body {
   filter: blur(4px) brightness(0.7) contrast(1.1);
   z-index: -2;
   transform: scale(1.05);
+  opacity: 0.9;
 }
 
 /* ЛЁГКАЯ заливка поверх изображения */
