@@ -190,6 +190,12 @@
   text-shadow: 0 0 16px rgba(0, 0, 0, 0.55);
 }
 
+/* Принудительная яркость для всех вложенных элементов */
+.leveling-intro,
+.leveling-intro * {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
 .compact-nav {
   max-width: 1200px;
   margin: 0 auto 35px auto;
@@ -588,6 +594,11 @@ body {
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
+/* Принудительный читаемый цвет текста на всех страницах */
+.original-main, .original-main * {
+  color: rgba(255, 255, 255, 0.96) !important;
+}
+
 .original-main::before {
   content: '';
   position: absolute;
@@ -616,6 +627,8 @@ body {
     0 4px 16px rgba(0, 0, 0, 0.75);
   font-weight: 800;
   letter-spacing: 1.5px;
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.6),
+               0 4px 18px rgba(0, 0, 0, 0.7);
 }
 
 /* Кнопка с фоном */
