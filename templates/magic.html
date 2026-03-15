@@ -129,8 +129,9 @@
 <style>
 /* Стили для страницы магии */
 .magic-hero {
-  position: relative;
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,6 +141,14 @@
   background: #1e1e1e url('/static/photo/mag.png') center/cover no-repeat;
   background-attachment: fixed;
   overflow: hidden;
+}
+
+.magic-menu {
+  margin-top: 100vh;
+}
+
+.content-container {
+  margin-top: 100vh;
 }
 
 .magic-hero-inner {
@@ -445,15 +454,20 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     window.addEventListener('scroll', () => {
-        const progress = getHeroFadeProgress();
+        const scroll = window.scrollY;
+        const fadeRange = window.innerHeight * 0.7;
+        const progress = Math.max(0, Math.min(1, scroll / fadeRange));
+
         hero.style.opacity = String(1 - progress);
 
         const heroInner = hero.querySelector('.magic-hero-inner');
         if (heroInner) {
-            const translateY = Math.min(0, -progress * 80);
+            const translateY = Math.max(-120, -scroll * 0.25);
             heroInner.style.transform = `translateY(${translateY}px)`;
             heroInner.style.opacity = String(1 - progress * 1.1);
         }
+
+        hero.style.pointerEvents = progress > 0.95 ? 'none' : 'auto';
     });
     
     // Обработчики для кнопок магии
