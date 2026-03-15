@@ -603,7 +603,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/static/photo/nav-backgroundmain.jpg') center center/100% 100% no-repeat;
+  background: url('/static/photo/nav-backgroundmain.jpg') center/cover no-repeat;
   filter: blur(4px);
   z-index: -2;
   pointer-events: none;
