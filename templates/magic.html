@@ -146,17 +146,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--hero-vignette);
+  /* Виньетка по краям + лёгкое затемнение */
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.85) 95%);
   opacity: var(--hero-overlay);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.magic-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, var(--hero-overlay));
   z-index: 0;
   pointer-events: none;
 }
