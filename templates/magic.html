@@ -133,19 +133,28 @@
   inset: 0;
   z-index: -1;
   background: url('/static/photo/mag.png') center center/cover no-repeat;
+  background: url('/static/photo/mag.png') top center/cover no-repeat;
   filter: brightness(0.7);
   opacity: 1;
   --hero-overlay: 0.9;
   pointer-events: none;
+
+  /* Края делают фон прозрачным (чтобы было видно основной фон страницы) */
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  -webkit-mask-size: 140% 140%;
+  mask-size: 140% 140%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .magic-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  /* Виньетка: края становятся темнее и слегка прозрачнее */
-  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.9) 100%);
-  opacity: var(--hero-overlay);
+  background: rgba(0, 0, 0, var(--hero-overlay));
   z-index: 0;
   pointer-events: none;
 }
@@ -441,14 +450,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', () => {
         const scroll = window.scrollY;
-        const fadeRange = window.innerHeight * 0.7;
+        const fadeRange = window.innerHeight * 0.8;
         const progress = Math.max(0, Math.min(1, scroll / fadeRange));
 
-        const overlay = Math.max(0.25, 0.35 - progress * 0.3);
-        const heroOpacity = Math.max(0, 1 - progress);
+        // Убираем резкое исчезание: фон остаётся, меняется только затемнение
+        const overlay = Math.max(0.6, 0.9 - progress * 0.4);
 
         hero.style.setProperty('--hero-overlay', `${overlay}`);
-        hero.style.opacity = String(heroOpacity);
     });
     
     // Обработчики для кнопок магии
