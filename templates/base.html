@@ -180,7 +180,8 @@
             
             const headings = mainContent.querySelectorAll('h2, h3');
             if (headings.length === 0) {
-                tocSidebar.style.display = 'none';
+                // Показываем заглушку, если нет разделов
+                tocNav.innerHTML = '<div class="toc-empty">Нет разделов на странице</div>';
                 return;
             }
             

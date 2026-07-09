@@ -280,6 +280,16 @@
   padding-left: 22px;
 }
 
+.toc-empty {
+  padding: 12px;
+  color: rgba(212, 200, 232, 0.4);
+  font-size: 0.85rem;
+  text-align: center;
+  font-style: italic;
+  border: 1px dashed rgba(212, 200, 232, 0.15);
+  border-radius: 8px;
+}
+
 /* ===== СТИЛЬ ДЛЯ СЕТКИ КНОПОК КАК НА СКРИНШОТЕ ===== */
 .grid-container {
   display: grid;
