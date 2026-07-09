@@ -15,49 +15,73 @@
     <link rel="icon" href="{{ url_for('static', filename='photo/favicon.ico') }}" type="image/x-icon">
 </head>
 <body>
-    <!-- Кнопка меню для мобильных устройств -->
-    <button class="nav-toggle" id="navToggle" aria-label="Открыть/Закрыть меню">
-        <i class="bi bi-list"></i>
-    </button>
-    
-    <!-- Навигация -->
-    <nav class="original-nav" id="navMenu">
-        <div class="search-input-container">
-            <input type="text" class="search-input" placeholder="Поиск...">
+    <!-- Шапка сайта с поиском -->
+    <header class="site-header">
+        <button class="nav-toggle" id="navToggle" aria-label="Открыть/Закрыть меню">
+            <i class="bi bi-list"></i>
+        </button>
+        
+        <div class="header-brand">
+            <a href="index.html" class="header-logo">НАИР</a>
+        </div>
+        
+        <div class="header-search">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Поиск по сайту...">
             <div class="suggestions"></div>
         </div>
         
-        <ul class="nav-list">
-            <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-            
-            <!-- Разделительная линия ПОСЛЕ кнопки Главная -->
-            <div class="nav-divider"></div>
-            
-            <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
-            <li class="nav-item"><a href="magic.html" class="nav-link">Магия</a></li>
-            <li class="nav-item"><a href="economy.html" class="nav-link">Экономика</a></li>
-            <li class="nav-item"><a href="leveling.html" class="nav-link">Система прокачки</a></li>
-            <li class="nav-item"><a href="ankety.html" class="nav-link">Анкеты</a></li>
-        </ul>
-    </nav>
+        <a href="https://vk.com/club182026147" class="header-vk-link" target="_blank" rel="noopener noreferrer">
+            <img src="{{ url_for('static', filename='photo/Eg9cTKOCTXIN7bSpR3KcbSA92y4.png') }}" alt="VK">
+        </a>
+    </header>
 
-    <!-- Основной контент -->
-    <main class="original-main">
-        {% block content %}{% endblock %}
-    </main>
+    <div class="content-wrapper">
+        <!-- Навигация (левая панель) -->
+        <nav class="original-nav" id="navMenu">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
+                
+                <!-- Разделительная линия ПОСЛЕ кнопки Главная -->
+                <div class="nav-divider"></div>
+                
+                <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
+                <li class="nav-item"><a href="magic.html" class="nav-link">Магия</a></li>
+                <li class="nav-item"><a href="economy.html" class="nav-link">Экономика</a></li>
+                <li class="nav-item"><a href="leveling.html" class="nav-link">Система прокачки</a></li>
+                <li class="nav-item"><a href="ankety.html" class="nav-link">Анкеты</a></li>
+            </ul>
+        </nav>
+
+        <!-- Основной контент -->
+        <main class="original-main">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Боковая панель содержания (справа) -->
+        <aside class="toc-sidebar" id="tocSidebar">
+            <div class="toc-header">
+                <i class="bi bi-list-ul"></i>
+                <span>Содержание</span>
+            </div>
+            <nav class="toc-nav" id="tocNav"></nav>
+        </aside>
+    </div>
     
-    <!-- Скрипт для мобильного меню -->
+    <!-- Скрипты -->
     <script>
         // Мобильное меню
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
-        const navLinks = navMenu.querySelectorAll('.nav-link');
+        const navLinks = navMenu ? navMenu.querySelectorAll('.nav-link') : [];
         
         // Открытие/закрытие меню
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('mobile-open');
-            navToggle.classList.toggle('active');
-        });
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('mobile-open');
+                navToggle.classList.toggle('active');
+            });
+        }
         
         // Закрытие меню при клике на ссылку
         navLinks.forEach(link => {
@@ -69,6 +93,7 @@
         
         // Закрытие меню при клике вне его на мобилах
         document.addEventListener('click', function(event) {
+            if (!navMenu || !navToggle) return;
             const isClickInsideNav = navMenu.contains(event.target);
             const isClickOnToggle = navToggle.contains(event.target);
             
@@ -81,8 +106,8 @@
         // Закрытие меню при изменении размера окна
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
-                navMenu.classList.remove('mobile-open');
-                navToggle.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('mobile-open');
+                if (navToggle) navToggle.classList.remove('active');
             }
         });
         
@@ -96,48 +121,100 @@
         });
         
         // Поиск
-        const searchInput = document.querySelector('.search-input');
-        const suggestionsDiv = document.querySelector('.suggestions');
-        const searchItems = [
-            { text: 'Главная', href: 'index.html' },
-            { text: 'Карта', href: 'karta.html' },
-            { text: 'Магия', href: 'magic.html' },
-            { text: 'Экономика', href: 'economy.html' },
-            { text: 'Система прокачки', href: 'leveling.html' },
-            { text: 'Анкеты', href: 'ankety.html' },
-            { text: 'Лор', href: 'lor.html' }
-        ];
-        
-        searchInput.addEventListener('input', function(e) {
-            const value = e.target.value.toLowerCase().trim();
+        const searchInput = document.querySelector('.header-search .search-input');
+        const suggestionsDiv = document.querySelector('.header-search .suggestions');
+        if (searchInput && suggestionsDiv) {
+            const searchItems = [
+                { text: 'Главная', href: 'index.html' },
+                { text: 'Карта', href: 'karta.html' },
+                { text: 'Магия', href: 'magic.html' },
+                { text: 'Экономика', href: 'economy.html' },
+                { text: 'Система прокачки', href: 'leveling.html' },
+                { text: 'Анкеты', href: 'ankety.html' },
+                { text: 'Лор', href: 'lor.html' }
+            ];
             
-            if (value.length === 0) {
-                suggestionsDiv.style.display = 'none';
+            searchInput.addEventListener('input', function(e) {
+                const value = e.target.value.toLowerCase().trim();
+                
+                if (value.length === 0) {
+                    suggestionsDiv.style.display = 'none';
+                    return;
+                }
+                
+                const filtered = searchItems.filter(item => 
+                    item.text.toLowerCase().includes(value)
+                );
+                
+                if (filtered.length === 0) {
+                    suggestionsDiv.style.display = 'none';
+                    return;
+                }
+                
+                suggestionsDiv.innerHTML = filtered.map(item => `
+                    <div class="suggestion-item" onclick="window.location.href='${item.href}'">
+                        ${item.text}
+                    </div>
+                `).join('');
+                suggestionsDiv.style.display = 'block';
+            });
+            
+            // Закрытие подсказок при клике вне
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.header-search')) {
+                    suggestionsDiv.style.display = 'none';
+                }
+            });
+        }
+        
+        // Автоматическая генерация содержания (TOC)
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocNav = document.getElementById('tocNav');
+            const tocSidebar = document.getElementById('tocSidebar');
+            if (!tocNav || !tocSidebar) return;
+            
+            const mainContent = document.querySelector('.original-main');
+            if (!mainContent) return;
+            
+            const headings = mainContent.querySelectorAll('h2, h3');
+            if (headings.length === 0) {
+                tocSidebar.style.display = 'none';
                 return;
             }
             
-            const filtered = searchItems.filter(item => 
-                item.text.toLowerCase().includes(value)
-            );
+            // Создаем якоря для заголовков без id
+            headings.forEach((heading, index) => {
+                if (!heading.id) {
+                    heading.id = 'section-' + index;
+                }
+            });
             
-            if (filtered.length === 0) {
-                suggestionsDiv.style.display = 'none';
-                return;
-            }
+            // Строим TOC
+            tocNav.innerHTML = '';
+            headings.forEach(heading => {
+                const link = document.createElement('a');
+                link.href = '#' + heading.id;
+                link.className = 'toc-link';
+                if (heading.tagName === 'H3') {
+                    link.classList.add('toc-link-sub');
+                }
+                link.textContent = heading.textContent;
+                tocNav.appendChild(link);
+            });
             
-            suggestionsDiv.innerHTML = filtered.map(item => `
-                <div class="suggestion-item" onclick="window.location.href='${item.href}'">
-                    ${item.text}
-                </div>
-            `).join('');
-            suggestionsDiv.style.display = 'block';
-        });
-        
-        // Закрытие подсказок при клике вне
-        document.addEventListener('click', function(e) {
-            if (!e.target.classList.contains('search-input')) {
-                suggestionsDiv.style.display = 'none';
-            }
+            // Подсветка текущего раздела
+            const tocLinks = tocNav.querySelectorAll('.toc-link');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        tocLinks.forEach(l => l.classList.remove('active'));
+                        const activeLink = tocNav.querySelector(`[href="#${entry.target.id}"]`);
+                        if (activeLink) activeLink.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 });
+            
+            headings.forEach(h => observer.observe(h));
         });
     </script>
     

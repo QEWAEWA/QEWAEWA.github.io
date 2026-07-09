@@ -3,23 +3,25 @@
   src: url('/static/FiraSans-Italic.ttf') format('truetype');
 }
 
-/* Обновлённая цветовая схема с улучшенными акцентными цветами */
+/* Обновлённая цветовая схема — усиленная Dark Fantasy с атмосферными эффектами */
 :root {
-  /* Основные цвета — тёмная база (фон #1e1e1e) */
-  --nair-bg: #1e1e1e;
-  --nair-nav-bg: #1a1a1e;
-  --nair-card-bg: #24232b;
-  /* Текст — почти белый, но с лёгким кремовым тоном */
-  --nair-text: rgba(245, 237, 220, 0.94);
+  /* Основные цвета — тёмная база (глубокий тёмно-серый с фиолетовым отливом) */
+  --nair-bg: #17161c;
+  --nair-nav-bg: #14131a;
+  --nair-card-bg: #1f1e27;
+  /* Текст — тёплый пергаментный оттенок */
+  --nair-text: rgba(235, 225, 210, 0.95);
   --nair-accent: #c89b53;
   
-  /* Акцентные оттенки — золото + тёмный аметист */
+  /* Акцентные оттенки — золото + тёмный аметист + кровавый рубин */
   --nair-accent-secondary: #a56f3d;
-  --nair-accent-glow: rgba(200, 155, 80, 0.25);
+  --nair-accent-tertiary: #6b3050;
+  --nair-accent-glow: rgba(200, 155, 80, 0.30);
+  --nair-accent-glow-strong: rgba(200, 155, 80, 0.45);
   
   /* Границы и рамки */
   --nair-border: rgba(200, 155, 80, 0.35);
-  --nair-border-light: rgba(200, 155, 80, 0.18);
+  --nair-border-light: rgba(200, 155, 80, 0.15);
   --nair-border-dark: rgba(200, 155, 80, 0.55);
   --nair-border-accent: rgba(200, 155, 80, 0.45);
   
@@ -30,9 +32,10 @@
   --nair-focus: rgba(200, 155, 80, 0.24);
   
   /* Тени и эффекты */
-  --nair-shadow: rgba(0, 0, 0, 0.75);
-  --nair-shadow-glow: rgba(200, 155, 80, 0.12);
-  --nair-shadow-card: rgba(0, 0, 0, 0.5);
+  --nair-shadow: rgba(0, 0, 0, 0.8);
+  --nair-shadow-glow: rgba(200, 155, 80, 0.15);
+  --nair-shadow-card: rgba(0, 0, 0, 0.55);
+  --nair-shadow-ambient: rgba(0, 0, 0, 0.4);
   
   /* Кнопки и интерактивные элементы */
   --nair-button-bg: rgba(200, 155, 80, 0.14);
@@ -40,14 +43,238 @@
   --nair-button-active: rgba(200, 155, 80, 0.24);
   
   /* Градиенты */
-  --nair-gradient-primary: linear-gradient(135deg, #1e1e26 0%, #2a242f 100%);
-  --nair-gradient-accent: linear-gradient(135deg, rgba(200, 155, 80, 0.12) 0%, rgba(200, 155, 80, 0.08) 100%);
+  --nair-gradient-primary: linear-gradient(145deg, #1a1922 0%, #25212e 100%);
+  --nair-gradient-accent: linear-gradient(135deg, rgba(200, 155, 80, 0.15) 0%, rgba(200, 155, 80, 0.06) 100%);
+  --nair-gradient-dark: linear-gradient(180deg, rgba(15, 14, 20, 0.9) 0%, rgba(15, 14, 20, 0.5) 100%);
   
   /* Статусы и уведомления */
   --nair-success: rgba(95, 155, 120, 0.28);
   --nair-warning: rgba(210, 160, 110, 0.28);
   --nair-error: rgba(190, 80, 75, 0.28);
   --nair-info: rgba(135, 150, 190, 0.28);
+}
+
+/* ===== ШАПКА САЙТА (HEADER) ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  height: 64px;
+  background: rgba(15, 14, 20, 0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--nair-border-light);
+  box-shadow: 0 4px 30px var(--nair-shadow);
+  position: relative;
+  z-index: 3000;
+}
+
+.header-brand {
+  flex-shrink: 0;
+}
+
+.header-logo {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--nair-accent);
+  text-decoration: none;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  transition: all 0.3s ease;
+}
+
+.header-logo:hover {
+  text-shadow: 0 0 30px var(--nair-accent-glow);
+  color: #d4a85a;
+}
+
+.header-search {
+  position: relative;
+  flex: 1;
+  max-width: 480px;
+  margin: 0 30px;
+}
+
+.header-search .search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--nair-accent);
+  opacity: 0.7;
+  font-size: 1.1rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.header-search .search-input {
+  width: 100%;
+  margin-bottom: 0;
+  padding: 12px 16px 12px 44px;
+  background: rgba(212, 200, 232, 0.06);
+  border: 1px solid var(--nair-border);
+  border-radius: 24px;
+  outline: none;
+  color: var(--nair-text);
+  font-size: 15px;
+  font-family: 'Fira Sans', sans-serif;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.header-search .search-input::placeholder {
+  color: rgba(212, 200, 232, 0.4);
+}
+
+.header-search .search-input:focus {
+  border-color: var(--nair-border-accent);
+  box-shadow: 0 0 0 3px var(--nair-accent-glow);
+  background: rgba(212, 200, 232, 0.10);
+}
+
+.header-search .suggestions {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(26, 24, 32, 0.98);
+  border: 1px solid var(--nair-border);
+  border-radius: 12px;
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 3001;
+  box-shadow: 0 12px 40px var(--nair-shadow);
+  backdrop-filter: blur(12px);
+}
+
+.header-vk-link {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.header-vk-link img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 2px 8px var(--nair-shadow);
+  transition: all 0.3s ease;
+}
+
+.header-vk-link:hover img {
+  transform: scale(1.15);
+  border-color: var(--nair-border-dark);
+  box-shadow: 0 4px 16px var(--nair-shadow);
+}
+
+/* ===== ОБЁРТКА КОНТЕНТА ===== */
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 64px);
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== ПРАВАЯ БОКОВАЯ ПАНЕЛЬ — СОДЕРЖАНИЕ (TOC) ===== */
+.toc-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 30px 20px;
+  border-left: 1px solid var(--nair-border-light);
+  background: rgba(15, 14, 20, 0.4);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nair-border) transparent;
+}
+
+.toc-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb {
+  background: var(--nair-border);
+  border-radius: 2px;
+}
+
+.toc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--nair-border-light);
+  color: var(--nair-accent);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.toc-header i {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.toc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toc-link {
+  display: block;
+  padding: 8px 12px;
+  color: rgba(212, 200, 232, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.toc-link:hover {
+  color: var(--nair-text);
+  background: rgba(212, 200, 232, 0.06);
+  border-left-color: var(--nair-border);
+  padding-left: 14px;
+}
+
+.toc-link.active {
+  color: var(--nair-accent);
+  background: rgba(200, 155, 80, 0.10);
+  border-left-color: var(--nair-accent);
+  font-weight: 500;
+  text-shadow: 0 0 8px var(--nair-accent-glow);
+}
+
+.toc-link-sub {
+  padding-left: 20px;
+  font-size: 0.85rem;
+}
+
+.toc-link-sub.active {
+  padding-left: 22px;
+}
+
+.toc-link-sub:hover {
+  padding-left: 22px;
 }
 
 /* ===== СТИЛЬ ДЛЯ СЕТКИ КНОПОК КАК НА СКРИНШОТЕ ===== */
@@ -340,12 +567,40 @@ body {
   font-family: 'Fira Sans', Arial, sans-serif;
   color: var(--nair-text);
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background: var(--nair-bg);
   line-height: 1.6;
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(212, 200, 232, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(184, 168, 208, 0.03) 0%, transparent 50%);
+    /* Тёмная текстура пергамента */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(200, 155, 80, 0.02) 2px,
+      rgba(200, 155, 80, 0.02) 4px
+    ),
+    /* Атмосферное свечение */
+    radial-gradient(circle at 15% 25%, rgba(200, 155, 80, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(107, 48, 80, 0.08) 0%, transparent 50%),
+    /* Базовый фон */
+    radial-gradient(circle at 20% 80%, rgba(212, 200, 232, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(184, 168, 208, 0.02) 0%, transparent 50%);
+  position: relative;
+}
+
+/* Виньетка для атмосферы */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
 }
 
 /* МОБИЛЬНОЕ МЕНЮ */
@@ -376,27 +631,26 @@ body {
 
 /* ===== ЛЕВАЯ ПАНЕЛЬ - МЕНЮ (ОБНОВЛЁННАЯ ВЕРСИЯ) ===== */
 .original-nav {
-  width: 300px;
-  height: 100vh;
-  padding: 25px 20px;
+  width: 260px;
+  padding: 20px 16px;
   box-sizing: border-box;
   border-right: 1px solid var(--nair-border-light);
-  padding-left: 40px;
   backdrop-filter: blur(15px);
   flex-shrink: 0;
 
-  /* делаем меню «прилипающим» к верхней части; остаётся в потоке flex-контейнера */
+  /* делаем меню «прилипающим» к верхней части */
   position: sticky;
-  top: 0;
+  top: 64px;
+  height: calc(100vh - 64px);
 
   /* Убираем видимые скроллы меню */
   overflow: hidden;
   overscroll-behavior: contain;
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  /* Стабильный фон, совпадающий с основным блоком */
-  background: var(--nair-bg);
+  /* Стабильный фон */
+  background: rgba(15, 14, 20, 0.5);
 }
 
 .original-nav::before {
@@ -1220,12 +1474,16 @@ body {
 /* Планшеты и экраны среднего размера 768px - 1199px */
 @media (max-width: 1024px) {
   .original-nav {
-    width: 250px;
-    padding-left: 20px;
+    width: 220px;
+    padding: 16px 12px;
   }
   
   .original-main {
     padding: 25px;
+  }
+
+  .toc-sidebar {
+    display: none;
   }
   
   .profile-header {
@@ -1291,76 +1549,125 @@ body {
 
 /* Мобильные устройства и малые планшеты 480px - 767px */
 @media (max-width: 768px) {
-  /* Основной макет */
+  /* Основной макет — column layout */
   body {
     flex-direction: column;
   }
-  
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .site-header {
+    padding: 0 16px;
+    height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3000;
+  }
+
+  .header-logo {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+
+  .header-search {
+    max-width: none;
+    margin: 0 12px;
+  }
+
+  .header-search .search-input {
+    padding: 10px 12px 10px 36px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+
+  .header-search .search-icon {
+    left: 12px;
+    font-size: 1rem;
+  }
+
+  .header-vk-link img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-toggle {
+    display: block;
+    position: relative;
+    top: auto;
+    left: auto;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    padding: 4px 8px;
+    color: var(--nair-text);
+  }
+
+  .nav-toggle:hover {
+    background: transparent;
+    border-color: transparent;
+  }
+
   .original-nav {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
     max-height: 0;
     padding: 0;
-    padding-left: 0;
     border-right: none;
     border-bottom: 1px solid var(--nair-border-light);
     overflow: hidden;
     position: fixed;
-    top: 0;
+    top: 56px;
     left: 0;
-    z-index: 1999;
+    z-index: 2999;
     transition: max-height 0.4s ease;
     background-color: var(--nair-nav-bg);
+    height: auto;
   }
-  
+
   .original-nav.mobile-open {
     max-height: 100vh;
-    padding: 60px 20px 25px 40px;
+    padding: 20px;
+    padding-top: 10px;
     overflow-y: auto;
   }
-  
-  .nav-toggle {
-    display: block;
-  }
-  
+
   .original-main {
     width: 100%;
     min-width: 100%;
-    padding: 20px;
-    padding-top: 60px;
+    padding: 16px;
+    padding-top: 72px;
     margin-top: 0;
   }
-  
+
+  /* TOC sidebar hidden on mobile */
+  .toc-sidebar {
+    display: none;
+  }
+
   /* Навигация */
   .nav-list {
     flex-direction: column;
   }
-  
+
   .nav-item {
     margin-bottom: 10px;
   }
-  
+
   .nav-link {
     padding: 12px 15px;
     font-size: 0.95em;
   }
-  
+
   .nav-divider {
     margin: 20px 0 25px 0;
     width: 80%;
   }
-  
-  .search-input-container {
-    padding: 20px 20px 0 20px;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    z-index: 1998;
-    background: var(--nair-nav-bg);
-  }
-  
+
   .search-input {
     width: 90%;
     font-size: 14px;
