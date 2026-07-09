@@ -68,8 +68,6 @@
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--nair-border-light);
   box-shadow: 0 4px 30px var(--nair-shadow);
-  position: relative;
-  z-index: 3000;
 }
 
 .header-brand {
