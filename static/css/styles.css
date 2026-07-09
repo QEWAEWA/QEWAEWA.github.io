@@ -1496,7 +1496,8 @@ body::before {
   }
 
   .toc-sidebar {
-    display: none;
+    width: 200px;
+    padding: 20px 14px;
   }
   
   .profile-header {
