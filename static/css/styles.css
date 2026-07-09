@@ -90,11 +90,16 @@
   color: #d4a85a;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
 .header-search {
   position: relative;
-  flex: 1;
-  max-width: 480px;
-  margin: 0 30px;
+  width: 220px;
 }
 
 .header-search .search-icon {
@@ -1571,25 +1576,28 @@ body::before {
     letter-spacing: 2px;
   }
 
+  .header-right {
+    gap: 8px;
+  }
+
   .header-search {
-    max-width: none;
-    margin: 0 12px;
+    width: 140px;
   }
 
   .header-search .search-input {
-    padding: 10px 12px 10px 36px;
-    font-size: 14px;
-    border-radius: 20px;
+    padding: 8px 10px 8px 32px;
+    font-size: 13px;
+    border-radius: 18px;
   }
 
   .header-search .search-icon {
-    left: 12px;
-    font-size: 1rem;
+    left: 10px;
+    font-size: 0.9rem;
   }
 
   .header-vk-link img {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
   }
 
   .nav-toggle {
