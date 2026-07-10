@@ -58,6 +58,19 @@
 
         <!-- Основной контент -->
         <main class="original-main">
+            <!-- Хлебные крошки -->
+            {% block breadcrumbs %}
+            <div class="breadcrumbs">
+                {% if self.breadcrumb_current() %}
+                <a href="index.html" class="breadcrumb-link">Главная</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">{% block breadcrumb_current %}{% endblock %}</span>
+                {% else %}
+                <span class="breadcrumb-current">Главная</span>
+                {% endif %}
+            </div>
+            {% endblock %}
+            
             {% block content %}{% endblock %}
         </main>
 

@@ -889,6 +889,41 @@ body::before {
   pointer-events: none;
 }
 
+/* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0 20px 0;
+  font-size: 0.95rem;
+  font-family: 'Fira Sans', sans-serif;
+  color: rgba(212, 200, 232, 0.7);
+  border-bottom: 1px solid rgba(184, 168, 208, 0.1);
+  margin-bottom: 25px;
+}
+
+.breadcrumb-link {
+  color: rgba(212, 200, 232, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: var(--nair-accent);
+  text-shadow: 0 0 8px var(--nair-accent-glow);
+}
+
+.breadcrumb-separator {
+  color: rgba(212, 200, 232, 0.35);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.breadcrumb-current {
+  color: var(--nair-accent);
+  text-shadow: 0 0 6px var(--nair-accent-glow);
+}
+
 /* ===== ШАПКА СТРАНИЦЫ "О ПРОЕКТЕ" ===== */
 .about-header {
   width: 100%;
