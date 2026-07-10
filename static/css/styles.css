@@ -198,7 +198,9 @@
   position: sticky;
   top: 64px;
   height: calc(100vh - 64px);
-  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nair-border) transparent;
 }
 
 .toc-sidebar::-webkit-scrollbar {
@@ -572,7 +574,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow: hidden;
 }
 
 body {
