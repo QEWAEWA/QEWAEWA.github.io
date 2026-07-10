@@ -198,9 +198,7 @@
   position: sticky;
   top: 64px;
   height: calc(100vh - 64px);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--nair-border) transparent;
+  overflow: hidden;
 }
 
 .toc-sidebar::-webkit-scrollbar {
@@ -574,6 +572,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 body {
@@ -583,6 +582,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: hidden;
   background: var(--nair-bg);
   line-height: 1.6;
   background-image: 
@@ -1565,8 +1565,12 @@ body::before {
 /* Мобильные устройства и малые планшеты 480px - 767px */
 @media (max-width: 768px) {
   /* Основной макет — column layout */
+  html {
+    overflow: visible;
+  }
   body {
     flex-direction: column;
+    overflow: visible;
   }
 
   .content-wrapper {
@@ -1926,6 +1930,13 @@ body::before {
 
 /* Малые мобильные устройства 320px - 479px */
 @media (max-width: 480px) {
+  html {
+    overflow: visible;
+  }
+  body {
+    overflow: visible;
+  }
+  
   .original-nav {
     position: fixed;
   }
