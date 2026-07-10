@@ -848,6 +848,8 @@ body::before {
   -ms-overflow-style: none;
   color: rgba(255, 255, 255, 0.96);
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
 }
 
 .original-main::-webkit-scrollbar {
@@ -905,8 +907,9 @@ body::before {
 
 /* Кнопка с фоном */
 .button-background {
-  width: 85%;
-  aspect-ratio: 16 / 9;
+  width: 100%;
+  min-height: 400px;
+  flex: 1;
   background-image: url('/static/photo/fon.png');
   background-size: cover;
   background-position: center;
@@ -1524,8 +1527,8 @@ body::before {
   }
   
   .button-background {
-    width: 95%;
-    aspect-ratio: 16 / 10;
+    width: 100%;
+    min-height: 300px;
   }
   
   .button-text {
