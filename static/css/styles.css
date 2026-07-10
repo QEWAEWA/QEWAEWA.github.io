@@ -192,15 +192,15 @@
   width: 240px;
   flex-shrink: 0;
   padding: 30px 20px;
+  box-sizing: border-box;
   border-left: 1px solid var(--nair-border-light);
   background: rgba(15, 14, 20, 0.4);
   backdrop-filter: blur(10px);
-  position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
+  height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--nair-border) transparent;
+  min-height: 0;
 }
 
 .toc-sidebar::-webkit-scrollbar {
@@ -582,7 +582,7 @@ body {
   color: var(--nair-text);
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
   background: var(--nair-bg);
   line-height: 1.6;
@@ -652,20 +652,13 @@ body::before {
   border-right: 1px solid var(--nair-border-light);
   backdrop-filter: blur(15px);
   flex-shrink: 0;
-
-  /* делаем меню «прилипающим» к верхней части */
-  position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
-
-  /* Убираем видимые скроллы меню */
+  height: 100%;
   overflow: hidden;
   overscroll-behavior: contain;
   -ms-overflow-style: none;
   scrollbar-width: none;
-
-  /* Стабильный фон */
   background: rgba(15, 14, 20, 0.5);
+  min-height: 0;
 }
 
 .original-nav::before {
@@ -844,6 +837,8 @@ body::before {
 /* ===== ПРАВЫЙ БЛОК - ОСНОВНОЙ КОНТЕНТ ===== */
 .original-main {
   flex: 1;
+  min-width: 0;
+  min-height: 0;
   padding: 40px;
   background: transparent;
   position: relative;
@@ -1566,12 +1561,10 @@ body::before {
 /* Мобильные устройства и малые планшеты 480px - 767px */
 @media (max-width: 768px) {
   /* Основной макет — column layout */
-  html {
-    overflow: visible;
-  }
   body {
     flex-direction: column;
     overflow: visible;
+    height: auto;
   }
 
   .content-wrapper {
@@ -1930,14 +1923,11 @@ body::before {
 }
 
 /* Малые мобильные устройства 320px - 479px */
-@media (max-width: 480px) {
-  html {
-    overflow: visible;
-  }
+@media (max-width: 480px) {  
   body {
     overflow: visible;
+    height: auto;
   }
-  
   .original-nav {
     position: fixed;
   }
