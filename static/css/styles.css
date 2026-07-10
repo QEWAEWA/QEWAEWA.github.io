@@ -889,6 +889,23 @@ body::before {
   pointer-events: none;
 }
 
+/* ===== ШАПКА СТРАНИЦЫ "О ПРОЕКТЕ" ===== */
+.about-header {
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 8px 32px var(--nair-shadow);
+}
+
+.about-header-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
 .original-main .page-title {
   text-align: center;
   margin: 40px 0 50px 0;
