@@ -18,5 +18,9 @@ def lor():
 def ankety():
     return "Страница с анкетами (в разработке)"
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

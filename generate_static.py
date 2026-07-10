@@ -53,6 +53,12 @@ class StaticSiteGenerator:
             return render_template('leveling.html',
                                  title='Система прокачки - Наир', 
                                  active_page='leveling')
+        
+        @self.app.route('/about')
+        def about():
+            return render_template('about.html',
+                                 title='О Проекте - Наир',
+                                 active_page='about')
     
     def clean_output_dir(self):
         """Очистка выходной директории"""
@@ -86,7 +92,8 @@ class StaticSiteGenerator:
             "{% if request.endpoint == 'ankety' %}active{% endif %}": "",
             "{% if request.endpoint == 'magic' %}active{% endif %}": "",
             "{% if request.endpoint == 'economy' %}active{% endif %}": "",
-            "{% if request.endpoint == 'leveling' %}active{% endif %}": ""
+            "{% if request.endpoint == 'leveling' %}active{% endif %}": "",
+            "{% if request.endpoint == 'about' %}active{% endif %}": ""
         }
         
         for old, new in replacements.items():
@@ -124,6 +131,10 @@ class StaticSiteGenerator:
             ('leveling.html', 'leveling.html', {
                 'title': 'Система прокачки - Наир', 
                 'active_page': 'leveling'
+            }),
+            ('about.html', 'about.html', {
+                'title': 'О Проекте - Наир',
+                'active_page': 'about'
             })
         ]
         
