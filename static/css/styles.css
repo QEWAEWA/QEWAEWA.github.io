@@ -934,6 +934,87 @@ body::before {
   letter-spacing: 0.5px;
 }
 
+/* ===== F.A.Q СЕКЦИЯ ===== */
+.faq-section {
+  margin-top: 40px;
+  padding: 30px;
+  background: rgba(15, 14, 20, 0.6);
+  border: 1px solid var(--nair-border);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px var(--nair-shadow);
+}
+
+.faq-title {
+  font-size: 1.6rem;
+  color: var(--nair-accent);
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 600;
+  text-shadow: 0 0 15px var(--nair-accent-glow);
+}
+
+.faq-title i {
+  font-size: 1.4rem;
+}
+
+.faq-item {
+  margin-bottom: 16px;
+  border: 1px solid rgba(200, 155, 80, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(26, 24, 32, 0.5);
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: var(--nair-border);
+  background: rgba(26, 24, 32, 0.7);
+}
+
+.faq-question {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--nair-text);
+  font-family: 'Fira Sans', sans-serif;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.faq-question i {
+  color: var(--nair-accent);
+  font-size: 0.8rem;
+  margin-top: 5px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.faq-question:hover {
+  color: var(--nair-accent);
+}
+
+.faq-question.active i {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  padding: 0 18px 14px 18px;
+  padding-left: 44px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Fira Sans', sans-serif;
+}
+
 /* ===== ИНФОРМАЦИЯ В ЛЕВОМ НИЖНЕМ УГЛУ ===== */
 .left-bottom-info {
   position: absolute;
@@ -1717,6 +1798,26 @@ body::before {
     margin: 20px 0 30px 0;
   }
   
+  /* FAQ на мобильных */
+  .faq-section {
+    padding: 20px;
+    margin-top: 25px;
+  }
+  
+  .faq-title {
+    font-size: 1.3rem;
+  }
+  
+  .faq-question {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+  
+  .faq-answer {
+    padding: 0 14px 12px 44px;
+    font-size: 0.9rem;
+  }
+
   /* Кнопки с фоном */
   .button-background {
     width: 100%;
@@ -2079,6 +2180,35 @@ body::before {
     font-size: 16px;
   }
   
+  /* FAQ на маленьких экранах */
+  .faq-section {
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  .faq-title {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+  }
+  
+  .faq-title i {
+    font-size: 1.1rem;
+  }
+  
+  .faq-item {
+    margin-bottom: 12px;
+  }
+  
+  .faq-question {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .faq-answer {
+    padding: 0 12px 10px 36px;
+    font-size: 0.85rem;
+  }
+
   .compact-nav {
     padding: 10px;
     margin: 0 auto 25px auto;
