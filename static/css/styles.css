@@ -1720,8 +1720,11 @@ body::before {
   /* Кнопки с фоном */
   .button-background {
     width: 100%;
-    aspect-ratio: 16 / 10;
-    margin-bottom: 30px;
+    min-height: 300px;
+    flex: none;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
   }
   
   .button-text {
@@ -1968,7 +1971,11 @@ body::before {
   }
   
   .button-background {
-    aspect-ratio: 16 / 12;
+    width: 100%;
+    min-height: 250px;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
   }
   
   .button-text {
@@ -1978,8 +1985,11 @@ body::before {
   }
   
   .left-bottom-info {
+    position: static;
     padding: 12px;
     margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .info-title {
@@ -1992,6 +2002,19 @@ body::before {
   
   .info-meta {
     font-size: 0.85em;
+  }
+  
+  .right-bottom-buttons {
+    position: static;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .container-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
   }
   
   .container-btn {
@@ -2127,11 +2150,6 @@ body::before {
   }
   
   /* Правильное отображение на высоких значениях DPI */
-  @supports (aspect-ratio: 1 / 1) {
-    .button-background {
-      aspect-ratio: 16 / 10;
-    }
-  }
 }
 
 /* Поддержка портретной ориентации для объемных экранов */
@@ -2146,9 +2164,7 @@ body::before {
     font-size: 1.5rem;
   }
   
-  .button-background {
-    aspect-ratio: 16 / 12;
-  }
+
   
   .map-container {
     height: 40vh;
