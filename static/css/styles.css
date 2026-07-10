@@ -181,7 +181,8 @@
 .content-wrapper {
   display: flex;
   flex: 1;
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
+  overflow: hidden;
   position: relative;
   z-index: 2;
 }
@@ -845,7 +846,7 @@ body::before {
   padding: 40px;
   background: transparent;
   position: relative;
-  min-height: 100vh;
+  height: 100%;
   overflow-y: auto;
   color: rgba(255, 255, 255, 0.96);
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
@@ -1570,6 +1571,19 @@ body::before {
 
   .content-wrapper {
     flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 56px);
+    overflow: visible;
+  }
+
+  .original-main {
+    width: 100%;
+    min-width: 100%;
+    padding: 16px;
+    padding-top: 72px;
+    margin-top: 0;
+    height: auto;
+    overflow: visible;
   }
 
   .site-header {
