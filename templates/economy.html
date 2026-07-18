@@ -5,35 +5,573 @@
 
 {% block content %}
 
-
-<!-- Правый блок - основной контент -->
-  <!-- Контейнер с фоном -->
-  <div class="button-background">
+<div class="economy-page">
+  <h1 class="page-title">ЭКОНОМИКА НАИРА</h1>
+  
+  <!-- ===== ВАЛЮТА ===== -->
+  <section class="economy-section">
+    <h2 class="economy-section-title">
+      <i class="fas fa-coins"></i> Монеты Бранна
+    </h2>
     
-    <!-- Информация в левом нижнем углу -->
-    <div class="left-bottom-info">
-      <div class="info-title text-glow">Средневековье, фэнтези</div>
-      <div class="info-subtitle">Наир, Бранн</div>
-      <div class="info-meta">2018-2025 | Текстовая ролевая | NC-21</div>
+    <div class="economy-intro">
+      <p>Самые используемые монеты на Бранне</p>
     </div>
     
-    <!-- Кнопки в правом нижнем углу -->
-    <div class="right-bottom-buttons">
-      <div class="container-buttons">
-        <a href="lor.html" class="container-btn">
-          <i class="bi bi-book"></i>
-          <span>Лор</span>
-        </a>
-        <a href="ankety.html" class="container-btn">
-          <i class="bi bi-people"></i>
-          <span>Персонажи</span>
-        </a>
-        <a href="https://vk.com/club182026147" class="container-btn">
-          <i class="bi bi-chat-dots"></i>
-          <span>VK</span>
-        </a>
+    <!-- Основные монеты -->
+    <h3 class="economy-subtitle">Основные монеты</h3>
+    
+    <div class="currency-grid">
+      <!-- Златник -->
+      <div class="currency-card">
+        <div class="currency-card-header">
+          <i class="fas fa-circle currency-icon gold"></i>
+          <div class="currency-name">Златник</div>
+        </div>
+        <div class="currency-card-body">
+          <div class="currency-region">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Корвус, Великая Империя</span>
+          </div>
+          <p>Златник, он же золото или золотой — самая распространённая монета по всему Наиру. Её используют одни из крупнейших государств: Граальдфад, Алькар и прочие. Даже государства с собственными валютами всё равно имеют в наличии златники.</p>
+          <p>Монеты редко состоят из чистого золота, имея примеси металлов, но есть требования: монеты не должны быть слишком мягкими и хрупкими, и должны иметь определённое количество золота. Магам металла невыгодно выуживать золото из монет — его выгоднее купить.</p>
+          <p>Печатка на одной из сторон монеты может быть любая, в зависимости от места чеканки, но с одной из сторон обязательно должна быть печатка в виде <strong>головы льва</strong>.</p>
+        </div>
+      </div>
+      
+      <!-- Рунг -->
+      <div class="currency-card">
+        <div class="currency-card-header">
+          <i class="fas fa-circle currency-icon silver"></i>
+          <div class="currency-name">Рунг</div>
+        </div>
+        <div class="currency-card-body">
+          <div class="currency-region">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Альянс эльфов</span>
+          </div>
+          <p>Монета, используемая в Альянсе эльфов, а также распространённая во многих эльфийских государствах: Натаир, Алькар и прочие. Не везде принято расплачиваться лишь ею внутри государства, чаще эльфийские государства торгуют меж собой с использованием этой валюты.</p>
+          <p>В Альянсе на Бранне внутри государства используют лишь Рунг, а Златники почти не используются даже самим государством, лишь в очень небольших количествах.</p>
+          <div class="currency-rate">
+            <span class="rate-label">Курс:</span>
+            <span class="rate-value">1 рунг ≈ 3 златникам</span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    
+    <!-- Редкие монеты -->
+    <h3 class="economy-subtitle">Малоиспользуемые монеты</h3>
+    
+    <div class="currency-grid">
+      <!-- Теор -->
+      <div class="currency-card rare">
+        <div class="currency-card-header">
+          <i class="fas fa-circle currency-icon bronze"></i>
+          <div class="currency-name">Теор</div>
+        </div>
+        <div class="currency-card-body">
+          <div class="currency-region">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Гномьи государства (Гольм)</span>
+          </div>
+          <p>Гномья валюта, используемая почти всегда внутри государств гномов, например, в Гольме — основном месте чеканки этих монет. На Бранне почти не используется, так как гномьих государств тут нет уже давно, как и мало самих гномов.</p>
+          <p>Редкие случаи использования — торговля в портовых городах с поставщиками металлов гномов. Некоторые принимают лишь Теоры за особо редкие руды и камни. В Корвусе и Великой Империи в обороте имеется некоторое количество этих монет, их можно обменять в банках. На монетах чеканятся облики <strong>Предков</strong>.</p>
+          <div class="currency-rate">
+            <span class="rate-label">Курс:</span>
+            <span class="rate-value">1 теор ≈ 1,5 златникам</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Флир -->
+      <div class="currency-card rare">
+        <div class="currency-card-header">
+          <i class="fas fa-circle currency-icon copper"></i>
+          <div class="currency-name">Флир</div>
+        </div>
+        <div class="currency-card-body">
+          <div class="currency-region">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Восточные пустынные государства, Алькар</span>
+          </div>
+          <p>Флиры используются восточными пустынными государствами, в некотором количестве Алькаром. Очень редко кто использует их на Бранне, в основном торговцы пряностями или экзотическими животными.</p>
+          <p>Чеканятся на этих монетах одинаковые символы, у которых даже нет особого значения.</p>
+          <div class="currency-rate">
+            <span class="rate-label">Курс:</span>
+            <span class="rate-value">1 флир ≈ 0,5 златникам</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   
+  <!-- ===== ТОРГОВЛЯ ===== -->
+  <section class="economy-section">
+    <h2 class="economy-section-title">
+      <i class="fas fa-store"></i> Торговля и цены
+    </h2>
+    
+    <div class="economy-note">
+      <i class="fas fa-info-circle"></i>
+      <div>
+        <strong>Примечание:</strong> Если вы желаете что-либо приобрести, в посте необходимо указать любого из ГМ-ов. Не обязательно, чтобы он отыграл торговца — вы можете сделать это сами. Это необходимо для того, чтобы никто не проводил махинаций, и чтобы администрация позже убедилась, что после покупки вы изменили свой инвентарь.
+      </div>
+    </div>
+    
+    <div class="economy-note">
+      <i class="fas fa-exchange-alt"></i>
+      <div>
+        <strong>Конвертация:</strong> Ниже цены указаны для златников. Для рунгов делите цены на 3.
+      </div>
+    </div>
+    
+    <!-- Проживание -->
+    <div class="price-block">
+      <h3 class="price-block-title">
+        <i class="fas fa-bed"></i> Проживание и питание
+      </h3>
+      <table class="economy-table">
+        <thead>
+          <tr>
+            <th>Услуга</th>
+            <th>Цена (златников)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Обычная комната в таверне на ночь</td>
+            <td class="price-cell">25</td>
+          </tr>
+          <tr>
+            <td>Хорошая комната с отдельной купальней (бадья + горячая вода)</td>
+            <td class="price-cell">40</td>
+          </tr>
+          <tr>
+            <td>Средняя порция пищи</td>
+            <td class="price-cell">10</td>
+          </tr>
+          <tr>
+            <td>Хорошая мясная порция</td>
+            <td class="price-cell">20</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Напитки -->
+    <div class="price-block">
+      <h3 class="price-block-title">
+        <i class="fas fa-wine-bottle"></i> Напитки
+      </h3>
+      <div class="table-scroll">
+        <table class="economy-table">
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>За кружку</th>
+              <th>За бочонок (10 л)</th>
+              <th>За бочонок (50 л)</th>
+              <th>За бочонок (100 л)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Вода</td><td class="price-cell">2</td><td class="price-cell">—</td><td class="price-cell">—</td><td class="price-cell">—</td></tr>
+            <tr><td>Квас</td><td class="price-cell">8</td><td class="price-cell">150</td><td class="price-cell">700</td><td class="price-cell">1400</td></tr>
+            <tr><td>Молоко</td><td class="price-cell">4</td><td class="price-cell">60</td><td class="price-cell">260</td><td class="price-cell">540</td></tr>
+            <tr><td>Эль</td><td class="price-cell">10</td><td class="price-cell">200</td><td class="price-cell">825</td><td class="price-cell">1500</td></tr>
+            <tr><td>Вино</td><td class="price-cell">14</td><td class="price-cell">300</td><td class="price-cell">1300</td><td class="price-cell">2400</td></tr>
+            <tr><td>Пиво</td><td class="price-cell">16</td><td class="price-cell">230</td><td class="price-cell">1100</td><td class="price-cell">2000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Мясо -->
+    <div class="price-block">
+      <h3 class="price-block-title">
+        <i class="fas fa-drumstick-bite"></i> Мясо
+      </h3>
+      <table class="economy-table">
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Цена за кг (златников)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Курятина</td><td class="price-cell">5</td></tr>
+          <tr><td>Рыба</td><td class="price-cell">3</td></tr>
+          <tr><td>Морская рыба</td><td class="price-cell">5</td></tr>
+          <tr><td>Баранина</td><td class="price-cell">8</td></tr>
+          <tr><td>Свинина</td><td class="price-cell">10</td></tr>
+          <tr><td>Говядина</td><td class="price-cell">30</td></tr>
+          <tr><td>Крольчатина</td><td class="price-cell">20</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Животные -->
+    <div class="price-block">
+      <h3 class="price-block-title">
+        <i class="fas fa-horse"></i> Животные
+      </h3>
+      <p class="price-note">Цена разнится от породы. Ниже цена за одну штуку.</p>
+      <table class="economy-table">
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Цена (златников)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Курица / петух</td><td class="price-cell">7</td></tr>
+          <tr><td>Баран / овца</td><td class="price-cell">15</td></tr>
+          <tr><td>Свинья / свин</td><td class="price-cell">13</td></tr>
+          <tr><td>Корова / бык</td><td class="price-cell">70</td></tr>
+          <tr><td>Кролики</td><td class="price-cell">20</td></tr>
+          <tr><td>Лошадь</td><td class="price-cell">120</td></tr>
+          <tr><td>Верховая лошадь</td><td class="price-cell">180</td></tr>
+          <tr><td>Легкоупряжная лошадь</td><td class="price-cell">150</td></tr>
+          <tr><td>Тяжелоупряжная лошадь</td><td class="price-cell">200</td></tr>
+          <tr><td>Боевая лошадь</td><td class="price-cell">250</td></tr>
+          <tr><td>Буфало</td><td class="price-cell">250</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<style>
+/* ===== СТРАНИЦА ЭКОНОМИКИ ===== */
+.economy-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.economy-section {
+  margin-bottom: 50px;
+}
+
+.economy-section-title {
+  color: var(--nair-accent);
+  font-size: 1.6em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--nair-border);
+}
+
+.economy-section-title i {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+.economy-intro {
+  color: var(--nair-text);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.05em;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.economy-subtitle {
+  color: var(--nair-text);
+  font-size: 1.2em;
+  font-weight: 600;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 30px 0 20px 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--nair-accent);
+}
+
+/* ===== СЕТКА ВАЛЮТ ===== */
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.currency-card {
+  background: var(--nair-card-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px var(--nair-shadow-card);
+  transition: all 0.3s ease;
+}
+
+.currency-card:hover {
+  border-color: var(--nair-border-accent);
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
+  transform: translateY(-3px);
+}
+
+.currency-card.rare {
+  border-color: rgba(200, 155, 80, 0.15);
+  opacity: 0.85;
+}
+
+.currency-card.rare:hover {
+  opacity: 1;
+  border-color: var(--nair-border-accent);
+}
+
+.currency-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: rgba(200, 155, 80, 0.06);
+  border-bottom: 1px solid var(--nair-border-light);
+}
+
+.currency-icon {
+  font-size: 1.6em;
+}
+
+.currency-icon.gold {
+  color: #c89b53;
+  text-shadow: 0 0 15px rgba(200, 155, 80, 0.4);
+}
+
+.currency-icon.silver {
+  color: #a8b4c0;
+  text-shadow: 0 0 15px rgba(168, 180, 192, 0.3);
+}
+
+.currency-icon.bronze {
+  color: #b8864e;
+  text-shadow: 0 0 15px rgba(184, 134, 78, 0.3);
+}
+
+.currency-icon.copper {
+  color: #b87333;
+  text-shadow: 0 0 15px rgba(184, 115, 51, 0.3);
+}
+
+.currency-name {
+  color: var(--nair-accent);
+  font-size: 1.3em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.currency-card-body {
+  padding: 20px 24px;
+}
+
+.currency-region {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--nair-accent);
+  font-size: 0.9em;
+  font-weight: 600;
+  font-family: 'Fira Sans', sans-serif;
+  opacity: 0.9;
+}
+
+.currency-region i {
+  font-size: 0.9em;
+}
+
+.currency-card-body p {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Fira Sans', sans-serif;
+  line-height: 1.7;
+  font-size: 0.95em;
+  margin-bottom: 12px;
+}
+
+.currency-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.currency-rate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(200, 155, 80, 0.08);
+  border: 1px solid rgba(200, 155, 80, 0.15);
+  border-radius: 8px;
+}
+
+.rate-label {
+  color: var(--nair-text);
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Fira Sans', sans-serif;
+  opacity: 0.7;
+}
+
+.rate-value {
+  color: var(--nair-accent);
+  font-size: 1.05em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+/* ===== ЗАМЕТКИ ===== */
+.economy-note {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(200, 155, 80, 0.06);
+  border: 1px solid rgba(200, 155, 80, 0.15);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.economy-note i {
+  color: var(--nair-accent);
+  font-size: 1.2em;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.economy-note strong {
+  color: var(--nair-accent);
+}
+
+/* ===== БЛОК ЦЕН ===== */
+.price-block {
+  margin-bottom: 30px;
+}
+
+.price-block-title {
+  color: var(--nair-text);
+  font-size: 1.1em;
+  font-weight: 600;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-block-title i {
+  color: var(--nair-accent);
+  font-size: 1em;
+}
+
+.price-note {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.9em;
+  margin-bottom: 14px;
+  font-style: italic;
+}
+
+/* ===== ТАБЛИЦЫ ===== */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.economy-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px var(--nair-shadow-card);
+}
+
+.economy-table thead {
+  background: linear-gradient(135deg, rgba(200, 155, 80, 0.15), rgba(200, 155, 80, 0.08));
+}
+
+.economy-table th {
+  color: var(--nair-accent);
+  font-weight: 600;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 2px solid var(--nair-border-accent);
+  white-space: nowrap;
+}
+
+.economy-table td {
+  padding: 12px 18px;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--nair-border-light);
+  background: var(--nair-card-bg);
+  transition: background 0.2s ease;
+}
+
+.economy-table tbody tr:hover td {
+  background: rgba(200, 155, 80, 0.04);
+}
+
+.economy-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.price-cell {
+  color: var(--nair-accent) !important;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Анимация */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .currency-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .economy-table {
+    font-size: 0.85em;
+  }
+  
+  .economy-table th,
+  .economy-table td {
+    padding: 10px 12px;
+  }
+  
+  .economy-section-title {
+    font-size: 1.3em;
+  }
+  
+  .currency-card-body {
+    padding: 16px 18px;
+  }
+}
+</style>
 {% endblock %}
