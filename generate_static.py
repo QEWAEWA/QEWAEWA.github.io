@@ -54,6 +54,12 @@ class StaticSiteGenerator:
                                  title='Система прокачки - Наир', 
                                  active_page='leveling')
         
+        @self.app.route('/kuznec')
+        def kuznec():
+            return render_template('kuznec.html',
+                                 title='Кузнечество - Наир',
+                                 active_page='kuznec')
+        
         @self.app.route('/about')
         def about():
             return render_template('about.html',
@@ -93,6 +99,7 @@ class StaticSiteGenerator:
             "{% if request.endpoint == 'magic' %}active{% endif %}": "",
             "{% if request.endpoint == 'economy' %}active{% endif %}": "",
             "{% if request.endpoint == 'leveling' %}active{% endif %}": "",
+            "{% if request.endpoint == 'kuznec' %}active{% endif %}": "",
             "{% if request.endpoint == 'about' %}active{% endif %}": ""
         }
         
@@ -131,6 +138,10 @@ class StaticSiteGenerator:
             ('leveling.html', 'leveling.html', {
                 'title': 'Система прокачки - Наир', 
                 'active_page': 'leveling'
+            }),
+            ('kuznec.html', 'kuznec.html', {
+                'title': 'Кузнечество - Наир',
+                'active_page': 'kuznec'
             }),
             ('about.html', 'about.html', {
                 'title': 'О Проекте - Наир',
