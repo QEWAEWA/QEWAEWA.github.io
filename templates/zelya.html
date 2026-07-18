@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+
+{% block title %}Зелья - Наир{% endblock %}
+
+{% block content %}
+
+<div class="potion-page">
+  <div class="potion-header">
+    <div class="potion-header-image" style="background-image: url('/static/photo/zelya.png');"></div>
+    <div class="potion-header-overlay"></div>
+    <div class="potion-header-content">
+      <h1 class="page-title">ЗЕЛЬЯ</h1>
+      <p class="potion-header-subtitle">Цены на зелья и снадобья</p>
+    </div>
+  </div>
+
+  <!-- ===== ОБЫЧНОЕ ЗЕЛЬЕ ЛЕЧЕНИЯ ===== -->
+  <section class="potion-section">
+    <h2 class="potion-section-title">
+      <i class="fas fa-heart"></i> Обычное зелье лечения
+    </h2>
+    <div class="potion-card">
+      <div class="potion-properties">
+        <span class="potion-label">Свойства:</span>
+        <span>Восстанавливает силы и здоровье, позволяя мгновенно затянуть небольшие ранения.</span>
+      </div>
+      <div class="potion-prices">
+        <div class="potion-price-row">
+          <span class="potion-region">Джой, Нордфол и Гримм</span>
+          <span class="price-cell">250 золотых</span>
+          <span class="potion-sell">Продаётся за 125 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Форт Веры, Сердце Империи, Джа'Файл</span>
+          <span class="price-cell">300 золотых</span>
+          <span class="potion-sell">Продаётся за 150 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Сердце леса, Каэльмор, Фалассэ, Река перерождения</span>
+          <span class="price-cell">200 золотых</span>
+          <span class="potion-sell">Продаётся за 100 золотых</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ОБЫЧНОЕ ЗЕЛЬЕ МАНЫ ===== -->
+  <section class="potion-section">
+    <h2 class="potion-section-title">
+      <i class="fas fa-star"></i> Обычное зелье маны
+    </h2>
+    <div class="potion-card">
+      <div class="potion-properties">
+        <span class="potion-label">Свойства:</span>
+        <span>Восстанавливает магические силы, позволяя дольше пользоваться магией.</span>
+      </div>
+      <div class="potion-prices">
+        <div class="potion-price-row">
+          <span class="potion-region">Джой, Нордфол и Гримм</span>
+          <span class="price-cell">250 золотых</span>
+          <span class="potion-sell">Продаётся за 125 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Форт Веры, Сердце Империи, Джа'Файл</span>
+          <span class="price-cell">300 золотых</span>
+          <span class="potion-sell">Продаётся за 150 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Сердце леса, Каэльмор, Фалассэ, Река перерождения</span>
+          <span class="price-cell">200 золотых</span>
+          <span class="potion-sell">Продаётся за 100 золотых</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЯД МАНТИКОРЫ ===== -->
+  <section class="potion-section">
+    <h2 class="potion-section-title">
+      <i class="fas fa-skull"></i> Яд мантикоры
+    </h2>
+    <div class="potion-card">
+      <div class="potion-properties">
+        <span class="potion-label">Свойства:</span>
+        <span>Отравляет противника при нанесения яда на оружие, употребление противником его внутрь. Яд довольно силён и быстро поражает кровеносную систему, однако если он используется против мага, мана в его крови постепенно его нейтрализует, уменьшая его эффективность.</span>
+      </div>
+      <div class="potion-prices">
+        <div class="potion-price-row">
+          <span class="potion-region">Джой, Нордфол и Гримм</span>
+          <span class="price-cell">300 золотых</span>
+          <span class="potion-sell">Продаётся за 150 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Форт Веры, Сердце Империи, Джа'Файл</span>
+          <span class="price-cell">280 золотых</span>
+          <span class="potion-sell">Продаётся за 140 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Сердце леса, Каэльмор, Фалассэ, Река перерождения, Посёлок Мултиров</span>
+          <span class="price-cell">200 золотых</span>
+          <span class="potion-sell">Продаётся за 100 золотых</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СНАДОБЬЕ ИЗ ЕЛАНЕЙ ===== -->
+  <section class="potion-section">
+    <h2 class="potion-section-title">
+      <i class="fas fa-leaf"></i> Снадобье из Еланей
+    </h2>
+    <div class="potion-card">
+      <div class="potion-properties">
+        <span class="potion-label">Свойства:</span>
+        <span>Сделанное из лепистов цветка Еланей, при употреблении сначала вызывает болезненные ощущение в голове, но после даёт бонус к реакции, позволяя увернутся даже от летящих стрел на ходу до конца первого из боёв.</span>
+      </div>
+      <div class="potion-prices">
+        <div class="potion-price-row">
+          <span class="potion-region">Джой, Нордфол и Гримм</span>
+          <span class="price-cell">500 золотых</span>
+          <span class="potion-sell">Продаётся за 250 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Форт Веры, Сердце Империи, Джа'Файл</span>
+          <span class="price-cell">750 золотых</span>
+          <span class="potion-sell">Продаётся за 325 золотых</span>
+        </div>
+        <div class="potion-price-row">
+          <span class="potion-region">Сердце леса, Каэльмор, Фалассэ, Река перерождения, Посёлок Мултиров</span>
+          <span class="price-cell">400 золотых</span>
+          <span class="potion-sell">Продаётся за 200 золотых</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+/* ===== СТРАНИЦА ЗЕЛИЙ ===== */
+.potion-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.potion-header {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
+}
+
+.potion-header-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.potion-header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 14, 20, 0.85) 0%,
+    rgba(15, 14, 20, 0.4) 50%,
+    rgba(15, 14, 20, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+.potion-header-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.potion-header-content .page-title {
+  margin-bottom: 12px;
+  font-size: 2.5em;
+  animation: none;
+}
+
+.potion-header-subtitle {
+  color: var(--nair-text);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.1em;
+  opacity: 0.8;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.potion-section {
+  margin-bottom: 50px;
+}
+
+.potion-section-title {
+  color: var(--nair-accent);
+  font-size: 1.5em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--nair-border);
+}
+
+.potion-section-title i {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.potion-card {
+  background: var(--nair-card-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px var(--nair-shadow-card);
+  transition: border-color 0.3s ease;
+}
+
+.potion-card:hover {
+  border-color: var(--nair-border-accent);
+}
+
+.potion-properties {
+  display: flex;
+  gap: 10px;
+  padding: 20px 24px;
+  background: rgba(200, 155, 80, 0.06);
+  border-bottom: 1px solid var(--nair-border-light);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.potion-label {
+  color: var(--nair-accent);
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.potion-prices {
+  padding: 16px 24px;
+}
+
+.potion-price-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--nair-border-light);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+}
+
+.potion-price-row:last-child {
+  border-bottom: none;
+}
+
+.potion-region {
+  color: rgba(255, 255, 255, 0.75);
+  flex: 1;
+  min-width: 0;
+}
+
+.price-cell {
+  color: var(--nair-accent) !important;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.potion-sell {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .potion-header {
+    height: 200px;
+  }
+  
+  .potion-header-content .page-title {
+    font-size: 1.8em;
+  }
+  
+  .potion-section-title {
+    font-size: 1.2em;
+  }
+  
+  .potion-price-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .potion-region {
+    flex-basis: 100%;
+  }
+  
+  .potion-properties {
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+  }
+}
+</style>
+{% endblock %}

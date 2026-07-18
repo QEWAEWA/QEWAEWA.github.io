@@ -117,18 +117,60 @@
     </div>
   </section>
   
-  <!-- ===== КУЗНЕЧЕСТВО ===== -->
+  <!-- ===== РАЗДЕЛЫ ЭКОНОМИКИ ===== -->
   <section class="economy-section">
     <h2 class="economy-section-title">
-      <i class="fas fa-hammer"></i> Кузнечество
+      <i class="fas fa-store"></i> Разделы экономики
     </h2>
-    <div class="crafting-button-wrapper">
-      <a href="kuznec.html" class="crafting-button" style="background-image: url('/static/photo/kuznec.png');">
-        <div class="crafting-button-overlay"></div>
-        <div class="crafting-button-content">
+    
+    <div class="economy-category-grid">
+      <!-- Оружие -->
+      <a href="oruzie.html" class="economy-category-card" style="background-image: url('/static/photo/oruzie.png');">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-content">
+          <i class="fas fa-crosshairs"></i>
+          <span class="category-card-title">Оружие</span>
+          <span class="category-card-subtitle">Цены на оружие и покрытие серебром</span>
+        </div>
+      </a>
+      
+      <!-- Броня -->
+      <a href="bronya.html" class="economy-category-card" style="background-image: url('/static/photo/bronya.png');">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-content">
+          <i class="fas fa-shield-halved"></i>
+          <span class="category-card-title">Броня</span>
+          <span class="category-card-subtitle">Цены на доспехи и броню</span>
+        </div>
+      </a>
+      
+      <!-- Зелья -->
+      <a href="zelya.html" class="economy-category-card" style="background-image: url('/static/photo/zelya.png');">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-content">
+          <i class="fas fa-flask"></i>
+          <span class="category-card-title">Зелья</span>
+          <span class="category-card-subtitle">Цены на зелья и снадобья</span>
+        </div>
+      </a>
+      
+      <!-- Прочее -->
+      <a href="prochee.html" class="economy-category-card" style="background-image: url('/static/photo/prochee.png');">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-content">
+          <i class="fas fa-box"></i>
+          <span class="category-card-title">Прочее</span>
+          <span class="category-card-subtitle">Тёмные писания и другое</span>
+        </div>
+      </a>
+      
+      <!-- Кузнечество (металлы) -->
+      <a href="kuznec.html" class="economy-category-card" style="background-image: url('/static/photo/kuznec.png');">
+        <div class="category-card-overlay"></div>
+        <div class="category-card-content">
           <i class="fas fa-hammer"></i>
-          <span class="crafting-button-title">Кузнечество</span>
-          <span class="crafting-button-subtitle">Цены на металлы и руду</span>
+          <span class="category-card-title">Кузнечество</span>
+          <span class="category-card-subtitle">Цены на металлы и руду</span>
         </div>
       </a>
     </div>
@@ -521,18 +563,18 @@
   font-family: 'Fira Sans', sans-serif;
 }
 
-/* ===== КНОПКА КУЗНЕЧЕСТВА ===== */
-.crafting-button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
+/* ===== СЕТКА КАТЕГОРИЙ ЭКОНОМИКИ ===== */
+.economy-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 10px;
 }
 
-.crafting-button {
+.economy-category-card {
   position: relative;
   display: block;
-  width: 300px;
-  height: 400px;
+  height: 260px;
   border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
@@ -544,35 +586,35 @@
   background-repeat: no-repeat;
 }
 
-.crafting-button:hover {
+.economy-category-card:hover {
   border-color: var(--nair-border-accent);
   box-shadow: 0 8px 32px var(--nair-shadow-card), 0 0 40px var(--nair-shadow-glow);
   transform: translateY(-4px);
 }
 
-.crafting-button-overlay {
+.category-card-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(15, 14, 20, 0.7) 0%,
-    rgba(15, 14, 20, 0.3) 50%,
-    rgba(15, 14, 20, 0.6) 100%
+    rgba(15, 14, 20, 0.75) 0%,
+    rgba(15, 14, 20, 0.35) 50%,
+    rgba(15, 14, 20, 0.65) 100%
   );
   transition: background 0.4s ease;
   z-index: 1;
 }
 
-.crafting-button:hover .crafting-button-overlay {
+.economy-category-card:hover .category-card-overlay {
   background: linear-gradient(
     135deg,
-    rgba(15, 14, 20, 0.5) 0%,
+    rgba(15, 14, 20, 0.55) 0%,
     rgba(15, 14, 20, 0.2) 50%,
-    rgba(15, 14, 20, 0.4) 100%
+    rgba(15, 14, 20, 0.45) 100%
   );
 }
 
-.crafting-button-content {
+.category-card-content {
   position: relative;
   z-index: 2;
   height: 100%;
@@ -581,29 +623,29 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 30px;
+  padding: 24px;
   text-align: center;
 }
 
-.crafting-button-content i {
-  font-size: 2.5em;
+.category-card-content i {
+  font-size: 2.2em;
   color: var(--nair-accent);
   text-shadow: 0 0 30px var(--nair-accent-glow);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.crafting-button-title {
+.category-card-title {
   color: var(--nair-accent);
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: 700;
   font-family: 'Fira Sans', sans-serif;
   text-shadow: 0 0 20px var(--nair-accent-glow);
   letter-spacing: 2px;
 }
 
-.crafting-button-subtitle {
+.category-card-subtitle {
   color: var(--nair-text);
-  font-size: 0.95em;
+  font-size: 0.9em;
   font-family: 'Fira Sans', sans-serif;
   opacity: 0.8;
 }

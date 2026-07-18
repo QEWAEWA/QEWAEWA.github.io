@@ -60,6 +60,30 @@ class StaticSiteGenerator:
                                  title='Кузнечество - Наир',
                                  active_page='kuznec')
         
+        @self.app.route('/oruzie')
+        def oruzie():
+            return render_template('oruzie.html',
+                                 title='Оружие - Наир',
+                                 active_page='oruzie')
+        
+        @self.app.route('/bronya')
+        def bronya():
+            return render_template('bronya.html',
+                                 title='Броня - Наир',
+                                 active_page='bronya')
+        
+        @self.app.route('/zelya')
+        def zelya():
+            return render_template('zelya.html',
+                                 title='Зелья - Наир',
+                                 active_page='zelya')
+        
+        @self.app.route('/prochee')
+        def prochee():
+            return render_template('prochee.html',
+                                 title='Прочее - Наир',
+                                 active_page='prochee')
+        
         @self.app.route('/about')
         def about():
             return render_template('about.html',
@@ -100,6 +124,10 @@ class StaticSiteGenerator:
             "{% if request.endpoint == 'economy' %}active{% endif %}": "",
             "{% if request.endpoint == 'leveling' %}active{% endif %}": "",
             "{% if request.endpoint == 'kuznec' %}active{% endif %}": "",
+            "{% if request.endpoint == 'oruzie' %}active{% endif %}": "",
+            "{% if request.endpoint == 'bronya' %}active{% endif %}": "",
+            "{% if request.endpoint == 'zelya' %}active{% endif %}": "",
+            "{% if request.endpoint == 'prochee' %}active{% endif %}": "",
             "{% if request.endpoint == 'about' %}active{% endif %}": ""
         }
         
@@ -142,6 +170,22 @@ class StaticSiteGenerator:
             ('kuznec.html', 'kuznec.html', {
                 'title': 'Кузнечество - Наир',
                 'active_page': 'kuznec'
+            }),
+            ('oruzie.html', 'oruzie.html', {
+                'title': 'Оружие - Наир',
+                'active_page': 'oruzie'
+            }),
+            ('bronya.html', 'bronya.html', {
+                'title': 'Броня - Наир',
+                'active_page': 'bronya'
+            }),
+            ('zelya.html', 'zelya.html', {
+                'title': 'Зелья - Наир',
+                'active_page': 'zelya'
+            }),
+            ('prochee.html', 'prochee.html', {
+                'title': 'Прочее - Наир',
+                'active_page': 'prochee'
             }),
             ('about.html', 'about.html', {
                 'title': 'О Проекте - Наир',

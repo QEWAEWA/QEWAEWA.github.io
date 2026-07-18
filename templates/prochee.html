@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Прочее - Наир{% endblock %}
+
+{% block content %}
+
+<div class="other-page">
+  <div class="other-header">
+    <div class="other-header-image" style="background-image: url('/static/photo/prochee.png');"></div>
+    <div class="other-header-overlay"></div>
+    <div class="other-header-content">
+      <h1 class="page-title">ПРОЧЕЕ</h1>
+      <p class="other-header-subtitle">Тёмные писания и другие товары</p>
+    </div>
+  </div>
+
+  <!-- ===== ТЁМНЫЕ ПИСАНИЯ ===== -->
+  <section class="other-section">
+    <h2 class="other-section-title">
+      <i class="fas fa-book-skull"></i> Тёмные писания
+    </h2>
+    <div class="other-card">
+      <div class="other-card-header">
+        <i class="fas fa-skull"></i>
+        <span>Тёмные писания</span>
+      </div>
+      <div class="other-card-body">
+        <div class="other-info-block">
+          <span class="other-label">Где купить:</span>
+          <span>Можно купить у бродячих торговцев.</span>
+        </div>
+        <div class="other-info-block">
+          <span class="other-label">Особое правило:</span>
+          <span>Такие писания должны сжигать и если у кого-либо их найдут, то скорее всего сожгут.</span>
+        </div>
+        <div class="other-info-block">
+          <span class="other-label">Свойства:</span>
+          <span>Открывают для вас элемент тьмы. После прочтения, в течении 3-х дней в вас формируется ядро темной энергии дарую вам способность овладеть темной энергией.</span>
+        </div>
+        <div class="other-price-block">
+          <span class="other-label">Цена:</span>
+          <span class="other-price">1000 златников</span>
+          <span class="other-sell">Продаётся за 500 златников</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+/* ===== СТРАНИЦА ПРОЧЕЕ ===== */
+.other-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.other-header {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
+}
+
+.other-header-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.other-header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 14, 20, 0.85) 0%,
+    rgba(15, 14, 20, 0.4) 50%,
+    rgba(15, 14, 20, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+.other-header-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.other-header-content .page-title {
+  margin-bottom: 12px;
+  font-size: 2.5em;
+  animation: none;
+}
+
+.other-header-subtitle {
+  color: var(--nair-text);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.1em;
+  opacity: 0.8;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.other-section {
+  margin-bottom: 50px;
+}
+
+.other-section-title {
+  color: var(--nair-accent);
+  font-size: 1.5em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--nair-border);
+}
+
+.other-section-title i {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.other-card {
+  background: var(--nair-card-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px var(--nair-shadow-card);
+  transition: border-color 0.3s ease;
+}
+
+.other-card:hover {
+  border-color: var(--nair-border-accent);
+}
+
+.other-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, rgba(200, 155, 80, 0.12), rgba(200, 155, 80, 0.04));
+  border-bottom: 1px solid var(--nair-border-light);
+  color: var(--nair-accent);
+  font-size: 1.1em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.other-card-header i {
+  font-size: 1.3em;
+  opacity: 0.8;
+}
+
+.other-card-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.other-info-block {
+  display: flex;
+  gap: 10px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.other-label {
+  color: var(--nair-accent);
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.other-price-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  margin-top: 6px;
+  background: rgba(200, 155, 80, 0.08);
+  border: 1px solid rgba(200, 155, 80, 0.15);
+  border-radius: 10px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+}
+
+.other-price {
+  color: var(--nair-accent);
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.other-sell {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+  .other-header {
+    height: 200px;
+  }
+  
+  .other-header-content .page-title {
+    font-size: 1.8em;
+  }
+  
+  .other-section-title {
+    font-size: 1.2em;
+  }
+  
+  .other-info-block {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .other-price-block {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+</style>
+{% endblock %}
