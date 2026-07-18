@@ -180,61 +180,47 @@
             });
         }
         
-        // Автоматические хлебные крошки на основе истории
+        // Автоматические хлебные крошки на основе иерархии страниц
         function setupBreadcrumbs() {
             const breadcrumbs = document.getElementById('breadcrumbs');
             if (!breadcrumbs) return;
             
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             
-            const pageNames = {
-                'index.html': 'Главная',
-                'karta.html': 'Карта',
-                'magic.html': 'Магия',
-                'economy.html': 'Экономика',
-                'kuznec.html': 'Кузнечество',
-                'leveling.html': 'Система прокачки',
-                'ankety.html': 'Анкеты',
-                'lor.html': 'Лор',
-                'about.html': 'О Проекте'
+            // Иерархия страниц (родительские связи)
+            const pageHierarchy = {
+                'index.html': { name: 'Главная', parent: null },
+                'karta.html': { name: 'Карта', parent: 'index.html' },
+                'magic.html': { name: 'Магия', parent: 'index.html' },
+                'economy.html': { name: 'Экономика', parent: 'index.html' },
+                'kuznec.html': { name: 'Кузнечество', parent: 'economy.html' },
+                'leveling.html': { name: 'Система прокачки', parent: 'index.html' },
+                'ankety.html': { name: 'Анкеты', parent: 'index.html' },
+                'lor.html': { name: 'Лор', parent: 'index.html' },
+                'about.html': { name: 'О Проекте', parent: 'index.html' }
             };
             
-            const getName = (file) => pageNames[file] || 
-                file.replace('.html', '').charAt(0).toUpperCase() + file.replace('.html', '').slice(1);
-            
-            const storageKey = 'nair_breadcrumb_trail';
-            let trail = [];
-            
-            try {
-                const saved = sessionStorage.getItem(storageKey);
-                if (saved) trail = JSON.parse(saved);
-            } catch(e) {}
-            
-            // Если текущая страница уже есть в trail — обрезаем до неё (клик по хлебной крошке или Назад)
-            const existingIndex = trail.indexOf(currentPage);
-            if (existingIndex !== -1) {
-                trail = trail.slice(0, existingIndex + 1);
-            } else {
-                // Иначе — добавляем текущую страницу в конец (переход вперёд)
-                trail.push(currentPage);
+            // Собираем цепочку от текущей страницы до корня
+            const chain = [];
+            let current = currentPage;
+            while (current && pageHierarchy[current]) {
+                chain.unshift({ file: current, name: pageHierarchy[current].name });
+                current = pageHierarchy[current].parent;
             }
             
-            // Ограничиваем длину (макс 5 шагов)
-            if (trail.length > 5) {
-                trail = trail.slice(trail.length - 5);
+            // Если страница не найдена в иерархии
+            if (chain.length === 0) {
+                const name = currentPage.replace('.html', '').charAt(0).toUpperCase() + 
+                    currentPage.replace('.html', '').slice(1);
+                breadcrumbs.innerHTML = '<span class="breadcrumb-current">' + name + '</span>';
+                return;
             }
-            
-            // Сохраняем
-            try {
-                sessionStorage.setItem(storageKey, JSON.stringify(trail));
-            } catch(e) {}
             
             // Строим хлебные крошки
             breadcrumbs.innerHTML = '';
             
-            for (let i = 0; i < trail.length; i++) {
-                const fileName = trail[i];
-                const name = getName(fileName);
+            for (let i = 0; i < chain.length; i++) {
+                const item = chain[i];
                 
                 if (i > 0) {
                     const sep = document.createElement('span');
@@ -243,17 +229,16 @@
                     breadcrumbs.appendChild(sep);
                 }
                 
-                if (i === trail.length - 1) {
+                if (i === chain.length - 1) {
                     const span = document.createElement('span');
                     span.className = 'breadcrumb-current';
-                    span.id = 'breadcrumbCurrent';
-                    span.textContent = name;
+                    span.textContent = item.name;
                     breadcrumbs.appendChild(span);
                 } else {
                     const link = document.createElement('a');
-                    link.href = fileName;
+                    link.href = item.file;
                     link.className = 'breadcrumb-link';
-                    link.textContent = name;
+                    link.textContent = item.name;
                     breadcrumbs.appendChild(link);
                 }
             }
