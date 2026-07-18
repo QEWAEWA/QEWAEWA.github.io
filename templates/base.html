@@ -52,24 +52,19 @@
                 <li class="nav-item"><a href="economy.html" class="nav-link">Экономика</a></li>
                 <li class="nav-item"><a href="leveling.html" class="nav-link">Система прокачки</a></li>
                 <li class="nav-item"><a href="ankety.html" class="nav-link">Анкеты</a></li>
+                <li class="nav-item"><a href="kuznec.html" class="nav-link">Кузнечество</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">О Проекте</a></li>
             </ul>
         </nav>
 
         <!-- Основной контент -->
         <main class="original-main">
-            <!-- Хлебные крошки -->
-            {% block breadcrumbs %}
-            <div class="breadcrumbs">
-                {% if self.breadcrumb_current() %}
+            <!-- Хлебные крошки (автоматические, через JS) -->
+            <div class="breadcrumbs" id="breadcrumbs">
                 <a href="index.html" class="breadcrumb-link">Главная</a>
                 <span class="breadcrumb-separator">›</span>
-                <span class="breadcrumb-current">{% block breadcrumb_current %}{% endblock %}</span>
-                {% else %}
-                <span class="breadcrumb-current">Главная</span>
-                {% endif %}
+                <span class="breadcrumb-current" id="breadcrumbCurrent">Загрузка...</span>
             </div>
-            {% endblock %}
             
             {% block content %}{% endblock %}
         </main>
@@ -148,6 +143,7 @@
                 { text: 'Система прокачки', href: 'leveling.html' },
                 { text: 'Анкеты', href: 'ankety.html' },
                 { text: 'Лор', href: 'lor.html' },
+                { text: 'Кузнечество', href: 'kuznec.html' },
                 { text: 'О Проекте', href: 'about.html' }
             ];
             
@@ -184,8 +180,79 @@
             });
         }
         
+        // Автоматические хлебные крошки
+        function setupBreadcrumbs() {
+            const breadcrumbs = document.getElementById('breadcrumbs');
+            const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+            if (!breadcrumbs || !breadcrumbCurrent) return;
+            
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            // Иерархия страниц: [имя_файла, {название, родитель?}]
+            const pageHierarchy = {
+                'index.html': { name: 'Главная', parent: null },
+                'karta.html': { name: 'Карта', parent: 'index.html' },
+                'magic.html': { name: 'Магия', parent: 'index.html' },
+                'economy.html': { name: 'Экономика', parent: 'index.html' },
+                'kuznec.html': { name: 'Кузнечество', parent: 'economy.html' },
+                'leveling.html': { name: 'Система прокачки', parent: 'index.html' },
+                'ankety.html': { name: 'Анкеты', parent: 'index.html' },
+                'lor.html': { name: 'Лор', parent: 'index.html' },
+                'about.html': { name: 'О Проекте', parent: 'index.html' }
+            };
+            
+            const pageInfo = pageHierarchy[currentPage];
+            if (!pageInfo) {
+                const name = currentPage.replace('.html', '').charAt(0).toUpperCase() + currentPage.replace('.html', '').slice(1);
+                breadcrumbCurrent.textContent = name;
+                return;
+            }
+            
+            // Собираем путь от корня до текущей страницы (только имена файлов)
+            const chain = [];
+            let current = currentPage;
+            while (current) {
+                chain.unshift(current);
+                const info = pageHierarchy[current];
+                current = info ? info.parent : null;
+            }
+            
+            // Полностью перестраиваем breadcrumbs
+            breadcrumbs.innerHTML = '';
+            
+            for (let i = 0; i < chain.length; i++) {
+                const fileName = chain[i];
+                const info = pageHierarchy[fileName];
+                
+                if (i > 0) {
+                    const sep = document.createElement('span');
+                    sep.className = 'breadcrumb-separator';
+                    sep.textContent = '›';
+                    breadcrumbs.appendChild(sep);
+                }
+                
+                if (i === chain.length - 1) {
+                    // Последний элемент — текущая страница (без ссылки)
+                    const span = document.createElement('span');
+                    span.className = 'breadcrumb-current';
+                    span.id = 'breadcrumbCurrent';
+                    span.textContent = info.name;
+                    breadcrumbs.appendChild(span);
+                } else {
+                    // Промежуточный элемент — ссылка
+                    const link = document.createElement('a');
+                    link.href = fileName;
+                    link.className = 'breadcrumb-link';
+                    link.textContent = info.name;
+                    breadcrumbs.appendChild(link);
+                }
+            }
+        }
+        
         // Автоматическая генерация содержания (TOC)
         document.addEventListener('DOMContentLoaded', function() {
+            // Запускаем хлебные крошки
+            setupBreadcrumbs();
             const tocNav = document.getElementById('tocNav');
             const tocSidebar = document.getElementById('tocSidebar');
             if (!tocNav || !tocSidebar) return;
