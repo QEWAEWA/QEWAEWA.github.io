@@ -1,0 +1,582 @@
+{% extends "base.html" %}
+
+{% block title %}Кузнечество - Наир{% endblock %}
+{% block breadcrumb_current %}Кузнечество{% endblock %}
+
+{% block content %}
+
+<div class="kuznec-page">
+  <div class="kuznec-header">
+    <div class="kuznec-header-image" style="background-image: url('/static/photo/kuznya.png');"></div>
+    <div class="kuznec-header-overlay"></div>
+    <div class="kuznec-header-content">
+      <h1 class="page-title">КУЗНЕЧЕСТВО</h1>
+      <p class="kuznec-header-subtitle">Цены на металлы и руду</p>
+    </div>
+  </div>
+
+  <!-- ===== ОПИСАНИЕ ===== -->
+  <section class="kuznec-section">
+    <h2 class="kuznec-section-title">
+      <i class="fas fa-hammer"></i> О кузнечестве
+    </h2>
+    
+    <div class="kuznec-description">
+      <p>Кузнечество занимает очень большую часть в общей экономике всего Наира и тесно связано со всеми остальными её аспектами. В крупных городах уживаются как частные, так и государственные кузнецы.</p>
+      
+      <p>Первые меньше ограничены в своих действиях и вольны заниматься различными вещами, торговать с кем угодно. Однако именно на них накладываются наибольшие налоги властями. Если кузнец занимается чем-то крупнее, чем делает вилы и тяпки, то его непременно заметят и обяжут вести книгу хозяйства со всеми продажами своих товаров. Это случается, если недельный заработок превышает 5000 золотых, и часто для этих дел заводят личных финансистов. Для таких частных кузнецов налог составляет от 25 до 35%. Это зависит от размахов самого кузнеца, и от того, сколь много их в самом городе. Особо крупных кузнецов государство всегда хочет видеть у себя.</p>
+      
+      <p>Государственные кузнецы работают лишь в интересах государства. Последнее устанавливает ограниченные цены на продукцию, которую делает кузнец, а так же запрещает вести дела с кем-либо кроме государства. В замен такие кузнецы получают куда меньший налог на своё дело, всего около 10%, а так же позволяет дешевле закупать сырьё в уже государственных шахтах и рынках.</p>
+      
+      <p>Многие металлы очень редки из-за того, что находятся они лишь в руках гномов, и торговля ими незаконна или очень дорога. Именно гномами добывается большая часть эбонита, и лишь ими добывается титанит и мифрил, продажа последнего незаконна у гномов, из-за чего найти этот металл в продаже в Бранне сложно, а так же это очень дорого.</p>
+      
+      <p>На руду, а так же продукцию кузнецов часто ставятся пошлины, при вывозе из города, зависящие от содержимого вывозимого.</p>
+    </div>
+    
+    <div class="kuznec-note">
+      <i class="fas fa-link"></i>
+      <div>
+        <strong>Связанный раздел:</strong> <a href="lor.html" class="kuznec-link">Характеристики оружия</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ДРАГОЦЕННЫЕ КАМНИ ===== -->
+  <section class="kuznec-section">
+    <h2 class="kuznec-section-title">
+      <i class="fas fa-gem"></i> Драгоценные камни
+    </h2>
+    
+    <div class="table-scroll">
+      <table class="kuznec-table">
+        <thead>
+          <tr>
+            <th>Камень</th>
+            <th>Цена за штуку</th>
+            <th>Коэффициент прибавки к стоимости украшения</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Жемчуг</td><td class="price-cell">400 златников / 120 рунгов</td><td class="price-cell">x1,5</td></tr>
+          <tr><td>Аметист</td><td class="price-cell">650 златников / 200 рунгов</td><td class="price-cell">x1,5</td></tr>
+          <tr><td>Синий сапфир</td><td class="price-cell">820 златников / 294 рунга</td><td class="price-cell">x1,4</td></tr>
+          <tr><td>Изумруд</td><td class="price-cell">1400 златников / 417 рунгов</td><td class="price-cell">x1,4</td></tr>
+          <tr><td>Рубин</td><td class="price-cell">2220 златников / 794 рунга</td><td class="price-cell">x1,5</td></tr>
+          <tr><td>Александрит</td><td class="price-cell">3500 златников / 1000 рунгов</td><td class="price-cell">x1,4</td></tr>
+          <tr><td>Бриллиант</td><td class="price-cell">8000 златников / 3000 рунгов</td><td class="price-cell">x1,6</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== МЕТАЛЛЫ ===== -->
+  <section class="kuznec-section">
+    <h2 class="kuznec-section-title">
+      <i class="fas fa-tools"></i> Цены на металлы и руду
+    </h2>
+    
+    <p class="kuznec-note-text">Цены ниже указаны для продукции в количестве 1 килограмм.</p>
+
+    <!-- Железо -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon iron"></i> Железо
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">14 златников</td><td class="price-cell">50 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">12 златников</td><td class="price-cell">42 златника</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">4 рунга</td><td class="price-cell">13 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Сталь -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon steel"></i> Сталь
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">—</td><td class="price-cell">100 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">—</td><td class="price-cell">140 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">—</td><td class="price-cell">35 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Звёздный металл -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-star metal-icon star"></i> Звёздный Металл
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">400 златников</td><td class="price-cell">—</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">102 златника</td><td class="price-cell">320 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">22 рунга</td><td class="price-cell">45 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Серебро -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon silver"></i> Серебро
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">200 златников</td><td class="price-cell">500 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">140 златников</td><td class="price-cell">400 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">32 рунга</td><td class="price-cell">120 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Золото -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon gold"></i> Золото
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">—</td><td class="price-cell">10000 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">—</td><td class="price-cell">8000 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">—</td><td class="price-cell">3000 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Эбонит -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon ebonite"></i> Эбонит
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">—</td><td class="price-cell">1500 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">700 златников</td><td class="price-cell">1250 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">—</td><td class="price-cell">450 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Титанит -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon titanite"></i> Титанит
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">—</td><td class="price-cell">3000 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">—</td><td class="price-cell">3300 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">—</td><td class="price-cell">1300 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Мифрил -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon mithril"></i> Мифрил
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">—</td><td class="price-cell">10000 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">—</td><td class="price-cell">9000 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">—</td><td class="price-cell">3500 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Адамантит -->
+    <div class="metal-block">
+      <h3 class="metal-title">
+        <i class="fas fa-circle metal-icon adamantite"></i> Адамантит
+      </h3>
+      <div class="table-scroll">
+        <table class="kuznec-table">
+          <thead>
+            <tr>
+              <th>Государство</th>
+              <th>Не очищенная руда</th>
+              <th>Очищенный слиток металла</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Корвус</td><td class="price-cell">8200 златников</td><td class="price-cell">20000 златников</td></tr>
+            <tr><td>Великая Империя</td><td class="price-cell">8400 златников</td><td class="price-cell">23000 златников</td></tr>
+            <tr><td>Альянс эльфов</td><td class="price-cell">3300 рунгов</td><td class="price-cell">800 рунгов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+/* ===== СТРАНИЦА КУЗНЕЧЕСТВА ===== */
+.kuznec-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* ===== ШАПКА ===== */
+.kuznec-header {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid var(--nair-border);
+  box-shadow: 0 8px 32px var(--nair-shadow-card);
+}
+
+.kuznec-header-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.kuznec-header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 14, 20, 0.85) 0%,
+    rgba(15, 14, 20, 0.4) 50%,
+    rgba(15, 14, 20, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+.kuznec-header-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.kuznec-header-content .page-title {
+  margin-bottom: 12px;
+  font-size: 2.5em;
+  animation: none;
+}
+
+.kuznec-header-subtitle {
+  color: var(--nair-text);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.1em;
+  opacity: 0.8;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* ===== СЕКЦИИ ===== */
+.kuznec-section {
+  margin-bottom: 50px;
+}
+
+.kuznec-section-title {
+  color: var(--nair-accent);
+  font-size: 1.6em;
+  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-shadow: 0 0 20px var(--nair-accent-glow);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--nair-border);
+}
+
+.kuznec-section-title i {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+/* ===== ОПИСАНИЕ ===== */
+.kuznec-description {
+  background: var(--nair-card-bg);
+  border: 1px solid var(--nair-border);
+  border-radius: 14px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 16px var(--nair-shadow-card);
+}
+
+.kuznec-description p {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Fira Sans', sans-serif;
+  line-height: 1.8;
+  font-size: 0.95em;
+  margin-bottom: 16px;
+}
+
+.kuznec-description p:last-child {
+  margin-bottom: 0;
+}
+
+.kuznec-note {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(200, 155, 80, 0.06);
+  border: 1px solid rgba(200, 155, 80, 0.15);
+  border-radius: 10px;
+  margin-top: 20px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.kuznec-note i {
+  color: var(--nair-accent);
+  font-size: 1.2em;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.kuznec-note strong {
+  color: var(--nair-accent);
+}
+
+.kuznec-link {
+  color: var(--nair-accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 155, 80, 0.3);
+  transition: all 0.3s ease;
+}
+
+.kuznec-link:hover {
+  border-bottom-color: var(--nair-accent);
+  text-shadow: 0 0 10px var(--nair-accent-glow);
+}
+
+.kuznec-note-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.9em;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+/* ===== МЕТАЛЛЫ ===== */
+.metal-block {
+  margin-bottom: 30px;
+}
+
+.metal-title {
+  color: var(--nair-text);
+  font-size: 1.1em;
+  font-weight: 600;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.metal-icon {
+  font-size: 0.8em;
+}
+
+.metal-icon.iron { color: #8a8a8a; }
+.metal-icon.steel { color: #b0b0b0; }
+.metal-icon.star { color: #f0d080; }
+.metal-icon.silver { color: #c0c8d0; }
+.metal-icon.gold { color: #c89b53; }
+.metal-icon.ebonite { color: #2a1a3a; }
+.metal-icon.titanite { color: #7a8a9a; }
+.metal-icon.mithril { color: #a0d0e0; }
+.metal-icon.adamantite { color: #8a4060; }
+
+/* ===== ТАБЛИЦЫ ===== */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.kuznec-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.95em;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px var(--nair-shadow-card);
+}
+
+.kuznec-table thead {
+  background: linear-gradient(135deg, rgba(200, 155, 80, 0.15), rgba(200, 155, 80, 0.08));
+}
+
+.kuznec-table th {
+  color: var(--nair-accent);
+  font-weight: 600;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 18px;
+  text-align: center;
+  border-bottom: 2px solid var(--nair-border-accent);
+  white-space: nowrap;
+}
+
+.kuznec-table th:first-child {
+  text-align: left;
+}
+
+.kuznec-table th:last-child {
+  text-align: right;
+}
+
+.kuznec-table td {
+  padding: 12px 18px;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--nair-border-light);
+  background: var(--nair-card-bg);
+  transition: background 0.2s ease;
+}
+
+.kuznec-table tbody tr:hover td {
+  background: rgba(200, 155, 80, 0.04);
+}
+
+.kuznec-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.price-cell {
+  color: var(--nair-accent) !important;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Анимация */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .kuznec-header {
+    height: 200px;
+  }
+  
+  .kuznec-header-content .page-title {
+    font-size: 1.8em;
+  }
+  
+  .kuznec-table {
+    font-size: 0.85em;
+  }
+  
+  .kuznec-table th,
+  .kuznec-table td {
+    padding: 10px 12px;
+  }
+  
+  .kuznec-section-title {
+    font-size: 1.3em;
+  }
+  
+  .kuznec-description {
+    padding: 18px 20px;
+  }
+}
+</style>
+{% endblock %}
