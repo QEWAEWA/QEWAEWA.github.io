@@ -18,6 +18,10 @@ def lor():
 def ankety():
     return "Страница с анкетами (в разработке)"
 
+@app.route('/kuznec')
+def kuznec():
+    return render_template('kuznec.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html')
