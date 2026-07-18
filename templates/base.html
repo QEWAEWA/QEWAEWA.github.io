@@ -180,15 +180,13 @@
             });
         }
         
-        // Автоматические хлебные крошки на основе истории переходов
+        // Автоматические хлебные крошки на основе истории
         function setupBreadcrumbs() {
             const breadcrumbs = document.getElementById('breadcrumbs');
-            const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
-            if (!breadcrumbs || !breadcrumbCurrent) return;
+            if (!breadcrumbs) return;
             
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             
-            // Названия страниц
             const pageNames = {
                 'index.html': 'Главная',
                 'karta.html': 'Карта',
@@ -201,59 +199,27 @@
                 'about.html': 'О Проекте'
             };
             
-            const currentName = pageNames[currentPage] || 
-                currentPage.replace('.html', '').charAt(0).toUpperCase() + 
-                currentPage.replace('.html', '').slice(1);
+            const getName = (file) => pageNames[file] || 
+                file.replace('.html', '').charAt(0).toUpperCase() + file.replace('.html', '').slice(1);
             
-            // Используем sessionStorage для хранения цепочки навигации
             const storageKey = 'nair_breadcrumb_trail';
             let trail = [];
             
             try {
                 const saved = sessionStorage.getItem(storageKey);
-                if (saved) {
-                    trail = JSON.parse(saved);
-                }
+                if (saved) trail = JSON.parse(saved);
             } catch(e) {}
             
-            // Определяем, откуда пришли
-            const referrer = document.referrer;
-            let referrerPage = '';
-            if (referrer) {
-                try {
-                    const refUrl = new URL(referrer);
-                    const refPath = refUrl.pathname.split('/').pop() || 'index.html';
-                    // Проверяем, что referrer с того же сайта
-                    if (refUrl.hostname === window.location.hostname && 
-                        pageNames[refPath] && 
-                        refPath !== currentPage) {
-                        referrerPage = refPath;
-                    }
-                } catch(e) {}
-            }
-            
-            // Если пришли с другой страницы нашего сайта
-            if (referrerPage) {
-                // Ищем, был ли referrer в trail
-                const refIndex = trail.indexOf(referrerPage);
-                if (refIndex !== -1) {
-                    // Обрезаем trail до referrer-а (возврат назад)
-                    trail = trail.slice(0, refIndex + 1);
-                } else {
-                    // Добавляем referrer, если его нет
-                    trail.push(referrerPage);
-                }
-                
-                // Добавляем текущую страницу, если её нет в конце
-                if (trail[trail.length - 1] !== currentPage) {
-                    trail.push(currentPage);
-                }
+            // Если текущая страница уже есть в trail — обрезаем до неё (клик по хлебной крошке или Назад)
+            const existingIndex = trail.indexOf(currentPage);
+            if (existingIndex !== -1) {
+                trail = trail.slice(0, existingIndex + 1);
             } else {
-                // Пришли напрямую или с внешнего сайта — начинаем новую цепочку
-                trail = [currentPage];
+                // Иначе — добавляем текущую страницу в конец (переход вперёд)
+                trail.push(currentPage);
             }
             
-            // Ограничиваем длину цепочки (макс 5 шагов)
+            // Ограничиваем длину (макс 5 шагов)
             if (trail.length > 5) {
                 trail = trail.slice(trail.length - 5);
             }
@@ -263,14 +229,12 @@
                 sessionStorage.setItem(storageKey, JSON.stringify(trail));
             } catch(e) {}
             
-            // Строим breadcrumbs
+            // Строим хлебные крошки
             breadcrumbs.innerHTML = '';
             
             for (let i = 0; i < trail.length; i++) {
                 const fileName = trail[i];
-                const name = pageNames[fileName] || 
-                    fileName.replace('.html', '').charAt(0).toUpperCase() + 
-                    fileName.replace('.html', '').slice(1);
+                const name = getName(fileName);
                 
                 if (i > 0) {
                     const sep = document.createElement('span');
@@ -280,14 +244,12 @@
                 }
                 
                 if (i === trail.length - 1) {
-                    // Текущая страница — без ссылки
                     const span = document.createElement('span');
                     span.className = 'breadcrumb-current';
                     span.id = 'breadcrumbCurrent';
                     span.textContent = name;
                     breadcrumbs.appendChild(span);
                 } else {
-                    // Промежуточная страница — ссылка
                     const link = document.createElement('a');
                     link.href = fileName;
                     link.className = 'breadcrumb-link';
