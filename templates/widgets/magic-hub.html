@@ -1,0 +1,13 @@
+{# Главная страница магии (layout: magic) #}
+<div class="mg-articles">
+  {% for p in magic_pages %}
+  <a class="mg-article" href="{{ p.href }}">
+    <span class="mg-article-art"><img src="/static/{{ p.art or p.image }}" alt="" loading="lazy"></span>
+    <span class="mg-article-body">
+      <span class="mg-article-name">{{ p.title }}</span>
+      {% if p.summary %}<span class="mg-article-summary">{{ p.summary }}</span>{% endif %}
+    </span>
+  </a>
+  {% endfor %}
+</div>
+{% include 'widgets/magic-types.html' %}

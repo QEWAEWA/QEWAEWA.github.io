@@ -1,0 +1,33 @@
+{# Доска квестов (layout: quests) #}
+{% set regions = {'Территория Империи людей': 'Империя людей', 'Территория Альянса эльфов': 'Альянс эльфов', 'Территория Великой Империи ящеров': 'Империя ящеров'} %}
+<div class="qs-toolbar" id="qsToolbar">
+  <div class="qs-filter" data-filter="level">
+    <span class="qs-filter-label">Сложность</span>
+    <button type="button" class="active" data-value="">Любая</button>
+    {% for lvl, name in [(1, 'Лёгкая'), (2, 'Средняя'), (3, 'Высокая'), (4, 'Очень высокая')] %}
+    <button type="button" data-value="{{ lvl }}"><span class="sc-pips sc-pips--sm">{% for i in range(4) %}<i class="{{ 'on' if i < lvl }}"></i>{% endfor %}</span>{{ name }}</button>
+    {% endfor %}
+  </div>
+  <div class="qs-filter" data-filter="region">
+    <span class="qs-filter-label">Земли</span>
+    <button type="button" class="active" data-value="">Все</button>
+    {% for full, short in regions.items() %}<button type="button" data-value="{{ full }}">{{ short }}</button>{% endfor %}
+  </div>
+</div>
+<div class="qs-board" id="qsBoard">
+  {% for group in child_groups %}{% for c in group.pages %}
+  {% set q = c.quest %}
+  <a class="qs-card" href="{{ c.href }}" data-level="{{ q.level }}" data-region="{{ c.group }}">
+    <span class="qs-pin"></span>
+    <span class="qs-card-region">{{ regions.get(c.group, c.group) }}</span>
+    <span class="qs-card-title">{{ c.title }}</span>
+    <span class="qs-level qs-level--{{ q.level }}"><span class="sc-pips sc-pips--sm">{% for i in range(4) %}<i class="{{ 'on' if i < q.level }}"></i>{% endfor %}</span>{{ q.level_name }}{% if q.players %} · {{ q.players }}{% endif %}</span>
+    <span class="qs-card-teaser">{{ q.teaser }}</span>
+    <span class="qs-card-foot">
+      <span class="qs-card-where"><i class="bi bi-geo-alt"></i> {% set w = q.where.split(',')[0] %}{{ q.places|map(attribute='title')|join(', ') if q.places and w|length > 40 else w }}</span>
+      <span class="qs-card-reward">{{ q.reward_short or 'Награда не указана' }}</span>
+    </span>
+  </a>
+  {% endfor %}{% endfor %}
+  <p class="qs-empty" id="qsEmpty" hidden>Нет квестов с такими условиями</p>
+</div>

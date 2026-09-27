@@ -1,0 +1,25 @@
+{# Страница «Элементы и типы магии»: элементы и как из них собираются типы магии #}
+<section class="mg-how">
+  <h2 class="bs-group-title" id="iz-chego-skladyvaetsya-magiya"><span class="orn"></span> Из чего складывается магия</h2>
+  <p class="mg-how-text">Каждый тип магии собирается из элементов. Одни типы используют один элемент, другие — два элемента или элемент и другой тип магии. Для остальных типов элементы не указаны.</p>
+  <div class="mg-formulas">
+    <div class="mg-formulas-col">
+      <div class="mg-formulas-title">Элементы</div>
+      <div class="mg-elements-list">
+        {% for e in magic.elements %}<span class="mg-el"><small>элемент</small><i class="bi {{ e.icon }}"></i>{{ e.name|capitalize }}</span>{% endfor %}
+      </div>
+    </div>
+    <div class="mg-formulas-col">
+      <div class="mg-formulas-title">Типы магии и как они собираются</div>
+      {% for g in magic.groups if g.id in ('pure', 'mixed') %}{% for t in g.types %}
+      <div class="mg-formula">
+        <span class="mg-formula-parts">
+          {% for p in t.parts %}{% if not loop.first %}<span class="mg-plus">+</span>{% endif %}{% include 'widgets/magic-part.html' %}{% endfor %}
+        </span>
+        <span class="mg-arrow"><i class="bi bi-arrow-right"></i></span>
+        <a class="mg-formula-result" href="{{ t.href }}">{{ t.title }}</a>
+      </div>
+      {% endfor %}{% endfor %}
+    </div>
+  </div>
+</section>

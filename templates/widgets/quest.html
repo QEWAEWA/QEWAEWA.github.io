@@ -1,0 +1,41 @@
+{# Страница квеста (layout: quest): объявление + описание + как отчитаться #}
+{% set q = quest %}
+<article class="qs-notice{% if page.banner %} qs-notice--art{% endif %}">
+  <div class="qs-notice-main">
+    <div class="qs-region"><span class="orn"></span> {{ page.group }}</div>
+    <h1 class="qs-title">{{ page.title }}</h1>
+    <div class="qs-level qs-level--{{ q.level }}">
+      <span class="sc-pips">{% for i in range(4) %}<i class="{{ 'on' if i < q.level }}"></i>{% endfor %}</span>
+      {{ q.level_name }} сложность
+    </div>
+    <dl class="qs-facts">
+      {% if q.players %}<div><dt>Игроки</dt><dd>{{ q.players }}</dd></div>{% endif %}
+      <div><dt>Где взять</dt><dd>{{ q.where }}
+        {% if q.places %}<span class="qs-places">{% for p in q.places %}<span class="qs-place"><a href="{{ p.href }}">{{ p.title }}</a><a class="qs-place-map" href="{{ p.map }}" title="Показать {{ p.title }} на карте"><i class="bi bi-geo-alt"></i> на карте</a></span>{% endfor %}</span>{% endif %}
+      </dd></div>
+      <div class="qs-reward"><dt>Награда</dt><dd>{{ q.reward }}</dd></div>
+    </dl>
+  </div>
+  {% if page.banner %}
+  <a class="qs-art" href="/static/{{ page.banner }}" data-lightbox title="Открыть картинку целиком">
+    <img src="/static/{{ page.banner }}" alt="">
+  </a>
+  {% endif %}
+</article>
+
+<div class="content-section">
+  <div class="section-header"><i class="bi bi-journal-text"></i><h2 id="opisanie">Описание</h2></div>
+  <div class="text-content">{{ q.body }}</div>
+</div>
+
+<div class="content-section qs-report">
+  <div class="section-header"><i class="bi bi-send"></i><h2 id="kak-sdat">Как сдать квест</h2></div>
+  <div class="text-content">
+    <p>При выполнении квеста оставляйте ссылку на какого-либо администратора, чтобы прогресс не ушёл впустую.</p>
+  </div>
+  <pre class="qs-template" id="qsTemplate">Имя фамилия: 
+Локация: 
+Ссылка на АДМ: 
+Название квеста: {{ page.title }}</pre>
+  <button type="button" class="qs-copy" data-copy="qsTemplate"><i class="bi bi-clipboard"></i> <span>Скопировать шаблон</span></button>
+</div>

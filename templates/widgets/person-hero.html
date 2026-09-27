@@ -1,0 +1,25 @@
+{# Шапка страницы важного персонажа (layout: person) #}
+{% set person_kinds = {'Правители': 'ruler', 'Лидеры организаций': 'leader'} %}
+{% set kind = person_kinds.get(page.group, 'leader') %}
+{% set pr = page.person or {} %}
+<header class="cr-hero rc-hero ps-hero cr-kind--{{ kind }}{% if cr_wide %} cr-hero--wide{% endif %}">
+  <div class="cr-hero-bg"><div style="background-image: url('/static/{{ cr_shot }}');"></div></div>
+  <a class="cr-hero-art" href="/static/{{ cr_shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
+    <img src="/static/{{ cr_shot }}" alt="{{ page.title }}">
+    <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
+  </a>
+  <div class="cr-hero-info">
+    <a class="cr-kind" href="{{ cr_parent.href }}#{{ kind }}"><span class="orn"></span> {{ page.group }}</a>
+    <h1 class="cr-name">{{ page.title }}</h1>
+    {% if pr.name and pr.name != page.title %}<p class="ps-fullname">{{ pr.name }}</p>{% endif %}
+    {% if pr.status %}<p class="ps-status">{{ pr.status }}</p>{% endif %}
+    <dl class="cr-facts">
+      {% if pr.race %}
+      <div class="cr-fact"><dt>Раса</dt><dd class="rc-fact-value">{{ pr.race }}</dd></div>
+      {% endif %}
+      {% if pr.age %}
+      <div class="cr-fact"><dt>Возраст</dt><dd class="rc-fact-value">{{ pr.age }}</dd></div>
+      {% endif %}
+    </dl>
+  </div>
+</header>

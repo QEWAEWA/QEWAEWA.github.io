@@ -1,0 +1,28 @@
+{# Типы магии: фильтр по элементу + группы карточек #}
+<section class="mg-types" id="types">
+  <div class="mg-elements">
+    <span class="mg-elements-label">Элемент</span>
+    <button type="button" class="mg-elbtn active" data-el="">Все</button>
+    {% for e in magic.elements %}
+    <button type="button" class="mg-elbtn" data-el="{{ e.name }}"><i class="bi {{ e.icon }}"></i>{{ e.name|capitalize }}</button>
+    {% endfor %}
+  </div>
+  {% for g in magic.groups %}
+  <div class="mg-group" data-group="{{ g.id }}">
+    <h2 class="bs-group-title" id="{{ g.id }}"><span class="orn"></span> {{ g.title }} <small>{{ g.types|length }}</small></h2>
+    <p class="mg-group-note">{{ g.note }}</p>
+    <div class="mg-grid">
+      {% for t in g.types %}
+      <a class="mg-card" href="{{ t.href }}" data-elements="{{ t.elements|join(' ') }}">
+        <span class="mg-card-art"><img src="/static/{{ t.art or t.image }}" alt="" loading="lazy"{% if t.art_position %} style="object-position: {{ t.art_position }}"{% endif %}></span>
+        <span class="mg-card-body">
+          <span class="mg-card-name">{{ t.title }}</span>
+          {% if t.parts %}<span class="mg-card-parts">{% for p in t.parts %}{% if not loop.first %} + {% endif %}{% if p.href %}{{ p.type_title }}{% else %}{% if p.icon %}<i class="bi {{ p.icon }}"></i>{% endif %}{{ p.name }}{% endif %}{% endfor %}</span>{% endif %}
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+  <p class="qs-empty" id="mgEmpty" hidden>Нет типов с таким элементом</p>
+</section>

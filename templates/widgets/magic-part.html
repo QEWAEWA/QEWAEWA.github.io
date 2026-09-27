@@ -1,0 +1,2 @@
+{# Одна составная часть типа магии: элемент или другой тип магии #}
+{% if p.href %}<a class="mg-el mg-el--type" href="{{ p.href }}"><small>тип магии</small>{{ p.type_title }}</a>{% else %}<span class="mg-el">{% if p.icon %}<small>элемент</small><i class="bi {{ p.icon }}"></i>{% endif %}{{ p.name|capitalize }}</span>{% endif %}

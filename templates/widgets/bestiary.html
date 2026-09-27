@@ -1,0 +1,32 @@
+{# Бестиарий (layout: bestiary): группы существ карточками с артами #}
+{% set fauna_kinds = {'Звери': ['beast', 'bi-feather'], 'Чудовища': ['monster', 'bi-fire'], 'Вампиры': ['vampire', 'bi-droplet-half'], 'Духи и призраки': ['spirit', 'bi-moon-stars'], 'Порождения скверны': ['taint', 'bi-radioactive']} %}
+{% set tame_icons = {'yes': 'bi-heart-fill', 'maybe': 'bi-hand-thumbs-up', 'no': 'bi-x-octagon'} %}
+<nav class="bs-nav">
+  {% for group in child_groups if group.title %}
+  {% set kind = fauna_kinds.get(group.title, ['beast', 'bi-bug']) %}
+  <a href="#{{ kind[0] }}" class="bs-nav-chip cr-kind--{{ kind[0] }}">
+    <span class="orn"></span><span>{{ group.title }}</span><b>{{ group.pages|length }}</b>
+  </a>
+  {% endfor %}
+</nav>
+{% for group in child_groups if group.title %}
+{% set kind = fauna_kinds.get(group.title, ['beast', 'bi-bug']) %}
+<section class="bs-group cr-kind--{{ kind[0] }}" id="{{ kind[0] }}">
+  <h2 class="bs-group-title"><span class="orn"></span> {{ group.title }} <small>{{ group.pages|length }}</small></h2>
+  <div class="bs-grid">
+    {% for c in group.pages %}
+    <a class="bs-card" href="{{ c.href }}">
+      <div class="bs-card-art">
+        <img src="/static/{{ c.art or c.image }}" alt="{{ c.title }}" loading="lazy"{% if c.art_position %} style="object-position: {{ c.art_position }}"{% endif %}>
+      </div>
+      <div class="bs-card-body">
+        <span class="bs-card-name">{{ c.title }}</span>
+        {% if c.facts and c.facts.taming %}
+        <span class="bs-tame cr-tone--{{ c.facts.taming }}">{{ c.facts.taming_label }}</span>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}

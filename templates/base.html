@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Наир - текстовая фэнтези ролевая игра">
     <meta name="theme-color" content="#0f0e14">
-    <title>{% block title %}Наир - текстовая фэнтези ролевая{% endblock %}</title>
+    <title>{% block title %}{{ title or 'Наир - текстовая фэнтези ролевая' }}{% endblock %}</title>
     
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Шрифт Fira Sans со всеми начертаниями (жирный, полужирный, курсив) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap">
     <!-- Ваши кастомные стили -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=20260709">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=20260926j">
+    {% block head %}{% endblock %}
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='photo/favicon.ico') }}" type="image/x-icon">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <!-- Шапка сайта с поиском -->
     <header class="site-header">
         <button class="nav-toggle" id="navToggle" aria-label="Открыть/Закрыть меню">
@@ -42,18 +47,13 @@
         <!-- Навигация (левая панель) -->
         <nav class="original-nav" id="navMenu">
             <ul class="nav-list">
-                <li class="nav-item"><a href="index.html" class="nav-link">Главная</a></li>
-                
-                <!-- Разделительная линия ПОСЛЕ кнопки Главная -->
+                {% for item in nav_items %}
+                {% if item %}
+                <li class="nav-item"><a href="{{ item.href }}" class="nav-link{% if item.slug == active_nav %} active{% endif %}">{{ item.title }}</a></li>
+                {% else %}
                 <div class="nav-divider"></div>
-                
-                <li class="nav-item"><a href="karta.html" class="nav-link">Карта</a></li>
-                <li class="nav-item"><a href="magic.html" class="nav-link">Магия</a></li>
-                <li class="nav-item"><a href="economy.html" class="nav-link">Экономика</a></li>
-                <li class="nav-item"><a href="leveling.html" class="nav-link">Система прокачки</a></li>
-                <li class="nav-item"><a href="ankety.html" class="nav-link">Анкеты</a></li>
-                <li class="nav-item"><a href="kuznec.html" class="nav-link">Кузнечество</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">О Проекте</a></li>
+                {% endif %}
+                {% endfor %}
             </ul>
         </nav>
 
@@ -61,9 +61,14 @@
         <main class="original-main">
             <!-- Хлебные крошки (автоматические, через JS) -->
             <div class="breadcrumbs" id="breadcrumbs">
-                <a href="index.html" class="breadcrumb-link">Главная</a>
-                <span class="breadcrumb-separator">›</span>
-                <span class="breadcrumb-current" id="breadcrumbCurrent">Загрузка...</span>
+                {% for crumb in breadcrumbs %}
+                {% if not loop.first %}<span class="breadcrumb-separator">›</span>{% endif %}
+                {% if loop.last %}
+                <span class="breadcrumb-current">{{ crumb.title }}</span>
+                {% else %}
+                <a href="{{ crumb.href }}" class="breadcrumb-link">{{ crumb.title }}</a>
+                {% endif %}
+                {% endfor %}
             </div>
             
             {% block content %}{% endblock %}
@@ -122,60 +127,37 @@
             }
         });
         
-        // Определение активной страницы
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-                link.classList.add('active');
-            }
-        });
-        
-        // Поиск
+        // Поиск по всем страницам сайта (список собирается генератором)
         const searchInput = document.querySelector('.header-search .search-input');
         const suggestionsDiv = document.querySelector('.header-search .suggestions');
         if (searchInput && suggestionsDiv) {
-            const searchItems = [
-                { text: 'Главная', href: 'index.html' },
-                { text: 'Карта', href: 'karta.html' },
-                { text: 'Магия', href: 'magic.html' },
-                { text: 'Экономика', href: 'economy.html' },
-                { text: 'Система прокачки', href: 'leveling.html' },
-                { text: 'Анкеты', href: 'ankety.html' },
-                { text: 'Лор', href: 'lor.html' },
-                { text: 'Кузнечество', href: 'kuznec.html' },
-                { text: 'Оружие', href: 'oruzie.html' },
-                { text: 'Броня', href: 'bronya.html' },
-                { text: 'Зелья', href: 'zelya.html' },
-                { text: 'Прочее', href: 'prochee.html' },
-                { text: 'О Проекте', href: 'about.html' }
-            ];
-            
+            const searchItems = {{ search_index }};
+
             searchInput.addEventListener('input', function(e) {
                 const value = e.target.value.toLowerCase().trim();
-                
+
                 if (value.length === 0) {
                     suggestionsDiv.style.display = 'none';
                     return;
                 }
-                
-                const filtered = searchItems.filter(item => 
+
+                const filtered = searchItems.filter(item =>
                     item.text.toLowerCase().includes(value)
-                );
-                
+                ).slice(0, 12);
+
                 if (filtered.length === 0) {
                     suggestionsDiv.style.display = 'none';
                     return;
                 }
-                
+
                 suggestionsDiv.innerHTML = filtered.map(item => `
                     <div class="suggestion-item" onclick="window.location.href='${item.href}'">
-                        ${item.text}
+                        ${item.text}${item.section ? `<span class="suggestion-section">${item.section}</span>` : ''}
                     </div>
                 `).join('');
                 suggestionsDiv.style.display = 'block';
             });
-            
+
             // Закрытие подсказок при клике вне
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.header-search')) {
@@ -183,79 +165,9 @@
                 }
             });
         }
-        
-        // Автоматические хлебные крошки на основе иерархии страниц
-        function setupBreadcrumbs() {
-            const breadcrumbs = document.getElementById('breadcrumbs');
-            if (!breadcrumbs) return;
-            
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            
-            // Иерархия страниц (родительские связи)
-            const pageHierarchy = {
-                'index.html': { name: 'Главная', parent: null },
-                'karta.html': { name: 'Карта', parent: 'index.html' },
-                'magic.html': { name: 'Магия', parent: 'index.html' },
-                'economy.html': { name: 'Экономика', parent: 'index.html' },
-                'kuznec.html': { name: 'Кузнечество', parent: 'economy.html' },
-                'leveling.html': { name: 'Система прокачки', parent: 'index.html' },
-                'ankety.html': { name: 'Анкеты', parent: 'index.html' },
-                'lor.html': { name: 'Лор', parent: 'index.html' },
-                'oruzie.html': { name: 'Оружие', parent: 'economy.html' },
-                'bronya.html': { name: 'Броня', parent: 'economy.html' },
-                'zelya.html': { name: 'Зелья', parent: 'economy.html' },
-                'prochee.html': { name: 'Прочее', parent: 'economy.html' },
-                'about.html': { name: 'О Проекте', parent: 'index.html' }
-            };
-            
-            // Собираем цепочку от текущей страницы до корня
-            const chain = [];
-            let current = currentPage;
-            while (current && pageHierarchy[current]) {
-                chain.unshift({ file: current, name: pageHierarchy[current].name });
-                current = pageHierarchy[current].parent;
-            }
-            
-            // Если страница не найдена в иерархии
-            if (chain.length === 0) {
-                const name = currentPage.replace('.html', '').charAt(0).toUpperCase() + 
-                    currentPage.replace('.html', '').slice(1);
-                breadcrumbs.innerHTML = '<span class="breadcrumb-current">' + name + '</span>';
-                return;
-            }
-            
-            // Строим хлебные крошки
-            breadcrumbs.innerHTML = '';
-            
-            for (let i = 0; i < chain.length; i++) {
-                const item = chain[i];
-                
-                if (i > 0) {
-                    const sep = document.createElement('span');
-                    sep.className = 'breadcrumb-separator';
-                    sep.textContent = '›';
-                    breadcrumbs.appendChild(sep);
-                }
-                
-                if (i === chain.length - 1) {
-                    const span = document.createElement('span');
-                    span.className = 'breadcrumb-current';
-                    span.textContent = item.name;
-                    breadcrumbs.appendChild(span);
-                } else {
-                    const link = document.createElement('a');
-                    link.href = item.file;
-                    link.className = 'breadcrumb-link';
-                    link.textContent = item.name;
-                    breadcrumbs.appendChild(link);
-                }
-            }
-        }
-        
+
         // Автоматическая генерация содержания (TOC)
         document.addEventListener('DOMContentLoaded', function() {
-            // Запускаем хлебные крошки
-            setupBreadcrumbs();
             const tocNav = document.getElementById('tocNav');
             const tocSidebar = document.getElementById('tocSidebar');
             if (!tocNav || !tocSidebar) return;
@@ -307,6 +219,28 @@
     </script>
     
     <!-- Ваши скрипты -->
+    <script>
+    // Просмотр арта во весь экран (ссылки с data-lightbox)
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[data-lightbox]');
+        if (!link || e.ctrlKey || e.metaKey || e.shiftKey) return;
+        e.preventDefault();
+        var box = document.createElement('div');
+        box.className = 'nair-lightbox';
+        box.innerHTML = '<img alt=""><button type="button" class="nair-lightbox-close" aria-label="Закрыть"><i class="bi bi-x-lg"></i></button>';
+        box.querySelector('img').src = link.getAttribute('href');
+        var close = function () {
+            box.classList.remove('open');
+            document.removeEventListener('keydown', onKey);
+            setTimeout(function () { box.remove(); }, 250);
+        };
+        var onKey = function (ev) { if (ev.key === 'Escape') close(); };
+        box.addEventListener('click', close);
+        document.addEventListener('keydown', onKey);
+        document.body.appendChild(box);
+        requestAnimationFrame(function () { box.classList.add('open'); });
+    });
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

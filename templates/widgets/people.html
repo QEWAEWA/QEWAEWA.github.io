@@ -1,0 +1,27 @@
+{# Важные персонажи (layout: people): группы портретными карточками #}
+{% set person_kinds = {'Правители': 'ruler', 'Лидеры организаций': 'leader'} %}
+<nav class="bs-nav">
+  {% for group in child_groups if group.title %}
+  <a href="#{{ person_kinds.get(group.title, 'leader') }}" class="bs-nav-chip cr-kind--{{ person_kinds.get(group.title, 'leader') }}">
+    <span class="orn"></span><span>{{ group.title }}</span><b>{{ group.pages|length }}</b>
+  </a>
+  {% endfor %}
+</nav>
+{% for group in child_groups if group.title %}
+{% set kind = person_kinds.get(group.title, 'leader') %}
+<section class="bs-group cr-kind--{{ kind }}" id="{{ kind }}">
+  <h2 class="bs-group-title"><span class="orn"></span> {{ group.title }} <small>{{ group.pages|length }}</small></h2>
+  <div class="ps-grid">
+    {% for c in group.pages %}
+    <a class="rc-card ps-card" href="{{ c.href }}">
+      <img src="/static/{{ c.art or c.image }}" alt="{{ c.title }}" loading="lazy"{% if c.art_position %} style="object-position: {{ c.art_position }}"{% endif %}>
+      <div class="gd-card-shade"></div>
+      <div class="rc-card-body">
+        <span class="rc-card-name">{{ c.title }}</span>
+        {% if c.person.status_short %}<span class="ps-card-status">{{ c.person.status_short }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}

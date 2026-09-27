@@ -1,0 +1,24 @@
+{# Шапка страницы магии: тип (magic-type) или статья основ (magic-page) #}
+<header class="cr-hero mg-hero cr-kind--human{% if cr_wide %} cr-hero--wide{% endif %}">
+  <div class="cr-hero-bg"><div style="background-image: url('/static/{{ cr_shot }}');"></div></div>
+  <a class="cr-hero-art" href="/static/{{ cr_shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
+    <img src="/static/{{ cr_shot }}" alt="{{ page.title }}">
+    <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
+  </a>
+  <div class="cr-hero-info">
+    <a class="cr-kind" href="{{ cr_parent.href }}{% if mtype %}#types{% endif %}"><span class="orn"></span> {{ 'Тип магии' if mtype else 'Основы магии' }}</a>
+    <h1 class="cr-name">{{ page.title }}</h1>
+    {% if mtype %}
+      {% if mtype.parts %}
+      <div class="mg-parts">
+        <span class="mg-parts-label">Состав</span>
+        {% for p in mtype.parts %}{% if not loop.first %}<span class="mg-plus">+</span>{% endif %}{% include 'widgets/magic-part.html' %}{% endfor %}
+      </div>
+      {% else %}
+      <p class="mg-note">Элементы для этого типа не указаны</p>
+      {% endif %}
+    {% elif page.summary %}
+    <p class="ps-status">{{ page.summary }}</p>
+    {% endif %}
+  </div>
+</header>

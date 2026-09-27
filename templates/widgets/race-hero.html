@@ -1,0 +1,28 @@
+{# Шапка страницы расы (layout: race) #}
+{% set race_kinds = {'Люди': ['human', 'bi-person-standing'], 'Эльфы': ['elf', 'bi-tree'], 'Другие расы': ['other', 'bi-people'], 'Неигровые': ['npc', 'bi-slash-circle']} %}
+{% set kind = race_kinds.get(page.group or 'Неигровые', ['other', 'bi-people']) %}
+<header class="cr-hero rc-hero cr-kind--{{ kind[0] }}{% if cr_wide %} cr-hero--wide{% endif %}">
+  <div class="cr-hero-bg"><div style="background-image: url('/static/{{ cr_shot }}');"></div></div>
+  <a class="cr-hero-art" href="/static/{{ cr_shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
+    <img src="/static/{{ cr_shot }}" alt="{{ page.title }}">
+    <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
+  </a>
+  <div class="cr-hero-info">
+    <a class="cr-kind" href="{{ cr_parent.href }}#{{ kind[0] }}"><span class="orn"></span> {{ page.group or 'Неигровая раса' }}</a>
+    <h1 class="cr-name">{{ page.title }}</h1>
+    <dl class="cr-facts">
+      {% if page.race_names %}
+      <div class="cr-fact rc-fact--names">
+        <dt>Названия</dt>
+        <dd>{{ page.race_names }}</dd>
+      </div>
+      {% endif %}
+      {% for fact in race_facts %}
+      <div class="cr-fact">
+        <dt>{{ fact.label }}</dt>
+        <dd class="rc-fact-value">{{ fact.text }}</dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </div>
+</header>

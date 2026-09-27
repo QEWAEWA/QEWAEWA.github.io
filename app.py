@@ -1,30 +1,25 @@
-from flask import Flask, render_template
+"""Локальный просмотр сайта: python app.py → http://127.0.0.1:5000/
+
+Страницы собираются на лету из того же реестра, что и generate_static.py,
+поэтому правки в content/ видны сразу после обновления страницы.
+"""
+from flask import Flask, abort, redirect, render_template
+
+from nair_site import Site
 
 app = Flask(__name__)
 
+
 @app.route('/')
-def index():
-    return render_template('index.html')
+@app.route('/<slug>.html')
+def page(slug='index'):
+    site = Site()
+    if slug in site.aliases:
+        return redirect(f'/{site.aliases[slug]}.html', code=301)
+    if slug not in site.pages:
+        abort(404)
+    return render_template(site.pages[slug]['template'], **site.context(slug))
 
-@app.route('/karta')
-def karta():
-    return render_template('karta.html')
-
-@app.route('/lor')
-def lor():
-    return "Страница с лором (в разработке)"
-
-@app.route('/ankety')
-def ankety():
-    return "Страница с анкетами (в разработке)"
-
-@app.route('/kuznec')
-def kuznec():
-    return render_template('kuznec.html')
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

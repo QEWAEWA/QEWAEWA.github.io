@@ -1,0 +1,72 @@
+{
+  "_note": "Метки на карте. x, y — пиксели исходной карты static/photo/Karta.png (8192×6300). page — slug страницы сайта; anchor — раздел страницы; bounds — область [x1, y1, x2, y2] для государств.",
+  "groups": [
+    {
+      "title": "Государства Бранна",
+      "kind": "state",
+      "places": [
+        {"page": "alyans-elfov", "bounds": [2080, 2120, 2720, 2720]},
+        {"page": "imperiya-korvas", "bounds": [2200, 2560, 3000, 3180]},
+        {"page": "velikaya-imperiya-yascherov", "bounds": [2820, 2160, 3480, 2980]}
+      ]
+    },
+    {
+      "title": "Альянс эльфов",
+      "kind": "city",
+      "places": [
+        {"page": "falasse", "x": 2300, "y": 2235},
+        {"page": "kaelmor", "x": 2320, "y": 2425},
+        {"page": "serdce-lesa", "x": 2610, "y": 2400},
+        {"page": "poselok-multirov", "x": 2690, "y": 2295},
+        {"page": "reka-pererozhdeniya", "x": 2445, "y": 2265}
+      ]
+    },
+    {
+      "title": "Империя Корвас",
+      "kind": "city",
+      "places": [
+        {"page": "nordfoll", "x": 2310, "y": 2645},
+        {"page": "dzhoy", "x": 2700, "y": 2720},
+        {"page": "grom-ha", "x": 2915, "y": 2780},
+        {"page": "fort-very", "x": 2780, "y": 2915},
+        {"page": "grimm", "x": 2440, "y": 3090},
+        {"page": "ozero-kalehada", "x": 2560, "y": 2855}
+      ]
+    },
+    {
+      "title": "Великая Империя Ящеров",
+      "kind": "city",
+      "places": [
+        {"page": "mayrl-el", "x": 3140, "y": 2370},
+        {"page": "kuznya-drakona", "x": 3060, "y": 2560},
+        {"page": "dzha-fayl", "x": 3280, "y": 2730},
+        {"page": "serdce-imperii", "x": 3110, "y": 2870}
+      ]
+    },
+    {
+      "title": "Земли скверны",
+      "kind": "taint",
+      "places": [
+        {"page": "hor", "x": 3535, "y": 2945}
+      ]
+    },
+    {
+      "title": "За пределами Бранна",
+      "kind": "land",
+      "places": [
+        {"page": "golm", "x": 4650, "y": 2540},
+        {"page": "materiki", "anchor": "darlik", "title": "Дарлик", "x": 3500, "y": 4150},
+        {"page": "materiki", "anchor": "natair", "title": "Натаир", "x": 1890, "y": 5740},
+        {"page": "materiki", "anchor": "alkar", "title": "Алькар", "x": 560, "y": 2700},
+        {"page": "materiki", "anchor": "skvoetteriya", "title": "Сквоеттерия", "x": 1700, "y": 560},
+        {"page": "materiki", "anchor": "ishtkar", "title": "Ишткар", "x": 7000, "y": 2300},
+        {"page": "materiki", "anchor": "arhipelagi-aanari", "title": "Архипелаги аанари", "x": 870, "y": 4900},
+        {"page": "materiki", "anchor": "yufar", "title": "Юфар", "x": 1465, "y": 3550},
+        {"page": "materiki", "anchor": "litanari", "title": "Литанари", "x": 1555, "y": 2625},
+        {"page": "materiki", "anchor": "yomen", "title": "Йомен", "x": 5830, "y": 4520},
+        {"page": "materiki", "anchor": "kapitul-magii", "title": "Капитул магии", "x": 4905, "y": 470},
+        {"page": "materiki", "anchor": "kamal", "title": "Камаль", "x": 7490, "y": 5590}
+      ]
+    }
+  ]
+}

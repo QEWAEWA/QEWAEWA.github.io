@@ -1,0 +1,45 @@
+{# Шапка анкеты игрока (layout: anketa) #}
+{% set a = page.anketa or {} %}
+{% set f = a.facts or {} %}
+{% set shot = a.arts[0] if a.arts else page.art %}
+<header class="cr-hero rc-hero ak-hero cr-kind--human">
+  <div class="cr-hero-bg"><div style="background-image: url('/static/{{ shot }}');"></div></div>
+  <a class="cr-hero-art" href="/static/{{ shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
+    <img src="/static/{{ shot }}" alt="{{ page.title }}">
+    <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
+  </a>
+  <div class="cr-hero-info">
+    <a class="cr-kind" href="{{ cr_parent.href }}"><span class="orn"></span> Персонаж игрока</a>
+    <h1 class="cr-name">{{ page.title }}</h1>
+    {% if f['имя'] and f['имя']|striptags != page.title %}<p class="ps-fullname">{{ f['имя'] }}</p>{% endif %}
+    <dl class="cr-facts">
+      {% if f['раса'] %}<div class="cr-fact"><dt>Раса</dt><dd>{{ f['раса'] }}</dd></div>{% endif %}
+      {% if f['возраст'] %}<div class="cr-fact"><dt>Возраст</dt><dd>{{ f['возраст'] }}</dd></div>{% endif %}
+      {% if a.chosen %}<div class="cr-fact ak-fact--chosen"><dt>Избранный</dt><dd>{{ a.chosen }}</dd></div>{% endif %}
+      {% if a.elements or a.types %}
+      <div class="cr-fact ak-fact--magic">
+        <dt>Магия</dt>
+        <dd>
+          {% if a.elements %}<div class="ak-chips"><span class="ak-chips-label">Элементы</span>{% for e in a.elements %}<span class="ak-chip">{{ e }}</span>{% endfor %}</div>{% endif %}
+          {% if a.types %}<div class="ak-chips"><span class="ak-chips-label">Типы</span>{% for t in a.types %}{% if t.href %}<a class="ak-chip ak-chip--link" href="{{ t.href }}">{{ t.title }}</a>{% else %}<span class="ak-chip">{{ t.title|capitalize }}</span>{% endif %}{% endfor %}</div>{% endif %}
+          {% if a.cast %}<div class="ak-cast"><span class="ak-chips-label">Активация</span> {{ a.cast }}</div>{% endif %}
+        </dd>
+      </div>
+      {% endif %}
+      {% if f['владелец персонажа'] %}<div class="cr-fact ak-fact--owner"><dt>Игрок</dt><dd>{{ f['владелец персонажа'] }}</dd></div>{% endif %}
+    </dl>
+  </div>
+</header>
+{% if a.arts|length > 1 %}
+<div class="ak-gallery">
+  <span class="ak-gallery-title"><span class="orn"></span> Арты персонажа</span>
+  <div class="ak-gallery-list">
+    {% for art in a.arts %}
+    <a href="/static/{{ art }}" data-lightbox title="Открыть арт целиком"><img src="/static/{{ art }}" alt="" loading="lazy"></a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+<nav class="ak-nav">
+  {% for s in sections if s.title %}<a href="#{{ s.anchor }}">{{ s.title|striptags }}</a>{% endfor %}
+</nav>

@@ -1,41 +1,232 @@
 {% extends "base.html" %}
 
-{% block title %}Карта - Наир{% endblock %}
-{% block breadcrumb_current %}Карта{% endblock %}
+{% block title %}Карта — Наир{% endblock %}
+{% block body_class %}page-karta{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="preload" as="image" href="{{ url_for('static', filename='photo/map-tiles/preview.webp') }}">
+{% endblock %}
 
 {% block content %}
+<div class="km-head">
+  <h1 class="km-title">Карта Наира</h1>
+  <p class="km-hint">Колесо или щипок — масштаб, перетаскивание — перемещение. Метки ведут на страницы городов и земель.</p>
+</div>
 
-<!-- Правый блок - основной контент -->
-  <div class="map-container" id="mapContainer">
-    <img src="static/photo/Karta.png" alt="Карта Наира" class="map-image" id="mapImage">
-    
-    <!-- Кнопки управления картой -->
-    <div class="map-controls">
-      <button class="map-btn" id="resetBtn" title="Сбросить">⟲</button>
-      <button class="map-btn" id="zoomInBtn" title="Увеличить">+</button>
-      <button class="map-btn" id="zoomOutBtn" title="Уменьшить">-</button>
+<div class="km" id="km">
+  <div class="km-map" id="kmMap" aria-label="Карта Наира"></div>
+
+  <aside class="km-panel" id="kmPanel">
+    <div class="km-panel-head">
+      <span class="orn"></span> Места на карте
+      <button type="button" class="km-panel-close" id="kmPanelClose" aria-label="Скрыть список"><i class="bi bi-x-lg"></i></button>
     </div>
+    <label class="km-search">
+      <i class="bi bi-search"></i>
+      <input type="search" id="kmSearch" placeholder="Найти место…" autocomplete="off">
+    </label>
+    <div class="km-list" id="kmList">
+      {% for group in map_places %}
+      <div class="km-group">
+        <div class="km-group-title">{{ group.title }}</div>
+        {% for place in group.places %}
+        <button type="button" class="km-item" data-id="{{ place.id }}">
+          <span class="km-dot km-dot--{{ place.kind }}"></span>{{ place.title }}
+        </button>
+        {% endfor %}
+      </div>
+      {% endfor %}
+      <p class="km-empty" id="kmEmpty" hidden>Ничего не найдено</p>
+    </div>
+  </aside>
+
+  <div class="km-tools">
+    <button type="button" class="km-btn km-btn--list" data-act="panel" title="Список мест"><i class="bi bi-list-ul"></i></button>
+    <button type="button" class="km-btn" data-act="in" title="Приблизить"><i class="bi bi-plus-lg"></i></button>
+    <button type="button" class="km-btn" data-act="out" title="Отдалить"><i class="bi bi-dash-lg"></i></button>
+    <button type="button" class="km-btn" data-act="reset" title="Показать всю карту"><i class="bi bi-arrows-angle-contract"></i></button>
+    <button type="button" class="km-btn" data-act="pins" title="Скрыть или показать метки" aria-pressed="true"><i class="bi bi-geo-alt"></i></button>
+    <button type="button" class="km-btn" data-act="full" title="Во весь экран"><i class="bi bi-fullscreen"></i></button>
+    <a class="km-btn" href="{{ url_for('static', filename='photo/Karta.png') }}" download="Карта Наира.png" title="Скачать карту в полном размере (8192×6300, 20 МБ)"><i class="bi bi-download"></i></a>
   </div>
-  
-<!-- Подключение скрипта карты -->
-<script src="static/js/map.js"></script>
+</div>
 
+<script type="application/json" id="kmData">{{ map_places|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// Отладочный скрипт для проверки кликов
-console.log('=== ПРОВЕРКА КНОПОК КАРТЫ ===');
+(function () {
+  var W = 8192, H = 6300, NATIVE = 4;
+  var TILES = "{{ url_for('static', filename='photo/map-tiles') }}";
+  var box = document.getElementById('km');
+  var groups = JSON.parse(document.getElementById('kmData').textContent);
 
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('map-btn')) {
-        console.log('🎯 Клик по кнопке:', e.target.id);
+  var map = L.map('kmMap', {
+    crs: L.CRS.Simple, zoomControl: false, attributionControl: false,
+    zoomSnap: 0.25, zoomDelta: 0.5, wheelPxPerZoomLevel: 110, maxBoundsViscosity: 0.9
+  });
+  var ll = function (x, y) { return map.unproject([x, y], NATIVE); };
+  var bounds = L.latLngBounds(ll(0, H), ll(W, 0));
+
+  // размытое превью сразу, чёткие плитки поверх — только видимые и только нужного масштаба
+  map.createPane('preview').style.zIndex = 150;  // под плитками (у плиток 200)
+  L.imageOverlay(TILES + '/preview.webp', bounds, { className: 'km-preview', pane: 'preview' }).addTo(map);
+  L.tileLayer(TILES + '/{z}/{x}/{y}.webp', {
+    tileSize: 512, minNativeZoom: 0, maxNativeZoom: NATIVE, maxZoom: NATIVE + 2,
+    noWrap: true, bounds: bounds, keepBuffer: 3
+  }).addTo(map);
+
+  // «вписать» — вся карта видна; «заполнить» — карта занимает всё окно без пустых полей
+  function zoomFor(w, h) {
+    var size = map.getSize();
+    return Math.log2(Math.min(size.x / w, size.y / h)) + NATIVE;
+  }
+  function coverZoom() {
+    var size = map.getSize();
+    return Math.log2(Math.max(size.x / W, size.y / H)) + NATIVE;
+  }
+  function fitAll(animate) {
+    var z = Math.ceil(coverZoom() * 4) / 4;
+    map.setView(bounds.getCenter(), z, { animate: animate });
+  }
+  map.setView(bounds.getCenter(), 0);
+  fitAll(false);
+  map.setMinZoom(Math.floor(zoomFor(W, H) * 4) / 4);
+  map.setMaxZoom(NATIVE + 2);
+  map.setMaxBounds(bounds);
+  map.on('resize', function () { map.setMinZoom(Math.floor(zoomFor(W, H) * 4) / 4); });
+
+  // при общем виде города Бранна сливаются — показываем их с приближением
+  var near = function () { box.classList.toggle('km--far', map.getZoom() < coverZoom() + 0.75); };
+  map.on('zoomend', near);
+
+  // метки
+  var pins = L.layerGroup().addTo(map);
+  var places = {};
+  function popupHtml(p) {
+    return '<div class="km-pop">' +
+      (p.image ? '<img src="/static/' + p.image + '" alt="" loading="lazy">' : '') +
+      '<div class="km-pop-body"><div class="km-pop-title">' + p.title + '</div>' +
+      (p.text ? '<p>' + p.text + '</p>' : '') +
+      '<a class="km-pop-link" href="' + p.href + '">Открыть страницу <i class="bi bi-arrow-right"></i></a></div></div>';
+  }
+  groups.forEach(function (g) {
+    g.places.forEach(function (p) {
+      places[p.id] = p;
+      if (p.bounds) {
+        p.area = L.latLngBounds(ll(p.bounds[0], p.bounds[3]), ll(p.bounds[2], p.bounds[1]));
+        p.at = p.area.getCenter();
+        return;
+      }
+      p.at = ll(p.x, p.y);
+      p.marker = L.marker(p.at, {
+        icon: L.divIcon({ className: 'km-pin km-pin--' + p.kind, html: '<span></span>', iconSize: [22, 22], iconAnchor: [11, 11] }),
+        title: p.title, riseOnHover: true
+      }).bindTooltip(p.title, { direction: 'top', offset: [0, -10], className: 'km-tip' })
+        .bindPopup(popupHtml(p), { className: 'km-popup', maxWidth: 300, minWidth: 240, autoPanPadding: [30, 30] })
+        .on('popupopen', function () { setHash(p.id); markActive(p.id); })
+        .addTo(pins);
+    });
+  });
+
+  var highlight = null;
+  function focus(id, animate) {
+    var p = places[id];
+    if (!p) return;
+    if (highlight) { map.removeLayer(highlight); highlight = null; }
+    if (p.area) {
+      map.flyToBounds(p.area, { animate: animate, duration: 0.8, padding: [20, 20] });
+      highlight = L.rectangle(p.area, { className: 'km-area', interactive: false }).addTo(map);
+      L.popup({ className: 'km-popup', maxWidth: 300, minWidth: 240 }).setLatLng(p.at).setContent(popupHtml(p)).openOn(map);
+      setHash(id); markActive(id);
+    } else {
+      var z = Math.max(map.getZoom(), NATIVE - 1);
+      if (animate) {
+        map.flyTo(p.at, z, { duration: 0.8 });
+        map.once('moveend', function () { p.marker.openPopup(); });
+      } else {
+        map.setView(p.at, z);
+        p.marker.openPopup();
+      }
     }
-});
+  }
+  map.on('popupclose', function () {
+    if (highlight) { map.removeLayer(highlight); highlight = null; }
+    setHash(''); markActive('');
+  });
 
-// Проверяем элементы
-console.log('Элементы карты:');
-console.log('mapContainer:', document.getElementById('mapContainer'));
-console.log('mapImage:', document.getElementById('mapImage'));
-console.log('resetBtn:', document.getElementById('resetBtn'));
-console.log('zoomInBtn:', document.getElementById('zoomInBtn'));
-console.log('zoomOutBtn:', document.getElementById('zoomOutBtn'));
+  function setHash(id) {
+    history.replaceState(null, '', id ? '#' + id : location.pathname + location.search);
+  }
+  function markActive(id) {
+    document.querySelectorAll('.km-item').forEach(function (b) { b.classList.toggle('active', b.dataset.id === id); });
+  }
+
+  // список и поиск
+  var panel = document.getElementById('kmPanel');
+  var narrow = window.matchMedia('(max-width: 800px)');
+  if (narrow.matches) box.classList.add('km--panel-hidden');
+  document.querySelectorAll('.km-item').forEach(function (b) {
+    b.addEventListener('click', function () {
+      focus(b.dataset.id, true);
+      if (narrow.matches) box.classList.add('km--panel-hidden');
+    });
+  });
+  var search = document.getElementById('kmSearch');
+  var norm = function (s) { return s.toLowerCase().replace(/ё/g, 'е').replace(/[`'’]/g, ''); };
+  search.addEventListener('input', function () {
+    var q = norm(search.value.trim()), any = false;
+    document.querySelectorAll('.km-group').forEach(function (g) {
+      var shown = 0;
+      g.querySelectorAll('.km-item').forEach(function (b) {
+        var ok = !q || norm(b.textContent).indexOf(q) !== -1;
+        b.hidden = !ok; if (ok) shown++;
+      });
+      g.hidden = !shown; if (shown) any = true;
+    });
+    document.getElementById('kmEmpty').hidden = any;
+  });
+  search.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var first = document.querySelector('.km-item:not([hidden])');
+    if (first) first.click();
+  });
+  document.getElementById('kmPanelClose').addEventListener('click', function () { box.classList.add('km--panel-hidden'); });
+  L.DomEvent.disableClickPropagation(panel);
+  L.DomEvent.disableScrollPropagation(panel);
+
+  // кнопки
+  document.querySelectorAll('.km-btn[data-act]').forEach(function (b) {
+    L.DomEvent.disableClickPropagation(b);
+    b.addEventListener('click', function () {
+      var act = b.dataset.act;
+      if (act === 'in') map.zoomIn();
+      if (act === 'out') map.zoomOut();
+      if (act === 'reset') { map.closePopup(); fitAll(true); }
+      if (act === 'panel') box.classList.toggle('km--panel-hidden');
+      if (act === 'pins') {
+        var on = map.hasLayer(pins);
+        on ? map.removeLayer(pins) : pins.addTo(map);
+        b.setAttribute('aria-pressed', String(!on));
+        b.querySelector('i').className = 'bi ' + (on ? 'bi-geo' : 'bi-geo-alt');
+      }
+      if (act === 'full') {
+        var full = box.classList.toggle('km--full');
+        document.body.classList.toggle('km-lock', full);
+        b.querySelector('i').className = 'bi ' + (full ? 'bi-fullscreen-exit' : 'bi-fullscreen');
+        setTimeout(function () { map.invalidateSize(); }, 50);
+      }
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && box.classList.contains('km--full')) box.querySelector('[data-act="full"]').click();
+  });
+
+  near();
+  // ссылка вида karta.html#dzhoy — сразу к месту
+  if (location.hash.length > 1) focus(decodeURIComponent(location.hash.slice(1)), false);
+})();
 </script>
 {% endblock %}

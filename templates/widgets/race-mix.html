@@ -1,0 +1,114 @@
+{# Таблица кровосмешений рас. Данные: data/race-mix.json (перенесено из Google-таблицы) #}
+<div class="race-mix" id="raceMix">
+
+  <div class="race-mix-picker">
+    <div class="race-mix-picker-title"><i class="bi bi-intersect"></i> Проверить пару рас</div>
+    <div class="race-mix-selects">
+      <label>
+        <span>Первая раса</span>
+        <select id="raceMixA">
+          {% for r in data.races %}<option value="{{ loop.index0 }}">{{ r.name }}</option>{% endfor %}
+        </select>
+      </label>
+      <span class="race-mix-plus">+</span>
+      <label>
+        <span>Вторая раса</span>
+        <select id="raceMixB">
+          {% for r in data.races %}<option value="{{ loop.index0 }}"{% if loop.index0 == 3 %} selected{% endif %}>{{ r.name }}</option>{% endfor %}
+        </select>
+      </label>
+    </div>
+    <div class="race-mix-result" id="raceMixResult" aria-live="polite"></div>
+  </div>
+
+  <div class="race-mix-legend">
+    <span class="race-mix-chip yes"><i class="bi bi-check-lg"></i> Возможно</span>
+    <span class="race-mix-chip maybe"><i class="bi bi-question-lg"></i> Маловероятно</span>
+    <span class="race-mix-chip no"><i class="bi bi-x-lg"></i> Невозможно</span>
+  </div>
+
+  <div class="race-mix-table-wrap">
+    <table class="race-mix-table" id="raceMixTable">
+      <thead>
+        <tr>
+          <th class="race-mix-corner"></th>
+          {% for r in data.races %}
+          <th class="race-mix-col" data-col="{{ loop.index0 }}" scope="col">
+            <a href="{{ pages.get(r.slug, '#') }}"><span>{{ r.name }}</span></a>
+          </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.matrix %}
+        {% set i = loop.index0 %}
+        <tr data-row="{{ i }}">
+          <th scope="row" class="race-mix-row"><a href="{{ pages.get(data.races[i].slug, '#') }}">{{ data.races[i].name }}</a></th>
+          {% for v in row %}
+          <td class="race-mix-cell {{ v }}" data-row="{{ i }}" data-col="{{ loop.index0 }}"
+              title="{{ data.races[i].name }} + {{ data.races[loop.index0].name }}">
+            {% if v == 'yes' %}<i class="bi bi-check-lg"></i>{% elif v == 'maybe' %}<i class="bi bi-question-lg"></i>{% else %}<i class="bi bi-x-lg"></i>{% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="race-mix-source">
+    Нажмите на клетку, чтобы подставить пару в проверку выше.
+    Оригинал таблицы — <a href="{{ data.source }}" target="_blank" rel="noopener noreferrer">в Google Таблицах</a>.
+  </p>
+</div>
+
+<script>
+(function () {
+  const races = {{ data.races | tojson }};
+  const matrix = {{ data.matrix | tojson }};
+  const TEXT = {
+    yes: {title: 'Возможно', icon: 'bi-check-circle-fill',
+          text: '100% возможное кровосмешение рас.'},
+    maybe: {title: 'Маловероятно', icon: 'bi-question-circle-fill',
+            text: 'Либо очень маловероятное кровосмешение, чаще оканчивающееся смертью ребёнка при рождении, либо вероятное при очень индивидуальных особенностях из-за свойств расы. Нюансы — в личку администрации.'},
+    no: {title: 'Невозможно', icon: 'bi-x-circle-fill',
+         text: 'Ни при каком случае не возможное кровосмешение.'}
+  };
+  const selA = document.getElementById('raceMixA');
+  const selB = document.getElementById('raceMixB');
+  const result = document.getElementById('raceMixResult');
+  const table = document.getElementById('raceMixTable');
+
+  function highlight(a, b) {
+    table.querySelectorAll('.is-row, .is-col, .is-picked').forEach(el =>
+      el.classList.remove('is-row', 'is-col', 'is-picked'));
+    table.querySelectorAll(`[data-row="${a}"]`).forEach(el => el.classList.add('is-row'));
+    table.querySelectorAll(`[data-col="${b}"]`).forEach(el => el.classList.add('is-col'));
+    const cell = table.querySelector(`td[data-row="${a}"][data-col="${b}"]`);
+    if (cell) cell.classList.add('is-picked');
+  }
+
+  function update() {
+    const a = +selA.value, b = +selB.value;
+    const v = matrix[a][b], t = TEXT[v];
+    result.className = 'race-mix-result ' + v;
+    result.innerHTML =
+      `<i class="bi ${t.icon}"></i>
+       <div><div class="race-mix-result-title">${races[a].name} + ${races[b].name}: ${t.title}</div>
+       <div class="race-mix-result-text">${t.text}</div></div>`;
+    highlight(a, b);
+  }
+
+  table.addEventListener('click', e => {
+    const cell = e.target.closest('td.race-mix-cell');
+    if (!cell) return;
+    selA.value = cell.dataset.row;
+    selB.value = cell.dataset.col;
+    update();
+    document.getElementById('raceMix').scrollIntoView({behavior: 'smooth', block: 'start'});
+  });
+  selA.addEventListener('change', update);
+  selB.addEventListener('change', update);
+  update();
+})();
+</script>

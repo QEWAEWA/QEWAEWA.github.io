@@ -1,0 +1,32 @@
+{# Список анкет (layout: ankety) #}
+{% for group in child_groups %}
+{% set players = group.pages|selectattr('layout', 'equalto', 'anketa')|list %}
+{% if not players %}
+<div class="ak-apply">
+  {% for c in group.pages %}
+  <a class="ak-apply-card" href="{{ c.href }}">
+    <i class="bi {{ c.icon or 'bi-journal-text' }}"></i>
+    <span><b>{{ c.title }}</b>{% if c.summary %}<small>{{ c.summary }}</small>{% endif %}</span>
+    <i class="bi bi-arrow-right ak-apply-arrow"></i>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<section class="bs-group cr-kind--human">
+  <h2 class="bs-group-title" id="personazhi"><span class="orn"></span> {{ group.title }} <small>{{ players|length }}</small></h2>
+  <div class="ps-grid ak-grid">
+    {% for c in players %}
+    {% set f = c.anketa.facts or {} %}
+    <a class="rc-card ps-card" href="{{ c.href }}">
+      <img src="/static/{{ c.art or c.image }}" alt="{{ c.title }}" loading="lazy"{% if c.art_position %} style="object-position: {{ c.art_position }}"{% endif %}>
+      <div class="gd-card-shade"></div>
+      <div class="rc-card-body">
+        <span class="rc-card-name">{{ c.title }}</span>
+        {% if f['раса'] %}<span class="ps-card-status">{{ (f['раса']|striptags).split('(')[0].strip() }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endfor %}

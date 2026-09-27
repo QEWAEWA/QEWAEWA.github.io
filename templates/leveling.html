@@ -1,201 +1,297 @@
 {% extends "base.html" %}
 
-{% block title %}Система Прокачки - Наир{% endblock %}
+{% block title %}Система прокачки — Наир{% endblock %}
 {% block breadcrumb_current %}Система прокачки{% endblock %}
 
 {% block content %}
+<div class="nair-page lv-page">
+  <h1 class="page-title">Система прокачки</h1>
+  <p class="lv-lead">Развитие персонажей, магические возможности и пути совершенствования</p>
 
-<!-- Правый блок - основной контент -->
+  <nav class="lv-nav" aria-label="Разделы">
+    <a href="#character-development"><i class="bi bi-person-up"></i><span>Старт</span></a>
+    <a href="#magic-abilities"><i class="bi bi-stars"></i><span>Способности</span></a>
+    <a href="#mana-system"><i class="bi bi-droplet-half"></i><span>Мана</span></a>
+    <a href="#chosen-ones"><i class="bi bi-brightness-high"></i><span>Избранные</span></a>
+    <a href="#leveling-methods"><i class="bi bi-arrow-up-right"></i><span>Прокачка</span></a>
+    <a href="#magic-books"><i class="bi bi-book"></i><span>Книги</span></a>
+  </nav>
 
-  <!-- Главная страница системы прокачки -->
-  <div id="main-page" class="active-page">
-    <h1 class="page-title">СИСТЕМА ПРОКАЧКИ</h1>
-    
-    <div class="leveling-intro">
-      <p>Здесь описано всё необходимое о развитии персонажей, магических возможностях и путях совершенствования</p>
+  <!-- Развитие персонажа -->
+  <section id="character-development" class="content-section">
+    <div class="section-header">
+      <i class="bi bi-person-up"></i>
+      <h2>Развитие персонажа</h2>
+    </div>
+    <div class="lv-stats">
+      <div class="lv-stat">
+        <span class="lv-stat-num">3</span>
+        <span class="lv-stat-label">элемента</span>
+        <span class="lv-stat-note">максимум в начале</span>
+      </div>
+      <div class="lv-stat">
+        <span class="lv-stat-num">2</span>
+        <span class="lv-stat-label">типа магии</span>
+        <span class="lv-stat-note">из этих элементов</span>
+      </div>
+      <div class="lv-stat">
+        <span class="lv-stat-num">6</span>
+        <span class="lv-stat-label">способностей</span>
+        <span class="lv-stat-note">максимум в начале</span>
+      </div>
+    </div>
+    <div class="text-content">
+      <p>У каждого персонажа с самого начала может быть до 3 элементов и до 2 типов магии, состоящих из этих элементов.</p>
+      <p>В будущем можно будет совершенствовать своё владение магией, увеличивая подвластные себе элементы и типы магии. Всё это можно будет увеличивать с помощью участия в ивентах. Способностей в начале может быть максимум 6.</p>
+      <p class="lv-links">
+        <a href="elementy-i-tipy-magii.html"><i class="bi bi-diagram-3"></i> Элементы и типы магии</a>
+        <a href="shablon-ankety.html"><i class="bi bi-file-earmark-text"></i> Шаблон анкеты</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Описание магических способностей -->
+  <section id="magic-abilities" class="content-section">
+    <div class="section-header">
+      <i class="bi bi-stars"></i>
+      <h2>Описание магических способностей</h2>
+    </div>
+    <div class="text-content">
+      <p>В описании каждой способности укажите:</p>
+    </div>
+    <div class="lv-checklist">
+      <div class="lv-check"><i class="bi bi-list-ol"></i><div><b>Количество</b><span>чего-либо призываемого: 5 лучей света, 3 скелета и т. д.</span></div></div>
+      <div class="lv-check"><i class="bi bi-hourglass-split"></i><div><b>Перезарядку</b><span>в минутах, секундах, часах и т. д.</span></div></div>
+      <div class="lv-check"><i class="bi bi-lightning"></i><div><b>Силу заклинания</b><span>насколько оно мощное</span></div></div>
+      <div class="lv-check"><i class="bi bi-stopwatch"></i><div><b>Длительность</b><span>сколько длится действие</span></div></div>
+    </div>
+    <div class="text-content">
+      <p>Остальные нюансы может уточнить анкетолог. Ну и стоит понимать, что возможны заклинания без ограничения по длительности, зависящие от чего-то другого, и так далее, не всё связано этими пунктами.</p>
+    </div>
+    <details class="lv-example">
+      <summary><i class="bi bi-eye"></i> Пример оформления способности <span>из анкеты <a href="agvid.html">Агвида</a></span></summary>
+      <div class="lv-example-body">
+        <h4>Защитная пластина</h4>
+        <ul>
+          <li>Заклинание, использующее землю или камень для создания защитной пластины размерами с грудь человека.</li>
+          <li>Пластина парит вокруг персонажа и самостоятельно подставляется под удар оружия, после чего взрывается осколками наружу, атакуя врага и нанося ему многочисленные раны. Сразу может быть 3 пластины вокруг персонажа.</li>
+          <li>Длительность: до разрушения. Перезарядка: 15 секунд.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- Запасы маны -->
+  <section id="mana-system" class="content-section">
+    <div class="section-header">
+      <i class="bi bi-droplet-half"></i>
+      <h2>Запасы маны</h2>
+    </div>
+    <div class="lv-steps">
+      <div class="lv-step">
+        <div class="lv-step-icon"><i class="bi bi-fire"></i></div>
+        <div class="lv-step-time">1–2 минуты</div>
+        <div class="lv-step-text">активного использования среднезатратных заклинаний — столько хватает магу среднего пошиба</div>
+      </div>
+      <div class="lv-step">
+        <div class="lv-step-icon"><i class="bi bi-hourglass-bottom"></i></div>
+        <div class="lv-step-time">~10 минут</div>
+        <div class="lv-step-text">отдыха, чтобы восполнить ману</div>
+      </div>
+      <div class="lv-step lv-step--warn">
+        <div class="lv-step-icon"><i class="bi bi-moon-stars"></i></div>
+        <div class="lv-step-time">до дня</div>
+        <div class="lv-step-text">перерыва, если весь день колдовать на пределе запасов</div>
+      </div>
+    </div>
+    <div class="text-content">
+      <p>Запас маны каждого мага ограничен, и может прокачиваться по ходу игры так же, как и физические параметры. Магу среднего пошиба хватает своих запасов маны на минуту-две активного использования среднезатратных заклинаний. После этого ему необходим отдых минут на 10, дабы восполнить ману, ибо дальнейшее использование маны может вызвать неприятные последствия в виде головной боли, потери сознания и так далее. Также дальнейшее использование будет затруднять восполнение маны в дальнейшем.</p>
+      <p>Если же маг довольно часто пользуется магией на пределе запасов в течение дня, то истощаться его мана также начинает быстрее. Магу становится нужен всё больший отдых, а в итоге может понадобиться и вовсе перерыв около дня.</p>
+    </div>
+  </section>
+
+  <!-- Избранные -->
+  <section id="chosen-ones" class="content-section">
+    <div class="section-header">
+      <i class="bi bi-brightness-high"></i>
+      <h2>Избранные</h2>
+    </div>
+    <div class="text-content">
+      <p>Изначально персонаж может быть избранным какого-либо <a href="bozhestva.html">бога</a>. Избранные — счастливчики, которых боги случайно выбирают для будущего становления героем, дабы те несли имя бога и укрепляли веру остальных в него. Способности могут проявляться в самом разном возрасте, а также в самых разных ситуациях. При этом божественные способности проявляются независимо от того, имеет ли избранный дар к магии или нет (в том числе природно).</p>
+      <p>Некоторые условия способностей избранных:</p>
+    </div>
+    <div class="lv-cards">
+      <div class="lv-card">
+        <i class="bi bi-arrows-collapse"></i>
+        <b>Не сильнее магии</b>
+        <p>В начале способности избранных не могут превышать по силе обычные магические способности.</p>
+      </div>
+      <div class="lv-card">
+        <i class="bi bi-bullseye"></i>
+        <b>По профилю бога</b>
+        <p>Способности связаны со спецификой божества, которое избрало чемпиона. То есть избранный Бисара не может владеть в основе своей способностями, связанными, например, с лечением.</p>
+      </div>
+      <div class="lv-card">
+        <i class="bi bi-fire"></i>
+        <b>Только через веру</b>
+        <p>Бытие избранным накладывает свои специфики на игру. Не получится прокачиваться и усиливать способности, не поклоняясь своему божеству и не славя его. Так как это не магия, обычная практика просто не сработает. Если персонаж вовсе забрасывает веру, то его способности могут и деградировать.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Как прокачиваться -->
+  <section id="leveling-methods" class="content-section">
+    <div class="section-header">
+      <i class="bi bi-arrow-up-right"></i>
+      <h2>Как прокачиваться?</h2>
+    </div>
+    <div class="text-content">
+      <p>Как физические, так и магические параметры персонажа могут самостоятельно развиваться по ходу сюжета. Администраторы сами решают, в какой момент персонаж получает бонусы. Также по этому поводу можно и нужно писать администраторам самим, чтобы они рассмотрели прокачку персонажа.</p>
+      <p>Также прокачивать что-либо можно целенаправленно путём написания постов прокачки. Количество постов для прокачки лишь примерное, так как может отличаться из-за размера постов, а также из-за специфики сферы изучения (например, из-за того, какой элемент или тип магии изучается).</p>
     </div>
 
-    <!-- Компактная навигация в виде горизонтального меню -->
-    <div class="compact-nav">
-      <div class="nav-scroll-container">
-        <a href="#character-development" class="nav-item">
-          <i class="fas fa-user-plus"></i>
-          <span>Развитие</span>
-        </a>
-        
-        <a href="#magic-abilities" class="nav-item">
-          <i class="fas fa-fire"></i>
-          <span>Способности</span>
-        </a>
-        
-        <a href="#mana-system" class="nav-item">
-          <i class="fas fa-tint"></i>
-          <span>Мана</span>
-        </a>
-        
-        <a href="#chosen-ones" class="nav-item">
-          <i class="fas fa-crown"></i>
-          <span>Избранные</span>
-        </a>
-        
-        <a href="#leveling-methods" class="nav-item">
-          <i class="fas fa-chart-line"></i>
-          <span>Прокачка</span>
-        </a>
-        
-        <a href="#magic-books" class="nav-item">
-          <i class="fas fa-book"></i>
-          <span>Книги</span>
-        </a>
+    <div class="lv-howto">
+      <div class="lv-howto-step"><span>1</span><div><b>Пишите посты прокачки</b> — не меньше <b>150 слов</b> каждый.</div></div>
+      <div class="lv-howto-step"><span>2</span><div><b>Помечайте их тегом</b>
+        <button type="button" class="lv-tag" data-copy="#прокачка" title="Скопировать тег">#прокачка <i class="bi bi-copy"></i></button></div></div>
+      <div class="lv-howto-step"><span>3</span><div><b>Напишите ГА в лс</b>, что вы качали, скинув первый пост из всей серии. ГА выносит вердикт и говорит, нужны ли ещё посты.</div></div>
+    </div>
+
+    <h3 class="lv-subtitle"><i class="bi bi-list-check"></i> Сколько постов нужно</h3>
+    <p class="lv-hint">Расчёты подходят для постов минимум в 150 слов. Отметьте, что хотите прокачать, — внизу посчитается итог.</p>
+    <div class="lv-costs" id="lvCalc">
+      <div class="lv-cost" data-posts="3">
+        <div class="lv-cost-main">
+          <i class="bi bi-circle-half"></i>
+          <div><b>Новый элемент</b></div>
+        </div>
+        <div class="lv-cost-posts"><span>3</span> поста</div>
+        <div class="lv-counter"><button type="button" data-step="-1" aria-label="Меньше">−</button><output>0</output><button type="button" data-step="1" aria-label="Больше">+</button></div>
+      </div>
+      <div class="lv-cost" data-posts="5" data-short="2">
+        <div class="lv-cost-main">
+          <i class="bi bi-diagram-3"></i>
+          <div><b>Новый тип магии</b><small>Если тип магии схож по смыслу с тем, что уже есть у персонажа, или является продолжением развития имеющегося типа магии, то прокачка сокращается до 2-х постов ориентировочно.</small>
+            <label class="lv-short"><input type="checkbox"> схож с имеющимся — 2 поста</label></div>
+        </div>
+        <div class="lv-cost-posts"><span>5</span> постов</div>
+        <div class="lv-counter"><button type="button" data-step="-1" aria-label="Меньше">−</button><output>0</output><button type="button" data-step="1" aria-label="Больше">+</button></div>
+      </div>
+      <div class="lv-cost" data-posts="3">
+        <div class="lv-cost-main">
+          <i class="bi bi-droplet-half"></i>
+          <div><b>Увеличение магических сил</b><small>Сюда входят увеличение запасов маны и тому подобное.</small></div>
+        </div>
+        <div class="lv-cost-posts"><span>3</span> поста</div>
+        <div class="lv-counter"><button type="button" data-step="-1" aria-label="Меньше">−</button><output>0</output><button type="button" data-step="1" aria-label="Больше">+</button></div>
+      </div>
+      <div class="lv-cost" data-posts="4">
+        <div class="lv-cost-main">
+          <i class="bi bi-arrow-up-circle"></i>
+          <div><b>Улучшение имеющейся способности</b></div>
+        </div>
+        <div class="lv-cost-posts"><span>4</span> поста</div>
+        <div class="lv-counter"><button type="button" data-step="-1" aria-label="Меньше">−</button><output>0</output><button type="button" data-step="1" aria-label="Больше">+</button></div>
+      </div>
+      <div class="lv-cost" data-posts="8" data-short="3">
+        <div class="lv-cost-main">
+          <i class="bi bi-stars"></i>
+          <div><b>Новая способность</b><small>Если тип магии способности магу очень хорошо известен, то прокачка сокращается до 3-х постов ориентировочно.</small>
+            <label class="lv-short"><input type="checkbox"> тип магии хорошо известен — 3 поста</label></div>
+        </div>
+        <div class="lv-cost-posts"><span>8</span> постов</div>
+        <div class="lv-counter"><button type="button" data-step="-1" aria-label="Меньше">−</button><output>0</output><button type="button" data-step="1" aria-label="Больше">+</button></div>
+      </div>
+      <div class="lv-total">
+        <span>Итого примерно:</span>
+        <b id="lvTotal">0 постов</b>
+        <small id="lvWords"></small>
+        <button type="button" class="lv-reset" id="lvReset"><i class="bi bi-arrow-counterclockwise"></i> Сбросить</button>
       </div>
     </div>
 
-    <!-- Основной контент на одной странице -->
-    <div class="content-sections">
-      
-      <!-- Развитие персонажа -->
-      <section id="character-development" class="content-section">
-        <div class="section-header">
-          <i class="fas fa-user-plus"></i>
-          <h2>Развитие персонажа</h2>
-        </div>
-        
-        <div class="section-content">
-          <div class="text-content">
-            <p>У каждого персонажа с самого начала может быть до 3 стихий и до 2 типов магии, состоящих из этих стихий.</p>
-            <p>В будущем можно будет совершенствовать своё владение магией, увеличивая подвластные себе стихии и типы магии. Всё это можно будет увеличивать с помощью участия в ивентах. Способностей в начале может быть максимум 6.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Описание магических способностей -->
-      <section id="magic-abilities" class="content-section">
-        <div class="section-header">
-          <i class="fas fa-fire"></i>
-          <h2>Описание магических способностей</h2>
-        </div>
-        
-        <div class="section-content">
-          <div class="text-content">
-            <p>В описании способности укажите количество чего-либо призываемого (5 лучей света, 3 скелета и тд.), перезарядку в минутах/секундах/часах и тд, силу заклинания, длительность действия. Остальные нюансы может уточнить анкетолог. Ну и стоит понимать, что возможны заклинания без ограничения по длительности, зависящие от чего-то другого, и так далее, не всё связанно этими пунктами.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Запасы маны -->
-      <section id="mana-system" class="content-section">
-        <div class="section-header">
-          <i class="fas fa-tint"></i>
-          <h2>Запасы маны</h2>
-        </div>
-        
-        <div class="section-content">
-          <div class="text-content">
-            <p>Запас маны каждого мага ограничен, и может прокачиваться по ходу игры также, как и физические параметры. Магу среднего пошиба хватает своих запасов маны на минуты-две активного использования средне затратных заклинаний в купе своей. После этого ему необходим отдых на минут 10 дабы восполнить ману, ибо дальнейшее использование маны может вызвать неприятные последствия в виде головной боли, потери сознания и так далее. Также дальнейшее использование будет затруднять восполнение маны в дальнейшем.</p>
-            
-            <p>Если же маг довольно часто пользуется магией на пределе запасов в течении дня, то источаться его мана также начинает быстрее. Магу становиться нужен всё больший отдых, а в итоге может понадобиться и вовсе перерыв около дня.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Избранные -->
-      <section id="chosen-ones" class="content-section">
-        <div class="section-header">
-          <i class="fas fa-crown"></i>
-          <h2>Избранные</h2>
-        </div>
-        
-        <div class="section-content">
-          <div class="text-content">
-            <p>Изначально персонаж может быть избранным какого-либо бога. Избранные - счастливчики, которых боги случайно выбирают для будущего становления героем, дабы те несли имя бога и укреплял веру остальных в него. Способности могут проявляться в самый разный возраст, а также в самых разных ситуациях. При этом божественные способности проявляются независимо от того, имеет ли избранный дар к магии или нет (в том числе природно).</p>
-            
-            <p>Некоторые условия способностей избранных:</p>
-            
-            <ul>
-              <li>В начале способности избранных не могут превывать по силе обычные магические способности.</li>
-              <li>Способности связанны с спецификой божества, который избрал чемпиона. То есть избранный Грума не может владеть в основе своей способностями, связанными, например, с лечением.</li>
-              <li>Бытие избранным накладывает свои специфики на игру. Не получиться прокачиваться и усиливать способности, не поклоняясь своему божеству и не славя его. Так как это не магия, обычная практика просто не сработает. Если персонаж вовсе забрасывает веру, то его способности могут и деградировать.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Как прокачиваться -->
-      <section id="leveling-methods" class="content-section">
-        <div class="section-header">
-          <i class="fas fa-chart-line"></i>
-          <h2>Как прокачиваться?</h2>
-        </div>
-        
-        <div class="section-content">
-          <div class="text-content">
-            <p>Как физические, так и магические параметры персонажа могут самостоятельно развиваться по ходу сюжета. Администраторы сами решают, в какой момент персонаж получает бонусы. Так же по этому поводу можно и нужно писать администраторам самим, чтобы они рассмотрели прокачку персонажа.</p>
-            
-            <p>Также прокачивать что-либо можно целенаправленно путём написания постов прокачки. Количество постов для прокачки лишь примерное, так как может отличаться из-за размера постов, а также из-за специфики сферы изучения (например, из-за того какой элемент или тип магии изучается). Пост должен быть не меньше 150 слов. Расчёты далее подходят для минимума в 150 слов:</p>
-            
-            <ul>
-              <li>Изучение нового элемента - 3 поста.</li>
-              <li>Изучение нового типа магии - 5 постов. Если тип магии схож по смыслу с тем, что уже есть у персонажа, или является продолжением развития имеющегося типа магии, то прокачка сокращается до 2-х постов ориентировочно.</li>
-              <li>Увеличение магических сил (сюда входят увеличение запасов маны и тому подобное) - 3 поста.</li>
-              <li>Улучшение имеющейся способности - 4 поста.</li>
-              <li>Изучение новой способности - 8 постов. Если тип магии способности магу очень хорошо известен, то прокачка сокращается до 3-х постов ориентировочно.</li>
-            </ul>
-            
-            <p>Также есть исключения в прокачке, зависящие от анкет. Если персонаж по анкете достаточно опытный маг, то его прокачка может сильно упраздниться по решению администрации. По такому поводу стоит писать лично администрации, заранее обговорив что вы хотите улучшить.</p>
-            
-            <p>Посты связанные с прокачкой персонажа нужно помечать тегом <strong>#прокачка</strong>.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Магические книги -->
-      <section id="magic-books" class="content-section">
-        <div class="section-header">
-          <i class="fas fa-book"></i>
-          <h2>Магические книги</h2>
-        </div>
-        
-        <div class="section-content">
-          <div class="text-content">
-            <p>Магические книги - книги пропитанные с помощью магии печатей знаниями, чтобы они быстро усваивались. Так что использовать книгу одновременно может лишь 1 персонаж, а далее она теряет свою силу. Когда вы считаете, что достаточно потратили времени на прокачку, нужно написать ГА в лс что вы качали, скинув первый пост из всей серии прокачки определённого параметра. Га выносит вердикт, и говорит нужны ли ещё посты.</p>
-          </div>
-        </div>
-      </section>
-
+    <div class="lv-note">
+      <i class="bi bi-info-circle"></i>
+      <p>Также есть исключения в прокачке, зависящие от анкет. Если персонаж по анкете достаточно опытный маг, то его прокачка может сильно сократиться по решению администрации. По такому поводу стоит писать лично администрации, заранее обговорив, что вы хотите улучшить.</p>
     </div>
-  </div>
-  
+  </section>
 
-
+  <!-- Магические книги -->
+  <section id="magic-books" class="content-section">
+    <div class="section-header">
+      <i class="bi bi-book"></i>
+      <h2>Магические книги</h2>
+    </div>
+    <div class="text-content">
+      <p>Магические книги — книги, пропитанные с помощью магии печатей знаниями, чтобы они быстро усваивались. Так что использовать книгу одновременно может лишь 1 персонаж, а далее она теряет свою силу. Когда вы считаете, что достаточно потратили времени на прокачку, нужно написать ГА в лс, что вы качали, скинув первый пост из всей серии прокачки определённого параметра. ГА выносит вердикт и говорит, нужны ли ещё посты.</p>
+    </div>
+  </section>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const navItems = document.querySelectorAll('.compact-nav .nav-item');
-    const sections = document.querySelectorAll('.content-section');
-
-    function setActive(item) {
-      navItems.forEach(el => el.classList.toggle('active', el === item));
-    }
-
-    navItems.forEach(item => {
-      item.addEventListener('click', () => setActive(item));
+(function () {
+  // подсветка текущего раздела в верхнем меню
+  const links = [...document.querySelectorAll('.lv-nav a')];
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
     });
+  }, { rootMargin: '-35% 0px -55% 0px' });
+  document.querySelectorAll('.lv-page section[id]').forEach(s => observer.observe(s));
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const sectionId = entry.target.id;
-        const activeLink = document.querySelector(`.compact-nav .nav-item[href="#${sectionId}"]`);
-        if (activeLink) setActive(activeLink);
-      });
-    }, {
-      rootMargin: '-35% 0px -55% 0px',
-      threshold: 0.1
+  // калькулятор постов
+  const plural = (n, one, few, many) => {
+    const m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  };
+  const rows = [...document.querySelectorAll('.lv-cost')];
+  const totalEl = document.getElementById('lvTotal');
+  const wordsEl = document.getElementById('lvWords');
+  function recalc() {
+    let total = 0;
+    rows.forEach(row => {
+      const count = +row.querySelector('output').value;
+      const short = row.querySelector('.lv-short input');
+      const per = short && short.checked ? +row.dataset.short : +row.dataset.posts;
+      row.querySelector('.lv-cost-posts span').textContent = per;
+      row.querySelector('.lv-cost-posts').lastChild.textContent = ' ' + plural(per, 'пост', 'поста', 'постов');
+      row.classList.toggle('is-picked', count > 0);
+      total += per * count;
     });
-
-    sections.forEach(section => observer.observe(section));
+    totalEl.textContent = total + ' ' + plural(total, 'пост', 'поста', 'постов');
+    wordsEl.textContent = total ? `от ${(total * 150).toLocaleString('ru-RU')} слов` : '';
+  }
+  rows.forEach(row => {
+    const out = row.querySelector('output');
+    out.value = 0;
+    row.querySelectorAll('.lv-counter button').forEach(btn => btn.addEventListener('click', () => {
+      out.value = Math.max(0, Math.min(20, +out.value + +btn.dataset.step));
+      recalc();
+    }));
+    const short = row.querySelector('.lv-short input');
+    if (short) short.addEventListener('change', recalc);
   });
+  document.getElementById('lvReset').addEventListener('click', () => {
+    rows.forEach(row => {
+      row.querySelector('output').value = 0;
+      const short = row.querySelector('.lv-short input');
+      if (short) short.checked = false;
+    });
+    recalc();
+  });
+  recalc();
+
+  // копирование тега
+  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', () => {
+    if (navigator.clipboard) navigator.clipboard.writeText(btn.dataset.copy).catch(() => {});
+    btn.classList.add('is-copied');
+    setTimeout(() => btn.classList.remove('is-copied'), 1400);
+  }));
+})();
 </script>
 {% endblock %}

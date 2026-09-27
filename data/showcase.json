@@ -1,0 +1,20 @@
+{
+  "_note": "Дополнения к страницам «Характеристики оружия» и «Артефакты». Ключи — якоря разделов (id заголовков). rarity: 1–5 и подпись — по формулировкам из текста страницы; origin — откуда металл, тоже по тексту; sets — комплекты артефактов, упомянутые в текстах.",
+  "metals": {
+    "zhelezo":         {"rarity": 1, "label": "Очень распространён", "origin": "Шахты Империи людей"},
+    "stal":            {"rarity": 1, "label": "Распространена ещё шире железа"},
+    "zvezdnyy-metall": {"rarity": 2, "label": "Весьма дорог", "origin": "Метеориты, земли эльфов"},
+    "serebro":         {"label": "Покрытие клинков"},
+    "ebonit":          {"rarity": 3, "label": "Довольно редкий", "origin": "Гномы"},
+    "titanit":         {"rarity": 4, "label": "Крайне малые количества", "origin": "Гномы, Гольм"},
+    "mifril":          {"rarity": 4, "label": "Продажа незаконна", "origin": "Только гномы"},
+    "adamantit":       {"rarity": 4, "label": "Один из редчайших"},
+    "orihalk":         {"rarity": 5, "label": "Легендарный"},
+    "arkonor":         {"rarity": 5, "label": "Легендарный"}
+  },
+  "artifact_sets": [
+    {"title": "Комплект Душ", "items": ["klinok-dush", "shlem-dush"]},
+    {"title": "Комплект Розы", "items": ["shlem-roz", "dospeh-rozy"]},
+    {"title": "Комплект жертвенника", "items": ["kolco-zhertvennika", "perchatka-zhertvennika"]}
+  ]
+}

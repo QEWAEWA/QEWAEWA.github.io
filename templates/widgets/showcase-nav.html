@@ -1,0 +1,10 @@
+{# Быстрый переход по артефактам / металлам — миниатюры #}
+<nav class="sc-nav{% if page.layout == 'materials' %} sc-nav--metals{% endif %}">
+  {% for s in sections if s.showcase %}
+  <a class="sc-nav-item" href="#{{ s.anchor }}">
+    {% if s.image %}<span class="sc-nav-img"><img src="/static/{{ s.image }}" alt="" loading="lazy"></span>{% endif %}
+    <span class="sc-nav-name">{{ s.title|striptags }}</span>
+    {% if s.metal and s.metal.rarity %}<span class="sc-pips sc-pips--sm" title="{{ s.metal.label }}">{% for i in range(5) %}<i class="{{ 'on' if i < s.metal.rarity }}"></i>{% endfor %}</span>{% endif %}
+  </a>
+  {% endfor %}
+</nav>

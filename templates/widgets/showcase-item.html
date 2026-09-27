@@ -1,0 +1,31 @@
+{# Карточка артефакта или металла #}
+<article class="sc-item{% if section.metal is not none %} sc-item--metal{% endif %}{% if section.metal and section.metal.rarity == 5 %} sc-item--legend{% endif %}" id="card-{{ section.anchor }}">
+  {% if section.image %}
+  <a class="sc-img" href="/static/{{ section.image }}" data-lightbox title="Открыть картинку целиком">
+    <img src="/static/{{ section.image }}" alt="{{ section.title|striptags }}" loading="lazy">
+  </a>
+  {% endif %}
+  <div class="sc-body">
+    <h2 class="sc-title" id="{{ section.anchor }}">{{ section.title }}</h2>
+    {% if section.metal %}
+    <div class="sc-tags">
+      {% if section.metal.rarity %}
+      <span class="sc-rarity"><span class="sc-pips">{% for i in range(5) %}<i class="{{ 'on' if i < section.metal.rarity }}"></i>{% endfor %}</span>{{ section.metal.label }}</span>
+      {% else %}<span class="sc-tag">{{ section.metal.label }}</span>{% endif %}
+      {% if section.metal.origin %}<span class="sc-tag"><i class="bi bi-geo-alt"></i> {{ section.metal.origin }}</span>{% endif %}
+    </div>
+    {% endif %}
+    {% if section.owner %}
+    <div class="sc-owner"><span>Владелец</span> {{ section.owner }}</div>
+    {% endif %}
+    <div class="text-content">{{ section.body }}</div>
+    {% if section.stats %}
+    <div class="sc-stats"><span>Характеристики</span>{{ section.stats }}</div>
+    {% endif %}
+    {% if section.set %}
+    <div class="sc-set"><span class="orn"></span> {{ section.set.title }}:
+      {% for o in section.set.others %}<a href="#{{ o.anchor }}">{{ o.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</article>

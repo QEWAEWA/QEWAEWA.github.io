@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+{% macro art_attrs(item) -%}
+style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_position %} --art-pos: {{ item.art_position }};{% endif %}{% if item.art_size %} --art-size: {{ item.art_size }};{% endif %}"
+{%- endmacro %}
+{% macro art_img(item) -%}
+{% if item.art_fit == 'contain' %}<img class="nair-art-card-contain" src="/static/{{ item.art or item.image }}" alt="" loading="lazy">{% endif %}
+{%- endmacro %}
+{% macro art_class(item) -%}
+{% if item.art_fit == 'contain' %} nair-art-card--contain{% endif %}
+{%- endmacro %}
+
+
+{% block content %}
+<div class="nair-page">
+  {% if page.hero %}
+  <header class="nair-hero">
+    <div class="nair-hero-image" style="background-image: url('/static/{{ page.hero }}');{% if page.hero_position %} background-position: {{ page.hero_position }};{% endif %}"></div>
+    <div class="nair-hero-overlay"></div>
+    <div class="nair-hero-content">
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% if page.subtitle %}<p class="nair-hero-subtitle">{{ page.subtitle }}</p>{% endif %}
+    </div>
+  </header>
+  {% endif %}
+
+  {% if page.banner and page.layout not in ('creature', 'quest', 'magic', 'magic-page', 'magic-type') %}
+  <div class="about-header">
+    <img src="/static/{{ page.banner }}" alt="{{ page.title }}" class="about-header-image">
+  </div>
+  {% endif %}
+
+  {% set rank_labels = {'Абсолютное божество': 'Абсолютное божество', 'Семёрка': 'Член Семёрки', 'Средние божества': 'Среднее божество', 'Меньшие божества': 'Меньшее божество', 'Полубожества': 'Полубожество'} %}
+  {% set rank_classes = {'Абсолютное божество': 'absolute', 'Семёрка': 'seven', 'Средние божества': 'middle', 'Меньшие божества': 'lesser', 'Полубожества': 'demi'} %}
+
+  {% if page.layout == 'god' %}
+  {% set shot = page.portrait or page.art %}
+  <header class="gd-hero gd-rank--{{ rank_classes.get(page.group, 'middle') }}{% if god_wide %} gd-hero--wide{% endif %}">
+    <div class="gd-hero-bg"><div style="background-image: url('/static/{{ shot }}');"></div></div>
+    <a class="gd-hero-portrait" href="/static/{{ shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
+      <img src="/static/{{ shot }}" alt="{{ page.title }}">
+      <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
+    </a>
+    <div class="gd-hero-info">
+      <span class="gd-rank"><span class="orn"></span> {{ rank_labels.get(page.group, page.group) }}</span>
+      <h1 class="gd-name">{{ page.title }}</h1>
+      {% if page.rank_note and page.rank_note|lower != rank_labels.get(page.group, '')|lower %}
+      <p class="gd-note">{{ page.rank_note }}</p>
+      {% endif %}
+      {% if god_domains %}
+      {% if god_kind %}<div class="gd-domains-label">{{ god_kind }}</div>{% endif %}
+      <ul class="gd-domains">
+        {% for d in god_domains %}<li>{{ d }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </header>
+  {% if god_links %}
+  <section class="gd-extra gd-rank--{{ rank_classes.get(page.group, 'middle') }}">
+    <h2 class="gd-extra-title"><i class="bi bi-journal-bookmark"></i> Дополнительная информация</h2>
+    <div class="gd-extra-list">
+      {% for link in god_links %}
+      <a class="gd-extra-card" href="{{ link.href }}">
+        <img src="/static/{{ link.image }}" alt="{{ link.title }}" loading="lazy">
+        <span class="gd-extra-name">{{ link.title }} <i class="bi bi-arrow-right"></i></span>
+        {% if link.summary %}<span class="gd-extra-summary">{{ link.summary }}</span>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+  {% elif page.layout == 'creature' %}
+  {% include 'widgets/creature-hero.html' %}
+  {% elif page.layout == 'race' %}
+  {% include 'widgets/race-hero.html' %}
+  {% elif page.layout == 'person' %}
+  {% include 'widgets/person-hero.html' %}
+  {% elif page.layout == 'quest' %}
+  {% include 'widgets/quest.html' %}
+  {% elif page.layout == 'anketa' %}
+  {% include 'widgets/anketa-hero.html' %}
+  {% elif page.layout == 'guild' %}
+  {% include 'widgets/guild-hero.html' %}
+  {% elif page.layout in ('magic-page', 'magic-type') and page.art %}
+  {% include 'widgets/magic-hero.html' %}
+  {% elif not page.hero %}<h1 class="page-title">{{ page.title }}</h1>{% endif %}
+  {% if map_link %}
+  <div class="km-onmap-wrap"><a class="km-onmap" href="{{ map_link }}"><i class="bi bi-geo-alt"></i> Показать на карте</a></div>
+  {% endif %}
+
+  {% if art_nav %}
+  <nav class="nair-art-cards">
+    {% for item in art_nav %}
+    <a href="{{ item.href }}" class="nair-art-card{% if item.active %} active{% endif %}{{ art_class(item) }}" {{ art_attrs(item) }}{% if item.active %} aria-current="page"{% endif %}>
+      {{ art_img(item) }}
+      <div class="nair-art-card-overlay"></div>
+      <div class="nair-art-card-content">
+        <i class="bi {{ item.icon or 'bi-bookmark' }}"></i>
+        <span class="nair-art-card-title">{{ item.title }}</span>
+        {% if item.summary %}<span class="nair-art-card-subtitle">{{ item.summary }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </nav>
+  {% endif %}
+
+  {% if page.layout == 'rules' %}
+  <div class="nair-rules-toolbar" id="rulesToolbar">
+    <button type="button" class="nair-rules-toggle" id="rulesImportant" aria-pressed="false">
+      <i class="bi bi-exclamation-diamond"></i><span>Только важные</span>
+    </button>
+    <nav class="nair-rules-chips">
+      {% for section in sections if section.kind == 'rules' %}
+      <a href="#{{ section.anchor }}" class="nair-rules-chip" data-target="{{ section.anchor }}">
+        <i class="bi {{ section.icon }}"></i><span>{{ section.title|striptags }}</span><b>{{ section.count }}</b>
+      </a>
+      {% endfor %}
+    </nav>
+  </div>
+  {% endif %}
+
+  {% set sc = namespace(nav=false) %}
+  {% for section in sections %}
+  {% if section.showcase %}
+  {% if not sc.nav %}{% set sc.nav = true %}{% include 'widgets/showcase-nav.html' %}{% endif %}
+  {% include 'widgets/showcase-item.html' %}
+  {% elif section.portrait %}
+  <div class="nair-profile{% if section.wide %} nair-profile-wide{% endif %}">
+    <div class="nair-profile-portrait">
+      <img src="{{ section.portrait }}" alt="{{ page.title }}">
+    </div>
+    {% if section.side %}
+    <div class="content-section nair-profile-side">
+      <div class="section-header">
+        <i class="bi {{ section.side.icon or page.icon }}"></i>
+        <h2>{{ section.side.title }}</h2>
+      </div>
+      <div class="text-content">
+        {{ section.side.body }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% else %}
+  {% set sec_title = (section.title or '')|striptags|lower %}
+  <div class="content-section{% if section.kind %} nair-rules-section nair-rules-section--{{ section.kind }}{% endif %}{% if page.layout == 'creature' %} cr-sec{% if 'способности' in sec_title %} cr-sec--ability{% elif sec_title == 'можно ли приручить?' %} cr-sec--tame cr-tone--{{ cr_facts.taming }}{% endif %}{% endif %}"{% if section.kind %} data-rules-section="{{ section.anchor }}"{% endif %}>
+    {% if section.title %}
+    <div class="section-header">
+      <i class="bi {{ section.icon or page.icon }}"></i>
+      <h2{% if section.anchor %} id="{{ section.anchor }}"{% endif %}>{% if section.number %}<span class="nair-rules-section-num">{{ section.number }}.</span> {% endif %}{{ section.title }}</h2>
+    </div>
+    {% endif %}
+    <div class="text-content">
+      {{ section.body }}
+    </div>
+    {% if section.abilities %}
+    <div class="ak-abilities">
+      {% for ab in section.abilities %}
+      <div class="ak-ability">
+        <h3>{{ ab.title }}</h3>
+        <div class="text-content">{{ ab.body }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  {% if page.layout == 'god' %}
+  <nav class="gd-pager">
+    {% if god_prev %}
+    <a class="gd-pager-link" href="{{ god_prev.href }}">
+      <img src="/static/{{ god_prev.art }}" alt="" loading="lazy">
+      <span><small><i class="bi bi-arrow-left"></i> Предыдущий</small>{{ god_prev.title }}</span>
+    </a>
+    {% else %}<span></span>{% endif %}
+    <a class="gd-pager-all" href="{{ god_parent.href }}"><i class="bi bi-grid-3x3-gap"></i> Весь пантеон</a>
+    {% if god_next %}
+    <a class="gd-pager-link gd-pager-next" href="{{ god_next.href }}">
+      <span><small>Следующий <i class="bi bi-arrow-right"></i></small>{{ god_next.title }}</span>
+      <img src="/static/{{ god_next.art }}" alt="" loading="lazy">
+    </a>
+    {% else %}<span></span>{% endif %}
+  </nav>
+  {% endif %}
+
+  {% if credit %}<div class="sc-credit">{{ credit }}</div>{% endif %}
+
+  {% if page.layout in ('creature', 'race', 'person', 'quest', 'anketa', 'magic-type', 'guild') %}
+  <nav class="gd-pager cr-pager{% if page.layout in ('race', 'person', 'anketa') %} rc-pager{% endif %}{% if page.layout == 'quest' %} qs-pager{% endif %}">
+    {% if cr_prev %}
+    <a class="gd-pager-link" href="{{ cr_prev.href }}">
+      {% if cr_prev.art or cr_prev.image %}<img src="/static/{{ cr_prev.art or cr_prev.image }}" alt="" loading="lazy">{% endif %}
+      <span><small><i class="bi bi-arrow-left"></i> {{ {'race': 'Предыдущая', 'person': 'Предыдущий', 'quest': 'Предыдущий', 'anketa': 'Предыдущий', 'magic-type': 'Предыдущий', 'guild': 'Предыдущая'}.get(page.layout, 'Предыдущее') }}</small>{{ cr_prev.title }}</span>
+    </a>
+    {% else %}<span></span>{% endif %}
+    <a class="gd-pager-all" href="{{ cr_parent.href }}"><i class="bi bi-grid-3x3-gap"></i> {{ {'race': 'Все расы', 'person': 'Все персонажи', 'quest': 'Все квесты', 'anketa': 'Все анкеты', 'magic-type': 'Вся магия', 'guild': 'Все гильдии'}.get(page.layout, 'Весь бестиарий') }}</a>
+    {% if cr_next %}
+    <a class="gd-pager-link gd-pager-next" href="{{ cr_next.href }}">
+      <span><small>{{ {'race': 'Следующая', 'person': 'Следующий', 'quest': 'Следующий', 'anketa': 'Следующий', 'magic-type': 'Следующий', 'guild': 'Следующая'}.get(page.layout, 'Следующее') }} <i class="bi bi-arrow-right"></i></small>{{ cr_next.title }}</span>
+      {% if cr_next.art or cr_next.image %}<img src="/static/{{ cr_next.art or cr_next.image }}" alt="" loading="lazy">{% endif %}
+    </a>
+    {% else %}<span></span>{% endif %}
+  </nav>
+  {% endif %}
+
+  {% if page.layout == 'bestiary' %}
+  {% include 'widgets/bestiary.html' %}
+  {% endif %}
+  {% if page.layout == 'races' %}
+  {% include 'widgets/races.html' %}
+  {% endif %}
+  {% if page.layout == 'people' %}
+  {% include 'widgets/people.html' %}
+  {% endif %}
+  {% if page.layout == 'quests' %}
+  {% include 'widgets/quests.html' %}
+  {% endif %}
+  {% if page.layout == 'ankety' %}
+  {% include 'widgets/ankety.html' %}
+  {% endif %}
+  {% if page.layout == 'guilds' %}
+  {% include 'widgets/guilds.html' %}
+  {% endif %}
+  {% if page.layout == 'magic' %}
+  {% include 'widgets/magic-hub.html' %}
+  {% endif %}
+  {% if page.slug == 'elementy-i-tipy-magii' %}
+  {% include 'widgets/magic-formulas.html' %}
+  {% include 'widgets/magic-types.html' %}
+  {% endif %}
+  {% if mrelated %}
+  <section class="mg-related">
+    <h2 class="bs-group-title" id="rodstvennye"><span class="orn"></span> Родственные типы</h2>
+    <p class="mg-group-note">Типы магии, у которых есть общий элемент</p>
+    <div class="mg-grid mg-grid--small">
+      {% for t in mrelated %}
+      <a class="mg-card" href="{{ t.href }}">
+        <span class="mg-card-art"><img src="/static/{{ t.art or t.image }}" alt="" loading="lazy"{% if t.art_position %} style="object-position: {{ t.art_position }}"{% endif %}></span>
+        <span class="mg-card-body"><span class="mg-card-name">{{ t.title }}</span>
+          {% if t.parts %}<span class="mg-card-parts">{% for p in t.parts %}{% if not loop.first %} + {% endif %}{% if p.href %}{{ p.type_title }}{% else %}{% if p.icon %}<i class="bi {{ p.icon }}"></i>{% endif %}{{ p.name }}{% endif %}{% endfor %}</span>{% endif %}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if page.layout == 'pantheon' %}
+  {% set rank_numerals = {'absolute': 'I', 'seven': 'II', 'middle': 'III', 'lesser': 'IV', 'demi': 'V'} %}
+  <nav class="gd-ladder">
+    {% for group in child_groups if group.title %}
+    {% set cls = rank_classes.get(group.title, 'middle') %}
+    <a href="#rank-{{ cls }}" class="gd-ladder-step gd-rank--{{ cls }}" style="--step: {{ loop.index0 }}">
+      <span class="gd-numeral">{{ rank_numerals[cls] }}</span>
+      <span>{{ group.title }}</span>
+      <b>{{ group.pages|length }}</b>
+    </a>
+    {% endfor %}
+  </nav>
+  {% for group in child_groups if group.title %}
+  {% set cls = rank_classes.get(group.title, 'middle') %}
+  <section class="gd-group gd-rank--{{ cls }}" id="rank-{{ cls }}">
+    <h2 class="gd-group-title"><span class="gd-numeral">{{ rank_numerals[cls] }}</span> {{ group.title }} <small>{{ group.pages|length }}</small></h2>
+    <div class="gd-grid gd-grid--{{ cls }}">
+      {% for god in group.pages %}
+      <a class="gd-card" href="{{ god.href }}">
+        <img src="/static/{{ god.art or god.image }}" alt="{{ god.title }}" loading="lazy"{% if god.art_position %} style="object-position: {{ god.art_position }}"{% endif %}>
+        <div class="gd-card-shade"></div>
+        <div class="gd-card-body">
+          <span class="gd-card-name">{{ god.title }}</span>
+          <span class="gd-card-summary">{{ god.summary }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+  {% endif %}
+
+  {% if related %}
+  <h2 class="nair-cards-title">{{ page.related_title or 'Смотрите также' }}</h2>
+  <div class="nair-art-cards nair-art-cards-hub">
+    {% for item in related %}
+    <a href="{{ item.href }}" class="nair-art-card{{ art_class(item) }}" {{ art_attrs(item) }}>
+      {{ art_img(item) }}
+      <div class="nair-art-card-overlay"></div>
+      <div class="nair-art-card-content">
+        <i class="bi {{ item.icon or 'bi-bookmark' }}"></i>
+        <span class="nair-art-card-title">{{ item.title }}</span>
+        {% if item.summary %}<span class="nair-art-card-subtitle">{{ item.summary }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if page.layout not in ('pantheon', 'bestiary', 'races', 'people', 'quests', 'ankety', 'magic', 'guilds') %}
+  {% for group in child_groups %}
+  {% if group.title %}<h2 class="nair-cards-title">{{ group.title }}</h2>{% endif %}
+  {% if page.cards == 'art' %}
+  {% set special = group.pages[0].card_style == 'special' %}
+  <div class="nair-art-cards nair-art-cards-hub{% if page.card_columns and not special %} nair-art-cards-cols-{{ page.card_columns }}{% endif %}{% if special %} nair-art-cards-special{% endif %}">
+    {% for child in group.pages %}
+    <a href="{{ child.href }}" class="nair-art-card{% if child.card_style %} nair-art-card--{{ child.card_style }}{% endif %}{{ art_class(child) }}" {{ art_attrs(child) }}>
+      {{ art_img(child) }}
+      <div class="nair-art-card-overlay"></div>
+      <div class="nair-art-card-content">
+        <i class="bi {{ child.icon or 'bi-bookmark' }}"></i>
+        <span class="nair-art-card-title">{{ child.title }}</span>
+        {% if child.summary %}<span class="nair-art-card-subtitle">{{ child.summary }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="nair-cards">
+    {% for child in group.pages %}
+    <a class="nair-card" href="{{ child.href }}">
+      {% if child.image %}
+      <div class="nair-card-image" style="background-image: url('/static/{{ child.image }}');"></div>
+      {% else %}
+      <div class="nair-card-image nair-card-image-empty"><i class="bi {{ child.icon or 'bi-bookmark' }}"></i></div>
+      {% endif %}
+      <div class="nair-card-body">
+        <div class="nair-card-title">{{ child.title }}</div>
+        {% if child.summary %}<div class="nair-card-summary">{{ child.summary }}</div>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if page.layout == 'magic' or page.slug == 'elementy-i-tipy-magii' %}
+<script>
+(function () {
+  var btns = document.querySelectorAll('.mg-elbtn');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) { x.classList.toggle('active', x === b); });
+      var el = b.dataset.el, any = false;
+      document.querySelectorAll('.mg-group').forEach(function (g) {
+        var shown = 0;
+        g.querySelectorAll('.mg-card').forEach(function (c) {
+          var ok = !el || (' ' + c.dataset.elements + ' ').indexOf(' ' + el + ' ') !== -1;
+          c.hidden = !ok; if (ok) shown++;
+        });
+        g.hidden = !shown; if (shown) any = true;
+        var counter = g.querySelector('.bs-group-title small');
+        if (counter) counter.textContent = shown;
+      });
+      document.getElementById('mgEmpty').hidden = any;
+    });
+  });
+})();
+</script>
+{% endif %}
+{% if page.layout == 'quests' %}
+<script>
+(function () {
+  var state = { level: '', region: '' };
+  var cards = document.querySelectorAll('.qs-card');
+  document.querySelectorAll('.qs-filter').forEach(function (group) {
+    group.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      group.querySelectorAll('button').forEach(function (x) { x.classList.toggle('active', x === b); });
+      state[group.dataset.filter] = b.dataset.value;
+      var shown = 0;
+      cards.forEach(function (c) {
+        var ok = (!state.level || c.dataset.level === state.level) && (!state.region || c.dataset.region === state.region);
+        c.hidden = !ok; if (ok) shown++;
+      });
+      document.getElementById('qsEmpty').hidden = shown > 0;
+    });
+  });
+})();
+</script>
+{% endif %}
+{% if page.layout == 'quest' %}
+<script>
+document.querySelectorAll('.qs-copy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var text = document.getElementById(b.dataset.copy).textContent;
+    var done = function () { b.querySelector('span').textContent = 'Скопировано'; setTimeout(function () { b.querySelector('span').textContent = 'Скопировать шаблон'; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done); else done();
+  });
+});
+</script>
+{% endif %}
+{% if page.layout == 'rules' %}
+<script>
+(function () {
+  const importantBtn = document.getElementById('rulesImportant');
+  const sections = [...document.querySelectorAll('[data-rules-section]')];
+  const summary = document.querySelector('.nair-rules-section--summary');
+
+  // «Только важные»: скрываем обычные пункты и разделы без важных
+  importantBtn.addEventListener('click', () => {
+    const on = importantBtn.getAttribute('aria-pressed') !== 'true';
+    importantBtn.setAttribute('aria-pressed', on);
+    sections.forEach(section => {
+      let visible = 0;
+      section.querySelectorAll('.nair-rule').forEach(li => {
+        li.hidden = on && !li.classList.contains('nair-rule--important');
+        if (!li.hidden) visible++;
+      });
+      section.hidden = visible === 0;
+      const chip = document.querySelector(`.nair-rules-chip[data-target="${section.dataset.rulesSection}"]`);
+      if (chip) {
+        chip.querySelector('b').textContent = visible;
+        chip.classList.toggle('is-empty', visible === 0);
+      }
+    });
+    if (summary) summary.hidden = on;
+  });
+
+  // номер пункта: копируем ссылку, чтобы можно было скинуть «п. 2.3»
+  document.querySelectorAll('.nair-rule-num').forEach(a => {
+    a.addEventListener('click', () => {
+      const url = location.href.split('#')[0] + a.getAttribute('href');
+      if (navigator.clipboard) navigator.clipboard.writeText(url).catch(() => {});
+      a.classList.add('is-copied');
+      a.dataset.tip = 'Ссылка скопирована';
+      setTimeout(() => a.classList.remove('is-copied'), 1400);
+    });
+  });
+})();
+</script>
+{% endif %}
+{% endblock %}

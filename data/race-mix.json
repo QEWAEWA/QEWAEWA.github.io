@@ -1,0 +1,360 @@
+{
+ "source": "https://docs.google.com/spreadsheets/d/1fYd2MUREHsY-70hwT6Cd0XxLfmiHsAxK7seRtMYzg9o/edit?gid=0#gid=0",
+ "note": "Перенесено из Google-таблицы: зелёный = yes, жёлтый = maybe, красный = no. Таблица симметрична.",
+ "races": [
+  {
+   "name": "Граальды",
+   "slug": "graaldy"
+  },
+  {
+   "name": "Торвенны",
+   "slug": "torvenny"
+  },
+  {
+   "name": "Сквоели",
+   "slug": "skvoeli"
+  },
+  {
+   "name": "Эльфы Бранна",
+   "slug": "elfy-branna"
+  },
+  {
+   "name": "Эльфы Алькара",
+   "slug": "alkarcy"
+  },
+  {
+   "name": "Эльфы Натаира",
+   "slug": "nataircy"
+  },
+  {
+   "name": "Гномы",
+   "slug": "gnomy"
+  },
+  {
+   "name": "Вампиры",
+   "slug": "vampiry"
+  },
+  {
+   "name": "Оборотни",
+   "slug": "oborotni"
+  },
+  {
+   "name": "Мултиры",
+   "slug": "multiry"
+  },
+  {
+   "name": "Орки",
+   "slug": "orki"
+  },
+  {
+   "name": "Ящеролюди",
+   "slug": "yaschery"
+  },
+  {
+   "name": "Насекомоподобные",
+   "slug": "nasekomopodobnye"
+  },
+  {
+   "name": "Дриады",
+   "slug": "driady"
+  },
+  {
+   "name": "Элафаки",
+   "slug": "elafaki"
+  },
+  {
+   "name": "Гоблины",
+   "slug": "gobliny"
+  }
+ ],
+ "matrix": [
+  [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "maybe",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "maybe"
+  ],
+  [
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "no"
+  ],
+  [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "maybe",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "no"
+  ],
+  [
+   "yes",
+   "no",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "no"
+  ],
+  [
+   "no",
+   "no",
+   "no",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "maybe"
+  ],
+  [
+   "maybe",
+   "no",
+   "maybe",
+   "yes",
+   "yes",
+   "yes",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "no"
+  ],
+  [
+   "maybe",
+   "yes",
+   "maybe",
+   "no",
+   "no",
+   "maybe",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  [
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe"
+  ],
+  [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  [
+   "maybe",
+   "maybe",
+   "maybe",
+   "maybe",
+   "maybe",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "no"
+  ],
+  [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  [
+   "maybe",
+   "maybe",
+   "maybe",
+   "maybe",
+   "maybe",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "maybe",
+   "maybe"
+  ],
+  [
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "no",
+   "no",
+   "no",
+   "maybe",
+   "yes"
+  ]
+ ]
+}

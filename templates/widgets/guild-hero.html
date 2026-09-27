@@ -1,0 +1,28 @@
+{# Шапка гильдии (layout: guild): герб, название, суть, глава #}
+{% set g = me_guild %}
+<header class="gl-hero">
+  <div class="cr-hero-bg"><div style="background-image: url('/static/{{ page.art }}');"></div></div>
+  <a class="gl-emblem" href="/static/{{ page.art }}" target="_blank" data-lightbox title="Открыть герб целиком">
+    <img src="/static/{{ page.art }}" alt="Герб: {{ page.title }}">
+  </a>
+  <div class="gl-hero-info">
+    <a class="cr-kind" href="{{ cr_parent.href }}"><span class="orn"></span> Гильдии Бранна</a>
+    <h1 class="cr-name">{{ page.title }}</h1>
+    {% if g.guild.teaser %}<p class="ps-status">{{ g.guild.teaser }}</p>{% endif %}
+    {% if g.leader_page %}
+    <a class="gl-leader" href="{{ g.leader_page.href }}">
+      <img src="/static/{{ g.leader_page.art or g.leader_page.image }}" alt="">
+      <span><small>Глава</small>{{ g.leader_page.title }}{% if g.leader_page.person and g.leader_page.person.status_short %}<em>{{ g.leader_page.person.status_short }}</em>{% endif %}</span>
+      <i class="bi bi-arrow-right"></i>
+    </a>
+    {% endif %}
+  </div>
+</header>
+{% if g.guild.arts %}
+<div class="ak-gallery">
+  <span class="ak-gallery-title"><span class="orn"></span> Арты гильдии</span>
+  <div class="ak-gallery-list">
+    {% for art in g.guild.arts %}<a href="/static/{{ art }}" data-lightbox title="Открыть арт целиком"><img src="/static/{{ art }}" alt="" loading="lazy"></a>{% endfor %}
+  </div>
+</div>
+{% endif %}

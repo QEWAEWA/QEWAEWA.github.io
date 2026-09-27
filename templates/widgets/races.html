@@ -1,0 +1,42 @@
+{# Список рас (layout: races): группы карточками с артами #}
+{% set race_kinds = {'Люди': ['human', 'bi-person-standing'], 'Эльфы': ['elf', 'bi-tree'], 'Другие расы': ['other', 'bi-people'], 'Смешения и неигровые расы': ['npc', 'bi-diagram-3']} %}
+<nav class="bs-nav">
+  {% for group in child_groups if group.title %}
+  {% set kind = race_kinds.get(group.title, ['other', 'bi-people']) %}
+  <a href="#{{ kind[0] }}" class="bs-nav-chip cr-kind--{{ kind[0] }}">
+    <span class="orn"></span><span>{{ group.title }}</span><b>{{ group.pages|length }}</b>
+  </a>
+  {% endfor %}
+</nav>
+{% for group in child_groups if group.title %}
+{% set kind = race_kinds.get(group.title, ['other', 'bi-people']) %}
+<section class="bs-group cr-kind--{{ kind[0] }}" id="{{ kind[0] }}">
+  <h2 class="bs-group-title"><span class="orn"></span> {{ group.title }} <small>{{ group.pages|length }}</small></h2>
+  {% if kind[0] == 'npc' %}
+  <div class="rc-special">
+    {% for c in group.pages %}
+    <a class="rc-special-card" href="{{ c.href }}">
+      <div class="rc-special-art"><img src="/static/{{ c.art or c.image }}" alt="{{ c.title }}" loading="lazy"></div>
+      <div class="rc-special-body">
+        <span class="rc-special-name">{{ c.title }}</span>
+        {% if c.summary %}<span class="rc-special-summary">{{ c.summary }}</span>{% endif %}
+        <span class="rc-special-more">Подробнее <i class="bi bi-arrow-right"></i></span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="rc-grid">
+    {% for c in group.pages %}
+    <a class="rc-card" href="{{ c.href }}">
+      <img src="/static/{{ c.art or c.image }}" alt="{{ c.title }}" loading="lazy"{% if c.art_position %} style="object-position: {{ c.art_position }}"{% endif %}>
+      <div class="gd-card-shade"></div>
+      <div class="rc-card-body">
+        <span class="rc-card-name{% if c.title|length > 13 %} rc-card-name--long{% endif %}" lang="ru">{{ c.title }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endfor %}
