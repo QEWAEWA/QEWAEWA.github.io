@@ -120,6 +120,36 @@ def _plain(html):
     return html_lib.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', str(html))).strip())
 
 
+_IMG_RUN = re.compile(
+    r'((?:<p><img alt="[^"]*" src="[^"]+"\s*/?></p>\s*)+)(?:<p><em>((?:(?!</?p>).)*?)</em></p>)?', re.S)
+
+
+def _figures(html):
+    """Картинки в тексте: одна — картинка с подписью, несколько подряд — карусель.
+    У каждой картинки своя подпись (alt); строка курсивом после группы — общий заголовок карусели.
+    Если alt у всех одинаковый (как в ВК), он и есть общая подпись."""
+    def repl(m):
+        imgs = re.findall(r'<img alt="([^"]*)" src="([^"]+)"', m.group(1))
+        group = (m.group(2) or '').strip()
+        alts = [a.strip() for a, _ in imgs]
+        own = len(set(alts)) > 1 or len(imgs) == 1
+        slides = []
+        for i, (alt, src) in enumerate(imgs, 1):
+            cap = (alt.strip() or group) if own else ''
+            count = f'<span class="nf-count">{i} / {len(imgs)}</span>' if len(imgs) > 1 else ''
+            capt = f'<figcaption><span>{cap}</span>{count}</figcaption>' if cap or count else ''
+            slides.append(f'<figure class="nf-slide"><a class="nf-img" href="{src}" data-lightbox>'
+                          f'<img src="{src}" alt="{alt}" loading="lazy"></a>{capt}</figure>')
+        if len(slides) == 1:
+            return f'<div class="nf-single">{slides[0]}</div>\n'
+        title = group or (alts[0] if not own else '')
+        head = f'<div class="nf-title"><span class="orn"></span> {title}</div>' if title else ''
+        return (f'<div class="nf-carousel" data-carousel>{head}<div class="nf-stage"><div class="nf-track">' + ''.join(slides) + '</div>'
+                '<button type="button" class="nf-nav nf-prev" aria-label="Назад"><i class="bi bi-chevron-left"></i></button>'
+                '<button type="button" class="nf-nav nf-next" aria-label="Вперёд"><i class="bi bi-chevron-right"></i></button></div></div>\n')
+    return _IMG_RUN.sub(repl, str(html))
+
+
 def _years(n):
     n = int(n)
     if n % 10 == 1 and n % 100 != 11:
@@ -490,10 +520,11 @@ class Site:
         for section in sections:
             body = str(section['body'])
             arts += re.findall(r'<img[^>]+src="/static/([^"]+)"', body)
-            body = re.sub(r'<p>\s*<img[^>]*>\s*</p>\s*', '', body).strip()
+            body = _figures(body).strip()
             if body:
                 out.append(dict(section, body=Markup(body)))
-        first = next((_plain(s['body']) for s in out if _plain(s.get('title') or '').lower() == 'общее описание'), '')
+        first = next((_plain(re.sub(r'<figure.*?</figure>', '', str(s['body']), flags=re.S)) for s in out
+                      if _plain(s.get('title') or '').lower() == 'общее описание'), '')
         page['guild'] = {'arts': arts, 'teaser': _first_sentence(first, 200)}
         return out
 
@@ -661,6 +692,47 @@ class Site:
             text = f'{m.group(1)}–{m.group(2)} см' if m.group(2) else f'около {m.group(1)} см'
             facts.append({'icon': 'bi-rulers', 'label': 'Рост', 'text': text})
         return facts
+
+    def continents(self):
+        """Материки из «Материков Наира»: название, пометка, картинка, короткий текст, куда ведёт подробное."""
+        src = self.pages.get('materiki')
+        if not src:
+            return []
+        detail = {'бранн': '#brann', 'гольм': self.href('golm') if 'golm' in self.pages else None}
+        result = []
+        for s in self.render_body(src):
+            if not s.get('title'):
+                continue
+            title = _plain(s['title'])
+            m = re.match(r'(.*?)\s*\((.*)\)\s*$', title)
+            name, note = (m.group(1), m.group(2)) if m else (title, None)
+            body = str(s['body'])
+            imgs = re.findall(r'<img[^>]+src="/static/([^"]+)"', body)
+            text = re.sub(r'<p>\s*<img[^>]*>\s*</p>\s*', '', body).strip()
+            anchor = s.get('anchor')
+            key = 'brann' if name.lower() == 'бранн' else anchor
+            art = f'photo/lokacii-web/cont-{key}.webp'  # арт материка для кнопки (карта остаётся в «Кратко»)
+            result.append({'name': name, 'note': note, 'anchor': anchor, 'image': imgs[0] if imgs else None,
+                           'art': art if os.path.exists('static/' + art) else None,
+                           'text': Markup(text), 'detail': detail.get(name.lower())})
+        return result
+
+    def locations_context(self, page):
+        kids = [dict(p, href=self.href(p['slug'])) for p in self.children('lokacii')]
+        states = [p for p in kids if p.get('layout') == 'state']
+        places = [p for p in kids if p.get('layout') == 'location']
+        groups = []
+        for p in places:
+            if not groups or groups[-1]['title'] != p.get('group'):
+                groups.append({'title': p.get('group'), 'pages': []})
+            groups[-1]['pages'].append(p)
+        # территория → страница государства («Территория Империи людей» → Империя Корвас и т. п.)
+        state_of = {'Территория Империи людей': 'imperiya-korvas', 'Территория Альянса эльфов': 'alyans-elfov',
+                    'Территория Великой Империи ящеров': 'velikaya-imperiya-yascherov'}
+        for g in groups:
+            st = self.pages.get(state_of.get(g['title'], ''))
+            g['state'] = dict(st, href=self.href(st['slug'])) if st else None
+        return {'continents': self.continents(), 'states': states, 'place_groups': groups, 'state_of': state_of}
 
     MAGIC_ELEMENTS = [('свет', 'bi-brightness-high'), ('тьма', 'bi-moon'), ('огонь', 'bi-fire'), ('вода', 'bi-droplet'),
                       ('воздух', 'bi-wind'), ('молния', 'bi-lightning'), ('земля', 'bi-triangle')]
@@ -917,6 +989,41 @@ class Site:
                     'cr_next': types[i + 1] if i + 1 < len(types) else None,
                     'mrelated': [t for t in types if t['slug'] != slug and set(t['elements']) & set(me['elements'])],
                 })
+        if page.get('layout') == 'locations':
+            ctx.update(self.locations_context(page))
+            ctx['child_groups'] = []
+            ctx['sections'] = []
+        if page.get('layout') in ('location', 'state'):
+            loc = self.locations_context(page)
+            kin = [p for g in loc['place_groups'] for p in g['pages']] if page['layout'] == 'location' else loc['states']
+            i = next((k for k, p in enumerate(kin) if p['slug'] == slug), 0)
+            st = self.pages.get(loc['state_of'].get(page.get('group'), ''))
+            arts = []
+            if page['layout'] == 'state' and ctx['sections']:
+                # герб из начала текста уже стоит в шапке (новый арт) — убираем его с подписью
+                first = ctx['sections'][0]
+                body = re.sub(r'^\s*<p><img[^>]*></p>\s*(<p><em>[^<]*</em></p>\s*)?', '', str(first['body']))
+                first['body'] = Markup(body)
+                for section in ctx['sections']:
+                    section['body'] = Markup(_figures(section['body']))
+                ctx['sections'] = [s for s in ctx['sections'] if str(s['body']).strip() or s.get('title')]
+            if page['layout'] == 'location':
+                # картинки из текста — в галерею под шапкой и на свои места в тексте;
+                # картинка в самом начале страницы — старая шапка из ВК, её уже заменяет арт в шапке
+                for k, section in enumerate(ctx['sections']):
+                    body = str(section['body'])
+                    arts += re.findall(r'<img[^>]+src="/static/([^"]+)"', body)
+                    if k == 0:
+                        body = re.sub(r'^\s*<p><img[^>]*></p>\s*', '', body)
+                    section['body'] = Markup(_figures(body).strip())
+                ctx['sections'] = [s for s in ctx['sections'] if str(s['body']).strip()]
+            ctx.update({
+                'cr_prev': kin[i - 1] if i > 0 else None, 'cr_next': kin[i + 1] if i + 1 < len(kin) else None,
+                'cr_parent': dict(self.pages['lokacii'], href=self.href('lokacii') + '#brann'),
+                'cr_shot': page.get('art'), 'cr_wide': _is_wide('static/' + page['art']) if page.get('art') else False,
+                'loc_state': dict(st, href=self.href(st['slug'])) if st else None, 'loc_arts': arts,
+                'loc_children': [dict(c, href=self.href(c['slug'])) for c in self.children(slug)],
+            })
         if page.get('layout') in ('guild', 'guilds'):
             kin = [dict(p, href=self.href(p['slug'])) for p in self.children('gildii') if p.get('layout') == 'guild']
             for g in kin:

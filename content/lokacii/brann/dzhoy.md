@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Империи людей
 image: photo/vk/533473434_457251409.jpg
 vk: 54852226
+art: photo/lokacii-web/dzhoy.webp
+layout: location
 
 ## История города
 

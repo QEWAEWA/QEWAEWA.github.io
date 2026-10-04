@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Империи людей
 image: photo/vk/533473434_457251413.jpg
 vk: 54854037
+art: photo/lokacii-web/ozero-kalehada.webp
+layout: location
 
 ## История места
 

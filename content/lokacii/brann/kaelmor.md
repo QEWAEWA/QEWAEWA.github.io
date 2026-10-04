@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Альянса эльфов
 image: photo/vk/533473434_457251422.jpg
 vk: 54854047
+art: photo/lokacii-web/kaelmor.webp
+layout: location
 
 ## История города
 

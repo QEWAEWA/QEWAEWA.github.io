@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Империи людей
 image: photo/vk/533473434_457251412.jpg
 vk: 54854035
+art: photo/lokacii-web/grom-ha.webp
+layout: location
 
 ## История Гром'Ха
 

@@ -1,0 +1,25 @@
+{# Шапка локации (layout: location) или государства (layout: state) #}
+<header class="cr-hero lc-hero cr-kind--human{% if cr_wide %} cr-hero--wide{% endif %}{% if page.layout == 'state' %} lc-hero--state{% endif %}">
+  <div class="cr-hero-bg"><div style="background-image: url('/static/{{ cr_shot }}');"></div></div>
+  <a class="cr-hero-art" href="/static/{{ cr_shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
+    <img src="/static/{{ cr_shot }}" alt="{{ page.title }}">
+    <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
+  </a>
+  <div class="cr-hero-info">
+    <a class="cr-kind" href="{{ cr_parent.href }}"><span class="orn"></span> {{ 'Государство Бранна' if page.layout == 'state' else page.group }}</a>
+    <h1 class="cr-name">{{ page.title }}</h1>
+    <div class="lc-actions">
+      {% if loc_state and page.layout == 'location' %}<a class="lc-btn" href="{{ loc_state.href }}"><span class="orn"></span> {{ loc_state.title }}</a>{% endif %}
+      {% if map_link %}<a class="lc-btn" href="{{ map_link }}"><i class="bi bi-geo-alt"></i> Показать на карте</a>{% endif %}
+      {% for c in loc_children %}<a class="lc-btn" href="{{ c.href }}"><i class="bi bi-arrow-right"></i> {{ c.title }}</a>{% endfor %}
+    </div>
+  </div>
+</header>
+{% if loc_arts %}
+<div class="ak-gallery">
+  <span class="ak-gallery-title"><span class="orn"></span> Виды</span>
+  <div class="ak-gallery-list">
+    {% for art in loc_arts %}<a href="/static/{{ art }}" data-lightbox title="Открыть картинку целиком"><img src="/static/{{ art }}" alt="" loading="lazy"></a>{% endfor %}
+  </div>
+</div>
+{% endif %}

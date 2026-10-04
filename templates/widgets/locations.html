@@ -1,0 +1,100 @@
+{# Хаб «Локации» (layout: locations): выбор кратко / подробно — большие карточки с артами #}
+{% set brann = continents|selectattr('detail', 'equalto', '#brann')|first %}
+<div class="lc-switch" role="tablist">
+  <button type="button" class="lc-tab" data-tab="kratko" role="tab">
+    <img src="/static/photo/lokacii-web/tab-kratko.webp" alt="" loading="lazy">
+    <span class="lc-tab-shade"></span>
+    <span class="lc-tab-body"><b>Кратко</b><small>Все материки Наира в двух словах</small></span>
+  </button>
+  <button type="button" class="lc-tab" data-tab="podrobno" role="tab">
+    <img src="/static/photo/lokacii-web/tab-podrobno.webp" alt="" loading="lazy">
+    <span class="lc-tab-shade"></span>
+    <span class="lc-tab-body"><b>Подробно</b><small>Материки, государства и места Бранна</small></span>
+  </button>
+  <a class="lc-tab lc-tab--map" href="karta.html">
+    <img src="/static/photo/map-tiles/3/2/2.webp" alt="" loading="lazy">
+    <span class="lc-tab-shade"></span>
+    <span class="lc-tab-body"><b>Карта</b><small>Открыть карту мира</small></span>
+  </a>
+</div>
+
+<section class="lc-panel" id="panel-kratko" data-panel="kratko">
+  {% for c in continents %}
+  <article class="lc-short" id="{{ c.anchor }}">
+    {% if c.image %}<a class="lc-short-art" href="/static/{{ c.image }}" data-lightbox><img src="/static/{{ c.image }}" alt="" loading="lazy"></a>{% endif %}
+    <div class="lc-short-body">
+      <h2 class="lc-short-name">{{ c.name }}{% if c.note %} <small>{{ c.note }}</small>{% endif %}</h2>
+      <div class="text-content">{{ c.text }}</div>
+      {% if c.detail %}<a class="lc-more" href="{{ c.detail }}"{% if c.detail.startswith('#') %} data-goto="podrobno"{% endif %}>Подробное описание <i class="bi bi-arrow-right"></i></a>{% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="lc-panel" id="panel-podrobno" data-panel="podrobno">
+  {% set lands = [
+    ('materiki', 'Материки и земли', 'Большие земли Наира', ['бранн', 'дарлик', 'алькар', 'сквоеттерия', 'ишткар', 'камаль']),
+    ('ostrova', 'Острова', 'Острова и архипелаги', ['натаир', 'гольм', 'архипелаги аанари']),
+    ('goroda', 'Города и магические институты', 'Отдельные города и оплоты магов', ['юфар', 'литанари', 'йомен', 'капитул магии']),
+  ] %}
+  {% set kinds = {'бранн': 'Материк', 'дарлик': 'Материк', 'алькар': 'Земли', 'сквоеттерия': 'Земли', 'ишткар': 'Материк', 'камаль': 'Мёртвые земли',
+                  'натаир': 'Остров', 'гольм': 'Остров', 'архипелаги аанари': 'Архипелаг',
+                  'юфар': 'Город-государство', 'литанари': 'Магический институт', 'йомен': 'Магический институт', 'капитул магии': 'Союз магов'} %}
+  {% for id, title, note, names in lands %}
+  <section class="bs-group">
+    {% set items = continents|selectattr('name')|list %}
+    <h2 class="bs-group-title" id="{{ id }}"><span class="orn"></span> {{ title }} <small>{{ names|length }}</small></h2>
+    <div class="lc-conts">
+      {% for c in continents if c.name|lower in names %}
+      {% set tag = 'a' if c.detail else 'div' %}
+      <{{ tag }} class="lc-land{% if not c.detail %} lc-land--soon{% endif %}"{% if c.detail %} href="{{ c.detail }}"{% if c.detail.startswith('#') %} data-goto="podrobno"{% endif %}{% else %} title="Подробное описание пока не готово"{% endif %}>
+        <span class="lc-land-art">{% if c.art or c.image %}<img src="/static/{{ c.art or c.image }}" alt="" loading="lazy">{% endif %}</span>
+        <span class="lc-land-body">
+          <span class="lc-land-kind">{{ kinds.get(c.name|lower, '') }}</span>
+          <span class="lc-land-name">{{ c.name }}</span>
+          <span class="lc-land-state">{% if c.detail %}Подробное описание <i class="bi bi-arrow-right"></i>{% else %}Описание готовится{% endif %}</span>
+        </span>
+      </{{ tag }}>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
+  <section class="lc-brann" id="brann">
+    {% if brann and (brann.art or brann.image) %}<div class="lc-brann-bg" style="background-image: url('/static/{{ brann.art or brann.image }}')"></div>{% endif %}
+    <div class="lc-brann-body">
+      <span class="cr-kind"><span class="orn"></span> Основной игровой материк</span>
+      <h2 class="lc-brann-name">Бранн</h2>
+      {% if brann %}<div class="text-content">{{ brann.text }}</div>{% endif %}
+    </div>
+  </section>
+
+  <section class="bs-group">
+    <h2 class="bs-group-title" id="gosudarstva"><span class="orn"></span> Государства Бранна <small>{{ states|length }}</small></h2>
+    <div class="lc-states">
+      {% for s in states %}
+      <a class="lc-card lc-card--state" href="{{ s.href }}">
+        <img src="/static/{{ s.art or s.image }}" alt="" loading="lazy">
+        <span class="gd-card-shade"></span>
+        <span class="lc-card-body"><span class="lc-card-name">{{ s.title }}</span></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% for g in place_groups %}
+  <section class="bs-group">
+    <h2 class="bs-group-title"><span class="orn"></span> {{ g.title }} <small>{{ g.pages|length }}</small></h2>
+    {% if g.state %}<a class="lc-group-state" href="{{ g.state.href }}"><img src="/static/{{ g.state.art or g.state.image }}" alt=""> {{ g.state.title }} <i class="bi bi-arrow-right"></i></a>{% endif %}
+    <div class="lc-places">
+      {% for p in g.pages %}
+      <a class="lc-card lc-card--place" href="{{ p.href }}">
+        <img src="/static/{{ p.art or p.image }}" alt="" loading="lazy">
+        <span class="gd-card-shade"></span>
+        <span class="lc-card-body"><span class="lc-card-name">{{ p.title }}</span></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</section>

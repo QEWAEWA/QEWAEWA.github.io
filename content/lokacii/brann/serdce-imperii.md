@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Великой Империи ящеров
 image: photo/vk/533473434_457251415.jpg
 vk: 54854039
+art: photo/lokacii-web/serdce-imperii.webp
+layout: location
 
 ## История города
 

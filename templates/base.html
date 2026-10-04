@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap">
     <!-- Ваши кастомные стили -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=20260926j">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=20260930m">
     {% block head %}{% endblock %}
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='photo/favicon.ico') }}" type="image/x-icon">
@@ -167,7 +167,8 @@
         }
 
         // Автоматическая генерация содержания (TOC)
-        document.addEventListener('DOMContentLoaded', function() {
+        // перестраивается и при переключении вкладок (скрытые разделы не показываем)
+        window.nairBuildToc = function() {
             const tocNav = document.getElementById('tocNav');
             const tocSidebar = document.getElementById('tocSidebar');
             if (!tocNav || !tocSidebar) return;
@@ -175,7 +176,7 @@
             const mainContent = document.querySelector('.original-main');
             if (!mainContent) return;
             
-            const headings = mainContent.querySelectorAll('h2, h3');
+            const headings = Array.from(mainContent.querySelectorAll('h2, h3')).filter(h => !h.closest('[hidden]'));
             if (headings.length === 0) {
                 // Показываем заглушку, если нет разделов
                 tocNav.innerHTML = '<div class="toc-empty">Нет разделов на странице</div>';
@@ -198,7 +199,9 @@
                 if (heading.tagName === 'H3') {
                     link.classList.add('toc-link-sub');
                 }
-                link.textContent = heading.textContent;
+                const clone = heading.cloneNode(true);
+                clone.querySelectorAll('small').forEach(el => el.remove());
+                link.textContent = clone.textContent.trim();
                 tocNav.appendChild(link);
             });
             
@@ -215,11 +218,27 @@
             }, { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 });
             
             headings.forEach(h => observer.observe(h));
-        });
+        };
+        document.addEventListener('DOMContentLoaded', window.nairBuildToc);
     </script>
     
     <!-- Ваши скрипты -->
     <script>
+    // Карусели картинок в тексте: стрелки листают по одной, у краёв стрелка гаснет
+    document.querySelectorAll('[data-carousel]').forEach(function (c) {
+        var track = c.querySelector('.nf-track');
+        var prev = c.querySelector('.nf-prev'), next = c.querySelector('.nf-next');
+        function step(dir) { track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' }); }
+        function update() {
+            prev.disabled = track.scrollLeft < 4;
+            next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+        }
+        prev.addEventListener('click', function () { step(-1); });
+        next.addEventListener('click', function () { step(1); });
+        track.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+    });
     // Просмотр арта во весь экран (ссылки с data-lightbox)
     document.addEventListener('click', function (e) {
         var link = e.target.closest('a[data-lightbox]');

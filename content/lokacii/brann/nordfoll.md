@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Империи людей
 image: photo/vk/533473434_457251410.jpg
 vk: 54854029
+art: photo/lokacii-web/nordfoll.webp
+layout: location
 
 ## История города
 

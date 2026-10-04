@@ -80,10 +80,12 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
   {% include 'widgets/anketa-hero.html' %}
   {% elif page.layout == 'guild' %}
   {% include 'widgets/guild-hero.html' %}
+  {% elif page.layout in ('location', 'state') and page.art %}
+  {% include 'widgets/location-hero.html' %}
   {% elif page.layout in ('magic-page', 'magic-type') and page.art %}
   {% include 'widgets/magic-hero.html' %}
   {% elif not page.hero %}<h1 class="page-title">{{ page.title }}</h1>{% endif %}
-  {% if map_link %}
+  {% if map_link and page.layout not in ('location', 'state') %}
   <div class="km-onmap-wrap"><a class="km-onmap" href="{{ map_link }}"><i class="bi bi-geo-alt"></i> Показать на карте</a></div>
   {% endif %}
 
@@ -186,18 +188,18 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
 
   {% if credit %}<div class="sc-credit">{{ credit }}</div>{% endif %}
 
-  {% if page.layout in ('creature', 'race', 'person', 'quest', 'anketa', 'magic-type', 'guild') %}
+  {% if page.layout in ('creature', 'race', 'person', 'quest', 'anketa', 'magic-type', 'guild', 'location', 'state') %}
   <nav class="gd-pager cr-pager{% if page.layout in ('race', 'person', 'anketa') %} rc-pager{% endif %}{% if page.layout == 'quest' %} qs-pager{% endif %}">
     {% if cr_prev %}
     <a class="gd-pager-link" href="{{ cr_prev.href }}">
       {% if cr_prev.art or cr_prev.image %}<img src="/static/{{ cr_prev.art or cr_prev.image }}" alt="" loading="lazy">{% endif %}
-      <span><small><i class="bi bi-arrow-left"></i> {{ {'race': 'Предыдущая', 'person': 'Предыдущий', 'quest': 'Предыдущий', 'anketa': 'Предыдущий', 'magic-type': 'Предыдущий', 'guild': 'Предыдущая'}.get(page.layout, 'Предыдущее') }}</small>{{ cr_prev.title }}</span>
+      <span><small><i class="bi bi-arrow-left"></i> {{ {'race': 'Предыдущая', 'person': 'Предыдущий', 'quest': 'Предыдущий', 'anketa': 'Предыдущий', 'magic-type': 'Предыдущий', 'guild': 'Предыдущая', 'location': 'Предыдущая', 'state': 'Предыдущее'}.get(page.layout, 'Предыдущее') }}</small>{{ cr_prev.title }}</span>
     </a>
     {% else %}<span></span>{% endif %}
-    <a class="gd-pager-all" href="{{ cr_parent.href }}"><i class="bi bi-grid-3x3-gap"></i> {{ {'race': 'Все расы', 'person': 'Все персонажи', 'quest': 'Все квесты', 'anketa': 'Все анкеты', 'magic-type': 'Вся магия', 'guild': 'Все гильдии'}.get(page.layout, 'Весь бестиарий') }}</a>
+    <a class="gd-pager-all" href="{{ cr_parent.href }}"><i class="bi bi-grid-3x3-gap"></i> {{ {'race': 'Все расы', 'person': 'Все персонажи', 'quest': 'Все квесты', 'anketa': 'Все анкеты', 'magic-type': 'Вся магия', 'guild': 'Все гильдии', 'location': 'Все локации', 'state': 'Все локации'}.get(page.layout, 'Весь бестиарий') }}</a>
     {% if cr_next %}
     <a class="gd-pager-link gd-pager-next" href="{{ cr_next.href }}">
-      <span><small>{{ {'race': 'Следующая', 'person': 'Следующий', 'quest': 'Следующий', 'anketa': 'Следующий', 'magic-type': 'Следующий', 'guild': 'Следующая'}.get(page.layout, 'Следующее') }} <i class="bi bi-arrow-right"></i></small>{{ cr_next.title }}</span>
+      <span><small>{{ {'race': 'Следующая', 'person': 'Следующий', 'quest': 'Следующий', 'anketa': 'Следующий', 'magic-type': 'Следующий', 'guild': 'Следующая', 'location': 'Следующая', 'state': 'Следующее'}.get(page.layout, 'Следующее') }} <i class="bi bi-arrow-right"></i></small>{{ cr_next.title }}</span>
       {% if cr_next.art or cr_next.image %}<img src="/static/{{ cr_next.art or cr_next.image }}" alt="" loading="lazy">{% endif %}
     </a>
     {% else %}<span></span>{% endif %}
@@ -218,6 +220,9 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
   {% endif %}
   {% if page.layout == 'ankety' %}
   {% include 'widgets/ankety.html' %}
+  {% endif %}
+  {% if page.layout == 'locations' %}
+  {% include 'widgets/locations.html' %}
   {% endif %}
   {% if page.layout == 'guilds' %}
   {% include 'widgets/guilds.html' %}
@@ -294,7 +299,7 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
   </div>
   {% endif %}
 
-  {% if page.layout not in ('pantheon', 'bestiary', 'races', 'people', 'quests', 'ankety', 'magic', 'guilds') %}
+  {% if page.layout not in ('pantheon', 'bestiary', 'races', 'people', 'quests', 'ankety', 'magic', 'guilds', 'locations', 'location') %}
   {% for group in child_groups %}
   {% if group.title %}<h2 class="nair-cards-title">{{ group.title }}</h2>{% endif %}
   {% if page.cards == 'art' %}
@@ -335,6 +340,30 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
 {% endblock %}
 
 {% block scripts %}
+{% if page.layout == 'locations' %}
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.lc-tab[data-tab]');
+  function show(name, scrollTo) {
+    tabs.forEach(function (t) { var on = t.dataset.tab === name; t.classList.toggle('active', on); t.setAttribute('aria-selected', on); });
+    document.querySelectorAll('.lc-panel').forEach(function (p) { p.hidden = p.dataset.panel !== name; });
+    try { localStorage.setItem('nair-lokacii-tab', name); } catch (e) {}
+    if (window.nairBuildToc && document.readyState !== 'loading') window.nairBuildToc();
+    if (scrollTo) { var el = document.getElementById(scrollTo); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); history.replaceState(null, '', '#' + t.dataset.tab); }); });
+  document.querySelectorAll('[data-goto]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.goto, a.getAttribute('href').slice(1)); });
+  });
+  // из адреса: #kratko / #podrobno / якорь внутри панели (например, #brann или #darlik)
+  var hash = decodeURIComponent(location.hash.slice(1)), start = null, target = null;
+  if (hash === 'kratko' || hash === 'podrobno') start = hash;
+  else if (hash) { var el = document.getElementById(hash); var panel = el && el.closest('.lc-panel'); if (panel) { start = panel.dataset.panel; target = hash; } }
+  if (!start) { try { start = localStorage.getItem('nair-lokacii-tab'); } catch (e) {} }
+  show(start === 'kratko' ? 'kratko' : 'podrobno', target);
+})();
+</script>
+{% endif %}
 {% if page.layout == 'magic' or page.slug == 'elementy-i-tipy-magii' %}
 <script>
 (function () {

@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Империи людей
 image: photo/vk/533473434_457251414.jpg
 vk: 54854038
+art: photo/lokacii-web/fort-very.webp
+layout: location
 
 ## История форта
 

@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Альянса эльфов
 image: photo/vk/533473434_457251420.jpg
 vk: 54854045
+art: photo/lokacii-web/serdce-lesa.webp
+layout: location
 
 ## История города
 

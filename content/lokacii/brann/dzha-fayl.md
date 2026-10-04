@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Великой Империи ящеров
 image: photo/vk/533473434_457251416.jpg
 vk: 54854040
+art: photo/lokacii-web/dzha-fayl.webp
+layout: location
 
 ## История города
 

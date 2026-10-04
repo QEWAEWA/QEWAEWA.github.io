@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Альянса эльфов
 image: photo/vk/533473434_457251421.jpg
 vk: 54854046
+art: photo/lokacii-web/falasse.webp
+layout: location
 
 ## История города
 

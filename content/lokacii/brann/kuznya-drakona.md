@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Великой Империи ящеров
 image: photo/vk/533473434_457251418.jpg
 vk: 54854043
+art: photo/lokacii-web/kuznya-drakona.webp
+layout: location
 
 ## История поселения
 

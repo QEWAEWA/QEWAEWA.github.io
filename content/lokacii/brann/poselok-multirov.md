@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Альянса эльфов
 image: photo/vk/533473434_457251423.jpg
 vk: 54854049
+art: photo/lokacii-web/poselok-multirov.webp
+layout: location
 
 ## История поселения
 

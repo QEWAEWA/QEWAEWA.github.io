@@ -5,6 +5,8 @@ icon: bi-geo-alt
 group: Территория Альянса эльфов
 image: photo/vk/533473434_457251419.jpg
 vk: 54854044
+art: photo/lokacii-web/reka-pererozhdeniya.webp
+layout: location
 
 ## История места
 
