@@ -1,13 +1,13 @@
 {# Список гильдий (layout: guilds) #}
 <div class="gl-list">
   {% for g in guilds %}
-  <a class="gl-card" href="{{ g.href }}">
+  <div class="gl-card">
     <span class="gl-card-emblem"><img src="/static/{{ g.art }}" alt="" loading="lazy"></span>
     <span class="gl-card-body">
-      <span class="gl-card-name">{{ g.title }}</span>
+      <span class="gl-card-name"><a href="{{ g.href }}">{{ g.title }}</a></span>
       {% if g.guild.teaser %}<span class="gl-card-teaser">{{ g.guild.teaser }}</span>{% endif %}
-      {% if g.leader_page %}<span class="gl-card-leader"><span class="orn"></span> Глава: {{ g.leader_page.title }}</span>{% endif %}
+      {% if g.leader_page %}<a class="gl-card-leader" href="{{ g.leader_page.href }}"><span class="orn"></span> Глава: {{ g.leader_page.title }}</a>{% endif %}
     </span>
-  </a>
+  </div>
   {% endfor %}
 </div>

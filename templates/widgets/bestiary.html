@@ -1,18 +1,17 @@
 {# Бестиарий (layout: bestiary): группы существ карточками с артами #}
-{% set fauna_kinds = {'Звери': ['beast', 'bi-feather'], 'Чудовища': ['monster', 'bi-fire'], 'Вампиры': ['vampire', 'bi-droplet-half'], 'Духи и призраки': ['spirit', 'bi-moon-stars'], 'Порождения скверны': ['taint', 'bi-radioactive']} %}
-{% set tame_icons = {'yes': 'bi-heart-fill', 'maybe': 'bi-hand-thumbs-up', 'no': 'bi-x-octagon'} %}
+{% set fauna_kinds = {'Звери': ['beast', 'sign-track'], 'Чудовища': ['monster', 'sign-horn'], 'Вампиры': ['vampire', 'sign-fang'], 'Духи и призраки': ['spirit', 'sign-wisp'], 'Порождения скверны': ['taint', 'sign-thorn']} %}
 <nav class="bs-nav">
   {% for group in child_groups if group.title %}
-  {% set kind = fauna_kinds.get(group.title, ['beast', 'bi-bug']) %}
+  {% set kind = fauna_kinds.get(group.title, ['beast', 'sign-track']) %}
   <a href="#{{ kind[0] }}" class="bs-nav-chip cr-kind--{{ kind[0] }}">
-    <span class="orn"></span><span>{{ group.title }}</span><b>{{ group.pages|length }}</b>
+    <i class="bi {{ kind[1] }}" aria-hidden="true"></i><span>{{ group.title }}</span><b>{{ group.pages|length }}</b>
   </a>
   {% endfor %}
 </nav>
 {% for group in child_groups if group.title %}
-{% set kind = fauna_kinds.get(group.title, ['beast', 'bi-bug']) %}
+{% set kind = fauna_kinds.get(group.title, ['beast', 'sign-track']) %}
 <section class="bs-group cr-kind--{{ kind[0] }}" id="{{ kind[0] }}">
-  <h2 class="bs-group-title"><span class="orn"></span> {{ group.title }} <small>{{ group.pages|length }}</small></h2>
+  <h2 class="bs-group-title"><i class="bi {{ kind[1] }}" aria-hidden="true"></i> {{ group.title }} <small>{{ group.pages|length }}</small></h2>
   <div class="bs-grid">
     {% for c in group.pages %}
     <a class="bs-card" href="{{ c.href }}">

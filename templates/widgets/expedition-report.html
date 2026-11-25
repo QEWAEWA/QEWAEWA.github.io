@@ -1,0 +1,18 @@
+<article class="expedition">
+  <header class="expedition-intro">
+    <div class="expedition-preface">
+      <h1>{{ page.title }}</h1>
+      {% for section in sections if not section.title %}
+        {{ section.body }}
+      {% endfor %}
+    </div>
+    <img class="expedition-portrait" src="{{ url_for('static', filename=page.portrait) }}"
+         alt="" width="315" height="420">
+  </header>
+  {% for section in sections if section.title %}
+    <section class="expedition-sheet">
+      <h2>{{ section.title }}</h2>
+      {{ section.body }}
+    </section>
+  {% endfor %}
+</article>

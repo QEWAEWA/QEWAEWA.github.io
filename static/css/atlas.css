@@ -1,0 +1,66 @@
+.original-main .page-title {
+  margin: .4rem 0 1rem;
+  text-align: left;
+  font: 500 clamp(2rem, 3.6vw, 3.2rem)/1.1 Georgia, serif;
+  letter-spacing: -.025em;
+  text-shadow: none;
+}
+.atlas-modes {
+  display: flex;
+  gap: 1.25rem;
+  align-items: stretch;
+  border-block: 1px solid var(--nair-border);
+  margin-bottom: 2rem;
+}
+.atlas-modes [role="tablist"] { display: flex; flex: 1; gap: 1.25rem; }
+.atlas-modes button, .atlas-modes > a {
+  display: block;
+  padding: .75rem 0;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  font: inherit;
+  font-style: normal;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+}
+.atlas-modes [aria-selected="true"] { border-bottom-color: #d9bb85; }
+.atlas-modes b, .atlas-modes small { display: block; }
+.atlas-modes small { margin-top: .15rem; font-size: .81rem; line-height: 1.35; color: #c3bcb1 !important; }
+.atlas-modes a:hover b, .atlas-modes button:hover b { text-decoration: underline; }
+.atlas-brann { container-type: inline-size; scroll-margin-top: 5rem; }
+.atlas-kicker { font: 500 .8rem/1.4 'Fira Sans', sans-serif; letter-spacing: .09em; color: #d5c6ae !important; }
+.atlas-brann header h2 { margin: .1rem 0 1rem; font: 500 clamp(2.8rem, 5vw, 4.6rem)/1.05 Georgia, serif; }
+.atlas-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+.atlas-map { display: block; }
+.atlas-map img { width: 100%; height: auto; display: block; border: 1px solid #807963; box-sizing: border-box; }
+.atlas-states h2 { margin: 0 0 .55rem; font: 500 1.4rem/1.2 Georgia, serif; }
+.atlas-states small { font: 400 .82rem 'Fira Sans', sans-serif; color: #ccb99a !important; }
+.atlas-states a {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding-block: .65rem;
+  border-top: 1px solid var(--nair-border);
+  text-decoration: none;
+  font: 500 1rem/1.35 'Fira Sans', sans-serif;
+}
+.atlas-states a img { width: clamp(3.6rem, 8cqi, 5rem); height: 3.65rem; object-fit: contain; }
+.atlas-states a:hover span { text-decoration: underline; }
+.atlas-description { max-width: 70ch; margin: 1.35rem 0 2.5rem; font-style: normal; }
+.atlas-brann a:focus-visible, .atlas-modes :is(a, button):focus-visible { outline: 2px solid #ecd2a1; outline-offset: 3px; }
+@container (max-width: 34rem) {
+  .atlas-spread { grid-template-columns: 1fr; }
+  .atlas-states a { padding-block: .4rem; }
+}
+@media (max-width: 600px) {
+  .atlas-modes, .atlas-modes [role="tablist"] { gap: .65rem; }
+  .atlas-modes [role="tablist"] { flex: 2; }
+  .atlas-modes button, .atlas-modes > a { flex: 1; }
+}

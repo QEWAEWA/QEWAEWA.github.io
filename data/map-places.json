@@ -54,6 +54,7 @@
       "title": "За пределами Бранна",
       "kind": "land",
       "places": [
+        {"page": "lokacii", "anchor": "brann", "title": "Бранн", "bounds": [1940, 1980, 3630, 3330]},
         {"page": "golm", "x": 4650, "y": 2540},
         {"page": "materiki", "anchor": "darlik", "title": "Дарлик", "x": 3500, "y": 4150},
         {"page": "materiki", "anchor": "natair", "title": "Натаир", "x": 1890, "y": 5740},

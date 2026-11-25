@@ -1,0 +1,71 @@
+.expedition {
+  max-width: 58rem;
+  margin: 0 auto clamp(2.5rem, 6vw, 5rem);
+  font-style: normal;
+  text-shadow: none;
+}
+.expedition-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 32%);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-block: .5rem clamp(1.8rem, 4vw, 3.4rem);
+}
+.expedition-preface h1 {
+  margin: 0 0 .28em;
+  font: 500 clamp(3rem, 6.5vw, 6.25rem)/1.05 Georgia, serif;
+  letter-spacing: -.045em;
+  color: #eee9dc !important;
+}
+.expedition-preface p {
+  margin: 0;
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  line-height: 1.72;
+  color: #d8d7d1 !important;
+}
+.expedition-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 78%, transparent);
+}
+.expedition-sheet {
+  position: relative;
+  padding: clamp(1.5rem, 4.6vw, 4.25rem);
+  border-top: 1px solid #b5a991;
+  background:
+    radial-gradient(ellipse at 102% 0%, #5c5c53 0%, transparent 15%),
+    linear-gradient(118deg, #dcd4bf, #cfc7b2 68%, #c4beaa);
+}
+.expedition-sheet h2 {
+  max-width: 32ch;
+  margin: 0 0 1em;
+  color: #302e28 !important;
+  font: 500 clamp(1.45rem, 3vw, 2.45rem)/1.15 Georgia, serif;
+}
+.expedition-sheet blockquote {
+  max-width: 66ch;
+  margin: 0;
+  padding-left: clamp(.85rem, 2vw, 1.65rem);
+  border-left: 1px solid #8b8069;
+}
+.expedition-sheet p {
+  margin: 0;
+  color: #292820 !important;
+  font: 400 clamp(1.06rem, 1.35vw, 1.23rem)/1.62 Georgia, serif;
+}
+.expedition-sheet p + p { margin-top: 1em; }
+@media (max-width: 850px) {
+  .expedition-intro { grid-template-columns: 1fr; gap: .9rem; }
+  .expedition-preface { display: contents; }
+  .expedition-preface h1 { margin: 0; }
+  .expedition-portrait {
+    grid-row: 2;
+    height: clamp(9rem, 37vw, 15rem);
+    object-fit: cover;
+    object-position: center 24%;
+  }
+}
+@media (max-width: 480px) {
+  .expedition-sheet { padding: 1.4rem 1rem; }
+}

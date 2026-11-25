@@ -1,24 +1,17 @@
-{# Хаб «Локации» (layout: locations): выбор кратко / подробно — большие карточки с артами #}
+{# Атлас Наира #}
 {% set brann = continents|selectattr('detail', 'equalto', '#brann')|first %}
-<div class="lc-switch" role="tablist">
-  <button type="button" class="lc-tab" data-tab="kratko" role="tab">
-    <img src="/static/photo/lokacii-web/tab-kratko.webp" alt="" loading="lazy">
-    <span class="lc-tab-shade"></span>
-    <span class="lc-tab-body"><b>Кратко</b><small>Все материки Наира в двух словах</small></span>
-  </button>
-  <button type="button" class="lc-tab" data-tab="podrobno" role="tab">
-    <img src="/static/photo/lokacii-web/tab-podrobno.webp" alt="" loading="lazy">
-    <span class="lc-tab-shade"></span>
-    <span class="lc-tab-body"><b>Подробно</b><small>Материки, государства и места Бранна</small></span>
-  </button>
-  <a class="lc-tab lc-tab--map" href="karta.html">
-    <img src="/static/photo/map-tiles/3/2/2.webp" alt="" loading="lazy">
-    <span class="lc-tab-shade"></span>
-    <span class="lc-tab-body"><b>Карта</b><small>Открыть карту мира</small></span>
-  </a>
+<div class="atlas-modes">
+  <div role="tablist" aria-label="Локации">
+    {% for id, label, note in [('kratko', 'Кратко', 'Все материки Наира в двух словах'), ('podrobno', 'Подробно', 'Материки, государства и места Бранна')] %}
+    <button type="button" id="tab-{{ id }}" data-tab="{{ id }}" role="tab" aria-controls="panel-{{ id }}">
+      <b>{{ label }}</b><small>{{ note }}</small>
+    </button>
+    {% endfor %}
+  </div>
+  <a href="karta.html"><b>Карта</b><small>Открыть карту мира</small></a>
 </div>
 
-<section class="lc-panel" id="panel-kratko" data-panel="kratko">
+<section class="lc-panel" id="panel-kratko" data-panel="kratko" role="tabpanel" aria-labelledby="tab-kratko">
   {% for c in continents %}
   <article class="lc-short" id="{{ c.anchor }}">
     {% if c.image %}<a class="lc-short-art" href="/static/{{ c.image }}" data-lightbox><img src="/static/{{ c.image }}" alt="" loading="lazy"></a>{% endif %}
@@ -31,7 +24,47 @@
   {% endfor %}
 </section>
 
-<section class="lc-panel" id="panel-podrobno" data-panel="podrobno">
+<section class="lc-panel" id="panel-podrobno" data-panel="podrobno" role="tabpanel" aria-labelledby="tab-podrobno">
+  <section class="atlas-brann" id="brann">
+    <header>
+      <span class="atlas-kicker">Основной игровой материк</span>
+      <h2>Бранн</h2>
+    </header>
+    <div class="atlas-spread">
+      {% if brann and brann.image %}
+      <a class="atlas-map" href="karta.html#brann" aria-label="Бранн — открыть карту мира">
+        <img src="/static/{{ brann.image }}" alt="" width="876" height="691">
+      </a>
+      {% endif %}
+      <section class="atlas-states">
+        <h2 id="gosudarstva">Государства Бранна <small>{{ states|length }}</small></h2>
+        {% for s in states %}
+        <a href="{{ s.href }}">
+          <img src="/static/{{ s.art or s.image }}" alt="" loading="lazy">
+          <span>{{ s.title }}</span>
+        </a>
+        {% endfor %}
+      </section>
+    </div>
+    {% if brann %}<div class="text-content atlas-description">{{ brann.text }}</div>{% endif %}
+  </section>
+
+  {% for g in place_groups %}
+  <section class="bs-group">
+    <h2 class="bs-group-title"><span class="orn"></span> {{ g.title }} <small>{{ g.pages|length }}</small></h2>
+    {% if g.state %}<a class="lc-group-state" href="{{ g.state.href }}"><img src="/static/{{ g.state.art or g.state.image }}" alt=""> {{ g.state.title }} <i class="bi bi-arrow-right"></i></a>{% endif %}
+    <div class="lc-places">
+      {% for p in g.pages %}
+      <a class="lc-card lc-card--place" href="{{ p.href }}">
+        <img src="/static/{{ p.art or p.image }}" alt="" loading="lazy">
+        <span class="gd-card-shade"></span>
+        <span class="lc-card-body"><span class="lc-card-name">{{ p.title }}</span></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
   {% set lands = [
     ('materiki', 'Материки и земли', 'Большие земли Наира', ['бранн', 'дарлик', 'алькар', 'сквоеттерия', 'ишткар', 'камаль']),
     ('ostrova', 'Острова', 'Острова и архипелаги', ['натаир', 'гольм', 'архипелаги аанари']),
@@ -55,44 +88,6 @@
           <span class="lc-land-state">{% if c.detail %}Подробное описание <i class="bi bi-arrow-right"></i>{% else %}Описание готовится{% endif %}</span>
         </span>
       </{{ tag }}>
-      {% endfor %}
-    </div>
-  </section>
-  {% endfor %}
-
-  <section class="lc-brann" id="brann">
-    {% if brann and (brann.art or brann.image) %}<div class="lc-brann-bg" style="background-image: url('/static/{{ brann.art or brann.image }}')"></div>{% endif %}
-    <div class="lc-brann-body">
-      <span class="cr-kind"><span class="orn"></span> Основной игровой материк</span>
-      <h2 class="lc-brann-name">Бранн</h2>
-      {% if brann %}<div class="text-content">{{ brann.text }}</div>{% endif %}
-    </div>
-  </section>
-
-  <section class="bs-group">
-    <h2 class="bs-group-title" id="gosudarstva"><span class="orn"></span> Государства Бранна <small>{{ states|length }}</small></h2>
-    <div class="lc-states">
-      {% for s in states %}
-      <a class="lc-card lc-card--state" href="{{ s.href }}">
-        <img src="/static/{{ s.art or s.image }}" alt="" loading="lazy">
-        <span class="gd-card-shade"></span>
-        <span class="lc-card-body"><span class="lc-card-name">{{ s.title }}</span></span>
-      </a>
-      {% endfor %}
-    </div>
-  </section>
-
-  {% for g in place_groups %}
-  <section class="bs-group">
-    <h2 class="bs-group-title"><span class="orn"></span> {{ g.title }} <small>{{ g.pages|length }}</small></h2>
-    {% if g.state %}<a class="lc-group-state" href="{{ g.state.href }}"><img src="/static/{{ g.state.art or g.state.image }}" alt=""> {{ g.state.title }} <i class="bi bi-arrow-right"></i></a>{% endif %}
-    <div class="lc-places">
-      {% for p in g.pages %}
-      <a class="lc-card lc-card--place" href="{{ p.href }}">
-        <img src="/static/{{ p.art or p.image }}" alt="" loading="lazy">
-        <span class="gd-card-shade"></span>
-        <span class="lc-card-body"><span class="lc-card-name">{{ p.title }}</span></span>
-      </a>
       {% endfor %}
     </div>
   </section>

@@ -10,8 +10,16 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
 {%- endmacro %}
 
 
+{% block head %}
+  {% if page.layout == 'expedition-report' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/expedition.css') }}">
+  {% elif page.layout == 'locations' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/atlas.css') }}">
+  {% endif %}
+{% endblock %}
+
 {% block content %}
-<div class="nair-page">
+<div class="nair-page{% if page.layout in ('guilds', 'guild') %} guild-page{% endif %}">
   {% if page.hero %}
   <header class="nair-hero">
     <div class="nair-hero-image" style="background-image: url('/static/{{ page.hero }}');{% if page.hero_position %} background-position: {{ page.hero_position }};{% endif %}"></div>
@@ -32,7 +40,9 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
   {% set rank_labels = {'Абсолютное божество': 'Абсолютное божество', 'Семёрка': 'Член Семёрки', 'Средние божества': 'Среднее божество', 'Меньшие божества': 'Меньшее божество', 'Полубожества': 'Полубожество'} %}
   {% set rank_classes = {'Абсолютное божество': 'absolute', 'Семёрка': 'seven', 'Средние божества': 'middle', 'Меньшие божества': 'lesser', 'Полубожества': 'demi'} %}
 
-  {% if page.layout == 'god' %}
+  {% if page.layout == 'expedition-report' %}
+  {% include 'widgets/expedition-report.html' %}
+  {% elif page.layout == 'god' %}
   {% set shot = page.portrait or page.art %}
   <header class="gd-hero gd-rank--{{ rank_classes.get(page.group, 'middle') }}{% if god_wide %} gd-hero--wide{% endif %}">
     <div class="gd-hero-bg"><div style="background-image: url('/static/{{ shot }}');"></div></div>
@@ -121,7 +131,7 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
   {% endif %}
 
   {% set sc = namespace(nav=false) %}
-  {% for section in sections %}
+  {% for section in sections if page.layout != 'expedition-report' %}
   {% if section.showcase %}
   {% if not sc.nav %}{% set sc.nav = true %}{% include 'widgets/showcase-nav.html' %}{% endif %}
   {% include 'widgets/showcase-item.html' %}
@@ -185,6 +195,15 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
     {% else %}<span></span>{% endif %}
   </nav>
   {% endif %}
+
+  {% if page.layout == 'guild' and me_guild.guild.arts %}
+<div class="ak-gallery">
+  <span class="ak-gallery-title"><span class="orn"></span> Арты гильдии</span>
+  <div class="ak-gallery-list">
+    {% for art in me_guild.guild.arts %}<a href="/static/{{ art }}" data-lightbox title="Открыть арт целиком"><img src="/static/{{ art }}" alt="" loading="lazy"></a>{% endfor %}
+  </div>
+</div>
+{% endif %}
 
   {% if credit %}<div class="sc-credit">{{ credit }}</div>{% endif %}
 
@@ -343,24 +362,50 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
 {% if page.layout == 'locations' %}
 <script>
 (function () {
-  var tabs = document.querySelectorAll('.lc-tab[data-tab]');
+  var tabs = Array.from(document.querySelectorAll('.atlas-modes [role="tab"]'));
   function show(name, scrollTo) {
-    tabs.forEach(function (t) { var on = t.dataset.tab === name; t.classList.toggle('active', on); t.setAttribute('aria-selected', on); });
+    tabs.forEach(function (t) {
+      var selected = t.dataset.tab === name;
+      t.setAttribute('aria-selected', selected);
+      t.tabIndex = selected ? 0 : -1;
+    });
     document.querySelectorAll('.lc-panel').forEach(function (p) { p.hidden = p.dataset.panel !== name; });
     try { localStorage.setItem('nair-lokacii-tab', name); } catch (e) {}
     if (window.nairBuildToc && document.readyState !== 'loading') window.nairBuildToc();
-    if (scrollTo) { var el = document.getElementById(scrollTo); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    if (scrollTo) { var el = document.getElementById(scrollTo); if (el) el.scrollIntoView({ block: 'start' }); }
   }
   tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); history.replaceState(null, '', '#' + t.dataset.tab); }); });
-  document.querySelectorAll('[data-goto]').forEach(function (a) {
-    a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.goto, a.getAttribute('href').slice(1)); });
+  tabs.forEach(function (t, i) {
+    t.addEventListener('keydown', function (e) {
+      var next;
+      if (e.key === 'Home') next = tabs[0];
+      else if (e.key === 'End') next = tabs[tabs.length - 1];
+      else if (e.key === 'ArrowLeft') next = tabs[(i + tabs.length - 1) % tabs.length];
+      else if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+      else return;
+      e.preventDefault();
+      next.focus();
+      next.click();
+    });
   });
-  // из адреса: #kratko / #podrobno / якорь внутри панели (например, #brann или #darlik)
-  var hash = decodeURIComponent(location.hash.slice(1)), start = null, target = null;
-  if (hash === 'kratko' || hash === 'podrobno') start = hash;
-  else if (hash) { var el = document.getElementById(hash); var panel = el && el.closest('.lc-panel'); if (panel) { start = panel.dataset.panel; target = hash; } }
-  if (!start) { try { start = localStorage.getItem('nair-lokacii-tab'); } catch (e) {} }
-  show(start === 'kratko' ? 'kratko' : 'podrobno', target);
+  document.querySelectorAll('[data-goto]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      show(a.dataset.goto);
+    });
+  });
+  function restoreView() {
+    var hash = location.hash.slice(1);
+    var target = document.getElementById(hash);
+    var panel = target && target.closest('.lc-panel');
+    var name = panel ? panel.dataset.panel : hash;
+    if (name !== 'kratko' && name !== 'podrobno') {
+      try { name = localStorage.getItem('nair-lokacii-tab'); } catch (e) {}
+    }
+    show(name === 'kratko' ? 'kratko' : 'podrobno', panel && hash);
+  }
+  window.addEventListener('hashchange', restoreView);
+  restoreView();
 })();
 </script>
 {% endif %}
@@ -370,7 +415,10 @@ style="--art: url('/static/{{ item.art or item.image }}');{% if item.art_positio
   var btns = document.querySelectorAll('.mg-elbtn');
   btns.forEach(function (b) {
     b.addEventListener('click', function () {
-      btns.forEach(function (x) { x.classList.toggle('active', x === b); });
+      btns.forEach(function (x) {
+        x.classList.toggle('active', x === b);
+        x.setAttribute('aria-pressed', x === b);
+      });
       var el = b.dataset.el, any = false;
       document.querySelectorAll('.mg-group').forEach(function (g) {
         var shown = 0;

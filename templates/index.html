@@ -2,39 +2,31 @@
 
 {% block title %}Главная — Наир{% endblock %}
 
+{% block body_class %}page-home{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
 {% block content %}
-
-
-<!-- Правый блок - основной контент -->
-  <!-- Контейнер с фоном -->
-  <div class="button-background">
-    
-    <!-- Информация в левом нижнем углу -->
-    <div class="left-bottom-info">
-      <div class="info-title text-glow">Средневековье, фэнтези</div>
-      <div class="info-subtitle">Наир, Бранн</div>
-      <div class="info-meta">2018-2026 | Текстовая ролевая | NC-21</div>
+  <header class="world-cover">
+    <img class="world-cover-art"
+         src="{{ url_for('static', filename='photo/nair-cover-1920.webp') }}"
+         srcset="{{ url_for('static', filename='photo/nair-cover-800.webp') }} 800w, {{ url_for('static', filename='photo/nair-cover-1920.webp') }} 1920w"
+         sizes="(max-width: 768px) 100vw, calc(100vw - 300px)"
+         alt="" width="1920" height="1080" fetchpriority="high">
+    <div class="world-cover-caption">
+      <p class="world-cover-genre">Средневековье, фэнтези</p>
+      <h1>Наир, Бранн</h1>
+      <p class="world-cover-meta">2018-2026 | Текстовая ролевая | NC-21</p>
     </div>
-    
-    <!-- Кнопки в правом нижнем углу -->
-    <div class="right-bottom-buttons">
-      <div class="container-buttons">
-        <a href="lor.html" class="container-btn">
-          <i class="bi bi-book"></i>
-          <span>Лор</span>
-        </a>
-        <a href="ankety.html" class="container-btn">
-          <i class="bi bi-people"></i>
-          <span>Персонажи</span>
-        </a>
-        <a href="about.html" class="container-btn">
-          <i class="bi bi-info-circle"></i>
-          <span>О Проекте</span>
-        </a>
-      </div>
-    </div>
-  </div>
-  
+    <nav class="world-cover-links">
+      <a href="lor.html">Лор</a>
+      <a href="ankety.html">Персонажи</a>
+      <a href="about.html">О Проекте</a>
+    </nav>
+  </header>
+
   <!-- F.A.Q секция -->
   <div class="faq-section">
     <h2 class="faq-title">
@@ -42,55 +34,40 @@
       F.A.Q — ответы на наиболее популярные вопросы
     </h2>
     
-    <div class="faq-item">
-      <div class="faq-question">
-        <i class="bi bi-caret-right-fill"></i>
-        Можно ли брать расу персонажа не из перечня описанных?
-      </div>
+    <details class="faq-item">
+      <summary class="faq-question">Можно ли брать расу персонажа не из перечня описанных?</summary>
       <div class="faq-answer">
         Нет. В ролевой достаточное количество рас, которые со старанием прописывались и логично встроены в мир.
       </div>
-    </div>
+    </details>
     
-    <div class="faq-item">
-      <div class="faq-question">
-        <i class="bi bi-caret-right-fill"></i>
-        Можно ли предложить свою расу в лор проекта?
-      </div>
+    <details class="faq-item">
+      <summary class="faq-question">Можно ли предложить свою расу в лор проекта?</summary>
       <div class="faq-answer">
         Можно, но далеко не факт, что она будет принята, и что останется в том виде, в котором предлагалась, если и будет.
       </div>
-    </div>
+    </details>
     
-    <div class="faq-item">
-      <div class="faq-question">
-        <i class="bi bi-caret-right-fill"></i>
-        Есть ли порох/огнестрел и т. д.?
-      </div>
+    <details class="faq-item">
+      <summary class="faq-question">Есть ли порох/огнестрел и т. д.?</summary>
       <div class="faq-answer">
         Нету. Ролевая не придерживается историзма, и тут могут быть смешения в вооружении, различных изобретениях и т. д. НО есть важнейший аспект, что ещё не существует пороха, огнестрела и каких-либо их аналогов. Это принципиальное желание и видение автора проекта, поэтому не стоит пытаться пропихивать подобия этих изобретений.
       </div>
-    </div>
+    </details>
 
-    <div class="faq-item">
-      <div class="faq-question">
-        <i class="bi bi-caret-right-fill"></i>
-        Почему в обсуждениях нет анкет?!
-      </div>
+    <details class="faq-item">
+      <summary class="faq-question">Почему в обсуждениях нет анкет?!</summary>
       <div class="faq-answer">
         Анкеты переносятся в меню, и их никогда и не должно быть в обсуждении с приёмом анкет. Оно существует сугубо для шаблона анкеты и как способ подать свою заявку в ролевую.
       </div>
-    </div>
+    </details>
 
-    <div class="faq-item">
-      <div class="faq-question">
-        <i class="bi bi-caret-right-fill"></i>
-        Можно ли придумать аналог магии?
-      </div>
+    <details class="faq-item">
+      <summary class="faq-question">Можно ли придумать аналог магии?</summary>
       <div class="faq-answer">
         Возможно, с адекватно объяснённым аналогом или будучи избранным какого-либо божества.
       </div>
-    </div>
+    </details>
   </div>
   
 {% endblock %}

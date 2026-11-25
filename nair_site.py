@@ -515,11 +515,14 @@ class Site:
 
     @staticmethod
     def _guild_sections(page, sections):
-        """Гильдия: все картинки из текста — в галерею под шапкой, первая фраза описания — в шапку."""
+        """Собирает галерею гильдии и краткое описание для её герба."""
         arts, out = [], []
         for section in sections:
             body = str(section['body'])
             arts += re.findall(r'<img[^>]+src="/static/([^"]+)"', body)
+            # Отдельная иллюстрация перед статьёй уже доступна в галерее.
+            if not section['title'] and re.fullmatch(r'<p>\s*<img\b[^>]*>\s*</p>', body.strip()):
+                continue
             body = _figures(body).strip()
             if body:
                 out.append(dict(section, body=Markup(body)))

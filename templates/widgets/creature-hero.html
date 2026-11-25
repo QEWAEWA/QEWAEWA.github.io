@@ -1,6 +1,6 @@
 {# Шапка страницы существа (layout: creature) #}
-{% set fauna_kinds = {'Звери': ['beast', 'bi-feather'], 'Чудовища': ['monster', 'bi-fire'], 'Вампиры': ['vampire', 'bi-droplet-half'], 'Духи и призраки': ['spirit', 'bi-moon-stars'], 'Порождения скверны': ['taint', 'bi-radioactive']} %}
-{% set kind = fauna_kinds.get(page.group, ['beast', 'bi-bug']) %}
+{% set fauna_kinds = {'Звери': ['beast', 'sign-track'], 'Чудовища': ['monster', 'sign-horn'], 'Вампиры': ['vampire', 'sign-fang'], 'Духи и призраки': ['spirit', 'sign-wisp'], 'Порождения скверны': ['taint', 'sign-thorn']} %}
+{% set kind = fauna_kinds.get(page.group, ['beast', 'sign-track']) %}
 <header class="cr-hero cr-kind--{{ kind[0] }}{% if cr_wide %} cr-hero--wide{% endif %}">
   <div class="cr-hero-bg"><div style="background-image: url('/static/{{ cr_shot }}');"></div></div>
   <a class="cr-hero-art" href="/static/{{ cr_shot }}" target="_blank" data-lightbox title="Открыть арт целиком">
@@ -8,7 +8,7 @@
     <span class="gd-zoom"><i class="bi bi-arrows-angle-expand"></i></span>
   </a>
   <div class="cr-hero-info">
-    <a class="cr-kind" href="{{ cr_parent.href }}#{{ kind[0] }}"><span class="orn"></span> {{ page.group }}</a>
+    <a class="cr-kind" href="{{ cr_parent.href }}#{{ kind[0] }}"><i class="bi {{ kind[1] }}" aria-hidden="true"></i> {{ page.group }}</a>
     <h1 class="cr-name">{{ page.title }}</h1>
     {% if cr_facts['items'] %}
     <dl class="cr-facts">

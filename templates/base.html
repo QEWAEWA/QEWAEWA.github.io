@@ -7,14 +7,13 @@
     <meta name="theme-color" content="#0f0e14">
     <title>{% block title %}{{ title or 'Наир - текстовая фэнтези ролевая' }}{% endblock %}</title>
     
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signs.css') }}">
     <!-- Шрифт Fira Sans со всеми начертаниями (жирный, полужирный, курсив) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap">
     <!-- Ваши кастомные стили -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=20260930m">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=20261120e">
     {% block head %}{% endblock %}
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='photo/favicon.ico') }}" type="image/x-icon">
@@ -71,11 +70,14 @@
                 {% endfor %}
             </div>
             
+            <details class="article-toc" id="articleToc" hidden>
+                <summary>Содержание</summary>
+            </details>
             {% block content %}{% endblock %}
         </main>
 
         <!-- Боковая панель содержания-->
-        <aside class="toc-sidebar" id="tocSidebar">
+        <aside class="toc-sidebar" id="tocSidebar" hidden>
             <div class="toc-header">
                 <i class="bi bi-list-ul"></i>
                 <span>Содержание</span>
@@ -168,30 +170,49 @@
 
         // Автоматическая генерация содержания (TOC)
         // перестраивается и при переключении вкладок (скрытые разделы не показываем)
+        const tocNav = document.getElementById('tocNav');
+        const tocSidebar = document.getElementById('tocSidebar');
+        const articleToc = document.getElementById('articleToc');
+        const mainContent = document.querySelector('.original-main');
+        const narrowScreen = window.matchMedia('(max-width: 768px)');
+        let tocObserver;
+
+        function placeToc() {
+            const available = tocNav.children.length > 1;
+            tocSidebar.hidden = !available || narrowScreen.matches;
+            articleToc.hidden = !available || !narrowScreen.matches;
+            const container = narrowScreen.matches ? articleToc : tocSidebar;
+            if (tocNav.parentElement !== container) container.appendChild(tocNav);
+        }
+        narrowScreen.addEventListener('change', placeToc);
+
         window.nairBuildToc = function() {
-            const tocNav = document.getElementById('tocNav');
-            const tocSidebar = document.getElementById('tocSidebar');
-            if (!tocNav || !tocSidebar) return;
-            
-            const mainContent = document.querySelector('.original-main');
-            if (!mainContent) return;
-            
-            const headings = Array.from(mainContent.querySelectorAll('h2, h3')).filter(h => !h.closest('[hidden]'));
-            if (headings.length === 0) {
-                // Показываем заглушку, если нет разделов
-                tocNav.innerHTML = '<div class="toc-empty">Нет разделов на странице</div>';
+            if (tocObserver) tocObserver.disconnect();
+            const allHeadings = Array.from(mainContent.querySelectorAll('h2, h3'));
+            const headings = allHeadings.filter(h => !h.closest('[hidden]'));
+            tocNav.replaceChildren();
+            if (headings.length < 2 || document.body.classList.contains('page-karta')) {
+                placeToc();
                 return;
+            }
+            const title = mainContent.querySelector('h1');
+            if (title) {
+                const page = mainContent.querySelector(':scope > .nair-page') || mainContent;
+                let masthead = title;
+                while (masthead.parentElement !== page && masthead.parentElement !== mainContent) {
+                    masthead = masthead.parentElement;
+                }
+                if (!masthead.querySelector('h2, h3')) masthead.after(articleToc);
             }
             
             // Создаем якоря для заголовков без id
-            headings.forEach((heading, index) => {
+            allHeadings.forEach((heading, index) => {
                 if (!heading.id) {
                     heading.id = 'section-' + index;
                 }
             });
             
             // Строим TOC
-            tocNav.innerHTML = '';
             headings.forEach(heading => {
                 const link = document.createElement('a');
                 link.href = '#' + heading.id;
@@ -207,17 +228,18 @@
             
             // Подсветка текущего раздела
             const tocLinks = tocNav.querySelectorAll('.toc-link');
-            const observer = new IntersectionObserver(entries => {
+            placeToc();
+            tocObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         tocLinks.forEach(l => l.classList.remove('active'));
-                        const activeLink = tocNav.querySelector(`[href="#${entry.target.id}"]`);
+                        const activeLink = tocNav.querySelector(`[href="#${CSS.escape(entry.target.id)}"]`);
                         if (activeLink) activeLink.classList.add('active');
                     }
                 });
             }, { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 });
             
-            headings.forEach(h => observer.observe(h));
+            headings.forEach(h => tocObserver.observe(h));
         };
         document.addEventListener('DOMContentLoaded', window.nairBuildToc);
     </script>

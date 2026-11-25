@@ -2,9 +2,9 @@
 <section class="mg-types" id="types">
   <div class="mg-elements">
     <span class="mg-elements-label">Элемент</span>
-    <button type="button" class="mg-elbtn active" data-el="">Все</button>
+    <button type="button" class="mg-elbtn active" data-el="" aria-pressed="true">Все</button>
     {% for e in magic.elements %}
-    <button type="button" class="mg-elbtn" data-el="{{ e.name }}"><i class="bi {{ e.icon }}"></i>{{ e.name|capitalize }}</button>
+    <button type="button" class="mg-elbtn" data-el="{{ e.name }}" aria-pressed="false"><i class="bi {{ e.icon }}" aria-hidden="true"></i>{{ e.name|capitalize }}</button>
     {% endfor %}
   </div>
   {% for g in magic.groups %}

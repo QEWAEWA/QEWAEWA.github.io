@@ -18,11 +18,3 @@
     {% endif %}
   </div>
 </header>
-{% if g.guild.arts %}
-<div class="ak-gallery">
-  <span class="ak-gallery-title"><span class="orn"></span> Арты гильдии</span>
-  <div class="ak-gallery-list">
-    {% for art in g.guild.arts %}<a href="/static/{{ art }}" data-lightbox title="Открыть арт целиком"><img src="/static/{{ art }}" alt="" loading="lazy"></a>{% endfor %}
-  </div>
-</div>
-{% endif %}
